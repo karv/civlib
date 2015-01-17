@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CivLibrary</RootNamespace>
+    <AssemblyName>CivLibrary</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ListaExtras">
+      <HintPath>..\ListaExtras\bin\Debug\ListaExtras.dll</HintPath>
+    </Reference>
+    <Reference Include="Store">
+      <HintPath>..\Store\Store\Store\bin\Debug\Store.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IPosición.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ciencia.cs" />
+    <Compile Include="Recurso.cs" />
+    <Compile Include="Ciudad\Ciudad.cs" />
+    <Compile Include="Ciudad\Almacén.cs" />
+    <Compile Include="Ciudad\Construcción.cs" />
+    <Compile Include="Ciudad\Edificios.cs" />
+    <Compile Include="Ciudad\Población.cs" />
+    <Compile Include="Ciudad\Requerimientos.cs" />
+    <Compile Include="Ciudad\Tick.cs" />
+    <Compile Include="Ciudad\Trabajadores.cs" />
+    <Compile Include="Civilización\Civilización.cs" />
+    <Compile Include="Civilización\Ciudades.cs" />
+    <Compile Include="Civilización\Tick.cs" />
+    <Compile Include="Civilización\Ciencia.cs" />
+    <Compile Include="Edificio\Edificio.cs" />
+    <Compile Include="Edificio\EdificioRAW.cs" />
+    <Compile Include="Edificio\Trabajo.cs" />
+    <Compile Include="Interfaces\IRequerimiento.cs" />
+    <Compile Include="Global\Estructura Data.cs" />
+    <Compile Include="Global\Estructura State.cs" />
+    <Compile Include="Global\Estáticos.cs" />
+    <Compile Include="Global\Basic.cs" />
+    <Compile Include="Terreno.cs" />
+    <Compile Include="Trabajo\TrabajoRAW.cs" />
+    <Compile Include="Trabajo\CiudadEdificio.cs" />
+    <Compile Include="Trabajo\Trabajadores.cs" />
+    <Compile Include="Trabajo\Tick.cs" />
+    <Compile Include="Trabajo\Trabajo.cs" />
+    <Compile Include="Unidad\Armada.cs" />
+    <Compile Include="Unidad\Unidad.cs" />
+    <Compile Include="Unidad\UnidadRAW.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gráficas\Gráficas.csproj">
+      <Project>{596c48f2-e0f4-4a39-b9aa-1e000763b706}</Project>
+      <Name>Gráficas</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

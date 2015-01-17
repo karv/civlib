@@ -1,0 +1,107 @@
+using System;
+using ListasExtra;
+
+namespace Civ
+{
+	public partial class Ciudad
+	{
+		
+		// Edificio en construcción.
+		/// <summary>
+		/// Representa un edificio en construcción.
+		/// </summary>
+		internal class EdificioConstruyendo
+		{
+			public EdificioRAW RAW;
+
+			/// <summary>
+			/// Recursos ya usados en el edificio.
+			/// </summary>
+			public ListaPeso<Recurso> RecursosAcumulados = new ListaPeso<Recurso>();
+
+			/// <summary>
+			/// Devuelve la función de recursos faltantes.
+			/// </summary>
+			public ListaPeso<Recurso> RecursosRestantes
+			{
+				get
+				{
+					ListaPeso<Recurso> ret = new ListaPeso<Recurso>();
+					foreach (var x in RAW.ReqRecursos)
+					{
+						Recurso r = Global.g_.Data.EncuentraRecurso(x.x);
+						ret[r] = x.y - RecursosAcumulados[r];
+					}
+					return ret;
+				}
+			}
+
+			public Ciudad CiudadDueño;
+
+			/// <summary>
+			/// Crea una instancia.
+			/// </summary>
+			/// <param name="EdifRAW">El RAW de este edificio.</param>
+			/// <param name="C">Ciudad dueño.</param>
+			public EdificioConstruyendo(EdificioRAW EdifRAW, Ciudad C)
+			{
+				RAW = EdifRAW;
+				CiudadDueño = C;
+			}
+
+			/// <summary>
+			/// Absorbe los recursos de la ciudad para su construcción.
+			/// </summary>
+			public void AbsorbeRecursos()
+			{
+				foreach (Recurso x in RecursosRestantes.Keys)
+				{
+					float abs = Math.Min(RecursosRestantes[x], CiudadDueño.Almacén[x]);
+					RecursosAcumulados[x] += abs;
+					CiudadDueño.Almacén[x] -= abs;
+				}
+			}
+
+			/// <summary>
+			/// Revisa si este edificio está completado.
+			/// </summary>
+			/// <returns><c>true</c> si ya no quedan recursos restantes; <c>false</c> en caso contrario.</returns>
+			public bool EstáCompletado()
+			{
+				return RecursosRestantes.Keys.Count == 0;
+			}
+
+			/// <summary>
+			/// Contruye una instancia de su RAW en la ciudad dueño.
+			/// </summary>
+			/// <returns>Devuelve su edificio completado.</returns>
+			public Edificio Completar()
+			{
+				return CiudadDueño.AgregaEdificio(RAW);
+			}
+		}
+
+		/// <summary>
+		/// Devuelve o establece El edificio que se está contruyendo, y su progreso.
+		/// </summary>
+		private EdificioConstruyendo EdifConstruyendo;
+
+		/// <summary>
+		/// Devuelve el RAW del edificio que se está contruyendo.
+		/// </summary>
+		public EdificioRAW RAWConstruyendo
+		{
+			get
+			{
+				return EdifConstruyendo == null ? null : EdifConstruyendo.RAW;
+			}
+			set
+			{
+				// TODO: ¿Qué hacer con los recursos del edificio anterior? ¿Se pierden? (por ahora sí :3)
+				EdifConstruyendo = new EdificioConstruyendo(value, this);
+			}
+		}
+
+	}
+}
+
