@@ -75,7 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gráficas\Gráficas.csproj">
-      <Project>{596c48f2-e0f4-4a39-b9aa-1e000763b706}</Project>
+      <Project>{e0b22bc8-58de-477e-8eca-b5a075efe00c}</Project>
       <Name>Gráficas</Name>
     </ProjectReference>
   </ItemGroup>

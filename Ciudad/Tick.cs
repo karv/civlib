@@ -76,7 +76,11 @@ namespace Civ
 			if (EdifConstruyendo != null)
 			{
 				EdifConstruyendo.AbsorbeRecursos();
-				if (EdifConstruyendo.EstáCompletado()) EdifConstruyendo.Completar();                
+                if (EdifConstruyendo.EstáCompletado())
+                {
+                    EdifConstruyendo.Completar();
+                    EdifConstruyendo = null;    //  Ya no se contruye edificio. Para evitar error de duplicidad.
+                } 
 			}
 		}
 
