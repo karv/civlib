@@ -22,7 +22,7 @@ namespace Civ
 			}
 		}
 
-		float _MaxPeso; // Probablemente, _MaxPeso sea una función que dependa de CivDueño.
+		float _MaxPeso; //  Probablemente, _MaxPeso sea una función que dependa de CivDueño.
 
 		/// <summary>
 		/// Devuelve o establece el máximo peso que puede cargar esta armada.
@@ -99,6 +99,10 @@ namespace Civ
 			return Posición == null || Posición == U.Posición;
 		}
 
+        /// <summary>
+        /// Quita una unidad de la Armada.
+        /// </summary>
+        /// <param name="U">Unidad a quitar</param>
 		public void QuitarUnidad (Unidad U)
 		{
 			Unidades.Remove (U);
