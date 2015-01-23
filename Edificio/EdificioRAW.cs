@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
-	[Serializable()]
+	[DataContract (IsReference = true)]    
 	/// <summary>
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>

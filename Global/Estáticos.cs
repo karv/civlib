@@ -1,14 +1,14 @@
 using System;
-
+using System.Runtime.Serialization;
 
 namespace Global
 {
 	/// <summary>
 	/// Los objetos globales.
-	/// </summary>
-	[Serializable()]
+	/// </summary>	
 	public static class g_
 	{
+        [DataMember (Name = "Data")]
 		public static g_Data Data = new g_Data();
 		public static g_State State = new g_State();
 
