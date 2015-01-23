@@ -1,36 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Global
 {
 	/// <summary>
 	/// Representa las opciones del juego.
 	/// </summary>
-	[Serializable()]
+    [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/Civ", Name="Data")]
 	public class g_Data
 	{
+        [DataMember (Name = "Ciencias")]
 		public List<Civ.Ciencia> Ciencias = new List<Civ.Ciencia> ();
-		public List<Civ.Recurso> Recursos = new List<Civ.Recurso> ();
-		public List<Civ.EdificioRAW> Edificios = new List<Civ.EdificioRAW>();
-		public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
+        [DataMember(Name = "Recursos")]
+        public List<Civ.Recurso> Recursos = new List<Civ.Recurso>();
+        //[DataMember(Name = "Edificios")]
+        public List<Civ.EdificioRAW> Edificios = new List<Civ.EdificioRAW>();
+        //[DataMember(Name = "Trabajos")]
+        public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
+        //[DataMember(Name = "Unidades")]
         public List<Civ.UnidadRAW> Unidades = new List<Civ.UnidadRAW>();
 
-		/// <summary>
-		/// El string del recurso que sirve como alimento en una ciudad.
-		/// </summary>
-		public string RecursoAlimento;
-
-		/// <summary>
-		/// El recurso que sirve como alimento en una ciudad.
-		/// </summary>
-		public Civ.Recurso RecAlimento
-		{
-			get
-			{
-				return EncuentraRecurso (RecursoAlimento);
-
-			}
-		}
+        /// <summary>
+        /// El recurso que sirve como alimento en una ciudad.
+        /// </summary>
+        //[DataMember(Name = "Alimento")]		
+		public Civ.Recurso RecursoAlimento;
 
 		/// <summary>
 		/// Revisa si existe una edificio con un nombre específico.
@@ -47,6 +42,17 @@ namespace Global
 			return false;
 		}
 
+        public bool ExisteEdificio(Civ.EdificioRAW Edificio)
+        {
+            foreach (Civ.EdificioRAW x in Edificios)
+            {
+                if (x == Edificio)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 		/// <summary>
 		/// Revisa si existe una ciencia con un nombre específico.
 		/// </summary>

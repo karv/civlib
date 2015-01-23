@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 
 
 namespace Basic
 {
-	[Serializable()]
+	[DataContract (IsReference = true)]    
 	public struct Par <S,T>
 	{
 		public S x;

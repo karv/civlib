@@ -14,7 +14,7 @@ namespace Civ
 		/// </summary>
 		public static Recurso RecursoAlimento {
 			get {
-				return Global.g_.Data.RecAlimento;
+				return Global.g_.Data.RecursoAlimento;
 			}
 		}
 

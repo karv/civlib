@@ -30,13 +30,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
-    <Reference Include="ListaExtras">
-      <HintPath>..\ListaExtras\bin\Debug\ListaExtras.dll</HintPath>
-    </Reference>
-    <Reference Include="Store">
-      <HintPath>..\Store\Store\Store\bin\Debug\Store.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IPosición.cs" />
@@ -74,9 +69,17 @@
     <Compile Include="Unidad\UnidadRAW.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gráficas\Gráficas.csproj">
+    <ProjectReference Include="..\Store\Store\Store\Store.csproj">
+      <Project>{b5651422-0901-4e7f-976a-a4f7893267ca}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
+    <ProjectReference Include="Grafos\Gráficas.csproj">
       <Project>{9259c019-57ac-446e-ad0e-8d0f56ad71ee}</Project>
       <Name>Gráficas</Name>
+    </ProjectReference>
+    <ProjectReference Include="ListaExtras\ListaExtras.csproj">
+      <Project>{b9f315ae-47f8-4629-83fc-3b4d70087083}</Project>
+      <Name>ListaExtras</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
