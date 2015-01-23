@@ -23,7 +23,7 @@ namespace Civ
 
 			foreach (Recurso x in Global.g_.Data.ObtenerRecursosCientíficos())
 			{
-				List<Ciencia> SemiListaCiencias = CienciasAbiertas().FindAll(z => (z.RecursoReq == x.Nombre));  // Lista de ciencias abiertas que usan el recurso x.
+				List<Ciencia> SemiListaCiencias = CienciasAbiertas().FindAll(z => z.Reqs.Rec.Nombre == x.Nombre);  // Lista de ciencias abiertas que usan el recurso x.
 				float[] sep = r.Separadores(SemiListaCiencias.Count, ObtenerGlobalRecurso(x));
 
 				int i = 0;
@@ -34,7 +34,7 @@ namespace Civ
 					i++;
 
 					// Si Tiene lo suficiente para terminar investigación
-                    if (Investigando[y] >= y.CantidadReq)
+                    if (Investigando[y] >= y.Reqs.Cantidad)
                     {
                         Investigado.Add(y);
                     }
