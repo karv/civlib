@@ -6,7 +6,7 @@ namespace Civ
 	/// <summary>
 	/// Representa un adelanto científico.
 	/// </summary>
-    [DataContract(IsReference = true)]
+    [DataContract(IsReference = true)]   
     public class Ciencia : IRequerimiento
 	{
         [DataContract(IsReference = true)]
@@ -46,7 +46,7 @@ namespace Civ
         /// Requerimientos para poder aprender este avance.
         /// </summary>
         [DataMember(Name = "Requiere")]
-        public Requerimiento Reqs;
+        public Requerimiento Reqs = new Requerimiento();
 
 			// IRequerimiento
 		bool Civ.IRequerimiento.LoSatisface (Ciudad C){

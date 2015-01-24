@@ -29,8 +29,8 @@ namespace Civ
 					ListaPeso<Recurso> ret = new ListaPeso<Recurso>();
 					foreach (var x in RAW.ReqRecursos)
 					{
-						Recurso r = Global.g_.Data.EncuentraRecurso(x.x);
-						ret[r] = x.y - RecursosAcumulados[r];
+                        Recurso r = x.Key;
+						ret[r] = x.Value - RecursosAcumulados[r];
 					}
 					return ret;
 				}

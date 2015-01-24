@@ -12,11 +12,11 @@ namespace Global
 	{
         [DataMember (Name = "Ciencias")]
 		public List<Civ.Ciencia> Ciencias = new List<Civ.Ciencia> ();
+        [DataMember(Name = "Edificios")]
+        public List<Civ.EdificioRAW> Edificios = new List<Civ.EdificioRAW>();
         [DataMember(Name = "Recursos")]
         public List<Civ.Recurso> Recursos = new List<Civ.Recurso>();
-        //[DataMember(Name = "Edificios")]
-        public List<Civ.EdificioRAW> Edificios = new List<Civ.EdificioRAW>();
-        //[DataMember(Name = "Trabajos")]
+        [DataMember(Name = "Trabajos")]
         public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
         //[DataMember(Name = "Unidades")]
         public List<Civ.UnidadRAW> Unidades = new List<Civ.UnidadRAW>();
@@ -24,7 +24,7 @@ namespace Global
         /// <summary>
         /// El recurso que sirve como alimento en una ciudad.
         /// </summary>
-        //[DataMember(Name = "Alimento")]		
+        [DataMember(Name = "Alimento")]		
 		public Civ.Recurso RecursoAlimento;
 
 		/// <summary>

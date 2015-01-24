@@ -4,14 +4,16 @@ using System.Runtime.Serialization;
 
 namespace Civ
 {
-	[DataContract (IsReference = true)]    
 	/// <summary>
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
-	public class EdificioRAW : IRequerimiento
+    [DataContract(IsReference = true, Name="Edificio")]
+    public class EdificioRAW : IRequerimiento
 	{
+        [DataMember]
 		public string Nombre;
-		public ulong MaxWorkers;
+        [DataMember]
+        public ulong MaxWorkers;
 
 		public override string ToString()
 		{
@@ -33,18 +35,38 @@ namespace Civ
 		}
 
 		// Requiere
-		/// <summary>
-		/// IRequerimientos necesarios para construir.
-		/// </summary>
-		public List<String> Requiere = new List<string>();
+
+        /*  //TODO: Borrar si es que funciona
+
+        public System.Collections.Generic.List<IRequerimiento> Requiere()
+        {
+            List<IRequerimiento> ret = new List<IRequerimiento>();
+            foreach (Ciencia x in _ReqCiencia)      { ret.Add(x); }
+            foreach (EdificioRAW x in _ReqEdificio) { ret.Add(x); }
+
+            return ret;
+        }
+
+        [DataMember (Name="ReqCiencias")]
+        public List<Ciencia> _ReqCiencia = new List<Ciencia>();
+
+        [DataMember(Name = "ReqEdificios")]
+        public List<EdificioRAW> _ReqEdificio = new List<EdificioRAW>();
+        */
+        /// <summary>
+        /// IRequerimientos necesarios para construir.
+        /// </summary>        
+        [DataMember]
+        public Requerimiento Requiere = new Requerimiento();
+
 
 		// Construcción
 		/// <summary>
-		/// Lista de nombres de sus IRequerimientos.
+		/// Lista de sus IRequerimientos.
 		/// </summary>
-		//public ListasExtra.ListaPeso<string> Requiere = new ListasExtra.ListaPeso<string> ();
-		//public List<string> Requiere = new List<string>();
-		public List<Basic.Par<string, float>> ReqRecursos = new List<Basic.Par<string, float>>();
+        [DataMember(Name = "Construcción")]
+        public Dictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float>();
+        //public List<Basic.Par<Recurso, float>> ReqRecursos = new List<Basic.Par<Recurso, float>>();
 
 		/// <summary>
 		/// Devuelve la lista de requerimientos
@@ -52,8 +74,8 @@ namespace Civ
 		/// <value>El IRequerimiento</value> 
 		public List<IRequerimiento> Reqs ()
 		{
-			List<IRequerimiento> ret = Basic.Covertidor<string, IRequerimiento>.ConvertirLista(Requiere, x => Global.g_.Data.EncuentraRequerimiento(x));
-			return ret;
+			//List<IRequerimiento> ret = Basic.Covertidor<string, IRequerimiento>.ConvertirLista(Requiere, x => Global.g_.Data.EncuentraRequerimiento(x));
+            return Requiere.Requiere();
 		}
 
 		/// <summary>
