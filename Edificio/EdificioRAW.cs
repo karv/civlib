@@ -56,6 +56,10 @@ namespace Civ
 			return ret;
 		}
 
+		/// <summary>
+		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
+		/// </summary>
+		public bool EsAutoConstruíble;
 	}
 
 }
