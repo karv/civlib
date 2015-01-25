@@ -20,7 +20,7 @@ namespace Global
         public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
         [DataMember(Name = "Unidades")]
         public List<Civ.UnidadRAW> Unidades = new List<Civ.UnidadRAW>();
-        //[DataMember(Name = "Propiedades")]
+        [DataMember(Name = "Propiedades")]
         public List<Civ.Propiedad> Propiedades = new List<Civ.Propiedad>();
 
         /// <summary>
@@ -99,6 +99,23 @@ namespace Global
 			}
 			return null;
 		}
+
+        /// <summary>
+        /// Devuelve el edificio con un nombre específico.
+        /// </summary>
+        /// <returns>The recurso.</returns>
+        /// <param name="Nombre">Nombre del edificio a buscar.</param>
+        public Civ.Propiedad EncuentraPropiedad(string Nombre)
+        {
+            foreach (var x in Propiedades)
+            {
+                if (x.Nombre == Nombre)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
 
 		/// <summary>
 		/// Devuelve el recurso con un nombre específico.

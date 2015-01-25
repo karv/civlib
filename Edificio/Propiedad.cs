@@ -8,6 +8,7 @@ namespace Civ
     /// <summary>
     /// Representa una propiedad innata de un edificio.
     /// </summary>
+    [DataContract]
     public class Propiedad: IRequerimiento
     {
         public Propiedad()
@@ -52,6 +53,11 @@ namespace Civ
             {
                 C.Almacén[x] += _Salida[x];
             }
+        }
+
+        public override string ToString()
+        {
+            return Nombre;
         }
         
     }
