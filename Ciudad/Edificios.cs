@@ -88,6 +88,32 @@ namespace Civ
 			}
 			return ret;
 		}
+		// Propiedades	//TODO: Ponerlos en otro archivo.
+		System.Collections.Generic.List <Propiedad> _Prop = new System.Collections.Generic.List<Propiedad>();
+		/// <summary>
+		/// Devuelve la lista de Propiedades de la ciudad.
+		/// </summary>
+		/// <value>The propiedades.</value>
+		public List <Propiedad> Propiedades {
+			get {
+				return _Prop;
+			}
+		}
+
+		/// <summary>
+		/// Revisa si existe una propiedad P en la ciudad.
+		/// </summary>
+		/// <returns><c>true</c>, si la propiedad existe, <c>false</c> en caso contrario.</returns>
+		/// <param name="P">La propiedad.</param>
+		public bool ExistePropiedad (Propiedad P)
+		{
+			foreach (var x in Propiedades) {
+				if (x == P)
+					return true;
+			}
+			return false;
+		}
+
 	}
 }
 
