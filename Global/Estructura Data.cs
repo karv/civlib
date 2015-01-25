@@ -20,7 +20,7 @@ namespace Global
         public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
         [DataMember(Name = "Unidades")]
         public List<Civ.UnidadRAW> Unidades = new List<Civ.UnidadRAW>();
-        //[DataMember(Name = "Propiedades")]
+        [DataMember(Name = "Propiedades")]
         public List<Civ.Propiedad> Propiedades = new List<Civ.Propiedad>();
 
         /// <summary>

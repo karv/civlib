@@ -8,6 +8,7 @@ namespace Civ
     /// <summary>
     /// Representa una propiedad innata de un edificio.
     /// </summary>
+    [DataContract]
     public class Propiedad: IRequerimiento
     {
         public Propiedad()
