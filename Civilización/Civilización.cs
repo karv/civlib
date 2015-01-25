@@ -4,7 +4,7 @@ using Basic;
 
 namespace Civ
 {
-	public partial class Civilización
+	public partial class Civilizacion
 	{
 		/// <summary>
 		/// Nombre de la <see cref="Str.Civilización"/>.
