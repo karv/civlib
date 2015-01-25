@@ -19,13 +19,13 @@ namespace Civ
 		/// </summary>
 		public string Nombre;
 
-		Civilización _CivDueño;
+		Civilizacion _CivDueño;
 
 		/// <summary>
 		/// Devuelve o establece la civilización a la cual pertecene esta ciudad.
 		/// </summary>
 		/// <value>The civ dueño.</value>
-		public Civilización CivDueño {
+		public Civilizacion CivDueño {
 			get {
 				return _CivDueño;
 			}
@@ -44,7 +44,7 @@ namespace Civ
 		/// <param name="Nom">Nombre de la ciudad.</param>
 		/// <param name="Dueño">Civ a la que pertenece esta ciudad.</param>
         /// <param name="T">Terreno de contrucción de la ciudad.</param>
-		public Ciudad (string Nom, Civilización Dueño, Terreno T)
+		public Ciudad (string Nom, Civilizacion Dueño, Terreno T)
 		{
 			Nombre = Nom;
 			CivDueño = Dueño;
@@ -62,9 +62,9 @@ namespace Civ
 				AgregaPropiedad (x);
             }
 
-            foreach (var x in T.Eco.RecursoEcológico.Keys)
+            foreach (var x in T.Eco.RecursoEcologico.Keys)
             {
-                Almacén[x] = T.Eco.RecursoEcológico[x].Cant;
+                Almacén[x] = T.Eco.RecursoEcologico[x].Cant;
             }
 		}
 

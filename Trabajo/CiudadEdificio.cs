@@ -31,7 +31,7 @@ namespace Civ
 		/// Devuelve la civilización que posee este trabajo.
 		/// </summary>
 		/// <value>The civ dueño.</value>
-		public Civilización CivDueño {
+		public Civilizacion CivDueño {
 			get {
 				return CiudadDueño.CivDueño;
 			}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Civ
 {
-	public partial class Civilización
+	public partial class Civilizacion
 	{
 
 			// Avances
