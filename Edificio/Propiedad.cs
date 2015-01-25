@@ -54,6 +54,11 @@ namespace Civ
                 C.Almacén[x] += _Salida[x];
             }
         }
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
         
     }
 }
