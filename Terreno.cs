@@ -10,9 +10,9 @@ namespace Civ
     public class Terreno: IPosicion
     {
         /// <summary>
-        /// Edificios que se contruyen al construir una ciudad aquí.
-        /// </summary>
-        public List<EdificioRAW> EdificiosIniciales = new List<EdificioRAW>();
+        /// Propiedades que se contruyen al construir una ciudad aquí.
+        /// </summary>        
+		public List<Propiedad> Innatos = new List<Propiedad> ();
 
 
             // Ecología
@@ -39,5 +39,6 @@ namespace Civ
         /// Ciudad que está contruida en este terreno.
         /// </summary>
         public Ciudad CiudadConstruida;
+
     }
 }

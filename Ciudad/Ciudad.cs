@@ -50,14 +50,16 @@ namespace Civ
 			CivDueño = Dueño;
             T.CiudadConstruida = this;
             Terr = T;
+			Random r = new Random ();
 
 
 
                 // Importar desde T.
 
-            foreach (var x in T.EdificiosIniciales)
+            foreach (var x in T.Innatos)
             {
-                AgregaEdificio(x);
+				// Si r.next < (algo):
+				AgregaPropiedad (x);
             }
 
             foreach (var x in T.Eco.RecursoEcológico.Keys)
