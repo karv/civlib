@@ -28,13 +28,13 @@ namespace Civ
         /// <summary>
         /// Flags.
         /// </summary>
-        public List<string> Flags;
+        public List<string> Flags = new List<string>();
 
         // Reqs
         /// <summary>
         /// Requerimientos para crearse.
         /// </summary>
-        public ListaPeso<Recurso> Reqs;
+        public ListaPeso<Recurso> Reqs = new ListaPeso<Recurso>();
 
         /// <summary>
         /// Población productiva que requiere para entrenar.
