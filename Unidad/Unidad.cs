@@ -47,6 +47,22 @@ namespace Civ
             set { _Entrenamiento = Math.Max(Math.Min(1, value), 0); }
         }
 
+		float _HP;
+
+		/// <summary>
+		/// Devuelve o establece la HP actual de la <c>Unidad</c>.
+		/// Debe ser un flotante en [0,1]
+		/// </summary>
+		/// <value></value>
+		public float HP {
+			get {
+				return _HP;
+			}
+			set {
+				_HP = Math.Max (Math.Min (1, value), 0);
+			}
+		}
+
 		/// <summary>
 		/// Devuelve el peso, relativo a Armada, de la unidad.
 		/// </summary>
