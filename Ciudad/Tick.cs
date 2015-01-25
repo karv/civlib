@@ -71,7 +71,10 @@ namespace Civ
 			foreach (var x in Edificios) {
 				x.Tick ();
 			}
-
+            foreach (var x in Propiedades)
+            {
+                x.Tick(this);
+            }
 			// Construir edificio.
 			if (EdifConstruyendo != null)
 			{
