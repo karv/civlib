@@ -60,6 +60,8 @@ namespace Civ
 			}
 			set {
 				_HP = Math.Max (Math.Min (1, value), 0);
+				if (_HP == 0)		// Si HP = 0, la unidad muere.
+					AbandonaArmada ();
 			}
 		}
 
