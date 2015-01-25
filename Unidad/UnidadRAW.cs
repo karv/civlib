@@ -18,7 +18,7 @@ namespace Civ
         /// <summary>
         /// Lista de modificadores de combate de la unidad.
         /// </summary>
-        public ListaPeso<string> Mods = new ListaPeso<string>();        
+        public ListaPeso<string> Mods = new ListaPeso<string>(); 
 
         /// <summary>
         /// Fuerza de la unidad.
@@ -34,7 +34,7 @@ namespace Civ
         /// <summary>
         /// Requerimientos para crearse.
         /// </summary>
-        public List<Basic.Par<string, float>> Reqs;
+        public ListaPeso<Recurso> Reqs;
 
         /// <summary>
         /// Población productiva que requiere para entrenar.
