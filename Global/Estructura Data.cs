@@ -18,7 +18,7 @@ namespace Global
         public List<Civ.Recurso> Recursos = new List<Civ.Recurso>();
         [DataMember(Name = "Trabajos")]
         public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
-        //[DataMember(Name = "Unidades")]
+        [DataMember(Name = "Unidades")]
         public List<Civ.UnidadRAW> Unidades = new List<Civ.UnidadRAW>();
         //[DataMember(Name = "Propiedades")]
         public List<Civ.Propiedad> Propiedades = new List<Civ.Propiedad>();
