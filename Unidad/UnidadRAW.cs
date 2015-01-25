@@ -18,16 +18,7 @@ namespace Civ
         /// <summary>
         /// Lista de modificadores de combate de la unidad.
         /// </summary>
-        public List<Basic.Par<string, float>> Mods;
-        
-        public float Mod (string Entrada)
-        {
-            foreach (var x in Mods)
-            {
-                if (x.x == Entrada) return x.y;
-            }
-            return 0;
-        }
+        public ListaPeso<string> Mods = new ListaPeso<string>();        
 
         /// <summary>
         /// Fuerza de la unidad.
