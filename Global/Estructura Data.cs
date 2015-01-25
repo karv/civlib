@@ -100,6 +100,23 @@ namespace Global
 			return null;
 		}
 
+        /// <summary>
+        /// Devuelve el edificio con un nombre específico.
+        /// </summary>
+        /// <returns>The recurso.</returns>
+        /// <param name="Nombre">Nombre del edificio a buscar.</param>
+        public Civ.Propiedad EncuentraPropiedad(string Nombre)
+        {
+            foreach (var x in Propiedades)
+            {
+                if (x.Nombre == Nombre)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
+
 		/// <summary>
 		/// Devuelve el recurso con un nombre específico.
 		/// </summary>
