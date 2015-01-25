@@ -167,6 +167,15 @@ namespace Global
 		}
 
 		/// <summary>
+		/// Devuelve la lista de edificios autocontruibles.
+		/// </summary>
+		/// <returns>The autoconstruibles.</returns>
+		public List<Civ.EdificioRAW> EdificiosAutoconstruibles ()
+		{
+			return Edificios.FindAll(x => x.EsAutoConstruíble);
+		}
+
+		/// <summary>
 		/// Devuelve todos los <see cref="Civ.IRequerimiento"/>s.
 		/// </summary>
 		[System.Xml.Serialization.XmlIgnore()]
@@ -186,6 +195,8 @@ namespace Global
 				return ret;
 			}
 		}
+	
+
 	}
 
 }

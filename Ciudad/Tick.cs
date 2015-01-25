@@ -82,6 +82,14 @@ namespace Civ
                     EdifConstruyendo = null;    //  Ya no se contruye edificio. Para evitar error de duplicidad.
                 } 
 			}
+
+			// Autocontruible
+			List<EdificioRAW> PosiblesEdif = Global.g_.Data.EdificiosAutoconstruibles().FindAll(x => !ExisteEdificio(x)); 	// Obtener lista de edificios autocontruibles no construidos.
+			foreach (var x in PosiblesEdif) {
+				if (SatisfaceReq(x.Reqs())) {	// Si satisface requerimientos de construcción:
+					AgregaEdificio(x);
+				}
+			}
 		}
 
 		
