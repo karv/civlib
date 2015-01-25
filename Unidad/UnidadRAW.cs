@@ -68,5 +68,10 @@ namespace Civ
 		/// </summary>
 		[DataMember]
         public float Peso;
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
     }
 }
