@@ -66,7 +66,7 @@ namespace Civ
 		/// Devuelve el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		public IPosición Posición {
+		public IPosicion Posición {
 			get {
 				return Unidades.Count > 0 ? Unidades [0].Posición : null;
 			}

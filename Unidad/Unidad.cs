@@ -57,7 +57,7 @@ namespace Civ
 			}
 		}
 
-		public IPosición Posición;
+		public IPosicion Posición;
 
 		Armada _ArmadaPerteneciente;
 		/// <summary>

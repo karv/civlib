@@ -7,7 +7,7 @@ namespace Civ
     /// <summary>
     /// Representa el terreno donde se construye una ciudad.
     /// </summary>
-    public class Terreno: IPosición
+    public class Terreno: IPosicion
     {
         /// <summary>
         /// Edificios que se contruyen al construir una ciudad aquí.

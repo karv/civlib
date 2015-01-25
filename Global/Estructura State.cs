@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Civ;
-using Gráficas;
+using Graficas;
 
 namespace Global
 {
@@ -13,12 +13,12 @@ namespace Global
         /// <summary>
         /// La topología del mundo.
         /// </summary>
-        public Gráfica<IPosición> Topología;
+        public Grafica<IPosicion> Topologia;
 
         public g_State()
         {
-            Topología = new Gráfica<IPosición>();
-            Topología.EsSimétrico = true;
+            Topologia = new Grafica<IPosicion>();
+            Topologia.EsSimetrico = true;
         }
 	}
 }
