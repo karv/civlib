@@ -71,6 +71,10 @@
     <Compile Include="Unidad\UnidadRAW.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Grafos\Grafos.csproj">
+      <Project>{af2e2c37-9f1d-4d32-ae62-8484b0a9dd50}</Project>
+      <Name>Grafos</Name>
+    </ProjectReference>
     <ProjectReference Include="ListaExtras\ListaExtras.csproj">
       <Project>{B9F315AE-47F8-4629-83FC-3B4D70087083}</Project>
       <Name>ListaExtras</Name>
@@ -78,10 +82,6 @@
     <ProjectReference Include="Store\Store\Store.csproj">
       <Project>{B5651422-0901-4E7F-976A-A4F7893267CA}</Project>
       <Name>Store</Name>
-    </ProjectReference>
-    <ProjectReference Include="Grafos\Grafos.csproj">
-      <Project>{AF2E2C37-9F1D-4D32-AE62-8484B0A9DD50}</Project>
-      <Name>Grafos</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
