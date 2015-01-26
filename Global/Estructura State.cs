@@ -20,6 +20,32 @@ namespace Global
             Topologia = new Grafica<IPosicion>();
             Topologia.EsSimetrico = true;
         }
+
+        /// <summary>
+        /// Obtiene la lista de <c>Terreno</c>s en el juego.
+        /// </summary>
+        /// <returns>Devuelve una lista enumerando a los <c>Terrenos</c>.</returns>
+        public List<Terreno> ObtenerListaTerrenos()
+        {
+            List<Terreno> ret = new List<Terreno>();
+
+            foreach (var x in Topologia.Nodos)
+	        {
+                if (x is Terreno)
+                    ret.Add((Terreno)x);
+	        }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Devuelve una lista de todos los terrenos desocupados en el juego.
+        /// </summary>
+        /// <returns></returns>
+        public List<Terreno> ObtenerListaTerrenosLibres()
+        {
+            return ObtenerListaTerrenos().FindAll(x => x.CiudadConstruida == null);
+        }
 	}
 }
 
