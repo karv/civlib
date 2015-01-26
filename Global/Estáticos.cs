@@ -49,6 +49,7 @@ namespace Global
             Civ.Ecosistema Eco;
             Civ.Civilizacion C;
             Civ.Ciudad Cd;
+            
             for (int i = 0; i < numTerrenosIniciales; i++)
 			{
                 Eco = Data.Ecosistemas[r.Next(Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
@@ -68,7 +69,7 @@ namespace Global
                 Cd = new Civ.Ciudad("Ciudad inicial.", C, T);
                 C.addCiudad(Cd);
 
-                State.Civs1.Add(C);
+                State.Civs.Add(C);
             }
         }
 

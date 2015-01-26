@@ -16,7 +16,7 @@ namespace Global
         public Grafica<IPosicion> Topologia;
 
 
-        private List<Civilizacion> _Civs;     
+        private List<Civilizacion> _Civs = new List<Civilizacion>();     
 
         /// <summary>
         /// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
