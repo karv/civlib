@@ -67,6 +67,8 @@ namespace Global
 
                 Cd = new Civ.Ciudad("Ciudad inicial.", C, T);
                 C.addCiudad(Cd);
+
+                State.Civs1.Add(C);
             }
         }
 

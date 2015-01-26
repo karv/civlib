@@ -15,6 +15,17 @@ namespace Global
         /// </summary>
         public Grafica<IPosicion> Topologia;
 
+
+        private List<Civilizacion> _Civs;     
+
+        /// <summary>
+        /// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
+        /// </summary>        
+        public List<Civilizacion> Civs      // Las vivas bien las podría obtener accesando la topología.
+        {
+            get { return _Civs; }
+        }
+
         public g_State()
         {
             Topologia = new Grafica<IPosicion>();
