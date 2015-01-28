@@ -120,6 +120,11 @@ namespace Civ
 		public void FullTick (){
 			PopTick();
 			Tick();
+
+			if (CivDueño != null && getPoblación == 0) {		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
+				CivDueño.getCiudades.Remove (this);
+				CivDueño = null;
+			}
 		}
 
 	}
