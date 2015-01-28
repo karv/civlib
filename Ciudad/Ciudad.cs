@@ -4,72 +4,70 @@ using System.Collections.Generic;
 
 namespace Civ
 {
-	/// <summary>
-	/// Representa una instancia de ciudad.
-	/// </summary>
-	public partial class Ciudad
-	{
-		public override string ToString ()
-		{
+    /// <summary>
+    /// Representa una instancia de ciudad.
+    /// </summary>
+    public partial class Ciudad
+    {
+        public override string ToString()
+        {
             return Nombre;
-		}
+        }
 
-		/// <summary>
-		/// Nombre de la ciudad.
-		/// </summary>
-		public string Nombre;
+        /// <summary>
+        /// Nombre de la ciudad.
+        /// </summary>
+        public string Nombre;
+        Civilizacion _CivDueño;
 
-		Civilizacion _CivDueño;
+        /// <summary>
+        /// Devuelve o establece la civilización a la cual pertecene esta ciudad.
+        /// </summary>
+        /// <value>The civ dueño.</value>
+        public Civilizacion CivDueño
+        {
+            get
+            {
+                return _CivDueño;
+            }
+            set
+            {
+                if (_CivDueño != null)
+                    _CivDueño.getCiudades.Remove(this);
+                _CivDueño = value;
+                _CivDueño.getCiudades.Add(this);
+            }
+        }
 
-		/// <summary>
-		/// Devuelve o establece la civilización a la cual pertecene esta ciudad.
-		/// </summary>
-		/// <value>The civ dueño.</value>
-		public Civilizacion CivDueño {
-			get {
-				return _CivDueño;
-			}
-			set	{
-				if (_CivDueño != null) _CivDueño.getCiudades.Remove (this);
-				_CivDueño = value;
-				_CivDueño.getCiudades.Add (this);
-			}
-		}
-
-
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Ciudad"/> class.
-		/// </summary>
-		/// <param name="Nom">Nombre de la ciudad.</param>
-		/// <param name="Dueño">Civ a la que pertenece esta ciudad.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Civ.Ciudad"/> class.
+        /// </summary>
+        /// <param name="Nom">Nombre de la ciudad.</param>
+        /// <param name="Dueño">Civ a la que pertenece esta ciudad.</param>
         /// <param name="T">Terreno de contrucción de la ciudad.</param>
-		public Ciudad (string Nom, Civilizacion Dueño, Terreno T)
-		{
-			Nombre = Nom;
-			CivDueño = Dueño;
+        public Ciudad(string Nom, Civilizacion Dueño, Terreno T)
+        {
+            Nombre = Nom;
+            CivDueño = Dueño;
             T.CiudadConstruida = this;
             Terr = T;
-			Random r = new Random ();
 
 
 
-                // Importar desde T.
+            // Importar desde T.
 
             foreach (var x in T.Innatos)
             {
-				// Si r.next < (algo):
-				AgregaPropiedad (x);
+                // Si r.next < (algo):
+                AgregaPropiedad(x);
             }
 
             foreach (var x in T.Eco.RecursoEcologico.Keys)
             {
                 Almacén[x] = T.Eco.RecursoEcologico[x].Cant;
             }
-		}
-
-            // Partial no asinado. 
-
+        }
+        // Partial no asinado. 
         /// <summary>
         /// Terreno donde se contruye la ciudad.
         /// </summary>
@@ -90,7 +88,6 @@ namespace Civ
                 L.RemoveAt(0);
             }
         }
-	        
-	}
+    }
 }
 
