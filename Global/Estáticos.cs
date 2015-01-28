@@ -56,7 +56,7 @@ namespace Global
                 T = new Civ.Terreno(Eco);                               // Le asocio un terreno consistente con el ecosistema.
                 Terrenos.Add(T);                                        // Lo enlisto.
 			}
-            State.Topologia = Graficas.Grafica<Civ.IPosicion>.GeneraGráficaAleatoria(Terrenos);
+            State.Topologia = Graficas.Grafica<Civ.IPosicion>.GeneraGraficaAleatoria(Terrenos);
 
             // Asignar una ciudad de cada civilización en terrenos vacíos y distintos lugares.
             for (int i = 0; i < numCivsIniciales; i++)
