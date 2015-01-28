@@ -4,34 +4,33 @@ using System.Collections.Generic;
 
 namespace Global
 {
-	/// <summary>
-	/// Los objetos globales.
-	/// </summary>	
-	public static class g_
-	{
+    /// <summary>
+    /// Los objetos globales.
+    /// </summary>	
+    public static class g_
+    {
         [DataMember (Name = "Data")]
-		public static g_Data Data = new g_Data();
-		public static g_State State = new g_State();
+        public static g_Data Data = new g_Data();
+        public static g_State State = new g_State();
+        private const string archivo = "Data.xml";
 
-		private const string archivo = "Data.xml";
+        /// <summary>
+        /// Carga del archivo predeterminado.
+        /// </summary>
+        public static void CargaData()
+        {
+            Data = Store.Store<g_Data>.Deserialize(archivo);
+        }
 
-		/// <summary>
-		/// Carga del archivo predeterminado.
-		/// </summary>
-		public static void CargaData ()
-		{
-			Data = Store.Store<g_Data>.Deserialize (archivo);
-		}
+        public static void GuardaData()
+        {
+            Store.Store<g_Data>.Serialize(archivo, Data);
+        }
 
-		public static void GuardaData() 
-		{
-			Store.Store<g_Data>.Serialize (archivo, Data);
-		}
-
-		public static void GuardaData(string f)
-		{
-			Store.Store<g_Data>.Serialize (f, Data);
-		}
+        public static void GuardaData(string f)
+        {
+            Store.Store<g_Data>.Serialize(f, Data);
+        }
 
         /// <summary>
         /// Inicializa el g_State, a partir de el g_Data.
@@ -51,12 +50,12 @@ namespace Global
             Civ.Ciudad Cd;
             
             for (int i = 0; i < numTerrenosIniciales; i++)
-			{
+            {
                 Eco = Data.Ecosistemas[r.Next(Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
                 T = new Civ.Terreno(Eco);                               // Le asocio un terreno consistente con el ecosistema.
                 Terrenos.Add(T);                                        // Lo enlisto.
-			}
-            State.Topologia = Graficas.Grafica<Civ.IPosicion>.GeneraGráficaAleatoria(Terrenos);
+            }
+            State.Topologia = Graficas.Grafica<Civ.IPosicion>.GeneraGraficaAleatoria(Terrenos);
 
             // Asignar una ciudad de cada civilización en terrenos vacíos y distintos lugares.
             for (int i = 0; i < numCivsIniciales; i++)
@@ -72,10 +71,8 @@ namespace Global
                 State.Civs.Add(C);
             }
         }
-
-
         // constantes
         const int numTerrenosIniciales = 40;
         const int numCivsIniciales = 4;
-	}
+    }
 }

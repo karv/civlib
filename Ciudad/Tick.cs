@@ -8,20 +8,24 @@ namespace Civ
 	public partial class Ciudad
 	{
 		// Tick
-		public void PopTick()
+		/// <summary>
+		/// Da un tick poblacional
+		/// </summary>
+		/// <param name="t">Diración del tick</param>
+		public void PopTick(float t = 1)
 		{
-
+			// Se está suponiendo crecimiento constante entre ticks!!!
 
 			//Crecimiento prometido por sector de edad.
 			float[] Crecimiento = new float[3];
-			float Consumo = getPoblación * ConsumoAlimentoPorCiudadanoBase;
+			float Consumo = getPoblación * ConsumoAlimentoPorCiudadanoBase * t;
 			//Que coman
 			//Si tienen qué comer
 			if (Consumo <= AlimentoAlmacén) {
 				AlimentoAlmacén = AlimentoAlmacén - Consumo;
 			} else {
 				//El porcentage de muertes
-				float pctMuerte = 1 - (AlimentoAlmacén / getPoblación);
+				float pctMuerte = 1 - (AlimentoAlmacén / (getPoblación * ConsumoAlimentoPorCiudadanoBase));
 				AlimentoAlmacén = 0;
 				//Promesas de muerte por sector.
 				Crecimiento [0] -= getPoblaciónPreProductiva * pctMuerte;
@@ -32,20 +36,20 @@ namespace Civ
 			//Crecimiento poblacional
 
 			//Infantil a productivo.
-			float Desarrollo = TasaDesarrolloBase * getPoblaciónPreProductiva;
+			float Desarrollo = TasaDesarrolloBase * getPoblaciónPreProductiva * t;
 			Crecimiento [0] -= Desarrollo;
 			Crecimiento [1] += Desarrollo;
 			//Productivo a viejo
-			float Envejecer = TasaVejezBase * PoblaciónProductiva;
+			float Envejecer = TasaVejezBase * PoblaciónProductiva * t;
 			Crecimiento [1] -= Envejecer;
 			Crecimiento [2] += Envejecer;
 			//Nuevos infantes
-			float Natalidad = TasaNatalidadBase * PoblaciónProductiva;
+			float Natalidad = TasaNatalidadBase * PoblaciónProductiva * t;
 			Crecimiento [0] += Natalidad;
 			//Mortalidad
-			Crecimiento [0] -= getPoblaciónPreProductiva * TasaMortalidadInfantilBase;
-			Crecimiento [1] -= PoblaciónProductiva * TasaMortalidadProductivaBase;
-			Crecimiento [2] -= getPoblaciónPostProductiva * TasaMortalidadVejezBase;
+			Crecimiento[0] -= getPoblaciónPreProductiva * TasaMortalidadInfantilBase * t;
+			Crecimiento[1] -= PoblaciónProductiva * TasaMortalidadProductivaBase * t;
+			Crecimiento[2] -= getPoblaciónPostProductiva * TasaMortalidadVejezBase * t;
 
 			// Aplicar cambios.
 
@@ -67,13 +71,13 @@ namespace Civ
 		/// <summary>
 		/// Da un tick hereditario.
 		/// </summary>
-		public void Tick (){
+		public void Tick (float t = 1){
 			foreach (var x in Edificios) {
-				x.Tick ();
+				x.Tick (t);
 			}
             foreach (var x in Propiedades)
             {
-                x.Tick(this);
+                x.Tick(this, t);
             }
 			// Construir edificio.
 			if (EdifConstruyendo != null)
@@ -95,7 +99,6 @@ namespace Civ
 			}
 		}
 
-		
 		/// <summary>
 		/// Destruye los recursos con el flag <c>.desaparecen</c>.
 		/// </summary>
@@ -117,9 +120,9 @@ namespace Civ
 		/// Ejecuta ambos: Tick () y PopTick ().
 		/// En ese orden.
 		/// </summary>
-		public void FullTick (){
-			PopTick();
-			Tick();
+		public void FullTick (float t = 1){
+			PopTick(t);
+			Tick(t);
 		}
 
 	}
