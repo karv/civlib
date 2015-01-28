@@ -71,7 +71,7 @@ namespace Civ
         /// <summary>
         /// Terreno donde se contruye la ciudad.
         /// </summary>
-        Terreno Terr;
+        public Terreno Terr;
 
         /// <summary>
         /// Hacer que la ciudad tenga al menos un número de trabajadores libres. Liberando por prioridad.
