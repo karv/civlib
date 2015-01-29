@@ -6,7 +6,7 @@ namespace Civ
 	public partial class Civilizacion
 	{
 
-			// Avances
+		// Avances
 		/// <summary>
 		/// Lista de avances de la civilización
 		/// </summary>
@@ -20,7 +20,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve las ciencias que no han sido investigadas y que comple todos los requesitos para investigarlas.
 		/// </summary>
-		public List<Ciencia> CienciasAbiertas ()
+		public List<Ciencia> CienciasAbiertas()
 		{
 			List<Ciencia> ret = new List<Ciencia>();
 			foreach (Ciencia x in Global.g_.Data.Ciencias)
@@ -41,8 +41,8 @@ namespace Civ
 		bool EsCienciaAbierta(Ciencia C)
 		{
 			// return !Avances.Contains(C) && C.ReqCiencia.TrueForAll(z => Avances.Exists(w => (w.Nombre == z)));
-            return !Avances.Contains(C) && C.Reqs.Ciencias.TrueForAll(z => Avances.Contains(z));
-        }
-}
+			return !Avances.Contains(C) && C.Reqs.Ciencias.TrueForAll(z => Avances.Contains(z));
+		}
+	}
 }
 

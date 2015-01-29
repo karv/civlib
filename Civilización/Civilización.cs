@@ -11,8 +11,7 @@ namespace Civ
 		/// </summary>
 		public string Nombre;
 
-
-			// Economía
+		// Economía
 		/// <summary>
 		/// Devuelve la cantidad que existe en la civilización de un cierto recurso.
 		/// </summary>
@@ -21,18 +20,19 @@ namespace Civ
 		public float ObtenerGlobalRecurso(Recurso R)
 		{
 			float ret = 0;
-			foreach (var x in Ciudades) {
-				ret += x.Almacén [R];
+			foreach (var x in Ciudades)
+			{
+				ret += x.Almacén[R];
 			}
 			return ret;
 		}
 
-        // TODO: Hacer clase que controle esto:
+		// TODO: Hacer clase que controle esto:
 
-        /// <summary>
-        /// Lista de mensajes de eventos para el usuario.
-        /// </summary>
-        public List<string> Msj = new List<string>();
+		/// <summary>
+		/// Lista de mensajes de eventos para el usuario.
+		/// </summary>
+		public List<string> Msj = new List<string>();
 
 	}
 }

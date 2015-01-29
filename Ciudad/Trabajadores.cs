@@ -15,7 +15,8 @@ namespace Civ
 			get
 			{
 				ulong ret = 0;
-				foreach (var x in Edificios) {
+				foreach (var x in Edificios)
+				{
 					ret += x.getTrabajadores;
 				}
 				return ret;
@@ -39,13 +40,13 @@ namespace Civ
 				List<TrabajoRAW> ret = new List<TrabajoRAW>();
 				foreach (var x in Global.g_.Data.Trabajos)
 				{
-                    List<IRequerimiento> Req = new List<IRequerimiento>();
-                    foreach (var y in x.Requiere.Requiere())
-	                {
-                        Req.Add(y);		 
-	                }
-                    
-					if (SatisfaceReq(Req) && ExisteEdificio(x.Edificio)) 
+					List<IRequerimiento> Req = new List<IRequerimiento>();
+					foreach (var y in x.Requiere.Requiere())
+					{
+						Req.Add(y);
+					}
+
+					if (SatisfaceReq(Req) && ExisteEdificio(x.Edificio))
 					{
 						ret.Add(x);
 					}
@@ -81,7 +82,7 @@ namespace Civ
 		/// TrabajoRAW que se busca
 		/// <param name="CrearInstancia">Si no existe tal instancia y <c>CrearInstancia</c>, la crea; si no, tira excepción.</param>
 		/// <returns>Devuelve el trabajo en la ciudad correspondiente a este TrabajoRAW.</returns>
-		public Trabajo EncuentraInstanciaTrabajo (TrabajoRAW TRAW)
+		public Trabajo EncuentraInstanciaTrabajo(TrabajoRAW TRAW)
 		{
 			EdificioRAW Ed = TRAW.Edificio;   // La clase de edificio que puede contener este trabajo.
 			Edificio Edif = EncuentraInstanciaEdificio(Ed); // La instancia del edificio en esta ciudad.
@@ -101,7 +102,7 @@ namespace Civ
 		/// Nombre del trabajo que se busca.
 		/// <param name="CrearInstancia">Si no existe tal instancia y <c>CrearInstancia</c>, la crea; si no, tira excepción.</param>
 		/// <returns>Devuelve el trabajo en la ciudad con el nombre buscado.</returns>
-		public Trabajo EncuentraInstanciaTrabajo (string TRAW)
+		public Trabajo EncuentraInstanciaTrabajo(string TRAW)
 		{
 			TrabajoRAW Tr = Global.g_.Data.EncuentraTrabajo(TRAW);
 			if (Tr == null) return null;

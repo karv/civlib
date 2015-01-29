@@ -5,7 +5,7 @@ namespace Civ
 {
 	public partial class Ciudad
 	{
-		
+
 		/// <summary>
 		/// Revisa si esta ciudad satisface un Irequerimiento.
 		/// </summary>

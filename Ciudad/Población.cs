@@ -12,8 +12,10 @@ namespace Civ
 		/// <summary>
 		/// Recurso que será el alimento
 		/// </summary>
-		public static Recurso RecursoAlimento {
-			get {
+		public static Recurso RecursoAlimento
+		{
+			get
+			{
 				return Global.g_.Data.RecursoAlimento;
 			}
 		}
@@ -62,9 +64,11 @@ namespace Civ
 		/// Devuelve la población real y total de la ciudad.
 		/// </summary>
 		/// <value>The get real población.</value>
-		public float getRealPoblación {
-			get {
-				return _PoblaciónProductiva + _PoblaciónPreProductiva+ _PoblaciónPostProductiva;
+		public float getRealPoblación
+		{
+			get
+			{
+				return _PoblaciónProductiva + _PoblaciónPreProductiva + _PoblaciónPostProductiva;
 			}
 		}
 
@@ -72,8 +76,10 @@ namespace Civ
 		/// Devuelve la población de la ciudad.
 		/// </summary>
 		/// <value>The get poplación.</value>
-		public ulong getPoblación {
-			get {
+		public ulong getPoblación
+		{
+			get
+			{
 				return PoblaciónProductiva + getPoblaciónPreProductiva + getPoblaciónPostProductiva;
 			}
 		}
@@ -82,11 +88,14 @@ namespace Civ
 		/// Devuelve la población productiva.
 		/// </summary>
 		/// <value></value>
-		public ulong PoblaciónProductiva {
-			get {
-				return (ulong)Math.Floor (_PoblaciónProductiva);
+		public ulong PoblaciónProductiva
+		{
+			get
+			{
+				return (ulong)Math.Floor(_PoblaciónProductiva);
 			}
-			set	{
+			set
+			{
 				_PoblaciónProductiva = value;
 			}
 		}
@@ -95,9 +104,11 @@ namespace Civ
 		/// Devuelve la población pre productiva.
 		/// </summary>
 		/// <value></value>
-		public ulong getPoblaciónPreProductiva {
-			get {
-				return (ulong)Math.Floor (_PoblaciónPreProductiva);
+		public ulong getPoblaciónPreProductiva
+		{
+			get
+			{
+				return (ulong)Math.Floor(_PoblaciónPreProductiva);
 			}
 		}
 
@@ -105,9 +116,11 @@ namespace Civ
 		/// Devuelve la población post productiva.
 		/// </summary>
 		/// <value></value>
-		public ulong getPoblaciónPostProductiva {
-			get {
-				return (ulong)Math.Floor (_PoblaciónPostProductiva);
+		public ulong getPoblaciónPostProductiva
+		{
+			get
+			{
+				return (ulong)Math.Floor(_PoblaciónPostProductiva);
 			}
 		}
 	}

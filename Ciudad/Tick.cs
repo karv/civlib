@@ -21,31 +21,34 @@ namespace Civ
 			float Consumo = getPoblación * ConsumoAlimentoPorCiudadanoBase * t;
 			//Que coman
 			//Si tienen qué comer
-			if (Consumo <= AlimentoAlmacén) {
+			if (Consumo <= AlimentoAlmacén)
+			{
 				AlimentoAlmacén = AlimentoAlmacén - Consumo;
-			} else {
+			}
+			else
+			{
 				//El porcentage de muertes
 				float pctMuerte = 1 - (AlimentoAlmacén / (getPoblación * ConsumoAlimentoPorCiudadanoBase));
 				AlimentoAlmacén = 0;
 				//Promesas de muerte por sector.
-				Crecimiento [0] -= getPoblaciónPreProductiva * pctMuerte;
-				Crecimiento [1] -= PoblaciónProductiva * pctMuerte;
-				Crecimiento [2] -= getPoblaciónPostProductiva * pctMuerte;
+				Crecimiento[0] -= getPoblaciónPreProductiva * pctMuerte;
+				Crecimiento[1] -= PoblaciónProductiva * pctMuerte;
+				Crecimiento[2] -= getPoblaciónPostProductiva * pctMuerte;
 			}
 
 			//Crecimiento poblacional
 
 			//Infantil a productivo.
 			float Desarrollo = TasaDesarrolloBase * getPoblaciónPreProductiva * t;
-			Crecimiento [0] -= Desarrollo;
-			Crecimiento [1] += Desarrollo;
+			Crecimiento[0] -= Desarrollo;
+			Crecimiento[1] += Desarrollo;
 			//Productivo a viejo
 			float Envejecer = TasaVejezBase * PoblaciónProductiva * t;
-			Crecimiento [1] -= Envejecer;
-			Crecimiento [2] += Envejecer;
+			Crecimiento[1] -= Envejecer;
+			Crecimiento[2] += Envejecer;
 			//Nuevos infantes
 			float Natalidad = TasaNatalidadBase * PoblaciónProductiva * t;
-			Crecimiento [0] += Natalidad;
+			Crecimiento[0] += Natalidad;
 			//Mortalidad
 			Crecimiento[0] -= getPoblaciónPreProductiva * TasaMortalidadInfantilBase * t;
 			Crecimiento[1] -= PoblaciónProductiva * TasaMortalidadProductivaBase * t;
@@ -53,47 +56,51 @@ namespace Civ
 
 			// Aplicar cambios.
 
-            if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
-            {                
-                CivDueño.Msj.Add(string.Format("La ciudad {0} ha perdido trabajadores productivos ocupados.", this.Nombre));
-                LiberarTrabajadores(PoblaciónProductiva - (ulong)Crecimiento[1]);
+			if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
+			{
+				CivDueño.Msj.Add(string.Format("La ciudad {0} ha perdido trabajadores productivos ocupados.", this.Nombre));
+				LiberarTrabajadores(PoblaciónProductiva - (ulong)Crecimiento[1]);
 
-            }
+			}
 
 			// TODO: Los de mayor prioridad reclutan trabajadores en descanso. (¿opcional?)
 
-			_PoblaciónPreProductiva = Math.Max (_PoblaciónPreProductiva + Crecimiento [0], 0);
-			_PoblaciónProductiva = Math.Max (_PoblaciónProductiva + Crecimiento [1], 0);
-			_PoblaciónPostProductiva = Math.Max (_PoblaciónPostProductiva + Crecimiento [2], 0);		
+			_PoblaciónPreProductiva = Math.Max(_PoblaciónPreProductiva + Crecimiento[0], 0);
+			_PoblaciónProductiva = Math.Max(_PoblaciónProductiva + Crecimiento[1], 0);
+			_PoblaciónPostProductiva = Math.Max(_PoblaciónPostProductiva + Crecimiento[2], 0);
 
 		}
 
 		/// <summary>
 		/// Da un tick hereditario.
 		/// </summary>
-		public void Tick (float t = 1){
-			foreach (var x in Edificios) {
-				x.Tick (t);
+		public void Tick(float t = 1)
+		{
+			foreach (var x in Edificios)
+			{
+				x.Tick(t);
 			}
-            foreach (var x in Propiedades)
-            {
-                x.Tick(this, t);
-            }
+			foreach (var x in Propiedades)
+			{
+				x.Tick(this, t);
+			}
 			// Construir edificio.
 			if (EdifConstruyendo != null)
 			{
 				EdifConstruyendo.AbsorbeRecursos();
-                if (EdifConstruyendo.EstáCompletado())
-                {
-                    EdifConstruyendo.Completar();
-                    EdifConstruyendo = null;    //  Ya no se contruye edificio. Para evitar error de duplicidad.
-                } 
+				if (EdifConstruyendo.EstáCompletado())
+				{
+					EdifConstruyendo.Completar();
+					EdifConstruyendo = null;    //  Ya no se contruye edificio. Para evitar error de duplicidad.
+				}
 			}
 
 			// Autocontruible
 			List<EdificioRAW> PosiblesEdif = Global.g_.Data.EdificiosAutoconstruibles().FindAll(x => !ExisteEdificio(x)); 	// Obtener lista de edificios autocontruibles no construidos.
-			foreach (var x in PosiblesEdif) {
-				if (SatisfaceReq(x.Reqs())) {	// Si satisface requerimientos de construcción:
+			foreach (var x in PosiblesEdif)
+			{
+				if (SatisfaceReq(x.Reqs()))
+				{	// Si satisface requerimientos de construcción:
 					AgregaEdificio(x);
 				}
 			}
@@ -120,11 +127,13 @@ namespace Civ
 		/// Ejecuta ambos: Tick () y PopTick ().
 		/// En ese orden.
 		/// </summary>
-		public void FullTick (float t = 1){
+		public void FullTick(float t = 1)
+		{
 			PopTick(t);
 			Tick(t);
 
-			if (CivDueño != null && getPoblación == 0) {		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
+			if (CivDueño != null && getPoblación == 0)
+			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				CivDueño.removeCiudad(this);
 			}
 		}

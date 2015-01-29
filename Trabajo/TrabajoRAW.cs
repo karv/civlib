@@ -7,18 +7,18 @@ using System.Runtime.Serialization;
 
 namespace Civ
 {
-	
+
 	/// <summary>
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
-    [DataContract(IsReference = true, Name = "Trabajo")]
+	[DataContract(IsReference = true, Name = "Trabajo")]
 	public class TrabajoRAW
 	{
 		/// <summary>
 		/// Nombre
 		/// </summary>
 		[DataMember]
-        public string Nombre;
+		public string Nombre;
 
 		public override string ToString()
 		{
@@ -29,17 +29,17 @@ namespace Civ
 		/// Recursos consumidos por trabajador*turno (Base)
 		/// </summary>
 		// public List<Basic.Par<string, float>> EntradaStr = new List<Basic.Par<string, float>>(); // TODO: Borrar
-        [DataMember(Name = "Entrada")]
-        ListaPeso<Recurso> _EntradaBase = new ListaPeso<Recurso>();
+		[DataMember(Name = "Entrada")]
+		ListaPeso<Recurso> _EntradaBase = new ListaPeso<Recurso>();
 
 		/// <summary>
 		/// Recursos consumidos por trabajador*turno (Base)
 		/// </summary>		
-		public ListaPeso<Recurso> EntradaBase 
+		public ListaPeso<Recurso> EntradaBase
 		{
 			get
 			{
-                return _EntradaBase;
+				return _EntradaBase;
 			}
 		}
 
@@ -48,18 +48,18 @@ namespace Civ
 		/// </summary>
 		//public List<Basic.Par<string, float>> SalidaStr = new List<Basic.Par<string, float>>();   //TODO Borrar
 
-        [DataMember(Name = "Salida")]
-        ListaPeso<Recurso> _SalidaBase = new ListaPeso<Recurso>();
-		
+		[DataMember(Name = "Salida")]
+		ListaPeso<Recurso> _SalidaBase = new ListaPeso<Recurso>();
+
 		/// <summary>
 		/// Recursos producidos por trabajador*turno (Base)
 		/// </summary>
-        public ListaPeso<Recurso> SalidaBase
+		public ListaPeso<Recurso> SalidaBase
 		{
 			get
 			{
-                return _SalidaBase;
-            }
+				return _SalidaBase;
+			}
 		}
 
 		// Requiere
@@ -69,11 +69,11 @@ namespace Civ
 		/// </summary>
 		//public List<String> Requiere = new List<string>();
 
-        /// <summary>
-        /// Lista de requerimientos.
-        /// </summary>
-        [DataMember]
-        public Requerimiento Requiere = new Requerimiento();
+		/// <summary>
+		/// Lista de requerimientos.
+		/// </summary>
+		[DataMember]
+		public Requerimiento Requiere = new Requerimiento();
 
 		/// <summary>
 		/// Devuelve la lista de requerimientos.
@@ -81,13 +81,13 @@ namespace Civ
 		/// <value>El IRequerimiento</value> 
 		public List<IRequerimiento> Reqs()
 		{
-            return Requiere.Requiere();
+			return Requiere.Requiere();
 		}
 
 		/// <summary>
 		/// EdificioRAW vinculado a este trabajo.
 		/// </summary>
-        [DataMember]
+		[DataMember]
 		public EdificioRAW Edificio;
 
 

@@ -6,13 +6,15 @@ namespace Civ
 	public partial class Ciudad
 	{
 		//Edificios
-		System.Collections.Generic.List <Edificio> _Edif = new System.Collections.Generic.List<Edificio>();
+		System.Collections.Generic.List<Edificio> _Edif = new System.Collections.Generic.List<Edificio>();
 		/// <summary>
 		/// Devuelve la lista de instancias de edicio de la ciudad.
 		/// </summary>
 		/// <value></value>
-		public List <Edificio> Edificios {
-			get {
+		public List<Edificio> Edificios
+		{
+			get
+			{
 				return _Edif;
 			}
 		}
@@ -22,9 +24,10 @@ namespace Civ
 		/// </summary>
 		/// <param name="Edif">La clase de edificio buscada</param>
 		/// <returns><c>true</c> si existe el edificio, <c>false</c> si no.</returns>
-		public bool ExisteEdificio (EdificioRAW Edif)
+		public bool ExisteEdificio(EdificioRAW Edif)
 		{
-			foreach (var x in Edificios) {
+			foreach (var x in Edificios)
+			{
 				if (x.RAW == Edif)
 					return true;
 			}
@@ -67,7 +70,7 @@ namespace Civ
 		/// <param name="Edif">RAW dek edificio a agregar.</param>
 		public Edificio AgregaEdificio(EdificioRAW Edif)
 		{
-			Edificio ret = new Edificio (Edif, this);
+			Edificio ret = new Edificio(Edif, this);
 
 			return ret;
 		}
@@ -89,13 +92,15 @@ namespace Civ
 			return ret;
 		}
 		// Propiedades	//TODO: Ponerlos en otro archivo.
-		System.Collections.Generic.List <Propiedad> _Prop = new System.Collections.Generic.List<Propiedad>();
+		System.Collections.Generic.List<Propiedad> _Prop = new System.Collections.Generic.List<Propiedad>();
 		/// <summary>
 		/// Devuelve la lista de Propiedades de la ciudad.
 		/// </summary>
 		/// <value>The propiedades.</value>
-		public List <Propiedad> Propiedades {
-			get {
+		public List<Propiedad> Propiedades
+		{
+			get
+			{
 				return _Prop;
 			}
 		}
@@ -105,9 +110,10 @@ namespace Civ
 		/// </summary>
 		/// <returns><c>true</c>, si la propiedad existe, <c>false</c> en caso contrario.</returns>
 		/// <param name="P">La propiedad.</param>
-		public bool ExistePropiedad (Propiedad P)
+		public bool ExistePropiedad(Propiedad P)
 		{
-			foreach (var x in Propiedades) {
+			foreach (var x in Propiedades)
+			{
 				if (x == P)
 					return true;
 			}

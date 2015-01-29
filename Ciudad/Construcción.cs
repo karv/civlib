@@ -5,7 +5,7 @@ namespace Civ
 {
 	public partial class Ciudad
 	{
-		
+
 		// Edificio en construcción.
 		/// <summary>
 		/// Representa un edificio en construcción.
@@ -29,7 +29,7 @@ namespace Civ
 					ListaPeso<Recurso> ret = new ListaPeso<Recurso>();
 					foreach (var x in RAW.ReqRecursos)
 					{
-                        Recurso r = x.Key;
+						Recurso r = x.Key;
 						ret[r] = x.Value - RecursosAcumulados[r];
 					}
 					return ret;

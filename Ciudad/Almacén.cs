@@ -17,12 +17,15 @@ namespace Civ
 		/// Devuelve el alimento existente en la ciudad.
 		/// </summary>
 		/// <value>The alimento almacén.</value>
-		public float AlimentoAlmacén {
-			get {
-				return Almacén [RecursoAlimento];
+		public float AlimentoAlmacén
+		{
+			get
+			{
+				return Almacén[RecursoAlimento];
 			}
-			set {
-				Almacén [RecursoAlimento] = value;
+			set
+			{
+				Almacén[RecursoAlimento] = value;
 			}
 
 		}

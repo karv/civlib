@@ -11,8 +11,10 @@ namespace Civ
 		/// Devuelve el edificio base de esta instancia.
 		/// </summary>
 		/// <value>The edificio base.</value>
-		public Edificio EdificioBase {
-			get {
+		public Edificio EdificioBase
+		{
+			get
+			{
 				return _EdificioBase;
 			}
 		}
@@ -21,8 +23,10 @@ namespace Civ
 		/// Devuelve la ciudad que posee esta instancia de trabajo.
 		/// </summary>
 		/// <value>The ciudad dueño.</value>
-		public Ciudad CiudadDueño {
-			get {
+		public Ciudad CiudadDueño
+		{
+			get
+			{
 				return EdificioBase.CiudadDueño;
 			}
 		}
@@ -31,8 +35,10 @@ namespace Civ
 		/// Devuelve la civilización que posee este trabajo.
 		/// </summary>
 		/// <value>The civ dueño.</value>
-		public Civilizacion CivDueño {
-			get {
+		public Civilizacion CivDueño
+		{
+			get
+			{
 				return CiudadDueño.CivDueño;
 			}
 		}
@@ -41,8 +47,10 @@ namespace Civ
 		/// Devuelve la lista de recursos de la ciudad.
 		/// </summary>
 		/// <value>The almacén.</value>
-		public ListaPeso<Recurso> Almacén {
-			get {
+		public ListaPeso<Recurso> Almacén
+		{
+			get
+			{
 				return CiudadDueño.Almacén;
 			}
 		}

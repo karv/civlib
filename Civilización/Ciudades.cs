@@ -8,14 +8,16 @@ namespace Civ
 		/// <summary>
 		/// Lista de ciudades.
 		/// </summary>
-		List<Ciudad> Ciudades = new List<Ciudad> ();
+		List<Ciudad> Ciudades = new List<Ciudad>();
 
 		/// <summary>
 		/// Devuelve la lista de ciudades que pertenecen a esta <see cref="Civ.Civilización"/>.
 		/// </summary>
 		/// <value>The get ciudades.</value>
-		public List<Ciudad> getCiudades {
-			get {
+		public List<Ciudad> getCiudades
+		{
+			get
+			{
 				return Ciudades;
 			}
 		}
@@ -43,9 +45,9 @@ namespace Civ
 		/// </summary>
 		/// <returns>Devuelve la ciudad que se agregó.</returns>
 		/// <param name="Nom">Nombre de la ciudad.</param>
-		public Ciudad addCiudad (string Nom, Terreno T)
+		public Ciudad addCiudad(string Nom, Terreno T)
 		{
-			Ciudad C = new Ciudad (Nom, this, T);
+			Ciudad C = new Ciudad(Nom, this, T);
 			return C;
 		}
 

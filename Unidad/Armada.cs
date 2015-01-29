@@ -16,8 +16,10 @@ namespace Civ
 		/// Devuelve la lista de unidades en la armada.
 		/// </summary>
 		/// <value>The lista unidades.</value>
-		public List<Unidad> Unidades {
-			get {
+		public List<Unidad> Unidades
+		{
+			get
+			{
 				return _Unidades;
 			}
 		}
@@ -28,12 +30,15 @@ namespace Civ
 		/// Devuelve o establece el máximo peso que puede cargar esta armada.
 		/// </summary>
 		/// <value>The max peso.</value>
-		public float MaxPeso {
-			get {
+		public float MaxPeso
+		{
+			get
+			{
 				return _MaxPeso;
 			}
-			set {
-				_MaxPeso = Math.Max (value, Peso);	// No puedo reducir MaxPeso a menor que Peso.
+			set
+			{
+				_MaxPeso = Math.Max(value, Peso);	// No puedo reducir MaxPeso a menor que Peso.
 			}
 		}
 
@@ -42,9 +47,11 @@ namespace Civ
 		/// </summary>
 		public float Peso
 		{
-			get {
+			get
+			{
 				float ret = 0;
-				foreach (var x in Unidades) {
+				foreach (var x in Unidades)
+				{
 					ret += x.Peso;
 				}
 				return ret;
@@ -57,7 +64,8 @@ namespace Civ
 		/// <value>The peso libre.</value>
 		public float PesoLibre
 		{
-			get {
+			get
+			{
 				return MaxPeso - Peso;
 			}
 		}
@@ -66,9 +74,11 @@ namespace Civ
 		/// Devuelve el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		public IPosicion Posición {
-			get {
-				return Unidades.Count > 0 ? Unidades [0].Posición : null;
+		public IPosicion Posición
+		{
+			get
+			{
+				return Unidades.Count > 0 ? Unidades[0].Posición : null;
 			}
 		}
 
@@ -76,16 +86,20 @@ namespace Civ
 		/// Agrega unidad(es) a esta armada
 		/// </summary>
 		/// <param name="U">La unidad que se agregará.</param>
-		public void AgregaUnidad (Unidad U)
+		public void AgregaUnidad(Unidad U)
 		{
-			if (PosiciónConsistente(U)) {
-				if (PesoLibre >= U.Peso) {
-					U.AbandonaArmada ();
+			if (PosiciónConsistente(U))
+			{
+				if (PesoLibre >= U.Peso)
+				{
+					U.AbandonaArmada();
 					U.ArmadaPerteneciente = this;
-					Unidades.Add (U);
+					Unidades.Add(U);
 				}
-			} else {
-				throw new Exception ("No se puede agregar unidad a armada si éstas no están en el mismo lugar"); // Más bien no es exception, sino un msg al usuario.
+			}
+			else
+			{
+				throw new Exception("No se puede agregar unidad a armada si éstas no están en el mismo lugar"); // Más bien no es exception, sino un msg al usuario.
 			}
 		}
 
@@ -94,18 +108,18 @@ namespace Civ
 		/// </summary>
 		/// <returns><c>true</c> si comparten el mismo lugar; <c>false</c> otherwise.</returns>
 		/// <param name="U">La unidad con la que se comparará posición.</param>
-		public bool PosiciónConsistente (Unidad U)
+		public bool PosiciónConsistente(Unidad U)
 		{
 			return Posición == null || Posición == U.Posición;
 		}
 
-        /// <summary>
-        /// Quita una unidad de la Armada.
-        /// </summary>
-        /// <param name="U">Unidad a quitar</param>
-		public void QuitarUnidad (Unidad U)
+		/// <summary>
+		/// Quita una unidad de la Armada.
+		/// </summary>
+		/// <param name="U">Unidad a quitar</param>
+		public void QuitarUnidad(Unidad U)
 		{
-			Unidades.Remove (U);
+			Unidades.Remove(U);
 		}
 	}
 

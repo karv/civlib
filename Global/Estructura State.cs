@@ -10,53 +10,53 @@ namespace Global
 	/// </summary>
 	public class g_State
 	{
-        /// <summary>
-        /// La topología del mundo.
-        /// </summary>
-        public Grafica<IPosicion> Topologia;
+		/// <summary>
+		/// La topología del mundo.
+		/// </summary>
+		public Grafica<IPosicion> Topologia;
 
 
-        private List<Civilizacion> _Civs = new List<Civilizacion>();     
+		private List<Civilizacion> _Civs = new List<Civilizacion>();
 
-        /// <summary>
-        /// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
-        /// </summary>        
-        public List<Civilizacion> Civs      // Las vivas bien las podría obtener accesando la topología.
-        {
-            get { return _Civs; }
-        }
+		/// <summary>
+		/// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
+		/// </summary>        
+		public List<Civilizacion> Civs      // Las vivas bien las podría obtener accesando la topología.
+		{
+			get { return _Civs; }
+		}
 
-        public g_State()
-        {
-            Topologia = new Grafica<IPosicion>();
-            Topologia.EsSimetrico = true;
-        }
+		public g_State()
+		{
+			Topologia = new Grafica<IPosicion>();
+			Topologia.EsSimetrico = true;
+		}
 
-        /// <summary>
-        /// Obtiene la lista de <c>Terreno</c>s en el juego.
-        /// </summary>
-        /// <returns>Devuelve una lista enumerando a los <c>Terrenos</c>.</returns>
-        public List<Terreno> ObtenerListaTerrenos()
-        {
-            List<Terreno> ret = new List<Terreno>();
+		/// <summary>
+		/// Obtiene la lista de <c>Terreno</c>s en el juego.
+		/// </summary>
+		/// <returns>Devuelve una lista enumerando a los <c>Terrenos</c>.</returns>
+		public List<Terreno> ObtenerListaTerrenos()
+		{
+			List<Terreno> ret = new List<Terreno>();
 
-            foreach (var x in Topologia.Nodos)
-	        {
-                if (x is Terreno)
-                    ret.Add((Terreno)x);
-	        }
+			foreach (var x in Topologia.Nodos)
+			{
+				if (x is Terreno)
+					ret.Add((Terreno)x);
+			}
 
-            return ret;
-        }
+			return ret;
+		}
 
-        /// <summary>
-        /// Devuelve una lista de todos los terrenos desocupados en el juego.
-        /// </summary>
-        /// <returns></returns>
-        public List<Terreno> ObtenerListaTerrenosLibres()
-        {
-            return ObtenerListaTerrenos().FindAll(x => x.CiudadConstruida == null);
-        }
+		/// <summary>
+		/// Devuelve una lista de todos los terrenos desocupados en el juego.
+		/// </summary>
+		/// <returns></returns>
+		public List<Terreno> ObtenerListaTerrenosLibres()
+		{
+			return ObtenerListaTerrenos().FindAll(x => x.CiudadConstruida == null);
+		}
 	}
 }
 

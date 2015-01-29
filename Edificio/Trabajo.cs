@@ -13,8 +13,10 @@ namespace Civ
 		/// Devuelve la lista de instancias de trabajo de este edificio
 		/// </summary>
 		/// <value>The _ trabajo.</value>
-		public System.Collections.Generic.List<Trabajo> Trabajos {
-			get {
+		public System.Collections.Generic.List<Trabajo> Trabajos
+		{
+			get
+			{
 				return _Trabajo;
 			}
 		}
@@ -28,7 +30,8 @@ namespace Civ
 			get
 			{
 				ulong ret = 0;
-				foreach (var x in _Trabajo) {
+				foreach (var x in _Trabajo)
+				{
 					ret += x.Trabajadores;
 				}
 				return ret;
@@ -53,11 +56,11 @@ namespace Civ
 		/// Tomando en cuenta el estado de la ciudad.
 		/// </summary>
 		/// <value>The get espacios trabajadores.</value>
-		public ulong getEspaciosTrabajadoresCiudad 
+		public ulong getEspaciosTrabajadoresCiudad
 		{
-			get 
+			get
 			{
-				return (ulong)Math.Min (getEspaciosTrabajadores, CiudadDueño.getTrabajadoresDesocupados);
+				return (ulong)Math.Min(getEspaciosTrabajadores, CiudadDueño.getTrabajadoresDesocupados);
 			}
 		}
 
@@ -66,16 +69,21 @@ namespace Civ
 		/// Devuelve o establece el número de trabajadores en un trabajo
 		/// </summary>
 		/// <param name="Trab">El trabajo</param>
-		public ulong this [Trabajo Trab]
+		public ulong this[Trabajo Trab]
 		{
-			get {
-				if (Trabajos.Contains (Trab)) {
-					return Trab.Trabajadores;					
-				} else
+			get
+			{
+				if (Trabajos.Contains(Trab))
+				{
+					return Trab.Trabajadores;
+				}
+				else
 					return 0;
 			}
-			set {
-				if (Trabajos.Contains (Trab)) {
+			set
+			{
+				if (Trabajos.Contains(Trab))
+				{
 					Trab.Trabajadores = value;
 				}
 			}
@@ -85,11 +93,11 @@ namespace Civ
 		/// Si no existe, la crea.
 		/// </summary>
 		/// <param name="Trab">El RAW del trabajo.</param>
-		public Trabajo this [TrabajoRAW Trab]
+		public Trabajo this[TrabajoRAW Trab]
 		{
 			get
 			{
-				return getInstanciaTrabajo (Trab);
+				return getInstanciaTrabajo(Trab);
 			}
 		}
 		/// <summary>
@@ -98,16 +106,17 @@ namespace Civ
 		/// </summary>
 		/// <returns>The instancia trabajo.</returns>
 		/// <param name="Trab">El RAW de trabajo.</param>
-		public Trabajo getInstanciaTrabajo (TrabajoRAW Trab)
+		public Trabajo getInstanciaTrabajo(TrabajoRAW Trab)
 		{
-			foreach (var x in Trabajos) {
+			foreach (var x in Trabajos)
+			{
 				if (x.RAW == Trab)
 					return x;
 			}
-			return new Trabajo (Trab, this);
+			return new Trabajo(Trab, this);
 		}
 
-	
+
 	}
 }
 
