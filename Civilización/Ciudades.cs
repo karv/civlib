@@ -37,9 +37,6 @@ namespace Civ
 		{
 			if (C.CivDueño == this)
 				C.CivDueño = null;
-			if (getCiudades.Count == 0)
-				throw new Exception("Perdimos una civ. Hay que controlar esto.");    //TODO: Lo que dice la exception :3
-
 		}
 		/// <summary>
 		/// Agrega una nueva ciudad a esta civ.

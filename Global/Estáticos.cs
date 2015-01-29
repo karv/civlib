@@ -15,6 +15,19 @@ namespace Global
 
 		private const string archivo = "Data.xml";
 
+		public void Tick()
+		{
+			foreach (var Civ in State.Civs)
+			{
+				Civ.doTick();
+			}
+
+			// Matar Civs sin ciudades.
+			State.Civs.RemoveAll(x => (x.getCiudades.Count == 0));
+
+			
+		}
+
 		/// <summary>
 		/// Carga del archivo predeterminado.
 		/// </summary>
