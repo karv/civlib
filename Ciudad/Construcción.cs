@@ -10,7 +10,7 @@ namespace Civ
 		/// <summary>
 		/// Representa un edificio en construcción.
 		/// </summary>
-		internal class EdificioConstruyendo
+		class EdificioConstruyendo
 		{
 			public EdificioRAW RAW;
 
