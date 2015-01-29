@@ -123,6 +123,10 @@ namespace Civ
 		public void FullTick (float t = 1){
 			PopTick(t);
 			Tick(t);
+
+			if (CivDueño != null && getPoblación == 0) {		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
+				CivDueño.removeCiudad(this);
+			}
 		}
 
 	}
