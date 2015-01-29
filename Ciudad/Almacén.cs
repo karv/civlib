@@ -7,7 +7,7 @@ namespace Civ
 	public partial class Ciudad
 	{
 		//Almacén
-		//TODO Hacer una clase que controle bien esto; luego veo.
+
 		/// <summary>
 		/// Almacén de recursos.
 		/// </summary>
@@ -27,7 +27,6 @@ namespace Civ
 			{
 				Almacén[RecursoAlimento] = value;
 			}
-
 		}
 	}
 }
