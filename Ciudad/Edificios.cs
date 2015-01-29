@@ -76,7 +76,7 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Devuelve la lista de edificios contruibles por esta ciudad; los que se pueden hacer yno estpan hechos.
+		/// Devuelve la lista de edificios contruibles por esta ciudad; los que se pueden hacer y no están hechos.
 		/// </summary>
 		/// <returns></returns>
 		public List<EdificioRAW> Construibles()
