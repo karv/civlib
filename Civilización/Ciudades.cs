@@ -30,6 +30,18 @@ namespace Civ
 		}
 
 		/// <summary>
+		/// Quita una ciudad de la civilización, haciendo que quede sin <c>CivDueño</c>.
+		/// </summary>
+		/// <param name="C">Ciudad a quitar.</param>
+		public void removeCiudad(Ciudad C)
+		{
+			if (C.CivDueño == this)
+				C.CivDueño = null;
+			if (getCiudades.Count == 0)
+				throw new Exception("Perdimos una civ. Hay que controlar esto.");    //TODO: Lo que dice la exception :3
+
+		}
+		/// <summary>
 		/// Agrega una nueva ciudad a esta civ.
 		/// </summary>
 		/// <returns>Devuelve la ciudad que se agregó.</returns>

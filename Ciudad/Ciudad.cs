@@ -30,9 +30,11 @@ namespace Civ
 				return _CivDueño;
 			}
 			set	{
-				if (_CivDueño != null) _CivDueño.getCiudades.Remove (this);
+				if (_CivDueño != null) 
+					_CivDueño.getCiudades.Remove (this);
 				_CivDueño = value;
-				_CivDueño.getCiudades.Add (this);
+				if (_CivDueño != null)
+					_CivDueño.getCiudades.Add(this);
 			}
 		}
 

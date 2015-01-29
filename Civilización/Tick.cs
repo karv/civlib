@@ -14,7 +14,7 @@ namespace Civ
 		public void doTick()
 		{
 			Random r = new Random();
-			foreach (var x in Ciudades) {
+			foreach (var x in Ciudades.ToArray()) {
 				x.FullTick ();
 			}
 
