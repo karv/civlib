@@ -47,11 +47,11 @@ namespace Civ
         /// El tick de este edificio sobre una ciudad.
         /// </summary>
         /// <param name="C"><see cref="Civ.Ciudad"/> donde hará un tick esta propiedad.</param>
-        public virtual void Tick (Ciudad C)
+        public virtual void Tick (Ciudad C, float t = 1)
         {
             foreach (Recurso x in _Salida.Keys)
             {
-                C.Almacén[x] += _Salida[x];
+                C.Almacén[x] += _Salida[x] * t;
             }
         }
 
