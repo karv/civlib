@@ -59,7 +59,7 @@ namespace Civ
 
 		// Construcción
 		/// <summary>
-		/// Lista de sus IRequerimientos.
+		/// Lista de los recursos requeridos.
 		/// </summary>
 		[DataMember(Name = "Construcción")]
 		public Dictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float>();
@@ -78,6 +78,7 @@ namespace Civ
 		/// <summary>
 		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
 		/// </summary>
+		[DataMember]
 		public bool EsAutoConstruíble;
 	}
 
