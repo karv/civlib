@@ -10,7 +10,7 @@ namespace Civ
 		/// <summary>
 		/// Representa un edificio en construcción.
 		/// </summary>
-		class EdificioConstruyendo
+		public class EdificioConstruyendo
 		{
 			public EdificioRAW RAW;
 
@@ -79,12 +79,29 @@ namespace Civ
 			{
 				return CiudadDueño.AgregaEdificio(RAW);
 			}
+
+			/// <summary>
+			/// Devuelve el procentage construido. Número en [0,1]
+			/// </summary>
+			/// <returns>float entre 0 y 1.</returns>
+			public float Porcentageconstruccion()
+			{
+				float Max = 0;
+				float Act = RecursosAcumulados.SumaTotal();
+
+				foreach (var x in RAW.ReqRecursos.Keys)
+				{
+					Max += RAW.ReqRecursos[x];
+				}
+
+				return Act / Max;
+			}
 		}
 
 		/// <summary>
 		/// Devuelve o establece El edificio que se está contruyendo, y su progreso.
 		/// </summary>
-		private EdificioConstruyendo EdifConstruyendo;
+		public EdificioConstruyendo EdifConstruyendo;
 
 		/// <summary>
 		/// Devuelve el RAW del edificio que se está contruyendo.
