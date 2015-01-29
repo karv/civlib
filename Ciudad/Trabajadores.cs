@@ -84,6 +84,7 @@ namespace Civ
 		/// <returns>Devuelve el trabajo en la ciudad correspondiente a este TrabajoRAW.</returns>
 		public Trabajo EncuentraInstanciaTrabajo(TrabajoRAW TRAW)
 		{
+			if (TRAW == null) return null;
 			EdificioRAW Ed = TRAW.Edificio;   // La clase de edificio que puede contener este trabajo.
 			Edificio Edif = EncuentraInstanciaEdificio(Ed); // La instancia del edificio en esta ciudad.
 
