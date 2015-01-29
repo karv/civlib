@@ -123,59 +123,6 @@ namespace Global
 		}
 
 		/// <summary>
-		/// Devuelve el recurso con un nombre específico.
-		/// </summary>
-		/// <returns>The recurso.</returns>
-		/// <param name="nombre">Nombre del recurso a buscar.</param>
-		public Civ.Recurso EncuentraRecurso(string nombre)
-		{
-			foreach (var x in Recursos)
-			{
-				if (x.Nombre == nombre)
-				{
-					return x;
-				}
-			}
-			throw new Exception(string.Format("No existe el recurso {0}. Compruebe que los nombres y referencias estén bien escritos en el XML.", nombre));
-			// return null;
-		}
-
-		/// <summary>
-		/// Devuelve la ciencia con un nombre específico.
-		/// </summary>
-		/// <returns>Ciencia.</returns>
-		/// <param name="nombre">Nombre de la ciencia a buscar.</param>
-		public Civ.Ciencia EncuentraCiencia(string nombre)
-		{
-			foreach (var x in Ciencias)
-			{
-				if (x.Nombre == nombre)
-				{
-					return x;
-				}
-			}
-			return null;
-		}
-
-		/// <summary>
-		/// Devuelve el requerimiento con un id específico.
-		/// </summary>
-		/// <returns>IRequerimiento.</returns>
-		/// <param name="Id">Nombre del IRequerimiento a buscar.</param>
-		public Civ.IRequerimiento EncuentraRequerimiento(string Id)
-		{
-			foreach (var x in Reqs)
-			{
-				if (x.ObtenerId() == Id)
-				{
-					return x;
-				}
-			}
-			throw new Exception("No se encuentra requerimiento " + Id + ". ");
-			// return null;            
-		}
-
-		/// <summary>
 		/// Devuelve el trabajo con un nombre específico.
 		/// </summary>
 		/// <returns>TrabajoRAW.</returns>
