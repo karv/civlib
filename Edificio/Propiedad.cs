@@ -38,10 +38,6 @@ namespace Civ
 		{
 			return C.ExistePropiedad(this);
 		}
-		string IRequerimiento.ObtenerId()
-		{
-			return Nombre;
-		}
 
 		/// <summary>
 		/// El tick de este edificio sobre una ciudad.

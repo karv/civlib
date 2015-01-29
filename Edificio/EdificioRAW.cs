@@ -30,10 +30,6 @@ namespace Civ
 		{
 			return C.ExisteEdificio(this);
 		}
-		string Civ.IRequerimiento.ObtenerId()
-		{
-			return Nombre;
-		}
 
 		// Requiere
 

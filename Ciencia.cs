@@ -53,10 +53,5 @@ namespace Civ
 		{
 			return C.CivDueño.Avances.Contains(this);
 		}
-
-		string IRequerimiento.ObtenerId()
-		{
-			return Nombre;
-		}   //TODO: ¿Se necesita esto?
 	}
 }
