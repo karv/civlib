@@ -52,18 +52,6 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Devuelve el edificio en la ciudad con un nombre específico.
-		/// </summary>
-		/// <param name="Ed">Nombre del edificio.</param>
-		/// <returns>La instancia de edificio en la ciudad; si no existe devuelve <c>null</c>.</returns>
-		public Edificio EncuentraInstanciaEdificio(string Ed)
-		{
-			if (!Global.g_.Data.ExisteEdificio(Ed)) return null;       //Si no existe el edificio, devuelve nulo
-			EdificioRAW Edif = Global.g_.Data.EncuentraEdificio(Ed);   //La clase de edificio que puede contener este trabajo.
-			return EncuentraInstanciaEdificio(Edif);
-		}
-
-		/// <summary>
 		/// Agrega una instancia de edicifio a la ciudad.
 		/// </summary>
 		/// <returns>La instancia de edificio que se agregó.</returns>
