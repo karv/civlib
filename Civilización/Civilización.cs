@@ -30,6 +30,7 @@ namespace Civ
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
 		public List<string> Msj = new List<string>();
+
 		List<Armada> _Armadas = new List<Armada>();
 
 		/// <summary>
@@ -41,6 +42,20 @@ namespace Civ
 			get
 			{
 				return _Armadas;
+			}
+		}
+
+		Dictionary<Civilizacion, EstadoDiplomatico> _Diplomacia = new Dictionary<Civilizacion, EstadoDiplomatico>();
+
+		/// <summary>
+		/// Devuelve el estado diplomático de esta Civilización.
+		/// </summary>
+		/// <value>The _ diplomacia.</value>
+		public Dictionary<Civilizacion, EstadoDiplomatico> Diplomacia
+		{
+			get
+			{
+				return _Diplomacia;
 			}
 		}
 	}
