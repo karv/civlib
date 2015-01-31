@@ -24,8 +24,8 @@ namespace Civ
 			}
 		}
 
-		float _MaxPeso; //  Probablemente, _MaxPeso sea una función que dependa de CivDueño.
-
+		float _MaxPeso;
+		//  Probablemente, _MaxPeso sea una función que dependa de CivDueño.
 		/// <summary>
 		/// Devuelve o establece el máximo peso que puede cargar esta armada.
 		/// </summary>
@@ -121,7 +121,60 @@ namespace Civ
 		{
 			Unidades.Remove(U);
 		}
-	}
 
+		/// <summary>
+		/// Pelea durante t chronons
+		/// </summary>
+		/// <param name="A">Armada</param>
+		/// <param name="t">tiempo de pelea</param>
+		/// <param name="r">Randomizer</param>
+		public void Pelea(Armada A, float t, Random r = null)
+		{
+			if (r == null)
+				r = new Random();
+
+			Armada[] Arms = new Armada[2];
+			Unidad Ata;
+			Unidad Def;
+			Arms[0] = this;
+			Arms[1] = A;
+
+			int i = r.Next(2); // Arms[i] Inicia
+			int j = 1 - i;
+			Ata = Arms[i].MayorDaño(Arms[j]);
+			Def = Ata.MenorDaño(Arms[j]);
+			Ata.CausaDaño(Def, t);
+
+			i = j; // Arms[1 - 1] le sigue.
+			j = 1 - i;
+			Ata = Arms[i].MayorDaño(Arms[j]);
+			Def = Ata.MenorDaño(Arms[j]);
+			Ata.CausaDaño(Def, t);
+		}
+
+		/// <summary>
+		/// Devuelve la unidad de maximin daño de this.Unidades a A.Unidades
+		/// </summary>
+		/// <returns>La unidad que hace el mayor daño menor.</returns>
+		/// <param name="A">A.</param>
+		Unidad MayorDaño(Armada A)
+		{
+			float maxDaño = 0;
+			float currDaño;
+			Unidad ret = null;
+			foreach (var x in Unidades)
+			{
+				currDaño = x.DañoPropuesto(x.MenorDaño(A));
+				if (currDaño > maxDaño)
+					ret = x;
+			}
+			return ret;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("[Armada: Unidades={0}, MaxPeso={1}, Peso={2}, PesoLibre={3}, Posición={4}]", Unidades, MaxPeso, Peso, PesoLibre, Posición);
+		}
+	}
 	// TODO: Hacer clase interna "Orden", que lleve información de hacia dónde va a qué va. Necesitará gráficas.
 }

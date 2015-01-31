@@ -23,6 +23,7 @@ namespace Civ
 		{
 			RAW = uRAW;
 			Nombre = uRAW.Nombre;
+			_HP = 1;
 		}
 
 		public override string ToString()
@@ -34,7 +35,6 @@ namespace Civ
 		/// Devuelve o establece el nombre de esta unidad.
 		/// </summary>
 		public string Nombre;
-
 		float _Entrenamiento;
 
 		/// <summary>
@@ -81,8 +81,8 @@ namespace Civ
 		}
 
 		public IPosicion Posición;
-
 		Armada _ArmadaPerteneciente;
+
 		/// <summary>
 		/// Devuelve la armada a la que pertenece esta unidad.
 		/// No se use para cambiar de armada. Siempre es mejor hacerlo desde la clase <c>Armada</c>.
@@ -112,6 +112,61 @@ namespace Civ
 			if (ArmadaPerteneciente != null)
 			{
 				ArmadaPerteneciente.QuitarUnidad(this);
+			}
+		}
+
+		/// <summary>
+		/// Devuelve el daño máximo que haría esta unidad contra U.
+		/// </summary>
+		/// <param name="U">Unidad con quien comparar</param>
+		public float DañoPropuesto(Unidad U)
+		{
+			float ret;
+			float mod = 0;
+			ret = RAW.Fuerza * HP / U.RAW.Fuerza;
+			foreach (var x in U.RAW.Flags)
+			{
+				mod += RAW.Mods[x];
+			}
+			return ret * (1 + mod);
+		}
+
+		/// <summary>
+		/// Devuelve la unidad de una armada, tal que this propone el menor daño.
+		/// </summary>
+		public Unidad MenorDaño(Armada A)
+		{
+			float minDaño = float.PositiveInfinity;
+			float currDaño;
+			Unidad ret = null;
+			foreach (var x in A.Unidades)
+			{
+				currDaño = DañoPropuesto(x);
+				if (currDaño < minDaño)
+					ret = x;
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Causa el daño a la unidad U que le corresponde.
+		/// </summary>
+		/// <param name="U">Unidad a quien dañar</param>
+		/// <param name="t">Tiempo</param>
+		public void CausaDaño(Unidad U, float t)
+		{
+			float Daño = DañoPropuesto(U) * t;
+			U.HP -= Daño;
+		}
+
+		/// <summary>
+		/// Devuelve <c>true</c> sólo si esta unidad está muerta.
+		/// </summary>
+		public bool Muerto
+		{
+			get
+			{
+				return HP == 0;
 			}
 		}
 	}

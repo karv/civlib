@@ -10,7 +10,6 @@ namespace Civ
 		/// Nombre de la <see cref="Str.Civilización"/>.
 		/// </summary>
 		public string Nombre;
-
 		// Economía
 		/// <summary>
 		/// Devuelve la cantidad que existe en la civilización de un cierto recurso.
@@ -26,14 +25,24 @@ namespace Civ
 			}
 			return ret;
 		}
-
 		// TODO: Hacer clase que controle esto:
-
 		/// <summary>
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
 		public List<string> Msj = new List<string>();
+		List<Armada> _Armadas = new List<Armada>();
 
+		/// <summary>
+		/// Devuelve la lista de armadas de la civ.
+		/// </summary>
+		/// <value>The armadas.</value>
+		public List<Armada> Armadas
+		{
+			get
+			{
+				return _Armadas;
+			}
+		}
 	}
 }
 
