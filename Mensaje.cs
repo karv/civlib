@@ -9,19 +9,21 @@ namespace IU
 	{
 		/// <summary>
 		/// El texto mensaje.
+		/// Se puede usar el formato de <see cref="string.Format"/>,
 		/// </summary>
 		public string Msj;
 		/// <summary>
-		/// Objeto vinculado a este mensaje.
+		/// Objetos vinculados a este mensaje.
+		/// Se usan como argumentos al usar ToString.
 		/// </summary>
-		public object Origen;
+		public object[] Origen;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IU.Mensaje"/> class.
 		/// </summary>
 		/// <param name="nMensaje">Texto</param>
 		/// <param name="nOrigen">Objeto vinculado</param>
-		public Mensaje(string nMensaje, object nOrigen)
+		public Mensaje(string nMensaje, params object[] nOrigen)
 		{
 			Msj = nMensaje;
 			Origen = nOrigen;
@@ -29,7 +31,7 @@ namespace IU
 
 		public override string ToString()
 		{
-			return Mensaje;
+			return string.Format(Msj, Origen);
 		}
 	}
 }
