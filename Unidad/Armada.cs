@@ -74,7 +74,7 @@ namespace Civ
 		/// Devuelve el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		public IPosicion Posición
+		public IPosicion Posicion
 		{
 			get
 			{
@@ -110,7 +110,7 @@ namespace Civ
 		/// <param name="U">La unidad con la que se comparará posición.</param>
 		public bool PosiciónConsistente(Unidad U)
 		{
-			return Posición == null || Posición == U.Posición;
+			return Posicion == null || Posicion == U.Posición;
 		}
 
 		/// <summary>
@@ -173,7 +173,7 @@ namespace Civ
 
 		public override string ToString()
 		{
-			return string.Format("[Armada: Unidades={0}, MaxPeso={1}, Peso={2}, PesoLibre={3}, Posición={4}]", Unidades, MaxPeso, Peso, PesoLibre, Posición);
+			return string.Format("[Armada: Unidades={0}, MaxPeso={1}, Peso={2}, PesoLibre={3}, Posición={4}]", Unidades, MaxPeso, Peso, PesoLibre, Posicion);
 		}
 	}
 	// TODO: Hacer clase interna "Orden", que lleve información de hacia dónde va a qué va. Necesitará gráficas.
