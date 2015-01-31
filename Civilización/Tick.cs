@@ -44,11 +44,11 @@ namespace Civ
 					}
 				}
 
-				foreach (var Avan in Investigado)
+				foreach (Ciencia Avan in Investigado)
 				{
 					Avances.Add(Avan);
 					Investigando.Data.Remove(Avan);
-					Msj.Add("Investigación terminada: " + Avan.Nombre);
+					Msj.Add(new IU.Mensaje("Investigación terminada: {0}", Avan));
 				}
 
 				// Fase final, desaparecer recursos.
@@ -58,6 +58,5 @@ namespace Civ
 				}
 			}
 		}
-
 	}
 }

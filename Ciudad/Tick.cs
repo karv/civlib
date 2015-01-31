@@ -2,7 +2,6 @@ using System;
 using ListasExtra;
 using System.Collections.Generic;
 
-
 namespace Civ
 {
 	public partial class Ciudad
@@ -58,7 +57,7 @@ namespace Civ
 
 			if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
 			{
-				CivDueño.Msj.Add(string.Format("La ciudad {0} ha perdido trabajadores productivos ocupados.", this.Nombre));
+				CivDueño.Msj.Add(new IU.Mensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this));
 				LiberarTrabajadores(PoblaciónProductiva - (ulong)Crecimiento[1]);
 
 			}
@@ -137,7 +136,6 @@ namespace Civ
 				CivDueño.removeCiudad(this);
 			}
 		}
-
 	}
 }
 
