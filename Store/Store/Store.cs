@@ -4,12 +4,10 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Runtime.Serialization;
-
 using System.IO;
 
 namespace Store
 {
-
 	public static partial class Store<T>
 	{
 		/// <summary>
@@ -42,7 +40,4 @@ namespace Store
 		}
 	}
 }
-
-
-
 
