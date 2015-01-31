@@ -7,11 +7,10 @@ namespace Civ
 	public partial class Civilizacion
 	{
 		/// <summary>
-		/// Nombre de la <see cref="Str.Civilización"/>.
+		/// Nombre de la <see cref="Civ.Civilización"/>.
 		/// </summary>
 		public string Nombre;
-
-		// Economía
+		// **** Economía
 		/// <summary>
 		/// Devuelve la cantidad que existe en la civilización de un cierto recurso.
 		/// </summary>
@@ -26,14 +25,11 @@ namespace Civ
 			}
 			return ret;
 		}
-
 		// TODO: Hacer clase que controle esto:
-
 		/// <summary>
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
-		public List<string> Msj = new List<string>();
-
+		public List<IU.Mensaje> Msj = new List<IU.Mensaje>();
 	}
 }
 

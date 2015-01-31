@@ -69,6 +69,7 @@
     <Compile Include="Unidad\Armada.cs" />
     <Compile Include="Unidad\Unidad.cs" />
     <Compile Include="Unidad\UnidadRAW.cs" />
+    <Compile Include="Mensaje.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
