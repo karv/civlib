@@ -12,7 +12,6 @@ namespace Global
 		[DataMember(Name = "Data")]
 		public static g_Data Data = new g_Data();
 		public static g_State State = new g_State();
-
 		private const string archivo = "Data.xml";
 
 		public static void Tick(float t = 1)
@@ -20,6 +19,30 @@ namespace Global
 			foreach (var Civ in State.Civs)
 			{
 				Civ.doTick(t);
+			}
+
+			// Peleas entre armadas de Civs enemigas
+			for (int i = 0; i < State.Civs.Count; i++)
+			{
+				Civ.Civilizacion civA = State.Civs[i];
+				for (int j = 0; j < i; j++)
+				{
+					Civ.Civilizacion civB = State.Civs[j];
+					if ((civA.Diplomacia.ContainsKey(civB) && civA.Diplomacia[civB].PermiteAtacar) || 
+						(civB.Diplomacia.ContainsKey(civA) && civB.Diplomacia[civA].PermiteAtacar))
+					{
+						foreach (var ArmA in civA.Armadas)
+						{
+							foreach (var ArmB in civB.Armadas)
+							{
+								if (ArmA.Posicion.Equals(ArmB.Posicion))
+								{
+									ArmA.Pelea(ArmB, t);
+								}
+							}
+						}
+					}
+				}
 			}
 
 			// Matar Civs sin ciudades.
@@ -83,8 +106,6 @@ namespace Global
 				State.Civs.Add(C);
 			}
 		}
-
-
 		// constantes
 		const int numTerrenosIniciales = 40;
 		const int numCivsIniciales = 4;

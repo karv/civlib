@@ -25,6 +25,33 @@ namespace Civ
 			}
 			return ret;
 		}
+		List<Armada> _Armadas = new List<Armada>();
+
+		/// <summary>
+		/// Devuelve la lista de armadas de la civ.
+		/// </summary>
+		/// <value>The armadas.</value>
+		public List<Armada> Armadas
+		{
+			get
+			{
+				return _Armadas;
+			}
+		}
+
+		Dictionary<Civilizacion, EstadoDiplomatico> _Diplomacia = new Dictionary<Civilizacion, EstadoDiplomatico>();
+
+		/// <summary>
+		/// Devuelve el estado diplomático de esta Civilización.
+		/// </summary>
+		/// <value>The _ diplomacia.</value>
+		public Dictionary<Civilizacion, EstadoDiplomatico> Diplomacia
+		{
+			get
+			{
+				return _Diplomacia;
+			}
+		}
 	}
 }
 

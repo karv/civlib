@@ -71,6 +71,7 @@
     <Compile Include="Unidad\Unidad.cs" />
     <Compile Include="Unidad\UnidadRAW.cs" />
     <Compile Include="Mensaje.cs" />
+    <Compile Include="Civilización\EstadoDiplomatico.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
