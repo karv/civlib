@@ -57,7 +57,7 @@ namespace Civ
 
 			if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
 			{
-				CivDueño.Msj.Add(new IU.Mensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this));
+				CivDueño.AgregaMensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this);
 				LiberarTrabajadores(PoblaciónProductiva - (ulong)Crecimiento[1]);
 
 			}

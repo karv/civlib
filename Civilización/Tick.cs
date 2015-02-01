@@ -48,7 +48,7 @@ namespace Civ
 				{
 					Avances.Add(Avan);
 					Investigando.Data.Remove(Avan);
-					Msj.Add(new IU.Mensaje("Investigación terminada: {0}", Avan));
+					AgregaMensaje("Investigación terminada: {0}", Avan);
 				}
 
 				// Fase final, desaparecer recursos.
