@@ -47,8 +47,12 @@ namespace Civ
 		/// <returns>Devuelve el mensaje siguiente en la cola.</returns>
 		public IU.Mensaje SiguitenteMensaje ()
 		{
-			IU.Mensaje ret = (IU.Mensaje)Mensajes.Dequeue();
-			return ret;
+			if (ExisteMensaje)
+			{
+				IU.Mensaje ret = (IU.Mensaje)Mensajes.Dequeue();
+				return ret;
+			}
+			else return null;
 		}
 
 		public event Action OnNuevoMensaje;
