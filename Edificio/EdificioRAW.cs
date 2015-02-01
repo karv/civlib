@@ -15,7 +15,27 @@ namespace Civ
 		[DataMember]
 		public ulong MaxWorkers;
 
-		public override string ToString()
+        /// <summary>
+        /// Devuelve o establece el máximo número de instancias de este edificio por ciudad
+        /// </summary>
+        [DataMember]
+        public int MaxPorCiudad = 1;
+
+        /// <summary>
+        /// Devuelve o establece el máximo número de instancias de este edificio por civilización
+        /// Si vale 0, significa "sin límite"
+        /// </summary>
+        [DataMember]
+        public int MaxPorCivilizacion = 0;
+
+        /// <summary>
+        /// Devuelve o establece el máximo número de instancias de este edificio por mundo
+        /// Si vale 0, significa "sin límite"
+        /// </summary>
+        [DataMember]
+        public int MaxPorMundo = 0;
+
+        public override string ToString()
 		{
 			return Nombre;
 		}

@@ -57,6 +57,21 @@ namespace Global
 		{
 			return ObtenerListaTerrenos().FindAll(x => x.CiudadConstruida == null);
 		}
+
+        /// <summary>
+        /// Devuelve el número de edificios de un tipo determinado en el mundo
+        /// </summary>
+        /// <param name="Edif">Una clase de edificio.</param>
+        /// <returns></returns>
+        public int CuentaEdificios(EdificioRAW Edif)
+        {
+            int ret = 0;
+            foreach (var x in Civs)
+            {
+                ret += x.CuentaEdificios(Edif);
+            }
+            return ret;
+        }
 	}
 }
 

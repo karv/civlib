@@ -115,7 +115,8 @@ namespace Civ
 			set
 			{
 				// TODO: ¿Qué hacer con los recursos del edificio anterior? ¿Se pierden? (por ahora sí :3)
-				EdifConstruyendo = new EdificioConstruyendo(value, this);
+                if (value == null || PuedeConstruir(value)) EdifConstruyendo = new EdificioConstruyendo(value, this);
+                else throw new Exception (string.Format("No se puede construir {0} en {1}.", value, this));
 			}
 		}
 

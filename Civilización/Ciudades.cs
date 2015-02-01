@@ -51,6 +51,20 @@ namespace Civ
 			return C;
 		}
 
+        /// <summary>
+        /// Cuenta el número de edificios que existen en la ciudad.
+        /// </summary>
+        /// <param name="Edif"></param>
+        /// <returns></returns>
+        public int CuentaEdificios(EdificioRAW Edif)
+        {
+            int ret = 0;
+            foreach (var x in Ciudades)
+            {
+                ret += x.NumEdificios(Edif);
+            }
+            return ret;
+        }
 	}
 }
 

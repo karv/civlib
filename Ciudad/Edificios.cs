@@ -72,14 +72,42 @@ namespace Civ
 			List<EdificioRAW> ret = new List<EdificioRAW>();
 			foreach (EdificioRAW x in Global.g_.Data.Edificios)
 			{
-				if (!ExisteEdificio(x) && SatisfaceReq(x.Reqs()))
-				{
-					ret.Add(x);
-				}
+                if (PuedeConstruir(x)) ret.Add(x);
 			}
 			return ret;
 		}
-		// Propiedades	//TODO: Ponerlos en otro archivo.
+
+        /// <summary>
+        /// Devuelve <c>true</c> si un edificio se puede contruir en esta ciudad.
+        /// <c>false</c> en caso contrario.
+        /// </summary>
+        /// <param name="Edif">Clase de edificio</param>
+        /// <returns></returns>
+        public bool PuedeConstruir (EdificioRAW Edif)
+        {
+            if (!SatisfaceReq(Edif.Reqs())) return false;
+			if (ExisteEdificio(Edif)) return false;	// Por ahora no se permite múltiples instancias del mismo edificio en una ciudad.
+            if (Edif.MaxPorCivilizacion > 0 && Edif.MaxPorCivilizacion <= CivDueño.CuentaEdificios(Edif)) return false;
+            if (Edif.MaxPorMundo > 0 && Edif.MaxPorCivilizacion <= Global.g_.State.CuentaEdificios(Edif)) return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Devuelve el número de edificios de una clase que se encutrnan en la ciudad.
+        /// </summary>
+        /// <param name="Edif">Clase de edificio.</param>
+        /// <returns></returns>
+        public int NumEdificios (EdificioRAW Edif)
+        {
+            int ret = 0;
+            foreach (var x in Edificios)
+            {
+                if (x.RAW == Edif) ret++;
+            }
+            return ret;
+        }
+		
+        // Propiedades	//TODO: Ponerlos en otro archivo.
 		System.Collections.Generic.List<Propiedad> _Prop = new System.Collections.Generic.List<Propiedad>();
 		/// <summary>
 		/// Devuelve la lista de Propiedades de la ciudad.
