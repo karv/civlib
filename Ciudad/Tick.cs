@@ -62,12 +62,22 @@ namespace Civ
 
 			}
 
-			// TODO: Los de mayor prioridad reclutan trabajadores en descanso. (¿opcional?)
-
 			_PoblaciónPreProductiva = Math.Max(_PoblaciónPreProductiva + Crecimiento[0], 0);
 			_PoblaciónProductiva = Math.Max(_PoblaciónProductiva + Crecimiento[1], 0);
 			_PoblaciónPostProductiva = Math.Max(_PoblaciónPostProductiva + Crecimiento[2], 0);
 
+			if (AutoReclutar)
+			{
+				// Autoacomodar trabajadores desocupados
+				List<Trabajo> Lst = ObtenerListaTrabajos;
+
+				Lst.Sort(((x, y) => x.Prioridad < y.Prioridad ? -1 : 1));
+
+				for (int i = 0; i < Lst.Count && getTrabajadoresDesocupados > 0; i++)
+				{
+					Lst[i].Trabajadores = Lst[i].MaxTrabajadores;
+				}
+			}
 		}
 
 		/// <summary>

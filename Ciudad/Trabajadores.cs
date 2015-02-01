@@ -22,6 +22,11 @@ namespace Civ
 				return ret;
 			}
 		}
+
+		/// <summary>
+		/// Devuelve el número de trabajadores desocupados en la ciudad.
+		/// </summary>
+		/// <value>The get trabajadores desocupados.</value>
 		public ulong getTrabajadoresDesocupados
 		{
 			get
@@ -84,14 +89,17 @@ namespace Civ
 		/// <returns>Devuelve el trabajo en la ciudad correspondiente a este TrabajoRAW.</returns>
 		public Trabajo EncuentraInstanciaTrabajo(TrabajoRAW TRAW)
 		{
-			if (TRAW == null) return null;
+			if (TRAW == null)
+				return null;
 			EdificioRAW Ed = TRAW.Edificio;   // La clase de edificio que puede contener este trabajo.
 			Edificio Edif = EncuentraInstanciaEdificio(Ed); // La instancia del edificio en esta ciudad.
 
-			if (Edif == null) return null;    // Devuelve nulo si no existe el edificio donde se trabaja.
+			if (Edif == null)
+				return null;    // Devuelve nulo si no existe el edificio donde se trabaja.
 			foreach (Trabajo x in ObtenerListaTrabajos)
 			{
-				if (x.RAW == TRAW) return x;
+				if (x.RAW == TRAW)
+					return x;
 			}
 			return null;
 		}
@@ -106,12 +114,10 @@ namespace Civ
 		public Trabajo EncuentraInstanciaTrabajo(string TRAW)
 		{
 			TrabajoRAW Tr = Global.g_.Data.EncuentraTrabajo(TRAW);
-			if (Tr == null) return null;
+			if (Tr == null)
+				return null;
 			return EncuentraInstanciaTrabajo(Tr);
 		}
-
-
-
 	}
 }
 
