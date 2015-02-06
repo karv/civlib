@@ -13,9 +13,7 @@ namespace Global
 		/// <summary>
 		/// La topología del mundo.
 		/// </summary>
-		public Grafica<IPosicion> Topologia;
-
-
+		public Grafica<Terreno> Topologia;
 		private List<Civilizacion> _Civs = new List<Civilizacion>();
 
 		/// <summary>
@@ -28,7 +26,7 @@ namespace Global
 
 		public g_State()
 		{
-			Topologia = new Grafica<IPosicion>();
+			Topologia = new Grafica<Terreno>();
 			Topologia.EsSimetrico = true;
 		}
 
@@ -58,20 +56,20 @@ namespace Global
 			return ObtenerListaTerrenos().FindAll(x => x.CiudadConstruida == null);
 		}
 
-        /// <summary>
-        /// Devuelve el número de edificios de un tipo determinado en el mundo
-        /// </summary>
-        /// <param name="Edif">Una clase de edificio.</param>
-        /// <returns></returns>
-        public int CuentaEdificios(EdificioRAW Edif)
-        {
-            int ret = 0;
-            foreach (var x in Civs)
-            {
-                ret += x.CuentaEdificios(Edif);
-            }
-            return ret;
-        }
+		/// <summary>
+		/// Devuelve el número de edificios de un tipo determinado en el mundo
+		/// </summary>
+		/// <param name="Edif">Una clase de edificio.</param>
+		/// <returns></returns>
+		public int CuentaEdificios(EdificioRAW Edif)
+		{
+			int ret = 0;
+			foreach (var x in Civs)
+			{
+				ret += x.CuentaEdificios(Edif);
+			}
+			return ret;
+		}
 	}
 }
 

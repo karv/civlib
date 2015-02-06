@@ -17,7 +17,7 @@ namespace Civ
 			Ir
 		}
 
-		public IPosicion Destino;
+		public Pseudoposicion Destino;
 	}
 
 	public partial class Armada

@@ -78,7 +78,7 @@ namespace Global
 
 
 			// Hacer la topología
-			List<Civ.IPosicion> Terrenos = new List<Civ.IPosicion>();
+			List<Civ.Terreno> Terrenos = new List<Civ.Terreno>();
 			Civ.Terreno T;
 			Civ.Ecosistema Eco;
 			Civ.Civilizacion C;
@@ -90,7 +90,16 @@ namespace Global
 				T = new Civ.Terreno(Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add(T);                                        // Lo enlisto.
 			}
-			State.Topologia = Graficas.Grafica<Civ.IPosicion>.GeneraGraficaAleatoria(Terrenos);
+			State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
+
+			// Vaciar la topología en cada Terreno
+			foreach (var x in State.Topologia.Vecinos.Keys)
+			{
+				Civ.Terreno a = (Civ.Terreno)x.Item1;
+				Civ.Terreno b = (Civ.Terreno)x.Item2;
+				a.Vecinos[b] = State.Topologia[a, b];
+				b.Vecinos[a] = State.Topologia[b, a];
+			}
 
 			// Asignar una ciudad de cada civilización en terrenos vacíos y distintos lugares.
 			for (int i = 0; i < numCivsIniciales; i++)

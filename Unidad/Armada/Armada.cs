@@ -70,13 +70,13 @@ namespace Civ
 			}
 		}
 
-		IPosicion _Posicion;
+		Pseudoposicion _Posicion;
 
 		/// <summary>
 		/// Devuelve o establece el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		public IPosicion Posicion
+		public Pseudoposicion Posicion
 		{
 			get { return _Posicion; }
 			set { _Posicion = value; }
@@ -189,7 +189,7 @@ namespace Civ
 		{
 			get
 			{
-				return Posicion is Terreno;
+				return Posicion.Avance == 0;
 			}
 		}
 
@@ -207,8 +207,8 @@ namespace Civ
 						// Convertir Posición en Pseudoposición.
 						PS = new Pseudoposicion();
 						PS.Avance = 0;
-						PS.Destino = Orden.Destino;
-						PS.Origen = Posicion;
+						PS.Destino = Orden.Destino.Destino;
+						PS.Origen = Posicion.Origen;
 
 						Posicion = PS;
 					}
@@ -216,12 +216,26 @@ namespace Civ
 					PS = (Pseudoposicion)Posicion;
 					// Avanzar
 					PS.Avance += t * Velocidad;
-					// TODO: Revisar si llegó
+
+
+					//Revisar si están en el mismo Terreno-intervalo
+					if (PS.Origen == Orden.Destino.Origen && PS.Destino == Orden.Destino.Destino) // Esto debe pasar siempre, por ahora.
+					{
+						if (PS.Avance >= Orden.Destino.Avance)
+						{
+							// Ya llegó.
+							CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", this, Orden.Destino, Orden));
+							Orden = null;
+						}
+					}
 					break;
 				default:
 					break;
 			}
 		}
+
+		Civilizacion CivDueño;
+		// TODO Hacer esto.
 	}
 	// TODO: Hacer clase interna "Orden", que lleve información de hacia dónde va a qué va. Necesitará gráficas.
 }
