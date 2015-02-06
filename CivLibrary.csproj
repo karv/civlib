@@ -68,12 +68,14 @@
     <Compile Include="Trabajo\Trabajadores.cs" />
     <Compile Include="Trabajo\Tick.cs" />
     <Compile Include="Trabajo\Trabajo.cs" />
-    <Compile Include="Unidad\Armada.cs" />
     <Compile Include="Unidad\Unidad.cs" />
     <Compile Include="Unidad\UnidadRAW.cs" />
     <Compile Include="Mensaje.cs" />
     <Compile Include="Civilización\EstadoDiplomatico.cs" />
     <Compile Include="Ciudad\Armada.cs" />
+    <Compile Include="Unidad\Armada\Armada.cs" />
+    <Compile Include="Unidad\Armada\PseudoPosicion.cs" />
+    <Compile Include="Unidad\Armada\Orden.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -100,4 +102,7 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Unidad\Armada\" />
+  </ItemGroup>
 </Project>

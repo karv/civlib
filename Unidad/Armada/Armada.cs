@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public class Armada
+	public partial class Armada
 	{
 		List<Unidad> _Unidades = new List<Unidad>();
 
@@ -174,6 +174,53 @@ namespace Civ
 		public override string ToString()
 		{
 			return string.Format("[Armada: Unidades={0}, MaxPeso={1}, Peso={2}, PesoLibre={3}, Posición={4}]", Unidades, MaxPeso, Peso, PesoLibre, Posicion);
+		}
+
+		/// <summary>
+		/// Velocidad de desplazamiento
+		/// </summary>
+		public float Velocidad;
+
+		/// <summary>
+		/// Devuelve <c>true</c> sólo si esta armada se encuentra en terreno
+		/// </summary>
+		/// <value><c>true</c> if en terreno; otherwise, <c>false</c>.</value>
+		public bool EnTerreno
+		{
+			get
+			{
+				return Posicion is Terreno;
+			}
+		}
+
+		/// <summary>
+		/// Un Tick de la armada
+		/// </summary>
+		public void Tick(float t)
+		{
+			switch (Orden.TipoOrden)
+			{
+				case Orden.enumTipoOrden.Ir:
+					Pseudoposicion PS;
+					if (EnTerreno)
+					{
+						// Convertir Posición en Pseudoposición.
+						PS = new Pseudoposicion();
+						PS.Avance = 0;
+						PS.Destino = Orden.Destino;
+						PS.Origen = Posicion;
+
+						Posicion = PS;
+					}
+					// Para este encontes, Posición debería ser una auténtica Pseudoposición
+					PS = (Pseudoposicion)Posicion;
+					// Avanzar
+					PS.Avance += t * Velocidad;
+					// TODO: Revisar si llegó
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	// TODO: Hacer clase interna "Orden", que lleve información de hacia dónde va a qué va. Necesitará gráficas.
