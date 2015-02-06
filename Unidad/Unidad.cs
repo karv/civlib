@@ -19,11 +19,22 @@ namespace Civ
 		/// Crea una instancia.
 		/// </summary>
 		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
-		public Unidad(UnidadRAW uRAW)
+		/// <param name="A">Armada a la que pertenece esta unidad.</param>
+		public Unidad(UnidadRAW uRAW, Armada A)
 		{
 			RAW = uRAW;
 			Nombre = uRAW.Nombre;
 			_HP = 1;
+			_ArmadaPerteneciente = A;
+		}
+
+		/// <summary>
+		/// Crea una instancia.
+		/// </summary>
+		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
+		/// <param name="C">Ciudad donde se creará a esta unidad.</param>
+		public Unidad(UnidadRAW uRAW, Ciudad C):this(uRAW, C.Defensa)
+		{
 		}
 
 		public override string ToString()
@@ -80,7 +91,19 @@ namespace Civ
 			}
 		}
 
-		public IPosicion Posición;
+		/// <summary>
+		/// Devuelve la IPosición de esta unidad.
+		/// O equivalentemente de la armada a la que pertenece.
+		/// </summary>
+		/// <value>The posición.</value>
+		public IPosicion Posición
+		{
+			get
+			{
+				return ArmadaPerteneciente.Posicion;
+			}
+		}
+
 		Armada _ArmadaPerteneciente;
 
 		/// <summary>

@@ -70,16 +70,16 @@ namespace Civ
 			}
 		}
 
+		IPosicion _Posicion;
+
 		/// <summary>
-		/// Devuelve el lugar donde está la armada.
+		/// Devuelve o establece el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
 		public IPosicion Posicion
 		{
-			get
-			{
-				return Unidades.Count > 0 ? Unidades[0].Posición : null;
-			}
+			get { return _Posicion; }
+			set { _Posicion = value; }
 		}
 
 		/// <summary>
