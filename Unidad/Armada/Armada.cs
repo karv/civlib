@@ -213,7 +213,7 @@ namespace Civ
 						Posicion = PS;
 					}
 					// Para este encontes, Posición debería ser una auténtica Pseudoposición
-					PS = (Pseudoposicion)Posicion;
+					PS = Posicion;
 					// Avanzar
 					PS.Avance += t * Velocidad;
 

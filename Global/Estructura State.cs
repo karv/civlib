@@ -40,8 +40,7 @@ namespace Global
 
 			foreach (var x in Topologia.Nodos)
 			{
-				if (x is Terreno)
-					ret.Add((Terreno)x);
+				ret.Add(x);
 			}
 
 			return ret;
