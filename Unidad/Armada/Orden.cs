@@ -5,7 +5,7 @@ namespace Civ
 	/// <summary>
 	/// Representa una orden de una armada
 	/// </summary>
-	public struct Orden
+	public class Orden
 	{
 		public enumTipoOrden TipoOrden;
 
