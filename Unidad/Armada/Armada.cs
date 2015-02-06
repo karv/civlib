@@ -24,6 +24,11 @@ namespace Civ
 			}
 		}
 
+		public Armada(Civilizacion C)
+		{
+			CivDueño = C;
+		}
+
 		float _MaxPeso;
 		//  Probablemente, _MaxPeso sea una función que dependa de CivDueño.
 		/// <summary>

@@ -54,7 +54,7 @@ namespace Civ
 			Terr = T;
 
 			// Inicializar la armada
-			Defensa = new Armada();
+			Defensa = new Armada(CivDueño);
 			Defensa.MaxPeso = float.PositiveInfinity;
 
 			// Importar desde T.
