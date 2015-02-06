@@ -88,7 +88,7 @@ namespace Civ
 		/// <param name="U">La unidad que se agregará.</param>
 		public void AgregaUnidad(Unidad U)
 		{
-			if (PosiciónConsistente(U))
+			if (PosicionConsistente(U))
 			{
 				if (PesoLibre >= U.Peso)
 				{
@@ -108,7 +108,7 @@ namespace Civ
 		/// </summary>
 		/// <returns><c>true</c> si comparten el mismo lugar; <c>false</c> otherwise.</returns>
 		/// <param name="U">La unidad con la que se comparará posición.</param>
-		public bool PosiciónConsistente(Unidad U)
+		public bool PosicionConsistente(Unidad U)
 		{
 			return Posicion == null || Posicion == U.Posición;
 		}
