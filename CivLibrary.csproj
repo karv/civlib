@@ -103,6 +103,8 @@
   </ProjectExtensions>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Data.xml" />
+    <EmbeddedResource Include="Data.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
