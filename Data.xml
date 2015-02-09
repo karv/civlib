@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Data xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/Civ" >
+  <Alimento z:Id ="rAlimento">
+    <Científico>false</Científico>
+    <Desaparece>false</Desaparece>
+    <Nombre>Alimento</Nombre>
+  </Alimento>
+  <Ciencias>
+    <Ciencia z:Id="cLenguaje">
+      <Nombre>Lenguaje</Nombre>
+      <Requiere>
+        <Cantidad>12</Cantidad>
+        <Ciencias>
+        </Ciencias>
+        <Recurso z:Id="rSocial">
+          <Científico>true</Científico>
+          <Desaparece>true</Desaparece>
+          <Nombre>Social</Nombre>
+        </Recurso>
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cVida nómada">
+      <Nombre>Vida nómada</Nombre>
+      <Requiere>
+        <Cantidad>10</Cantidad>
+        <Ciencias></Ciencias>
+        <Recurso z:Ref="rSocial" />        
+      </Requiere>      
+    </Ciencia>
+    <Ciencia z:Id="cRecolección">      
+      <Nombre>Recolección</Nombre>
+      <Requiere>
+        <Cantidad>12</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref = "cVida nómada" />
+        </Ciencias>
+        <Recurso z:Ref="rSocial" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cAsentamiento de cuevas">
+      <Nombre>Asentamiento de cuevas</Nombre>
+      <Requiere>
+        <Cantidad>14</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref = "cVida nómada" />
+        </Ciencias>
+        <Recurso z:Id="rInteracción con el entorno">
+          <Científico>true</Científico>
+          <Desaparece>true</Desaparece>
+          <Nombre>Interacción con el Entorno</Nombre>
+        </Recurso>
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cTejeduría">      
+      <Nombre>Tejeduría</Nombre>
+      <Requiere>
+        <Cantidad>14</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref = "cRecolección" />
+        </Ciencias>
+        <Recurso z:Ref="rSocial" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cAlimentación de subsistencia">
+      <Nombre>Alimentación de subsistencia</Nombre>
+      <Requiere>
+        <Cantidad>14</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cRecolección" />
+        </Ciencias>
+        <Recurso z:Ref="rInteracción con el entorno" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cControl del fuego">
+      <Nombre>Control del fuego</Nombre>
+      <Requiere>
+        <Cantidad>14</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cRecolección"/>
+        </Ciencias>
+        <Recurso z:Ref="rInteracción con el entorno" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cFitoterapia">
+      <Nombre>Fitoterapia</Nombre>
+      <Requiere>
+        <Cantidad>14</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cRecolección"/>
+        </Ciencias>
+        <Recurso z:Ref="rInteracción con el entorno" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cCooperación">
+      <Nombre>Cooperación</Nombre>
+      <Requiere>
+        <Cantidad>14</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cRecolección"/>
+          <Ciencia z:Ref="cLenguaje"/>
+        </Ciencias>
+        <Recurso z:Ref="rSocial" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cConstrucción de refugios">
+      <Nombre>Construcción de refugios</Nombre>
+      <Requiere>
+        <Cantidad>17</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cAsentamiento de cuevas"/>
+          <Ciencia z:Ref="cTejeduría"/>
+        </Ciencias>
+        <Recurso z:Ref="rInteracción con el entorno"/>
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cCestrería">
+      <Nombre>Cestrería</Nombre>
+      <Requiere>
+        <Cantidad>17</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cAsentamiento de cuevas"/>
+          <Ciencia z:Ref="cTejeduría"/>
+        </Ciencias>
+        <Recurso z:Id="rManufactura">
+          <Científico>true</Científico>
+          <Desaparece>true</Desaparece>
+          <Nombre>Manufactura</Nombre>
+        </Recurso>
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cCaza de resistencia">
+      <Nombre>Caza de resistencia</Nombre>
+      <Requiere>
+        <Cantidad>17</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cAlimentación de subsistencia"/>
+          <Ciencia z:Ref="cCooperación"/>
+        </Ciencias>
+        <Recurso z:Ref="rSocial" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cFabricación de utensilios">
+      <Nombre>Fabricación de utensilios</Nombre>
+      <Requiere>
+        <Cantidad>17</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cAlimentación de subsistencia"/>
+        </Ciencias>
+        <Recurso z:Ref="rManufactura" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cCoción">
+      <Nombre>Coción</Nombre>
+      <Requiere>
+        <Cantidad>17</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref ="cControl del fuego"/>
+        </Ciencias>
+        <Recurso z:Ref="rInteracción con el entorno" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cTradición oral">
+      <Nombre>Tradición oral</Nombre>
+      <Requiere>
+        <Cantidad>17</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cCooperación"/>
+        </Ciencias>
+        <Recurso z:Ref="rSocial" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cTrazo de senderos">
+      <Nombre>Trazo de senderos</Nombre>
+      <Requiere>
+        <Cantidad>20</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cCaza de resistencia"/>
+        </Ciencias>
+        <Recurso z:Ref="rSocial" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cTrampas">
+      <Nombre>Trampas</Nombre>
+      <Requiere>
+        <Cantidad>20</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cTrazo de senderos"/>
+          <Ciencia z:Ref="cCestrería"/>
+        </Ciencias>
+        <Recurso z:Ref="rManufactura"/>
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cPercutor duro de piedra">
+      <Nombre>Percutor duro de piedra</Nombre>
+      <Requiere>
+        <Cantidad>20</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cFabricación de utensilios"/>
+        </Ciencias>
+        <Recurso z:Ref="rManufactura" />
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cMortero de piedra">
+      <Nombre>Mortero de piedra</Nombre>
+      <Requiere>
+        <Cantidad>20</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cPercutor duro de piedra"/>
+          <Ciencia z:Ref="cFitoterapia"/>
+        </Ciencias>
+        <Recurso z:Ref="rManufactura"/>
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cMúsica prehistórica">
+      <Nombre>Música prehistórica</Nombre>
+      <Requiere>
+        <Cantidad>20</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cTradición oral"/>
+        </Ciencias>
+        <Recurso z:Id="rArte">
+          <Científico>true</Científico>
+          <Desaparece>true</Desaparece>
+          <Nombre>Arte</Nombre>          
+        </Recurso>
+      </Requiere>
+    </Ciencia>
+    <Ciencia z:Id="cDanza prehistórica">
+      <Nombre>Danza prehistórica</Nombre>
+      <Requiere>
+        <Cantidad>20</Cantidad>
+        <Ciencias>
+          <Ciencia z:Ref="cTradición oral"/>
+        </Ciencias>
+        <Recurso z:Ref="rArte"/>
+      </Requiere>
+    </Ciencia>
+  </Ciencias>
+  <Ecosistemas>
+    <Ecosistema>
+      <Nombre>Desierto</Nombre>
+      <Propiedades xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
+            <d5p1:Key>
+              <Nombre>Arena</Nombre>
+              <Salida>
+                <d4p1:List>
+                  <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+                    <d5p1:Key z:Ref="rAlimento"/>
+                    <d5p1:Value>-3</d5p1:Value>
+                  </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+                </d4p1:List>
+              </Salida>
+            </d5p1:Key>
+            <d5p1:Value>1</d5p1:Value>
+          </d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
+          <d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
+            <d5p1:Key>
+              <Nombre>Oasis</Nombre>
+              <Salida>
+                <d4p1:List>
+                  <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+                    <d5p1:Key z:Ref="rAlimento"/>
+                    <d5p1:Value>10</d5p1:Value>
+                  </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+                </d4p1:List>
+              </Salida>
+            </d5p1:Key>
+            <d5p1:Value>0.3</d5p1:Value>
+          </d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
+        </d4p1:List>
+      </Propiedades>
+    </Ecosistema>
+  </Ecosistemas>
+  <Edificios>
+    <Edificio z:Id ="ePalacio">
+      <Construcción xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        <d4p1:KeyValueOfRecursofloatbN_PeySYD>
+          <d4p1:Key z:Id="rPiedra">
+            <Científico>false</Científico>
+            <Desaparece>false</Desaparece>
+            <Nombre>Piedra</Nombre>
+          </d4p1:Key>
+          <d4p1:Value>12</d4p1:Value>
+        </d4p1:KeyValueOfRecursofloatbN_PeySYD>
+      </Construcción>
+      <EsAutoConstruíble>true</EsAutoConstruíble>
+      <MaxWorkers>4</MaxWorkers>
+      <Nombre>Palacio</Nombre>
+			<Requiere>
+				<Ciencias />
+				<Edificios />
+			</Requiere>
+    </Edificio>
+    <Edificio z:Id ="eGranja">
+      <Construcción xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        <d4p1:KeyValueOfRecursofloatbN_PeySYD>
+          <d4p1:Key z:Ref="rAlimento" />
+          <d4p1:Value>5</d4p1:Value>
+        </d4p1:KeyValueOfRecursofloatbN_PeySYD>
+        <d4p1:KeyValueOfRecursofloatbN_PeySYD>
+          <d4p1:Key z:Id="rProducción">
+            <Científico>false</Científico>
+            <Desaparece>true</Desaparece>
+            <Nombre>Producción</Nombre>
+          </d4p1:Key>
+          <d4p1:Value>5</d4p1:Value>
+        </d4p1:KeyValueOfRecursofloatbN_PeySYD>
+      </Construcción>
+      <MaxWorkers>100</MaxWorkers>
+      <Nombre>Granja</Nombre>
+			<Requiere>
+        <Ciencias>
+          <Ciencia z:Ref ="cLenguaje" />
+        </Ciencias>
+				<Edificios />
+			</Requiere>
+    </Edificio>
+  </Edificios>
+  <Propiedades>
+    <Propiedad>
+      <Nombre>Tierra fértil</Nombre>
+      <Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rAlimento"/>
+            <d5p1:Value>5</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+        </d4p1:List>
+      </Salida>
+    </Propiedad>
+  </Propiedades>
+  <Recursos>
+    <Recurso z:Ref ="rSocial" />
+    <Recurso z:Ref="rInteracción con el entorno" />
+    <Recurso z:Ref="rAlimento" />
+    <Recurso z:Ref="rProducción"/>
+    <Recurso z:Ref="rManufactura" />
+    <Recurso z:Ref="rArte" />
+    <Recurso z:Id= "rEspada">
+      <Científico>false</Científico>
+      <Desaparece>false</Desaparece>
+      <Nombre>Espada</Nombre>
+    </Recurso>
+    <Recurso z:Id= "rEscudo">
+      <Científico>false</Científico>
+      <Desaparece>false</Desaparece>
+      <Nombre>Escudo</Nombre>
+    </Recurso>
+  </Recursos>
+  <Trabajos>
+    <Trabajo z:Id="tSembrar maíz">
+      <Edificio z:Ref="eGranja" />
+      <Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </Entrada>
+      <Nombre>Sembrar maíz</Nombre>
+      <Requiere>
+        <Ciencias>
+          <Ciencia z:Ref="cLenguaje" />
+        </Ciencias>
+        <Edificios />
+      </Requiere>
+      <Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rAlimento" />
+            <d5p1:Value>3</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+        </d4p1:List>
+      </Salida>
+    </Trabajo>
+    <Trabajo z:Id="tProducción">
+      <Edificio z:Ref="ePalacio" />
+      <Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </Entrada>
+      <Nombre>Producción</Nombre>
+      <Requiere>
+        <Ciencias />
+        <Edificios />
+      </Requiere>
+      <Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rProducción" />
+            <d5p1:Value>10</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+        </d4p1:List>
+      </Salida>
+    </Trabajo>
+    <Trabajo z:Id="tProducir ciencia social">
+      <Edificio z:Ref="ePalacio" />
+      <Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </Entrada>
+      <Nombre>Prodicur ciencia social</Nombre>
+      <Requiere>
+        <Ciencias />
+        <Edificios />
+      </Requiere>
+      <Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rSocial" />
+            <d5p1:Value>1</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+        </d4p1:List>
+      </Salida>
+    </Trabajo>
+    <Trabajo z:Id="tInteractuar con entorno">
+      <Edificio z:Ref="ePalacio" />
+      <Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </Entrada>
+      <Nombre>Interactuar con entorno</Nombre>
+      <Requiere>
+        <Ciencias>
+          <Ciencia z:Ref="cVida nómada" />
+        </Ciencias>
+        <Edificios />
+      </Requiere>
+      <Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rInteracción con el entorno" />
+            <d5p1:Value>1</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+        </d4p1:List>
+      </Salida>
+    </Trabajo>
+    <Trabajo z:Id="tProducir ciencia manufactura">
+      <Edificio z:Ref="ePalacio" />
+      <Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </Entrada>
+      <Nombre>Producir ciancia manufactura</Nombre>
+      <Requiere>
+        <Ciencias>
+          <Ciencia z:Ref="cRecolección" />
+        </Ciencias>
+        <Edificios />
+      </Requiere>
+      <Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rManufactura" />
+            <d5p1:Value>1</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+        </d4p1:List>
+      </Salida>
+    </Trabajo>
+    <Trabajo z:Id="tProducir ciencia artística">
+      <Edificio z:Ref="ePalacio" />
+      <Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </Entrada>
+      <Nombre>Producir ciencia artística</Nombre>
+      <Requiere>
+        <Ciencias>
+          <Ciencia z:Ref="cTradición oral" />
+        </Ciencias>
+        <Edificios />
+      </Requiere>
+      <Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rArte" />
+            <d5p1:Value>1</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+        </d4p1:List>
+      </Salida>
+    </Trabajo>
+  </Trabajos>
+  <Unidades>
+    <Unidad z:Id="uSoldado">
+      <CostePoblación>1</CostePoblación>
+      <Flags xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        <d4p1:string>Unidad a pie</d4p1:string>
+        <d4p1:string>Humano</d4p1:string>
+      </Flags>
+      <Fuerza>2</Fuerza>
+      <Modificadores xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra" z:Id="i3">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfstringfloat>
+            <d5p1:Key>Animal</d5p1:Key>
+            <d5p1:Value>0.3</d5p1:Value>
+          </d5p1:KeyValueOfstringfloat>
+          <d5p1:KeyValueOfstringfloat>
+            <d5p1:Key>Humano</d5p1:Key>
+            <d5p1:Value>-0.1</d5p1:Value>
+          </d5p1:KeyValueOfstringfloat>
+        </d4p1:List>
+      </Modificadores>
+      <Nombre>Soldado</Nombre>
+      <Peso>1</Peso>
+      <Requerimientos xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra" z:Id="i4">
+        <d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rEspada"/>
+            <d5p1:Value>1</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+          <d5p1:KeyValueOfRecursofloatbN_PeySYD>
+            <d5p1:Key z:Ref="rEscudo"/>
+            <d5p1:Value>1</d5p1:Value>
+          </d5p1:KeyValueOfRecursofloatbN_PeySYD>
+        </d4p1:List>
+      </Requerimientos>
+    </Unidad>
+  </Unidades>
+</Data>
