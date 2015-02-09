@@ -101,7 +101,8 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Unidad\Armada\" />
+    <Content Include="Data.xml" />
   </ItemGroup>
 </Project>
