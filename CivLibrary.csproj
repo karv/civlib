@@ -38,7 +38,6 @@
     <Compile Include="Ciudad\Propiedades.cs" />
     <Compile Include="Civilización\Mensaje.cs" />
     <Compile Include="Edificio\Propiedad.cs" />
-    <Compile Include="Interfaces\IPosición.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ciencia.cs" />
     <Compile Include="Recurso.cs" />
@@ -68,11 +67,14 @@
     <Compile Include="Trabajo\Trabajadores.cs" />
     <Compile Include="Trabajo\Tick.cs" />
     <Compile Include="Trabajo\Trabajo.cs" />
-    <Compile Include="Unidad\Armada.cs" />
     <Compile Include="Unidad\Unidad.cs" />
     <Compile Include="Unidad\UnidadRAW.cs" />
     <Compile Include="Mensaje.cs" />
     <Compile Include="Civilización\EstadoDiplomatico.cs" />
+    <Compile Include="Ciudad\Armada.cs" />
+    <Compile Include="Unidad\Armada\Armada.cs" />
+    <Compile Include="Unidad\Armada\PseudoPosicion.cs" />
+    <Compile Include="Unidad\Armada\Orden.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -99,4 +101,7 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Unidad\Armada\" />
+  </ItemGroup>
 </Project>

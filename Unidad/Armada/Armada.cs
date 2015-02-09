@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public class Armada
+	public partial class Armada
 	{
 		List<Unidad> _Unidades = new List<Unidad>();
 
@@ -22,6 +22,11 @@ namespace Civ
 			{
 				return _Unidades;
 			}
+		}
+
+		public Armada(Civilizacion C)
+		{
+			CivDueño = C;
 		}
 
 		float _MaxPeso;
@@ -70,16 +75,16 @@ namespace Civ
 			}
 		}
 
+		Pseudoposicion _Posicion;
+
 		/// <summary>
-		/// Devuelve el lugar donde está la armada.
+		/// Devuelve o establece el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		public IPosicion Posicion
+		public Pseudoposicion Posicion
 		{
-			get
-			{
-				return Unidades.Count > 0 ? Unidades[0].Posición : null;
-			}
+			get { return _Posicion; }
+			set { _Posicion = value; }
 		}
 
 		/// <summary>
@@ -88,7 +93,7 @@ namespace Civ
 		/// <param name="U">La unidad que se agregará.</param>
 		public void AgregaUnidad(Unidad U)
 		{
-			if (PosiciónConsistente(U))
+			if (PosicionConsistente(U))
 			{
 				if (PesoLibre >= U.Peso)
 				{
@@ -108,7 +113,7 @@ namespace Civ
 		/// </summary>
 		/// <returns><c>true</c> si comparten el mismo lugar; <c>false</c> otherwise.</returns>
 		/// <param name="U">La unidad con la que se comparará posición.</param>
-		public bool PosiciónConsistente(Unidad U)
+		public bool PosicionConsistente(Unidad U)
 		{
 			return Posicion == null || Posicion == U.Posición;
 		}
@@ -175,6 +180,67 @@ namespace Civ
 		{
 			return string.Format("[Armada: Unidades={0}, MaxPeso={1}, Peso={2}, PesoLibre={3}, Posición={4}]", Unidades, MaxPeso, Peso, PesoLibre, Posicion);
 		}
+
+		/// <summary>
+		/// Velocidad de desplazamiento
+		/// </summary>
+		public float Velocidad;
+
+		/// <summary>
+		/// Devuelve <c>true</c> sólo si esta armada se encuentra en terreno
+		/// </summary>
+		/// <value><c>true</c> if en terreno; otherwise, <c>false</c>.</value>
+		public bool EnTerreno
+		{
+			get
+			{
+				return Posicion.Avance == 0;
+			}
+		}
+
+		/// <summary>
+		/// Un Tick de la armada
+		/// </summary>
+		public void Tick(float t)
+		{
+			switch (Orden.TipoOrden)
+			{
+				case Orden.enumTipoOrden.Ir:
+					Pseudoposicion PS;
+					if (EnTerreno)
+					{
+						// Convertir Posición en Pseudoposición.
+						PS = new Pseudoposicion();
+						PS.Avance = 0;
+						PS.Destino = Orden.Destino.Destino;
+						PS.Origen = Posicion.Origen;
+
+						Posicion = PS;
+					}
+					// Para este encontes, Posición debería ser una auténtica Pseudoposición
+					PS = Posicion;
+					// Avanzar
+					PS.Avance += t * Velocidad;
+
+
+					//Revisar si están en el mismo Terreno-intervalo
+					if (PS.Origen == Orden.Destino.Origen && PS.Destino == Orden.Destino.Destino) // Esto debe pasar siempre, por ahora.
+					{
+						if (PS.Avance >= Orden.Destino.Avance)
+						{
+							// Ya llegó.
+							CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", this, Orden.Destino, Orden));
+							Orden = null;
+						}
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
+		Civilizacion CivDueño;
+		// TODO Hacer esto.
 	}
 	// TODO: Hacer clase interna "Orden", que lleve información de hacia dónde va a qué va. Necesitará gráficas.
 }

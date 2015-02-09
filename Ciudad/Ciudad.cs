@@ -53,7 +53,9 @@ namespace Civ
 			T.CiudadConstruida = this;
 			Terr = T;
 
-
+			// Inicializar la armada
+			Defensa = new Armada(CivDueño);
+			Defensa.MaxPeso = float.PositiveInfinity;
 
 			// Importar desde T.
 

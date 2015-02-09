@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	public class Terreno : IPosicion
+	public class Terreno
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
@@ -16,6 +16,7 @@ namespace Civ
 		/// <param name="Eco">Ecología a usar para crear el terreno.</param>
 		public Terreno(Ecosistema Eco)
 		{
+			Vecinos.Nulo = float.PositiveInfinity;
 			Random r = new Random();
 
 			foreach (var x in Eco.PropPropiedad.Keys)
@@ -28,6 +29,10 @@ namespace Civ
 			Nombre = Eco.Nombre;
 		}
 
+		/// <summary>
+		/// Terrenos vecinos.
+		/// </summary>
+		public readonly ListaPeso<Terreno> Vecinos = new ListaPeso<Terreno>();
 		public string Nombre;
 		/// <summary>
 		/// Propiedades que se contruyen al construir una ciudad aquí.
