@@ -20,10 +20,6 @@ namespace Civ
 		/// </summary>
 		public float Avance;
 
-		public Pseudoposicion()
-		{
-		}
-
 		/// <summary>
 		/// Calcula la distancia entre Origen y Destino.
 		/// </summary>
