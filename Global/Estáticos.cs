@@ -21,6 +21,12 @@ namespace Global
 				Civ.doTick(t);
 			}
 
+			// Ticks de terreno
+			foreach (var x in State.Topologia.Nodos)
+			{
+				x.Tick(t);
+			}
+
 			// Peleas entre armadas de Civs enemigas
 			for (int i = 0; i < State.Civs.Count; i++)
 			{

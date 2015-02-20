@@ -27,6 +27,7 @@ namespace Civ
 		public Armada(Civilizacion C)
 		{
 			CivDueño = C;
+			C.Armadas.Add(this);
 		}
 
 		float _MaxPeso;
@@ -239,8 +240,14 @@ namespace Civ
 			}
 		}
 
-		Civilizacion CivDueño;
-		// TODO Hacer esto.
+		Civilizacion _CivDueño;
+
+		public Civilizacion CivDueño
+		{
+			get
+			{
+				return _CivDueño;
+			}
+		}
 	}
-	// TODO: Hacer clase interna "Orden", que lleve información de hacia dónde va a qué va. Necesitará gráficas.
 }
