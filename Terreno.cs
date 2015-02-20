@@ -68,6 +68,26 @@ namespace Civ
 		/// Ciudad que está contruida en este terreno.
 		/// </summary>
 		public Ciudad CiudadConstruida;
+
+		/// <summary>
+		/// Da un tick de longitud t al terreno.
+		/// </summary>
+		/// <param name="t">Longitud del tick</param>
+		public void Tick(float t)
+		{
+			//Crecimiento automático de recursos ecológicos.
+			foreach (var x in Eco.RecursoEcologico.Keys)
+			{
+				Ecologia.RecursoEstado RE = new Ecologia.RecursoEstado();
+
+				RE.Cant = Eco.RecursoEcologico[x].Cant + Eco.RecursoEcologico[x].Crec * t;
+				RE.Cant = Math.Min(Eco.RecursoEcologico[x].Cant, Eco.RecursoEcologico[x].Max);
+				RE.Crec = Eco.RecursoEcologico[x].Crec;
+				RE.Max = Eco.RecursoEcologico[x].Max;
+				Eco.RecursoEcologico.Remove(x);
+				Eco.RecursoEcologico.Add(x, RE);
+			}
+		}
 	}
 
 	/// <summary>
