@@ -3,6 +3,7 @@
   <Alimento z:Id ="rAlimento">
     <Científico>false</Científico>
     <Desaparece>false</Desaparece>
+	<Global>false</Global>
     <Nombre>Alimento</Nombre>
   </Alimento>
   <Ciencias>
@@ -15,6 +16,7 @@
         <Recurso z:Id="rSocial">
           <Científico>true</Científico>
           <Desaparece>true</Desaparece>
+          <Global>true</Global>
           <Nombre>Social</Nombre>
         </Recurso>
       </Requiere>
@@ -47,6 +49,7 @@
         <Recurso z:Id="rInteracción con el entorno">
           <Científico>true</Científico>
           <Desaparece>true</Desaparece>
+          <Global>true</Global>
           <Nombre>Interacción con el Entorno</Nombre>
         </Recurso>
       </Requiere>
@@ -124,6 +127,7 @@
         <Recurso z:Id="rManufactura">
           <Científico>true</Científico>
           <Desaparece>true</Desaparece>
+          <Global>true</Global>
           <Nombre>Manufactura</Nombre>
         </Recurso>
       </Requiere>
@@ -221,6 +225,7 @@
         <Recurso z:Id="rArte">
           <Científico>true</Científico>
           <Desaparece>true</Desaparece>
+          <Global>true</Global>
           <Nombre>Arte</Nombre>          
         </Recurso>
       </Requiere>
@@ -280,6 +285,7 @@
           <d4p1:Key z:Id="rPiedra">
             <Científico>false</Científico>
             <Desaparece>false</Desaparece>
+			<Global>false</Global>
             <Nombre>Piedra</Nombre>
           </d4p1:Key>
           <d4p1:Value>12</d4p1:Value>
@@ -303,6 +309,7 @@
           <d4p1:Key z:Id="rProducción">
             <Científico>false</Científico>
             <Desaparece>true</Desaparece>
+			<Global>false</Global>
             <Nombre>Producción</Nombre>
           </d4p1:Key>
           <d4p1:Value>5</d4p1:Value>
@@ -341,11 +348,13 @@
     <Recurso z:Id= "rEspada">
       <Científico>false</Científico>
       <Desaparece>false</Desaparece>
+		<Global>false</Global>      
       <Nombre>Espada</Nombre>
     </Recurso>
     <Recurso z:Id= "rEscudo">
       <Científico>false</Científico>
       <Desaparece>false</Desaparece>
+      <Global>false</Global>
       <Nombre>Escudo</Nombre>
     </Recurso>
   </Recursos>

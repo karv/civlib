@@ -6,11 +6,17 @@ namespace Civ
 {
 	public partial class Civilizacion
 	{
+		public Civilizacion()
+		{
+			Almacen = new AlmacenCiv(this);
+		}
+
 		/// <summary>
 		/// Nombre de la <see cref="Civ.Civilización"/>.
 		/// </summary>
 		public string Nombre;
 		// **** Economía
+		[Obsolete("Use AlmacénCiv[R]")]
 		/// <summary>
 		/// Devuelve la cantidad que existe en la civilización de un cierto recurso.
 		/// </summary>
@@ -25,6 +31,7 @@ namespace Civ
 			}
 			return ret;
 		}
+
 		List<Armada> _Armadas = new List<Armada>();
 
 		/// <summary>

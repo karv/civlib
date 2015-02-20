@@ -27,7 +27,7 @@ namespace Civ
 				foreach (Recurso Recr in Global.g_.Data.ObtenerRecursosCientíficos())
 				{
 					List<Ciencia> SemiListaCiencias = CienciasAbiertas().FindAll(z => z.Reqs.Rec.Nombre == Recr.Nombre);  // Lista de ciencias abiertas que usan el recurso x.
-					float[] sep = r.Separadores(SemiListaCiencias.Count, ObtenerGlobalRecurso(Recr));
+					float[] sep = r.Separadores(SemiListaCiencias.Count, Almacen[Recr]);
 
 					int i = 0;
 					foreach (var y in SemiListaCiencias)

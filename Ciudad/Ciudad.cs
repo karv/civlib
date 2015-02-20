@@ -52,6 +52,7 @@ namespace Civ
 			CivDueño = Dueño;
 			T.CiudadConstruida = this;
 			Terr = T;
+			Almacén = new AlmacenCiudad(this);
 
 			// Inicializar la armada
 			Defensa = new Armada(CivDueño);
@@ -63,11 +64,6 @@ namespace Civ
 			{
 				// Si r.next < (algo):
 				AgregaPropiedad(x);
-			}
-
-			foreach (var x in T.Eco.RecursoEcologico.Keys)
-			{
-				Almacén[x] = T.Eco.RecursoEcologico[x].Cant;
 			}
 		}
 		// Partial no asinado. 
