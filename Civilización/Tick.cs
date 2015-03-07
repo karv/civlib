@@ -20,43 +20,44 @@ namespace Civ
 				{
 					x.FullTick(t);
 				}
+			}
 
-				// Las ciencias.
-				List<Ciencia> Investigado = new List<Ciencia>();
+			// Las ciencias.
+			List<Ciencia> Investigado = new List<Ciencia>();
 
-				foreach (Recurso Recr in Global.g_.Data.ObtenerRecursosCientíficos())
+			foreach (Recurso Rec in Global.g_.Data.ObtenerRecursosCientíficos())
+			{
+				// Lista de ciencias abiertas que aún requieren el recurso Rec.
+				List<Ciencia> CienciaInvertibleRec = CienciasAbiertas().FindAll(z => z.Reqs.Recursos.ContainsKey(Rec) && Investigando[z][Rec] < z.Reqs.Recursos[Rec]);  
+
+				float[] sep = r.Separadores(CienciaInvertibleRec.Count, ObtenerGlobalRecurso(Rec));
+
+				int i = 0;
+				foreach (var y in CienciaInvertibleRec)
 				{
-					List<Ciencia> SemiListaCiencias = CienciasAbiertas().FindAll(z => z.Reqs.Rec.Nombre == Recr.Nombre);  // Lista de ciencias abiertas que usan el recurso x.
-					float[] sep = r.Separadores(SemiListaCiencias.Count, ObtenerGlobalRecurso(Recr));
-
-					int i = 0;
-					foreach (var y in SemiListaCiencias)
-					{
-						// En este momento, se está investigando "y" con el recurso "x".
-						Investigando[y] += sep[i];
-						i++;
-
-						// Si Tiene lo suficiente para terminar investigación
-						if (Investigando[y] >= y.Reqs.Cantidad)
-						{
-							Investigado.Add(y);
-						}
-					}
-				}
-
-				foreach (Ciencia Avan in Investigado)
-				{
-					Avances.Add(Avan);
-					Investigando.Data.Remove(Avan);
-					AgregaMensaje("Investigación terminada: {0}", Avan);
-				}
-
-				// Fase final, desaparecer recursos.
-				foreach (Ciudad Cd in Ciudades)
-				{
-					Cd.DestruirRecursosTemporales();
+					// En este momento, se está investigando "y" con el recurso "Rec".
+					Investigando[y][Rec] += sep[i++];
 				}
 			}
+
+			foreach (var x in CienciasAbiertas ())
+			{
+
+			}
+
+			foreach (Ciencia Avan in Investigado)
+			{
+				Avances.Add(Avan);
+				Investigando.Data.Remove(Avan);
+				AgregaMensaje("Investigación terminada: {0}", Avan);
+			}
+
+			// Fase final, desaparecer recursos.
+			foreach (Ciudad Cd in Ciudades)
+			{
+				Cd.DestruirRecursosTemporales();
+			}
+
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ListasExtra;
 
 namespace Civ
 {
@@ -11,11 +12,11 @@ namespace Civ
 		/// Lista de avances de la civilización
 		/// </summary>
 		public List<Ciencia> Avances = new List<Ciencia>();
-
 		/// <summary>
 		/// Ciencias que han sido parcialmente investigadas.
 		/// </summary>
-		public ListasExtra.ListaPeso<Ciencia> Investigando = new ListasExtra.ListaPeso<Ciencia>();
+		public ListaPeso<Ciencia, ListaPeso<Recurso>> Investigando
+			= new ListaPeso<Ciencia, ListaPeso<Recurso>>(null, null);
 
 		/// <summary>
 		/// Devuelve las ciencias que no han sido investigadas y que comple todos los requesitos para investigarlas.
@@ -42,6 +43,26 @@ namespace Civ
 		{
 			// return !Avances.Contains(C) && C.ReqCiencia.TrueForAll(z => Avances.Exists(w => (w.Nombre == z)));
 			return !Avances.Contains(C) && C.Reqs.Ciencias.TrueForAll(z => Avances.Contains(z));
+		}
+
+		/// <summary>
+		/// Devuelve true sólo si la ciencia ya está completada.
+		/// </summary>
+		/// <returns><c>true</c>, if requerimientos recursos was satisfaced, <c>false</c> otherwise.</returns>
+		/// <param name="C">C.</param>
+		bool SatisfaceRequerimientosRecursos(Ciencia C)
+		{
+			// Si ya se conoce la ciencia, entonces devuelve true.
+			if (Avances.Contains(C))
+				return true;
+			foreach (var x in C.Reqs.Recursos.Data.Keys)
+			{
+				if (C.Reqs.Recursos[x] < Investigando[C][x])
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 	}
 }
