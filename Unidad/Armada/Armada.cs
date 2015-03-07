@@ -26,7 +26,7 @@ namespace Civ
 
 		public Armada(Civilizacion C)
 		{
-			CivDueño = C;
+			_CivDueño = C;
 			C.Armadas.Add(this);
 		}
 
