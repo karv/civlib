@@ -14,45 +14,38 @@ namespace Civ
 		public string Nombre;
 		[DataMember]
 		public ulong MaxWorkers;
+		/// <summary>
+		/// Devuelve o establece el máximo número de instancias de este edificio por ciudad
+		/// </summary>
+		[DataMember]
+		public int MaxPorCiudad = 1;
+		/// <summary>
+		/// Devuelve o establece el máximo número de instancias de este edificio por civilización
+		/// Si vale 0, significa "sin límite"
+		/// </summary>
+		[DataMember]
+		public int MaxPorCivilizacion = 0;
+		/// <summary>
+		/// Devuelve o establece el máximo número de instancias de este edificio por mundo
+		/// Si vale 0, significa "sin límite"
+		/// </summary>
+		[DataMember]
+		public int MaxPorMundo = 0;
 
-        /// <summary>
-        /// Devuelve o establece el máximo número de instancias de este edificio por ciudad
-        /// </summary>
-        [DataMember]
-        public int MaxPorCiudad = 1;
-
-        /// <summary>
-        /// Devuelve o establece el máximo número de instancias de este edificio por civilización
-        /// Si vale 0, significa "sin límite"
-        /// </summary>
-        [DataMember]
-        public int MaxPorCivilizacion = 0;
-
-        /// <summary>
-        /// Devuelve o establece el máximo número de instancias de este edificio por mundo
-        /// Si vale 0, significa "sin límite"
-        /// </summary>
-        [DataMember]
-        public int MaxPorMundo = 0;
-
-        public override string ToString()
+		public override string ToString()
 		{
 			return Nombre;
 		}
 
 		public EdificioRAW()
 		{
-
 		}
-
 		// IRequerieminto
 		bool Civ.IRequerimiento.LoSatisface(Ciudad C)
 		{
 			return C.ExisteEdificio(this);
 		}
-
 		// Requiere
-
 		/*  //TODO: Borrar si es que funciona
 
 		public System.Collections.Generic.List<IRequerimiento> Requiere()
@@ -75,8 +68,6 @@ namespace Civ
 		/// </summary>        
 		[DataMember]
 		public Requerimiento Requiere = new Requerimiento();
-
-
 		// Construcción
 		/// <summary>
 		/// Lista de los recursos requeridos.
@@ -84,7 +75,6 @@ namespace Civ
 		[DataMember(Name = "Construcción")]
 		public Dictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float>();
 		//public List<Basic.Par<Recurso, float>> ReqRecursos = new List<Basic.Par<Recurso, float>>();
-
 		/// <summary>
 		/// Devuelve la lista de requerimientos
 		/// </summary>
@@ -101,6 +91,4 @@ namespace Civ
 		[DataMember]
 		public bool EsAutoConstruíble;
 	}
-
 }
-

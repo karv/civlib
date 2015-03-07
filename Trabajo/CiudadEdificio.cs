@@ -39,7 +39,7 @@ namespace Civ
 		{
 			get
 			{
-				return CiudadDueño.CivDueño;
+				return CiudadDueño.CivDueno;
 			}
 		}
 
@@ -54,8 +54,5 @@ namespace Civ
 				return CiudadDueño.Almacén;
 			}
 		}
-
 	}
-
 }
-

@@ -10,7 +10,10 @@ namespace Civ
 		/// <param name="Prop">Propiedad a agregar.</param>
 		public void AgregaPropiedad(Propiedad Prop)
 		{
-			if (!Propiedades.Contains(Prop)) { Propiedades.Add(Prop); }
+			if (!Propiedades.Contains(Prop))
+			{
+				Propiedades.Add(Prop);
+			}
 		}
 	}
 }

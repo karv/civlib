@@ -4,10 +4,8 @@ using ListasExtra;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
-
 namespace Civ
 {
-
 	/// <summary>
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
@@ -19,35 +17,11 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public string Nombre;
-
-		public override string ToString()
-		{
-			return string.Format("{0} @ {1}", Nombre, Edificio);
-		}
-
 		/// <summary>
-		/// Recursos consumidos por trabajador*turno (Base)
+		/// EdificioRAW vinculado a este trabajo.
 		/// </summary>
-		// public List<Basic.Par<string, float>> EntradaStr = new List<Basic.Par<string, float>>(); // TODO: Borrar
-		[DataMember(Name = "Entrada")]
-		ListaPeso<Recurso> _EntradaBase = new ListaPeso<Recurso>();
-
-		/// <summary>
-		/// Recursos consumidos por trabajador*turno (Base)
-		/// </summary>		
-		public ListaPeso<Recurso> EntradaBase
-		{
-			get
-			{
-				return _EntradaBase;
-			}
-		}
-
-		/// <summary>
-		/// Recursos producidos por trabajador*turno (Base)
-		/// </summary>
-		//public List<Basic.Par<string, float>> SalidaStr = new List<Basic.Par<string, float>>();   //TODO Borrar
-
+		[DataMember]
+		public EdificioRAW Edificio;
 		[DataMember(Name = "Salida")]
 		ListaPeso<Recurso> _SalidaBase = new ListaPeso<Recurso>();
 
@@ -62,13 +36,28 @@ namespace Civ
 			}
 		}
 
-		// Requiere
 		/// <summary>
-		/// IRequerimientos necesarios para construir.
-		/// No se requiere listar al edificio vinculado. Su necesidad es implícita.
+		/// Recursos consumidos por trabajador*turno (Base)
 		/// </summary>
-		//public List<String> Requiere = new List<string>();
+		[DataMember(Name = "Entrada")]
+		ListaPeso<Recurso> _EntradaBase = new ListaPeso<Recurso>();
 
+		/// <summary>
+		/// Recursos consumidos por trabajador*turno (Base)
+		/// </summary>		
+		public ListaPeso<Recurso> EntradaBase
+		{
+			get
+			{
+				return _EntradaBase;
+			}
+		}
+
+		public override string ToString()
+		{
+			return string.Format("{0} @ {1}", Nombre, Edificio);
+		}
+		// Requiere
 		/// <summary>
 		/// Lista de requerimientos.
 		/// </summary>
@@ -83,17 +72,5 @@ namespace Civ
 		{
 			return Requiere.Requiere();
 		}
-
-		/// <summary>
-		/// EdificioRAW vinculado a este trabajo.
-		/// </summary>
-		[DataMember]
-		public EdificioRAW Edificio;
-
-
-
 	}
-
-
 }
-

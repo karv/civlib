@@ -118,6 +118,20 @@ namespace Civ
 				return null;
 			return EncuentraInstanciaTrabajo(Tr);
 		}
+
+		/// <summary>
+		/// Hacer que la ciudad tenga al menos un número de trabajadores libres. Liberando por prioridad.
+		/// </summary>
+		/// <param name="n">Número de trabajadores a forzar que sean libres.</param>
+		public void LiberarTrabajadores(ulong n)
+		{
+			List<Trabajo> L = ObtenerListaTrabajos;
+			L.Sort((x, y) => x.Prioridad < y.Prioridad ? -1 : 1); // Ordenar por prioridad.
+			while (L.Count > 0 && getTrabajadoresDesocupados < n && getTrabajadoresDesocupados != getPoblación)
+			{
+				L[0].Trabajadores = 0;
+				L.RemoveAt(0);
+			}
+		}
 	}
 }
-

@@ -1,5 +1,4 @@
 // Trabajos y trabajadores
-
 using System;
 
 namespace Civ
@@ -63,13 +62,12 @@ namespace Civ
 				return (ulong)Math.Min(getEspaciosTrabajadores, CiudadDueño.getTrabajadoresDesocupados);
 			}
 		}
-
 		// Trabajos
 		/// <summary>
 		/// Devuelve o establece el número de trabajadores en un trabajo
 		/// </summary>
 		/// <param name="Trab">El trabajo</param>
-		public ulong this[Trabajo Trab]
+		public ulong this [Trabajo Trab]
 		{
 			get
 			{
@@ -88,18 +86,20 @@ namespace Civ
 				}
 			}
 		}
+
 		/// <summary>
 		/// Devuelve la instancia de trabajo de un RAW de trabajo.
 		/// Si no existe, la crea.
 		/// </summary>
 		/// <param name="Trab">El RAW del trabajo.</param>
-		public Trabajo this[TrabajoRAW Trab]
+		public Trabajo this [TrabajoRAW Trab]
 		{
 			get
 			{
 				return getInstanciaTrabajo(Trab);
 			}
 		}
+
 		/// <summary>
 		/// Devuelve la instancia de trabajo de un RAW de trabajo.
 		/// Si no existe, la crea.
@@ -115,8 +115,5 @@ namespace Civ
 			}
 			return new Trabajo(Trab, this);
 		}
-
-
 	}
 }
-

@@ -16,13 +16,11 @@ namespace Civ
 		/// </summary>
 		[DataMember(Name = "Desaparece")]
 		public bool Desaparece;
-
 		/// <summary>
 		/// ¿El recurso es científico?
 		/// </summary>
 		[DataMember(Name = "Científico")]
 		public bool EsCientífico;
-
 		/// <summary>
 		/// Nombre del recurso.
 		/// </summary>
@@ -37,9 +35,9 @@ namespace Civ
 		{
 			Nombre = nom;
 		}
+
 		public Recurso()
 		{
-
 		}
 	}
 }

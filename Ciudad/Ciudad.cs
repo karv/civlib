@@ -24,7 +24,7 @@ namespace Civ
 		/// Devuelve o establece la civilización a la cual pertecene esta ciudad.
 		/// </summary>
 		/// <value>The civ dueño.</value>
-		public Civilizacion CivDueño
+		public Civilizacion CivDueno
 		{
 			get
 			{
@@ -49,12 +49,12 @@ namespace Civ
 		public Ciudad(string Nom, Civilizacion Dueño, Terreno T)
 		{
 			Nombre = Nom;
-			CivDueño = Dueño;
+			CivDueno = Dueño;
 			T.CiudadConstruida = this;
 			Terr = T;
 
 			// Inicializar la armada
-			Defensa = new Armada(CivDueño);
+			Defensa = new Armada(CivDueno);
 			Defensa.MaxPeso = float.PositiveInfinity;
 
 			// Importar desde T.
@@ -75,22 +75,5 @@ namespace Civ
 		/// Terreno donde se contruye la ciudad.
 		/// </summary>
 		public Terreno Terr;
-
-		/// <summary>
-		/// Hacer que la ciudad tenga al menos un número de trabajadores libres. Liberando por prioridad.
-		/// </summary>
-		/// <param name="n"></param>
-		public void LiberarTrabajadores(ulong n)
-		{
-
-			List<Trabajo> L = ObtenerListaTrabajos;
-			L.Sort((x, y) => x.Prioridad < y.Prioridad ? -1 : 1); // Ordenar por prioridad.
-			while (L.Count > 0 && getTrabajadoresDesocupados < n && getTrabajadoresDesocupados != getPoblación)
-			{
-				L[0].Trabajadores = 0;
-				L.RemoveAt(0);
-			}
-		}
 	}
 }
-

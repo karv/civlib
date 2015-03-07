@@ -16,7 +16,6 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public string Nombre;
-
 		[DataMember(Name = "Modificadores")]
 		ListaPeso<string> _Mods = new ListaPeso<string>();
 
@@ -33,7 +32,6 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public float Fuerza;
-
 		[DataMember(Name = "Flags")]
 		private List<string> _Flags = new List<string>();
 
@@ -44,7 +42,6 @@ namespace Civ
 		{
 			get { return _Flags; }
 		}
-
 		// Reqs
 		[DataMember(Name = "Requerimientos")]
 		private ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso>();
@@ -62,7 +59,6 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public ulong CostePoblación;
-
 		/// <summary>
 		/// Representa el coste de espacio de esta unidad en una armada.
 		/// </summary>

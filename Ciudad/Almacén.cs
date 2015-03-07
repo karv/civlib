@@ -6,8 +6,6 @@ namespace Civ
 {
 	public partial class Ciudad
 	{
-		//Almacén
-
 		/// <summary>
 		/// Almacén de recursos.
 		/// </summary>
@@ -30,4 +28,3 @@ namespace Civ
 		}
 	}
 }
-

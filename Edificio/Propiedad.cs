@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-
 namespace Civ
 {
 	/// <summary>
@@ -20,7 +19,6 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public string Nombre;
-
 		[DataMember(Name = "Salida")]
 		ListasExtra.ListaPeso<Recurso> _Salida = new ListasExtra.ListaPeso<Recurso>();
 
@@ -31,8 +29,6 @@ namespace Civ
 		{
 			get { return _Salida; }
 		}
-
-
 		// IRequerimiento:
 		bool IRequerimiento.LoSatisface(Ciudad C)
 		{
@@ -55,6 +51,5 @@ namespace Civ
 		{
 			return Nombre;
 		}
-
 	}
 }

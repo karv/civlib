@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-
-
 namespace Basic
 {
 	[DataContract(IsReference = true)]
+	[Obsolete()]
 	public struct Par<S, T>
 	{
 		public S x;
@@ -23,7 +22,6 @@ namespace Basic
 			return string.Format("({0}, {1})", x, y);
 		}
 	}
-
 
 	public static class Covertidor<S, T>
 	{
@@ -85,7 +83,8 @@ namespace Basic
 			List<object> ret;
 			float Suma = 0;
 			float rn;
-			if (n == 0) return new List<object>();
+			if (n == 0)
+				return new List<object>();
 			else
 			{
 				ret = r.SeleccionaPeso(n - 1, Lista);
@@ -112,7 +111,4 @@ namespace Basic
 			}
 		}
 	}
-
-
 }
-

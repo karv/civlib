@@ -25,7 +25,5 @@ namespace Civ
 		{
 			return Req.TrueForAll(x => x.LoSatisface(this));
 		}
-
 	}
 }
-

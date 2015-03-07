@@ -14,7 +14,13 @@ namespace Global
 		/// La topología del mundo.
 		/// </summary>
 		public Grafica<Terreno> Topologia;
-		private List<Civilizacion> _Civs = new List<Civilizacion>();
+		List<Civilizacion> _Civs = new List<Civilizacion>();
+
+		public g_State()
+		{
+			Topologia = new Grafica<Terreno>();
+			Topologia.EsSimetrico = true;
+		}
 
 		/// <summary>
 		/// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
@@ -24,10 +30,19 @@ namespace Global
 			get { return _Civs; }
 		}
 
-		public g_State()
+		/// <summary>
+		/// Devuelve la lista de civilizaciones vivas (eq. en el mapa)
+		/// </summary>
+		public List<Civilizacion> CivsVivas()
 		{
-			Topologia = new Grafica<Terreno>();
-			Topologia.EsSimetrico = true;
+			List<Civilizacion> ret = new List<Civilizacion>();
+			foreach (var x in Topologia.Nodos)
+			{
+				Civilizacion C = x.CiudadConstruida.CivDueno;
+				if (!ret.Contains(C))
+					ret.Add(C);
+			}
+			return ret;
 		}
 
 		/// <summary>
@@ -71,4 +86,3 @@ namespace Global
 		}
 	}
 }
-
