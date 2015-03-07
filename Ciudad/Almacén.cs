@@ -6,7 +6,6 @@ namespace Civ
 {
 	public partial class Ciudad
 	{
-		//Almacén
 		/// <summary>
 		/// Almacén de recursos.
 		/// </summary>
@@ -47,7 +46,8 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Devuelve la cantidad de un recurso existente en ciudad, mas los recursos globales.
+		/// Devuelve la cantidad de un recurso existente en ciudad.
+		/// Incluye los recursos ecológicos.
 		/// 
 		/// O establece la cantidad de recursos de esta ciudad (o global, según el tipo de recurso).
 		/// </summary>
@@ -58,7 +58,7 @@ namespace Civ
 			{
 				float r;
 
-				r = base[R] + CiudadDueño.CivDueño.Almacen[R]; // Devuelve lo almacenado en esta ciudad más los recursos globales.
+				r = base[R]; // Devuelve lo almacenado en esta ciudad.
 				if (CiudadDueño.Terr.Eco.RecursoEcologico.ContainsKey(R))
 					r += CiudadDueño.Terr.Eco.RecursoEcologico[R].Cant;
 
@@ -68,14 +68,13 @@ namespace Civ
 			{
 				if (R.EsGlobal)
 				{
-					CiudadDueño.CivDueño.Almacen[R] += value;
+					CiudadDueño.CivDueno.Almacen[R] = value;
 				}
 				else
 				{
-					base[R] += value;
+					base[R] = value;
 				}
 			}
 		}
 	}
 }
-

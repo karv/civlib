@@ -39,7 +39,7 @@ namespace Civ
 		{
 			get
 			{
-				return CiudadDueño.CivDueño;
+				return CiudadDueño.CivDueno;
 			}
 		}
 
@@ -47,15 +47,12 @@ namespace Civ
 		/// Devuelve la lista de recursos de la ciudad.
 		/// </summary>
 		/// <value>The almacén.</value>
-		public ListaPeso<Recurso> Almacén
+		public AlmacenCiudad Almacén
 		{
 			get
 			{
 				return CiudadDueño.Almacén;
 			}
 		}
-
 	}
-
 }
-

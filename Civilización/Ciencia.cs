@@ -11,7 +11,6 @@ namespace Civ
 		/// Lista de avances de la civilización
 		/// </summary>
 		public List<Ciencia> Avances = new List<Ciencia>();
-
 		/// <summary>
 		/// Ciencias que han sido parcialmente investigadas.
 		/// </summary>
@@ -40,9 +39,7 @@ namespace Civ
 		/// <returns><c>true</c> si la ciencia se puede investigar; <c>false</c> si no.</returns>
 		bool EsCienciaAbierta(Ciencia C)
 		{
-			// return !Avances.Contains(C) && C.ReqCiencia.TrueForAll(z => Avances.Exists(w => (w.Nombre == z)));
 			return !Avances.Contains(C) && C.Reqs.Ciencias.TrueForAll(z => Avances.Contains(z));
 		}
 	}
 }
-

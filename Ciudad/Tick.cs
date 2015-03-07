@@ -57,7 +57,7 @@ namespace Civ
 
 			if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
 			{
-				CivDueño.AgregaMensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this);
+				CivDueno.AgregaMensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this);
 				LiberarTrabajadores(PoblaciónProductiva - (ulong)Crecimiento[1]);
 
 			}
@@ -113,11 +113,18 @@ namespace Civ
 					AgregaEdificio(x);
 				}
 			}
+
+			// Recursos no almacenados
+			foreach (var x in Almacén.Keys)
+			{
+				if (x.Desaparece) Almacén[x] = 0;
+			}
 		}
 
 		/// <summary>
 		/// Destruye los recursos con el flag <c>.desaparecen</c>.
 		/// </summary>
+		[Obsolete]
 		public void DestruirRecursosTemporales()
 		{
 			// Desaparecen algunos recursos
@@ -141,11 +148,10 @@ namespace Civ
 			PopTick(t);
 			Tick(t);
 
-			if (CivDueño != null && getPoblación == 0)
+			if (CivDueno != null && getPoblación == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
-				CivDueño.removeCiudad(this);
+				CivDueno.removeCiudad(this);
 			}
 		}
 	}
 }
-

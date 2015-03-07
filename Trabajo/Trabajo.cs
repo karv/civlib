@@ -5,7 +5,6 @@ using System.Xml.Serialization;
 
 namespace Civ
 {
-
 	/// <summary>
 	/// Representa una instancia trabajo en una instancia de edificio.
 	/// </summary>
@@ -37,8 +36,10 @@ namespace Civ
 			}
 		}
 
-		// Lo nuevo
+		/// <summary>
+		/// Prioridad del trabajo.
+		/// Por ahora se usa exclusivamente para saber qué trabajadores se deben liberar cuando se requiera.
+		/// </summary>
 		public float Prioridad;
-
 	}
 }

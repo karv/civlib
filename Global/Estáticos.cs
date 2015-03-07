@@ -82,7 +82,6 @@ namespace Global
 			Random r = new Random();
 			State = new g_State();
 
-
 			// Hacer la topología
 			List<Civ.Terreno> Terrenos = new List<Civ.Terreno>();
 			Civ.Terreno T;

@@ -52,10 +52,13 @@ namespace Civ
 				}
 
 				// Fase final, desaparecer recursos.
-				foreach (Ciudad Cd in Ciudades)
+				// TODO
+
+				foreach (var Rec in Almacen.Keys)
 				{
-					Cd.DestruirRecursosTemporales();
+					Almacen[Rec] = 0;
 				}
+
 			}
 		}
 	}

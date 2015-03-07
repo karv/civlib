@@ -9,7 +9,7 @@ namespace Civ
 		/// </summary>
 		public void Tick(float t = 1)
 		{
-			// Obtener eficioencia (generada por la disponibilidad de recursos)
+			// Obtener eficiencia (generada por la disponibilidad de recursos)
 			float PctProd = 1;
 			foreach (var x in RAW.EntradaBase.Keys)
 			{
@@ -31,4 +31,3 @@ namespace Civ
 		}
 	}
 }
-

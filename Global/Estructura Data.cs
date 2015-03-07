@@ -24,8 +24,6 @@ namespace Global
 		public List<Civ.Propiedad> Propiedades = new List<Civ.Propiedad>();
 		[DataMember(Name = "Ecosistemas")]
 		public List<Civ.Ecosistema> Ecosistemas = new List<Civ.Ecosistema>();
-
-
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
 		/// </summary>
@@ -58,6 +56,7 @@ namespace Global
 			}
 			return false;
 		}
+
 		/// <summary>
 		/// Revisa si existe una ciencia con un nombre específico.
 		/// </summary>
@@ -170,9 +169,5 @@ namespace Global
 				return ret;
 			}
 		}
-
-
 	}
-
 }
-

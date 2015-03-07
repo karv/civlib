@@ -15,7 +15,8 @@ namespace Civ
 	}
 
 	[DataContract(Name = "Requerimiento")]
-	public class Requerimiento      // Para juntar los Reqs en una clase. ¿Olvidarse de IRequerimiento?
+	public class Requerimiento      // Para juntar los Reqs en una clase. 
+		                            //TODO ¿Olvidarse de IRequerimiento?
 	{
 		[DataMember]
 		public List<Ciencia> Ciencias = new List<Ciencia>();
@@ -26,16 +27,19 @@ namespace Civ
 		/// Junta todos los requeriemintos en una lista de IRequerimientos.
 		/// </summary>
 		/// <returns></returns>
-		public System.Collections.Generic.List<IRequerimiento> Requiere()
+		public List<IRequerimiento> Requiere()
 		{
 			List<IRequerimiento> ret = new List<IRequerimiento>();
-			foreach (Ciencia x in Ciencias) { ret.Add(x); }
-			foreach (EdificioRAW x in Edificios) { ret.Add(x); }
+			foreach (Ciencia x in Ciencias)
+			{
+				ret.Add(x);
+			}
+			foreach (EdificioRAW x in Edificios)
+			{
+				ret.Add(x);
+			}
 
 			return ret;
 		}
-
-
 	}
 }
-

@@ -37,7 +37,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la lista de armadas de la civ.
 		/// </summary>
-		/// <value>The armadas.</value>
+		/// <value>la list que enlista a las larmadas de esta civ.</value>
 		public List<Armada> Armadas
 		{
 			get
@@ -61,4 +61,3 @@ namespace Civ
 		}
 	}
 }
-

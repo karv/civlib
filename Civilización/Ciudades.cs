@@ -21,14 +21,15 @@ namespace Civ
 				return Ciudades;
 			}
 		}
+
 		/// <summary>
 		/// Agrega una ciudad a esta civ.
 		/// </summary>
 		/// <param name="C">C.</param>
 		public void addCiudad(Ciudad C)
 		{
-			if (C.CivDueño != this)
-				C.CivDueño = this;
+			if (C.CivDueno != this)
+				C.CivDueno = this;
 		}
 
 		/// <summary>
@@ -37,9 +38,10 @@ namespace Civ
 		/// <param name="C">Ciudad a quitar.</param>
 		public void removeCiudad(Ciudad C)
 		{
-			if (C.CivDueño == this)
-				C.CivDueño = null;
+			if (C.CivDueno == this)
+				C.CivDueno = null;
 		}
+
 		/// <summary>
 		/// Agrega una nueva ciudad a esta civ.
 		/// </summary>
@@ -51,20 +53,19 @@ namespace Civ
 			return C;
 		}
 
-        /// <summary>
-        /// Cuenta el número de edificios que existen en la ciudad.
-        /// </summary>
-        /// <param name="Edif"></param>
-        /// <returns></returns>
-        public int CuentaEdificios(EdificioRAW Edif)
-        {
-            int ret = 0;
-            foreach (var x in Ciudades)
-            {
-                ret += x.NumEdificios(Edif);
-            }
-            return ret;
-        }
+		/// <summary>
+		/// Cuenta el número de edificios que existen en la ciudad.
+		/// </summary>
+		/// <param name="Edif"></param>
+		/// <returns></returns>
+		public int CuentaEdificios(EdificioRAW Edif)
+		{
+			int ret = 0;
+			foreach (var x in Ciudades)
+			{
+				ret += x.NumEdificios(Edif);
+			}
+			return ret;
+		}
 	}
 }
-
