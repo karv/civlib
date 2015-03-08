@@ -29,7 +29,8 @@ namespace Civ
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
 				List<Ciencia> CienciaInvertibleRec = CienciasAbiertas().FindAll(z => z.Reqs.Recursos.ContainsKey(Rec) && // Que la ciencia requiera de tal recurso
-					Investigando.Find(w => w.Ciencia == z)[Rec] < z.Reqs.Recursos[Rec]); // Y que aún le falte de tal recurso.
+					Investigando.Exists (w => w.Ciencia == z) &&
+					Investigando.EncuentraInstancia(z)[Rec] < z.Reqs.Recursos[Rec]); // Y que aún le falte de tal recurso.
 				float[] sep = r.Separadores(CienciaInvertibleRec.Count, Almacen[Rec]);
 
 				int i = 0;
