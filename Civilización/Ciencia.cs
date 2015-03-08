@@ -86,8 +86,18 @@ namespace Civ
 		/// <returns>The pct.</returns>
 		public float ObtPct()
 		{
-			float Max = Ciencia.Reqs.Recursos.SumaTotal();
-			float Curr = SumaTotal();
+			float Max = 0; // Ciencia.Reqs.Recursos.SumaTotal();
+			float Curr = 0; //SumaTotal();
+
+			foreach (var x in Ciencia.Reqs.Recursos.Keys)
+			{
+				Max += Ciencia.Reqs.Recursos[x];
+			}
+
+			foreach (var x in Keys)
+			{
+				Curr += this[x];
+			}
 
 			return Curr / Max;
 		}
@@ -103,7 +113,7 @@ namespace Civ
 		/// <returns><c>true</c>, if completada was estaed, <c>false</c> otherwise.</returns>
 		public bool EstaCompletada()
 		{
-			foreach (var x in Keys)
+			foreach (var x in Ciencia.Reqs.Recursos.Keys)
 			{
 				if (this[x] < Ciencia.Reqs.Recursos[x])
 					return false;
