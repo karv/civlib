@@ -16,7 +16,7 @@ namespace Civ
 		/// Ciencias que han sido parcialmente investigadas.
 		/// </summary>
 		public ListaPeso<Ciencia, ListaPeso<Recurso>> Investigando
-			= new ListaPeso<Ciencia, ListaPeso<Recurso>>(null, null);
+			= new ListaPeso<Ciencia, ListaPeso<Recurso>>(null, new ListaPeso<Recurso>());
 
 		/// <summary>
 		/// Devuelve las ciencias que no han sido investigadas y que comple todos los requesitos para investigarlas.
@@ -56,7 +56,7 @@ namespace Civ
 				return true;
 			foreach (var x in C.Reqs.Recursos.Data.Keys)
 			{
-				if (C.Reqs.Recursos[x] < Investigando[C][x])
+				if (Investigando[C][x] < C.Reqs.Recursos[x])
 				{
 					return false;
 				}

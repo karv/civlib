@@ -34,14 +34,17 @@ namespace Civ
 				int i = 0;
 				foreach (var y in CienciaInvertibleRec)
 				{
-					// En este momento, se está investigando "y" con el recurso "Rec".
+					// En este momento, se está investigando "y" con el recurso "Rec".					
+					if (!Investigando.ContainsKey(y))	// Tal vez deba considerar usar un diccionario
+						Investigando[y] = new ListasExtra.ListaPeso<Recurso>();
 					Investigando[y][Rec] += sep[i++];
 				}
 			}
 
 			foreach (var x in CienciasAbiertas ())
 			{
-
+				if (SatisfaceRequerimientosRecursos(x))
+					Investigado.Add(x);
 			}
 
 			foreach (Ciencia Avan in Investigado)
