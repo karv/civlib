@@ -21,7 +21,7 @@ namespace Civ
 
 			foreach (var x in Eco.PropPropiedad.Keys)
 			{
-				if (r.Next() < Eco.PropPropiedad[x])
+				if (r.NextDouble() <= Eco.PropPropiedad[x])
 				{	// Si el azar determina (¡Qué loco suena eso!) que hay que agregarle la propiedad...
 					Innatos.Add(x);
 				}

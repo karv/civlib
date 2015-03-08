@@ -44,58 +44,34 @@
 		<Nombre>Estada</Nombre>
 	</Recurso>
 </Recursos>
-	
+
+<Propiedades>
+	<Propiedad z:Id="pAlimento">
+		<Nombre>Alimento</Nombre>
+		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
+			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+					<d5p1:Key z:Ref="rAlimento"/>
+					<d5p1:Value>30</d5p1:Value>
+				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
+			</d4p1:List>
+		</Salida>
+	</Propiedad>
+</Propiedades>
+
 <Ecosistemas>
 	<Ecosistema>
 		<Nombre>Desierto</Nombre>
 		<Propiedades xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
-					<d5p1:Key>
-						<Nombre>Arena</Nombre>
-						<Salida>
-							<d4p1:List>
-								<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-									<d5p1:Key z:Ref="rAlimento"/>
-									<d5p1:Value>-3</d5p1:Value>
-								</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-							</d4p1:List>
-						</Salida>
-					</d5p1:Key>
+					<d5p1:Key z:Ref="pAlimento" />
 					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
-				<d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
-					<d5p1:Key>
-						<Nombre>Oasis</Nombre>
-						<Salida>
-							<d4p1:List>
-								<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-									<d5p1:Key z:Ref="rAlimento"/>
-									<d5p1:Value>10</d5p1:Value>
-								</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-							</d4p1:List>
-						</Salida>
-					</d5p1:Key>
-					<d5p1:Value>0.3</d5p1:Value>
 				</d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
 			</d4p1:List>
 		</Propiedades>
 	</Ecosistema>
 </Ecosistemas>
-
-<Propiedades>
-	<Propiedad>
-		<Nombre>Tierra fértil</Nombre>
-		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rAlimento"/>
-					<d5p1:Value>5</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d4p1:List>
-		</Salida>
-	</Propiedad>
-</Propiedades>
 
 <Ciencias>
 <Ciencia z:Id="cLenguaje">
@@ -572,7 +548,7 @@
 		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 		</Entrada>
-		<Nombre>Prodicur ciencia social</Nombre>
+		<Nombre>Producir ciencia social</Nombre>
 		<Requiere>
 			<Ciencias />
 			<Edificios />

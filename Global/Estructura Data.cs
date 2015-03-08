@@ -20,9 +20,9 @@ namespace Global
 		public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
 		[DataMember(Name = "Unidades", Order = 6)]
 		public List<Civ.UnidadRAW> Unidades = new List<Civ.UnidadRAW>();
-		[DataMember(Name = "Propiedades", Order = 2)]
+		[DataMember(Name = "Propiedades", Order = 1)]
 		public List<Civ.Propiedad> Propiedades = new List<Civ.Propiedad>();
-		[DataMember(Name = "Ecosistemas", Order = 1)]
+		[DataMember(Name = "Ecosistemas", Order = 2)]
 		public List<Civ.Ecosistema> Ecosistemas = new List<Civ.Ecosistema>();
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
