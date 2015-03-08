@@ -10,24 +10,24 @@ namespace Global
 	[DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/Civ", Name = "Data")]
 	public class g_Data
 	{
-		[DataMember(Name = "Ciencias")]
+		[DataMember(Name = "Ciencias", Order = 3)]
 		public List<Civ.Ciencia> Ciencias = new List<Civ.Ciencia>();
-		[DataMember(Name = "Edificios")]
+		[DataMember(Name = "Edificios", Order = 4)]
 		public List<Civ.EdificioRAW> Edificios = new List<Civ.EdificioRAW>();
-		[DataMember(Name = "Recursos")]
+		[DataMember(Name = "Recursos", Order = 0)]
 		public List<Civ.Recurso> Recursos = new List<Civ.Recurso>();
-		[DataMember(Name = "Trabajos")]
+		[DataMember(Name = "Trabajos", Order = 5)]
 		public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
-		[DataMember(Name = "Unidades")]
+		[DataMember(Name = "Unidades", Order = 6)]
 		public List<Civ.UnidadRAW> Unidades = new List<Civ.UnidadRAW>();
-		[DataMember(Name = "Propiedades")]
+		[DataMember(Name = "Propiedades", Order = 2)]
 		public List<Civ.Propiedad> Propiedades = new List<Civ.Propiedad>();
-		[DataMember(Name = "Ecosistemas")]
+		[DataMember(Name = "Ecosistemas", Order = 1)]
 		public List<Civ.Ecosistema> Ecosistemas = new List<Civ.Ecosistema>();
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
 		/// </summary>
-		[DataMember(Name = "Alimento")]
+		[DataMember(Name = "Alimento", Order = 7)]
 		public Civ.Recurso RecursoAlimento;
 
 		/// <summary>

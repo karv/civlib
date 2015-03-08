@@ -12,18 +12,23 @@ namespace Civ
 		[DataContract(IsReference = false)]
 		public class Requerimiento
 		{
-			/// <summary>
-			/// Recurso que se necesita para investigar.
-			/// </summary>
 			[DataMember(Name = "Recurso")]
-			public Recurso Rec;
+			ListasExtra.ListaPeso<Recurso> _Recursos = new ListasExtra.ListaPeso<Recurso>();
+
 			/// <summary>
-			/// Cantidad de <see cref="RecursoReq"/> que se necesita para investigar.
+			/// Devuelve la lista de recursos que se necesita para investigar
 			/// </summary>
-			[DataMember(Name = "Cantidad")]
-			public float Cantidad;
+			/// <value>The recursos.</value>
+			public ListasExtra.ListaPeso<Recurso> Recursos
+			{
+				get
+				{
+					return _Recursos;
+				}
+			}
+
 			/// <summary>
-			/// Lista de requerimientos científicos.
+			/// Lista de requisitos científicos.
 			/// </summary>
 			[DataMember(Name = "Ciencias")]
 			public System.Collections.Generic.List<Ciencia> Ciencias = new System.Collections.Generic.List<Ciencia>();
