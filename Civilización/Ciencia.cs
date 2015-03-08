@@ -15,8 +15,7 @@ namespace Civ
 		/// <summary>
 		/// Ciencias que han sido parcialmente investigadas.
 		/// </summary>
-		public ListaPeso<Ciencia, ListaPeso<Recurso>> Investigando
-			= new ListaPeso<Ciencia, ListaPeso<Recurso>>(null, new ListaPeso<Recurso>());
+		public ListaInvestigacion Investigando = new ListaInvestigacion();
 
 		/// <summary>
 		/// Devuelve las ciencias que no han sido investigadas y que comple todos los requesitos para investigarlas.
@@ -54,14 +53,93 @@ namespace Civ
 			// Si ya se conoce la ciencia, entonces devuelve true.
 			if (Avances.Contains(C))
 				return true;
-			foreach (var x in C.Reqs.Recursos.Data.Keys)
+			InvestigandoCiencia I = Investigando.EncuentraInstancia(C);
+			if (I == null)
+				return false; // Si no se empieza a investigar aún, regresa false.
+			return I.EstaCompletada(); // Si está en la lista, revisar si está completada.
+		}
+	}
+
+	/// <summary>
+	/// Representa una entrada de una ciencia que se está investigando.
+	/// </summary>
+	public class InvestigandoCiencia: ListaPeso<Recurso>
+	{
+		/// <summary>
+		/// La ciencia alclada.
+		/// </summary>
+		public readonly Ciencia Ciencia;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.InvestigandoCiencia"/> class.
+		/// </summary>
+		/// <param name="C">Ciencia</param>
+		public InvestigandoCiencia(Ciencia C)
+		{
+			Ciencia = C;
+		}
+
+		/// <summary>
+		/// Obtiene el porcentage de avance total
+		/// Considerando que cada recurso vale lo mismo
+		/// </summary>
+		/// <returns>The pct.</returns>
+		public float ObtPct()
+		{
+			float Max = Ciencia.Reqs.Recursos.SumaTotal();
+			float Curr = SumaTotal();
+
+			return Curr / Max;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("{0}: {1}", Ciencia.Nombre, ObtPct().ToString());
+		}
+
+		/// <summary>
+		/// Devuelve true si está completada.
+		/// </summary>
+		/// <returns><c>true</c>, if completada was estaed, <c>false</c> otherwise.</returns>
+		public bool EstaCompletada()
+		{
+			foreach (var x in Keys)
 			{
-				if (Investigando[C][x] < C.Reqs.Recursos[x])
-				{
+				if (this[x] < Ciencia.Reqs.Recursos[x])
 					return false;
-				}
 			}
 			return true;
+		}
+	}
+
+	/// <summary>
+	/// Representa la lista de ciencias que se están investigando.
+	/// </summary>
+	public class ListaInvestigacion:List<InvestigandoCiencia>
+	{
+		/// <summary>
+		/// Agrega cierta cantidad de recursos, a la investigación de una ciencia.
+		/// </summary>
+		/// <param name="C">Ciencia investigando.</param>
+		/// <param name="R">Recurso del que se agrega.</param>
+		/// <param name="Cantidad">Cantidad de tal recurso.</param>
+		public void Invertir(Ciencia C, Recurso R, float Cantidad)
+		{
+			if (!Exists(x => x.Ciencia == C)) // Si no existe la ciencia C en la lista, se agrega
+				Add(new InvestigandoCiencia(C));
+
+			InvestigandoCiencia IC = Find(x => x.Ciencia == C); //IC es la correspondiente a la ciencia C.
+			IC[R] += Cantidad;
+		}
+
+		/// <summary>
+		/// Encuentra la instancia (si existe) de una ciencia.
+		/// </summary>
+		/// <returns>The instancia.</returns>
+		/// <param name="C">Ciencia a buscar</param>
+		public InvestigandoCiencia EncuentraInstancia(Ciencia C)
+		{
+			return Find(x => x.Ciencia == C);
 		}
 	}
 }

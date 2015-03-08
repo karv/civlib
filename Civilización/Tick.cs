@@ -28,16 +28,15 @@ namespace Civ
 			foreach (Recurso Rec in Global.g_.Data.ObtenerRecursosCientíficos())
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
-				List<Ciencia> CienciaInvertibleRec = CienciasAbiertas().FindAll(z => z.Reqs.Recursos.ContainsKey(Rec) && Investigando[z][Rec] < z.Reqs.Recursos[Rec]);  
+				List<Ciencia> CienciaInvertibleRec = CienciasAbiertas().FindAll(z => z.Reqs.Recursos.ContainsKey(Rec) && // Que la ciencia requiera de tal recurso
+					Investigando.Find(w => w.Ciencia == z)[Rec] < z.Reqs.Recursos[Rec]); // Y que aún le falte de tal recurso.
 				float[] sep = r.Separadores(CienciaInvertibleRec.Count, Almacen[Rec]);
 
 				int i = 0;
 				foreach (var y in CienciaInvertibleRec)
 				{
-					// En este momento, se está investigando "y" con el recurso "Rec".					
-					if (!Investigando.ContainsKey(y))	// Tal vez deba considerar usar un diccionario
-						Investigando[y] = new ListasExtra.ListaPeso<Recurso>();
-					Investigando[y][Rec] += sep[i++];
+					// En este momento, se está investigando "y" con el recurso "Rec".
+					Investigando.Invertir(y, Rec, sep[i++]);
 				}
 			}
 
@@ -50,16 +49,16 @@ namespace Civ
 			foreach (Ciencia Avan in Investigado)
 			{
 				Avances.Add(Avan);
-				Investigando.Data.Remove(Avan);
+				Investigando.RemoveAll(x => x.Ciencia == Avan);
 				AgregaMensaje("Investigación terminada: {0}", Avan);
 			}
 
 			// Fase final, desaparecer recursos.
-				// TODO
+			// TODO
 
-				foreach (var Rec in Almacen.Keys)
+			foreach (var Rec in Almacen.Keys)
 			{
-					Almacen[Rec] = 0;
+				Almacen[Rec] = 0;
 			}
 
 		}
