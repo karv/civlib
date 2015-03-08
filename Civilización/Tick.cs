@@ -54,13 +54,7 @@ namespace Civ
 			}
 
 			// Fase final, desaparecer recursos.
-			// TODO
-
-			foreach (var Rec in Almacen.Keys)
-			{
-				Almacen[Rec] = 0;
-			}
-
+			Almacen.RemoverRecursosDesaparece();
 		}
 	}
 }

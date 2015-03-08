@@ -21,6 +21,18 @@ namespace Civ
 		}
 
 		/// <summary>
+		/// Elimina los recursos con la flaf "Desaparece"
+		/// </summary>
+		public void RemoverRecursosDesaparece()
+		{
+			foreach (var x in Keys)
+			{
+				if (x.Desaparece)
+					this[x] = 0;
+			}
+		}
+
+		/// <summary>
 		/// Devuelve la cantidad de recursos presentes.
 		/// Si R es global devuelve su valor "as is".
 		/// Si R no es globa, suma los almacenes de cada ciudad.
