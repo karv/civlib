@@ -21,7 +21,7 @@ namespace Civ
 		/// <summary>
 		/// Número de infantes que nacen por (PoblaciónProductiva*Tick) Base.
 		/// </summary>
-		public static float TasaNatalidadBase = 0.2f;
+		public static float TasaNatalidadBase = 0.12f;
 		/// <summary>
 		/// Probabilidad base de un infante arbitrario de morir en cada tick.
 		/// </summary>
