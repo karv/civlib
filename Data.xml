@@ -649,7 +649,7 @@
 		</Modificadores>
 		<Nombre>Soldado</Nombre>
 		<Peso>1</Peso>
-		<Requerimientos xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra" z:Id="i4">
+		<Requerimientos xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
 					<d5p1:Key z:Ref="rEspada"/>
