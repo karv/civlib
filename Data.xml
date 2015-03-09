@@ -628,37 +628,25 @@
 </Trabajos>
 
 <Unidades>
-	<Unidad z:Id="uSoldado">
+	<Unidad z:Id="uBruto">
 		<CostePoblación>1</CostePoblación>
 		<Flags xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 			<d4p1:string>Unidad a pie</d4p1:string>
 			<d4p1:string>Humano</d4p1:string>
 		</Flags>
-		<Fuerza>2</Fuerza>
+		<Fuerza>1</Fuerza>
 		<Modificadores xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d5p1:KeyValueOfstringfloat>
 					<d5p1:Key>Animal</d5p1:Key>
 					<d5p1:Value>0.3</d5p1:Value>
 				</d5p1:KeyValueOfstringfloat>
-				<d5p1:KeyValueOfstringfloat>
-					<d5p1:Key>Humano</d5p1:Key>
-					<d5p1:Value>-0.1</d5p1:Value>
-				</d5p1:KeyValueOfstringfloat>
 			</d4p1:List>
 		</Modificadores>
-		<Nombre>Soldado</Nombre>
+		<Nombre>Bruto</Nombre>
 		<Peso>1</Peso>
 		<Requerimientos xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rEspada"/>
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rEscudo"/>
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 			</d4p1:List>
 		</Requerimientos>
 	</Unidad>
