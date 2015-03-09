@@ -31,30 +31,33 @@
 		<Global>true</Global>
 		<Nombre>Ciencia: arte</Nombre>
 	</Recurso>
-	<Recurso z:Id="rEspada">
+	<Recurso z:Id="rFrutas silvestres">
 		<Científico>false</Científico>
 		<Desaparece>false</Desaparece>
 		<Global>false</Global>
-		<Nombre>Estada</Nombre>
-	</Recurso>
-	<Recurso z:Id="rEscudo">
-		<Científico>false</Científico>
-		<Desaparece>false</Desaparece>
-		<Global>false</Global>
-		<Nombre>Estada</Nombre>
+		<Nombre>Frutas silvestres</Nombre>
 	</Recurso>
 </Recursos>
 
 <Propiedades>
 	<Propiedad z:Id="pAlimento">
 		<Nombre>Alimento</Nombre>
-		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rAlimento"/>
-					<d5p1:Value>30</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d4p1:List>
+		<Salida>
+			<Propiedad.TasaProd>
+				<Crec>30</Crec>
+				<Max>999999</Max>
+				<Rec z:Ref="rAlimento" />
+			</Propiedad.TasaProd>
+		</Salida>
+	</Propiedad>
+	<Propiedad z:Id="pFrutas silvestres">
+		<Nombre>Frutas silvestres</Nombre>
+		<Salida>
+			<Propiedad.TasaProd>
+				<Crec>2</Crec>
+				<Max>1000</Max>
+				<Rec z:Ref="rFrutas silvestres" />
+			</Propiedad.TasaProd>
 		</Salida>
 	</Propiedad>
 </Propiedades>
@@ -66,6 +69,10 @@
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
 					<d5p1:Key z:Ref="pAlimento" />
+					<d5p1:Value>1</d5p1:Value>
+				</d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d5p1:Key z:Ref="pFrutas silvestres" />
 					<d5p1:Value>1</d5p1:Value>
 				</d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
 			</d4p1:List>
@@ -475,27 +482,14 @@
 			<Edificios />
 		</Requiere>
 	</Edificio>
-	<Edificio z:Id ="eGranja">
-		<Construcción xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-			<d4p1:KeyValueOfRecursofloatbN_PeySYD>
-				<d4p1:Key z:Ref="rAlimento" />
-				<d4p1:Value>5</d4p1:Value>
-			</d4p1:KeyValueOfRecursofloatbN_PeySYD>
-			<d4p1:KeyValueOfRecursofloatbN_PeySYD>
-				<d4p1:Key z:Id="rProducción">
-					<Científico>false</Científico>
-					<Desaparece>true</Desaparece>
-					<Global>false</Global>
-					<Nombre>Producción</Nombre>
-				</d4p1:Key>
-				<d4p1:Value>5</d4p1:Value>
-			</d4p1:KeyValueOfRecursofloatbN_PeySYD>
-		</Construcción>
-		<MaxWorkers>100</MaxWorkers>
-		<Nombre>Granja</Nombre>
+	<Edificio z:Id ="eRecolector">
+		<Construcción xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+		<EsAutoConstruíble>true</EsAutoConstruíble>
+		<MaxWorkers>30</MaxWorkers>
+		<Nombre>Recolector</Nombre>
 		<Requiere>
 			<Ciencias>
-				<Ciencia z:Ref ="cLenguaje" />
+				<Ciencia z:Ref ="cVida nómada" />
 			</Ciencias>
 			<Edificios />
 		</Requiere>
@@ -503,33 +497,17 @@
 </Edificios>
 
 <Trabajos>
-	<Trabajo z:Id="tSembrar maíz">
-		<Edificio z:Ref="eGranja" />
+	<Trabajo z:Id="tRecolectar frutas">
+		<Edificio z:Ref="eRecolector" />
 		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-		</Entrada>
-		<Nombre>Sembrar maíz</Nombre>
-		<Requiere>
-			<Ciencias>
-				<Ciencia z:Ref="cLenguaje" />
-			</Ciencias>
-			<Edificios />
-		</Requiere>
-		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rAlimento" />
-					<d5p1:Value>3</d5p1:Value>
+					<d5p1:Key z:Ref="rFrutas silvestres" />
+					<d5p1:Value>1.5</d5p1:Value>
 				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 			</d4p1:List>
-		</Salida>
-	</Trabajo>
-	<Trabajo z:Id="tProducción">
-		<Edificio z:Ref="ePalacio" />
-		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 		</Entrada>
-		<Nombre>Producción</Nombre>
+		<Nombre>Recolectar frutas</Nombre>
 		<Requiere>
 			<Ciencias />
 			<Edificios />
@@ -537,8 +515,8 @@
 		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rProducción" />
-					<d5p1:Value>10</d5p1:Value>
+					<d5p1:Key z:Ref="rAlimento" />
+					<d5p1:Value>1.5</d5p1:Value>
 				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 			</d4p1:List>
 		</Salida>

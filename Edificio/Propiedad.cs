@@ -20,12 +20,12 @@ namespace Civ
 		[DataMember]
 		public string Nombre;
 		[DataMember(Name = "Salida")]
-		ListasExtra.ListaPeso<Recurso> _Salida = new ListasExtra.ListaPeso<Recurso>();
+		List<TasaProd> _Salida = new List<TasaProd>();
 
 		/// <summary>
 		/// Recursos que produce esta propiedad por turno.
 		/// </summary>
-		public ListasExtra.ListaPeso<Recurso> Salida
+		public List<TasaProd> Salida
 		{
 			get { return _Salida; }
 		}
@@ -41,15 +41,45 @@ namespace Civ
 		/// <param name="C"><see cref="Civ.Ciudad"/> donde hará un tick esta propiedad.</param>
 		public virtual void Tick(Ciudad C, float t = 1)
 		{
-			foreach (Recurso x in _Salida.Keys)
+			foreach (TasaProd x in _Salida)
 			{
-				C.Almacén[x] += _Salida[x] * t;
+				if (C.Almacén[x.Rec] < x.Max)
+				{
+					C.Almacén[x.Rec] = Math.Min(C.Almacén[x.Rec] + x.Crec * t, x.Max);
+				}
 			}
 		}
 
 		public override string ToString()
 		{
 			return Nombre;
+		}
+
+		/// <summary>
+		/// Es la tasa de producción para cada recurso.
+		/// La forma en que se comporta
+		/// </summary>
+		public struct TasaProd
+		{
+			/// <summary>
+			/// Recurso
+			/// </summary>
+			public Recurso Rec;
+			/// <summary>
+			/// Valor máximo
+			/// </summary>
+			public float Max;
+			/// <summary>
+			/// Crecimiento por chronon
+			/// </summary>
+			public float Crec;
+
+			public TasaProd(Recurso nRec, float nMax, float nCrec)
+			{
+				Rec = nRec;
+				Max = nMax;
+				Crec = nCrec;
+			}
 		}
 	}
 }
