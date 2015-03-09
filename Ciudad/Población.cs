@@ -50,6 +50,7 @@ namespace Civ
 		float _PoblaciónProductiva = 10f;
 		float _PoblaciónPreProductiva = 0;
 		float _PoblaciónPostProductiva = 0;
+		float _TasaMortalidadHambruna = 0.5f;
 
 		/// <summary>
 		/// Devuelve la población real y total de la ciudad.

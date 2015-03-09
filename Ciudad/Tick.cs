@@ -27,7 +27,7 @@ namespace Civ
 			else
 			{
 				//El porcentage de muertes
-				float pctMuerte = 1 - (AlimentoAlmacén / (getPoblación * ConsumoAlimentoPorCiudadanoBase));
+				float pctMuerte = (1 - (AlimentoAlmacén / (getPoblación * ConsumoAlimentoPorCiudadanoBase))) * _TasaMortalidadHambruna;
 				AlimentoAlmacén = 0;
 				//Promesas de muerte por sector.
 				Crecimiento[0] -= getPoblaciónPreProductiva * pctMuerte;
