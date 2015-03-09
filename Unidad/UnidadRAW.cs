@@ -54,6 +54,17 @@ namespace Civ
 			get { return _Reqs; }
 		}
 
+		[DataMember(Name = "Ciencia")]
+		Ciencia _ReqCiencia;
+
+		/// <summary>
+		/// Devuelve la ciencia requerida para entrenar a la unidad.
+		/// </summary>
+		public Ciencia ReqCiencia
+		{
+			get { return _ReqCiencia; }
+		}
+
 		/// <summary>
 		/// Población productiva que requiere para entrenar.
 		/// </summary>
