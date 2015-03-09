@@ -588,7 +588,7 @@
 		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
 			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 		</Entrada>
-		<Nombre>Producir ciancia manufactura</Nombre>
+		<Nombre>Producir ciencia manufactura</Nombre>
 		<Requiere>
 			<Ciencias>
 				<Ciencia z:Ref="cRecolección" />
