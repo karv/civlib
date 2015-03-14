@@ -66,7 +66,7 @@ namespace Civ
 	public class InvestigandoCiencia: ListaPeso<Recurso>
 	{
 		/// <summary>
-		/// La ciencia alclada.
+		/// La ciencia anclada.
 		/// </summary>
 		public readonly Ciencia Ciencia;
 
