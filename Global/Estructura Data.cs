@@ -30,6 +30,7 @@ namespace Global
 		[DataMember(Name = "Alimento", Order = 7)]
 		public Civ.Recurso RecursoAlimento;
 
+
 		/// <summary>
 		/// Revisa si existe una edificio con un nombre específico.
 		/// </summary>

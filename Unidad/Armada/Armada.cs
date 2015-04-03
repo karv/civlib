@@ -24,7 +24,7 @@ namespace Civ
 			}
 		}
 
-		public UnidadRAW[] TiposUnidades ()
+		public UnidadRAW[] TiposUnidades()
 		{
 			List<UnidadRAW> ret = new List<UnidadRAW>();
 			foreach (var x in Unidades)
@@ -39,7 +39,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="RAW">Tipo de unidades.</param>
 		/// <returns></returns>
-		public Unidad[]  UnidadesAgrupadas(UnidadRAW RAW)
+		public Unidad[] UnidadesAgrupadas(UnidadRAW RAW)
 		{
 			return Unidades.FindAll(x => x.RAW == RAW).ToArray();
 		}
