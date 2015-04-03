@@ -1,6 +1,7 @@
 using ListasExtra;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Civ
 {
@@ -23,19 +24,24 @@ namespace Civ
 			}
 		}
 
-		/// <summary>
-		/// Devuelve las unidades agrupadas por tipo de Unidad.
-		/// </summary>
-		/// <returns>Una ListaPeso, que asocia a cada UnidadRAW un arreglo con el conjunto de Unidades que existe en la armada.</returns>
-		public ListaPeso <UnidadRAW, List<Unidad>>  UnidadesAgrupadas()
+		public UnidadRAW[] TiposUnidades ()
 		{
-			ListaPeso<UnidadRAW, List<Unidad>> ret = new ListaPeso<UnidadRAW, List<Unidad>>(null, new List<Unidad>());
+			List<UnidadRAW> ret = new List<UnidadRAW>();
 			foreach (var x in Unidades)
 			{
-				List<Unidad> curr = ret[x.RAW];
-				curr.Add (x);
-			}			
-			return ret;
+				if (!ret.Contains(x.RAW)) ret.Add(x.RAW);
+			}
+			return ret.ToArray();
+		}
+
+		/// <summary>
+		/// Devuelve las unidades que son de una clase específica.
+		/// </summary>
+		/// <param name="RAW">Tipo de unidades.</param>
+		/// <returns></returns>
+		public Unidad[]  UnidadesAgrupadas(UnidadRAW RAW)
+		{
+			return Unidades.FindAll(x => x.RAW == RAW).ToArray();
 		}
 
 		public Armada(Civilizacion C)
