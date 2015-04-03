@@ -1,5 +1,6 @@
 using System;
 using ListasExtra;
+using System.Linq;
 
 namespace Civ
 {
@@ -25,10 +26,21 @@ namespace Civ
 		/// </summary>
 		public void RemoverRecursosDesaparece()
 		{
-			foreach (var x in Keys)
+			foreach (var x in Entradas)
 			{
 				if (x.Desaparece)
 					this[x] = 0;
+			}
+		}
+
+		/// <summary>
+		/// Devuelve una copia de la lista de entradas.
+		/// </summary>
+		public Recurso[] Entradas
+		{
+			get
+			{
+				return Keys.ToArray<Recurso>();
 			}
 		}
 
