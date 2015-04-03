@@ -3,6 +3,8 @@ using System.Runtime.Serialization;
 
 namespace Civ
 {
+	class RequiereCiencia: ListasExtra.ListaPeso<Recurso>{}
+
 	/// <summary>
 	/// Representa un adelanto científico.
 	/// </summary>
@@ -13,7 +15,7 @@ namespace Civ
 		public class Requerimiento
 		{
 			[DataMember(Name = "Recurso")]
-			ListasExtra.ListaPeso<Recurso> _Recursos = new ListasExtra.ListaPeso<Recurso>();
+			RequiereCiencia _Recursos = new RequiereCiencia();
 
 			/// <summary>
 			/// Devuelve la lista de recursos que se necesita para investigar

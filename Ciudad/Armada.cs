@@ -40,7 +40,7 @@ namespace Civ
 		public Unidad EntrenarUnidades (UnidadRAW uRAW)
 		{
 			Unidad ret = null;
-			if (uRAW.CostePoblación <= getTrabajadoresDesocupados && uRAW.Reqs <= Almacén)	//Si puede pagar
+			if (uRAW.CostePoblación <= getTrabajadoresDesocupados && Almacén.PoseeRecursos((ListasExtra.ListaPeso<Recurso>)uRAW.Reqs))	//Si puede pagar
 			{
 				ret = new Unidad(uRAW, this);
 				Defensa.AgregaUnidad(ret);						// Agregar la unidad a la defensa de la ciudad.

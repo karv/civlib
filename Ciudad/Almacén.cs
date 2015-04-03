@@ -76,5 +76,15 @@ namespace Civ
 				}
 			}
 		}
+
+		/// <summary>
+		/// Revisa si el almacén posee al menos una lista de recursos.
+		/// </summary>
+		/// <param name="reqs">Lista de recursos para ver si posee</param>
+		/// <returns>true sólo si posee tales recursos.</returns>
+		public bool PoseeRecursos (ListaPeso<Recurso> reqs)
+		{
+			return this >= reqs;
+		}
 	}
 }
