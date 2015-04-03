@@ -64,18 +64,16 @@
 
 <Ecosistemas>
 	<Ecosistema>
-		<Nombre>Desierto</Nombre>
-		<Propiedades xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
-					<d5p1:Key z:Ref="pAlimento" />
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
-				<d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
-					<d5p1:Key z:Ref="pFrutas silvestres" />
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfPropiedadfloatbN_PeySYD>
-			</d4p1:List>
+		<Nombre>Desierto</Nombre>		
+		<Propiedades xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:Key z:Ref="pAlimento" />				
+				<d4p1:Value>1</d4p1:Value>
+			</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+			<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:Key z:Ref="pFrutas silvestres" />
+				<d4p1:Value>1</d4p1:Value>
+			</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 		</Propiedades>
 	</Ecosistema>
 </Ecosistemas>
@@ -85,13 +83,11 @@
 	<Nombre>Lenguaje</Nombre>
 	<Requiere>
 		<Ciencias />
-		<Recurso xmlns:d5p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d5p1:List xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d6p1:KeyValueOfRecursofloatbN_PeySYD>
 					<d6p1:Key z:Ref="rSocial" />
 					<d6p1:Value>12</d6p1:Value>
 				</d6p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d5p1:List>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -99,13 +95,11 @@
 	<Nombre>Vida nómada</Nombre>
 	<Requiere>
 		<Ciencias />
-		<Recurso xmlns:d5p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d5p1:List xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d6p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d6p1:Key z:Ref="rSocial" />
-					<d6p1:Value>10</d6p1:Value>
-				</d6p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d5p1:List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d6p1:KeyValueOfRecursofloatbN_PeySYD>
+				<d6p1:Key z:Ref="rSocial" />
+				<d6p1:Value>10</d6p1:Value>
+			</d6p1:KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -115,17 +109,15 @@
 		<Ciencias>
 			<Ciencia z:Ref = "cVida nómada" />
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>4</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>8</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>4</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>8</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -135,17 +127,15 @@
 		<Ciencias>
 			<Ciencia z:Ref="cVida nómada"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>11</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>3</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>11</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>3</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -155,17 +145,15 @@
 		<Ciencias>
 			<Ciencia z:Ref="cRecolección"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>4</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>10</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>4</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>10</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -175,17 +163,15 @@
 		<Ciencias>
 			<Ciencia z:Ref="cRecolección"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>11</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>3</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>				
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>11</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>3</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>				
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -195,13 +181,11 @@
 		<Ciencias>
 			<Ciencia z:Ref="cRecolección"/>				
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>14</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>14</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -211,13 +195,11 @@
 		<Ciencias>
 			<Ciencia z:Ref="cRecolección"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>14</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>14</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -228,13 +210,11 @@
 			<Ciencia z:Ref="cRecolección"/>
 			<Ciencia z:Ref="cLenguaje"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>14</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>14</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -245,17 +225,15 @@
 			<Ciencia z:Ref="cAsentamiento de cuevas"/>
 			<Ciencia z:Ref="cTejeduría"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>13</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>4</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>13</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>4</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -266,17 +244,15 @@
 			<Ciencia z:Ref="cAsentamiento de cuevas"/>
 			<Ciencia z:Ref="cTejeduría"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rManufactura"/>
-					<Value>14</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>3</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rManufactura"/>
+				<Value>14</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>3</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -287,17 +263,15 @@
 			<Ciencia z:Ref="cAlimentación de subsistencia"/>
 			<Ciencia z:Ref="cCooperación"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>12</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>5</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>12</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>5</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -307,13 +281,11 @@
 		<Ciencias>
 			<Ciencia z:Ref="cAlimentación de subsistencia"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rManufactura"/>
-					<Value>17</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rManufactura"/>
+				<Value>17</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -323,17 +295,15 @@
 		<Ciencias>
 			<Ciencia z:Ref ="cControl del fuego"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>7</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rManufactura" />
-					<Value>10</Value>								 
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>7</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rManufactura" />
+				<Value>10</Value>								 
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -343,13 +313,11 @@
 		<Ciencias>
 			<Ciencia z:Ref="cCooperación"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>17</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>17</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -359,17 +327,15 @@
 		<Ciencias>
 			<Ciencia z:Ref="cCaza de resistencia"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rSocial"/>
-					<Value>5</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rManufactura"/>
-					<Value>15</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rSocial"/>
+				<Value>5</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rManufactura"/>
+				<Value>15</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -380,17 +346,15 @@
 			<Ciencia z:Ref="cTrazo de senderos"/>
 			<Ciencia z:Ref="cCestrería"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rManufactura"/>
-					<Value>17</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rInteracción con el entorno"/>
-					<Value>3</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rManufactura"/>
+				<Value>17</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rInteracción con el entorno"/>
+				<Value>3</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -400,13 +364,11 @@
 		<Ciencias>
 			<Ciencia z:Ref="cFabricación de utensilios"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rManufactura"/>
-					<Value>20</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rManufactura"/>
+				<Value>20</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -417,13 +379,11 @@
 			<Ciencia z:Ref="cPercutor duro de piedra"/>
 			<Ciencia z:Ref="cFitoterapia"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rManufactura"/>
-					<Value>20</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rManufactura"/>
+				<Value>20</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -433,13 +393,11 @@
 		<Ciencias>
 			<Ciencia z:Ref="cTradición oral"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rArte"/>
-					<Value>20</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rArte"/>
+				<Value>20</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -449,13 +407,11 @@
 		<Ciencias>
 			<Ciencia z:Ref="cTradición oral"/>
 		</Ciencias>
-		<Recurso>
-			<List xmlns="http://schemas.datacontract.org/2004/07/ListasExtra">
-				<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-					<Key z:Ref="rArte"/>
-					<Value>20</Value>
-				</KeyValueOfRecursofloatbN_PeySYD>
-			</List>
+		<Recurso xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<KeyValueOfRecursofloatbN_PeySYD xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<Key z:Ref="rArte"/>
+				<Value>20</Value>
+			</KeyValueOfRecursofloatbN_PeySYD>
 		</Recurso>
 	</Requiere>
 </Ciencia>
@@ -498,53 +454,43 @@
 
 <Trabajos>
 	<Trabajo z:Id="tRecolectar frutas">
-		<Edificio z:Ref="eRecolector" />
-		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rFrutas silvestres" />
-					<d5p1:Value>1.5</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d4p1:List>
+		<Edificio z:Ref="eRecolector" />		
+		<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+				<d5p1:Key z:Ref="rFrutas silvestres" />
+				<d5p1:Value>1.5</d5p1:Value>
+			</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 		</Entrada>
 		<Nombre>Recolectar frutas</Nombre>
 		<Requiere>
 			<Ciencias />
 			<Edificios />
 		</Requiere>
-		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rAlimento" />
-					<d5p1:Value>1.5</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d4p1:List>
+		<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+				<d5p1:Key z:Ref="rAlimento" />
+				<d5p1:Value>1.5</d5p1:Value>
+			</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 		</Salida>
 	</Trabajo>
 	<Trabajo z:Id="tProducir ciencia social">
 		<Edificio z:Ref="ePalacio" />
-		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-		</Entrada>
+		<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
 		<Nombre>Producir ciencia social</Nombre>
 		<Requiere>
 			<Ciencias />
 			<Edificios />
 		</Requiere>
-		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rSocial" />
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d4p1:List>
+		<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+				<d5p1:Key z:Ref="rSocial" />
+				<d5p1:Value>1</d5p1:Value>
+			</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 		</Salida>
 	</Trabajo>
 	<Trabajo z:Id="tInteractuar con entorno">
 		<Edificio z:Ref="ePalacio" />
-		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-		</Entrada>
+		<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
 		<Nombre>Interactuar con entorno</Nombre>
 		<Requiere>
 			<Ciencias>
@@ -552,20 +498,16 @@
 			</Ciencias>
 			<Edificios />
 		</Requiere>
-		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rInteracción con el entorno" />
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d4p1:List>
+		<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+				<d5p1:Key z:Ref="rInteracción con el entorno" />
+				<d5p1:Value>1</d5p1:Value>
+			</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 		</Salida>
 	</Trabajo>
 	<Trabajo z:Id="tProducir ciencia manufactura">
 		<Edificio z:Ref="ePalacio" />
-		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-		</Entrada>
+		<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
 		<Nombre>Producir ciencia manufactura</Nombre>
 		<Requiere>
 			<Ciencias>
@@ -573,20 +515,16 @@
 			</Ciencias>
 			<Edificios />
 		</Requiere>
-		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rManufactura" />
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d4p1:List>
+		<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+				<d5p1:Key z:Ref="rManufactura" />
+				<d5p1:Value>1</d5p1:Value>
+			</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 		</Salida>
 	</Trabajo>
 	<Trabajo z:Id="tProducir ciencia artística">
 		<Edificio z:Ref="ePalacio" />
-		<Entrada xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-		</Entrada>
+		<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
 		<Nombre>Producir ciencia artística</Nombre>
 		<Requiere>
 			<Ciencias>
@@ -594,13 +532,11 @@
 			</Ciencias>
 			<Edificios />
 		</Requiere>
-		<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rArte" />
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</d4p1:List>
+		<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+				<d5p1:Key z:Ref="rArte" />
+				<d5p1:Value>1</d5p1:Value>
+			</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 		</Salida>
 	</Trabajo>
 </Trabajos>
@@ -614,20 +550,15 @@
 			<d4p1:string>Humano</d4p1:string>
 		</Flags>
 		<Fuerza>1</Fuerza>
-		<Modificadores xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfstringfloat>
-					<d5p1:Key>Animal</d5p1:Key>
-					<d5p1:Value>0.3</d5p1:Value>
-				</d5p1:KeyValueOfstringfloat>
-			</d4p1:List>
+		<Modificadores xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+			<d5p1:KeyValueOfstringfloat>
+				<d5p1:Key>Animal</d5p1:Key>
+				<d5p1:Value>0.3</d5p1:Value>
+			</d5p1:KeyValueOfstringfloat>
 		</Modificadores>
 		<Nombre>Bruto</Nombre>
 		<Peso>1</Peso>
-		<Requerimientos xmlns:d4p1="http://schemas.datacontract.org/2004/07/ListasExtra">
-			<d4p1:List xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-			</d4p1:List>
-		</Requerimientos>
+		<Requerimientos xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
 	</Unidad>
 </Unidades>
 	

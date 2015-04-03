@@ -12,6 +12,8 @@ namespace Civ
 	[DataContract(IsReference = true, Name = "Trabajo")]
 	public class TrabajoRAW
 	{
+		//[DataContract(IsReference = false)]
+		public class DiferenciaRecursos : ListaPeso<Recurso> { }
 		/// <summary>
 		/// Nombre
 		/// </summary>
@@ -23,12 +25,12 @@ namespace Civ
 		[DataMember]
 		public EdificioRAW Edificio;
 		[DataMember(Name = "Salida")]
-		ListaPeso<Recurso> _SalidaBase = new ListaPeso<Recurso>();
+		DiferenciaRecursos _SalidaBase = new DiferenciaRecursos();
 
 		/// <summary>
 		/// Recursos producidos por trabajador*turno (Base)
 		/// </summary>
-		public ListaPeso<Recurso> SalidaBase
+		public DiferenciaRecursos SalidaBase
 		{
 			get
 			{
@@ -40,12 +42,12 @@ namespace Civ
 		/// Recursos consumidos por trabajador*turno (Base)
 		/// </summary>
 		[DataMember(Name = "Entrada")]
-		ListaPeso<Recurso> _EntradaBase = new ListaPeso<Recurso>();
+		DiferenciaRecursos _EntradaBase = new DiferenciaRecursos();
 
 		/// <summary>
 		/// Recursos consumidos por trabajador*turno (Base)
 		/// </summary>		
-		public ListaPeso<Recurso> EntradaBase
+		public DiferenciaRecursos EntradaBase
 		{
 			get
 			{
