@@ -1,7 +1,7 @@
-using System;
 using ListasExtra;
-using Basic;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Civ
 {
@@ -22,6 +22,26 @@ namespace Civ
 			{
 				return _Unidades;
 			}
+		}
+
+		public UnidadRAW[] TiposUnidades()
+		{
+			List<UnidadRAW> ret = new List<UnidadRAW>();
+			foreach (var x in Unidades)
+			{
+				if (!ret.Contains(x.RAW)) ret.Add(x.RAW);
+			}
+			return ret.ToArray();
+		}
+
+		/// <summary>
+		/// Devuelve las unidades que son de una clase específica.
+		/// </summary>
+		/// <param name="RAW">Tipo de unidades.</param>
+		/// <returns></returns>
+		public Unidad[] UnidadesAgrupadas(UnidadRAW RAW)
+		{
+			return Unidades.FindAll(x => x.RAW == RAW).ToArray();
 		}
 
 		public Armada(Civilizacion C)

@@ -9,6 +9,7 @@ namespace Global
 	/// </summary>	
 	public static class g_
 	{
+
 		[DataMember(Name = "Data")]
 		public static g_Data Data = new g_Data();
 		public static g_State State = new g_State();
@@ -34,7 +35,7 @@ namespace Global
 				for (int j = 0; j < i; j++)
 				{
 					Civ.Civilizacion civB = State.Civs[j];
-					if ((civA.Diplomacia.ContainsKey(civB) && civA.Diplomacia[civB].PermiteAtacar) || 
+					if ((civA.Diplomacia.ContainsKey(civB) && civA.Diplomacia[civB].PermiteAtacar) ||
 						(civB.Diplomacia.ContainsKey(civA) && civB.Diplomacia[civA].PermiteAtacar))
 					{
 						foreach (var ArmA in civA.Armadas)

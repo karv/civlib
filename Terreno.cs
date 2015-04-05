@@ -99,18 +99,24 @@ namespace Civ
 	public class Ecosistema
 	{
 		/// <summary>
+		/// Representa las propiedades que puede adquirir un ecosistema.
+		/// </summary>
+		//[DataContract (Name= "Propiedad")]
+		public class EcosistemaPropiedades : ListaPeso<Propiedad> { }
+
+		/// <summary>
 		/// El nombre del terreno
 		/// </summary>
 		[DataMember]
 		public string Nombre;
 		[DataMember(Name = "Propiedades")]
-		ListaPeso<Propiedad> _PropPropiedad = new ListaPeso<Propiedad>();
+		EcosistemaPropiedades _PropPropiedad = new EcosistemaPropiedades();
 
 		/// <summary>
 		/// Es la lista de probabilidades de que una <c>Propiedad</c> <c>Innata</c> aparezca en un terreno con esta ecología.
 		/// </summary>
 		/// <value><c>ListaPeso</c> de asignación de <c>Propiedades</c> con sus probabilidades.</value>
-		public ListaPeso<Propiedad> PropPropiedad
+		public EcosistemaPropiedades PropPropiedad
 		{
 			get
 			{
@@ -123,4 +129,5 @@ namespace Civ
 			return new Terreno(this);
 		}
 	}
+
 }

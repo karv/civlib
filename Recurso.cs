@@ -45,5 +45,8 @@ namespace Civ
 		public Recurso()
 		{
 		}
+
+		[DataMember(Name = "Imagen")]
+		public string Img = null;
 	}
 }

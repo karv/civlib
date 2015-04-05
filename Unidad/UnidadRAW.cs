@@ -11,18 +11,22 @@ namespace Civ
 	[DataContract(Name = "Unidad", IsReference = true)]
 	public class UnidadRAW
 	{
+		public class Modificadores : ListaPeso<string> { }
+		public class Requerimientos : ListaPeso<Recurso> { }
+
 		/// <summary>
 		/// El nombre de la clase de unidad.
 		/// </summary>
 		[DataMember]
 		public string Nombre;
+
 		[DataMember(Name = "Modificadores")]
-		ListaPeso<string> _Mods = new ListaPeso<string>();
+		Modificadores _Mods = new Modificadores();
 
 		/// <summary>
 		/// Lista de modificadores de combate de la unidad.
 		/// </summary>        
-		public ListaPeso<string> Mods
+		public Modificadores Mods
 		{
 			get { return _Mods; }
 		}
@@ -44,12 +48,12 @@ namespace Civ
 		}
 		// Reqs
 		[DataMember(Name = "Requerimientos")]
-		private ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso>();
+		private Requerimientos _Reqs = new Requerimientos();
 
 		/// <summary>
 		/// Requerimientos para crearse.
 		/// </summary>
-		public ListaPeso<Recurso> Reqs
+		public Requerimientos Reqs
 		{
 			get { return _Reqs; }
 		}
