@@ -16,7 +16,7 @@ namespace Civ
 		/// </summary>
 		public string Nombre;
 		// **** Economía
-		[Obsolete("Use AlmacénCiv[R]")]
+		[Obsolete("Use AlmacenCiv[R]")]
 		/// <summary>
 		/// Devuelve la cantidad que existe en la civilización de un cierto recurso.
 		/// </summary>
@@ -27,7 +27,7 @@ namespace Civ
 			float ret = 0;
 			foreach (var x in Ciudades)
 			{
-				ret += x.Almacén[R];
+				ret += x.Almacen[R];
 			}
 			return ret;
 		}

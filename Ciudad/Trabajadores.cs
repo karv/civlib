@@ -31,7 +31,7 @@ namespace Civ
 		{
 			get
 			{
-				return PoblaciónProductiva - getNumTrabajadores;
+				return PoblacionProductiva - getNumTrabajadores;
 			}
 		}
 
@@ -127,7 +127,7 @@ namespace Civ
 		{
 			List<Trabajo> L = ObtenerListaTrabajos;
 			L.Sort((x, y) => x.Prioridad < y.Prioridad ? -1 : 1); // Ordenar por prioridad.
-			while (L.Count > 0 && getTrabajadoresDesocupados < n && getTrabajadoresDesocupados != getPoblación)
+			while (L.Count > 0 && getTrabajadoresDesocupados < n && getTrabajadoresDesocupados != getPoblacion)
 			{
 				L[0].Trabajadores = 0;
 				L.RemoveAt(0);

@@ -96,7 +96,7 @@ namespace Civ
 		/// O equivalentemente de la armada a la que pertenece.
 		/// </summary>
 		/// <value>The posición.</value>
-		public Pseudoposicion Posición
+		public Pseudoposicion Posicion
 		{
 			get
 			{

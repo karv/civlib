@@ -136,9 +136,9 @@ namespace Global
 		/// Devuelve un arreglo de recursos que son científicos
 		/// </summary>
 		/// <returns>The lista recursos científicos.</returns>
-		public Civ.Recurso[] ObtenerRecursosCientíficos()
+		public Civ.Recurso[] ObtenerRecursosCientificos()
 		{
-			return Recursos.FindAll(y => y.EsCientífico).ToArray();
+			return Recursos.FindAll(y => y.EsCientifico).ToArray();
 		}
 
 		/// <summary>
@@ -147,7 +147,7 @@ namespace Global
 		/// <returns>The autoconstruibles.</returns>
 		public List<Civ.EdificioRAW> EdificiosAutoconstruibles()
 		{
-			return Edificios.FindAll(x => x.EsAutoConstruíble);
+			return Edificios.FindAll(x => x.EsAutoConstruible);
 		}
 
 		/// <summary>

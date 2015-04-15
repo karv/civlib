@@ -89,6 +89,6 @@ namespace Civ
 		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
 		/// </summary>
 		[DataMember]
-		public bool EsAutoConstruíble;
+		public bool EsAutoConstruible;
 	}
 }

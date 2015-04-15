@@ -25,11 +25,11 @@ namespace Civ
 			// Las ciencias.
 			List<Ciencia> Investigado = new List<Ciencia>();
 
-			foreach (Recurso Rec in Global.g_.Data.ObtenerRecursosCientíficos())
+			foreach (Recurso Rec in Global.g_.Data.ObtenerRecursosCientificos())
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
 				List<Ciencia> CienciaInvertibleRec = CienciasAbiertas().FindAll(z => z.Reqs.Recursos.ContainsKey(Rec) && // Que la ciencia requiera de tal recurso
-					( !Investigando.Exists (w => w.Ciencia == z) ||
+					(!Investigando.Exists(w => w.Ciencia == z) ||
 					Investigando.EncuentraInstancia(z)[Rec] < z.Reqs.Recursos[Rec])); // Y que aún le falte de tal recurso.
 				float[] sep = r.Separadores(CienciaInvertibleRec.Count, Almacen[Rec]);
 

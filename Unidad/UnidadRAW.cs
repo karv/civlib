@@ -73,7 +73,7 @@ namespace Civ
 		/// Población productiva que requiere para entrenar.
 		/// </summary>
 		[DataMember]
-		public ulong CostePoblación;
+		public ulong CostePoblacion;
 		/// <summary>
 		/// Representa el coste de espacio de esta unidad en una armada.
 		/// </summary>

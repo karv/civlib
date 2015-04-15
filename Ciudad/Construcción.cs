@@ -55,9 +55,9 @@ namespace Civ
 			{
 				foreach (Recurso x in RecursosRestantes.Keys)
 				{
-					float abs = Math.Min(RecursosRestantes[x], CiudadDueño.Almacén[x]);
+					float abs = Math.Min(RecursosRestantes[x], CiudadDueño.Almacen[x]);
 					RecursosAcumulados[x] += abs;
-					CiudadDueño.Almacén[x] -= abs;
+					CiudadDueño.Almacen[x] -= abs;
 				}
 			}
 
@@ -65,7 +65,7 @@ namespace Civ
 			/// Revisa si este edificio está completado.
 			/// </summary>
 			/// <returns><c>true</c> si ya no quedan recursos restantes; <c>false</c> en caso contrario.</returns>
-			public bool EstáCompletado()
+			public bool EstaCompletado()
 			{
 				return RecursosRestantes.Keys.Count == 0;
 			}

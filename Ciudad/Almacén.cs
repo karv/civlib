@@ -9,21 +9,21 @@ namespace Civ
 		/// <summary>
 		/// Almacén de recursos.
 		/// </summary>
-		public AlmacenCiudad Almacén;
+		public AlmacenCiudad Almacen;
 
 		/// <summary>
 		/// Devuelve el alimento existente en la ciudad.
 		/// </summary>
 		/// <value>The alimento almacén.</value>
-		public float AlimentoAlmacén
+		public float AlimentoAlmacen
 		{
 			get
 			{
-				return Almacén[RecursoAlimento];
+				return Almacen[RecursoAlimento];
 			}
 			set
 			{
-				Almacén[RecursoAlimento] = value;
+				Almacen[RecursoAlimento] = value;
 			}
 		}
 	}
@@ -82,7 +82,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="reqs">Lista de recursos para ver si posee</param>
 		/// <returns>true sólo si posee tales recursos.</returns>
-		public bool PoseeRecursos (ListaPeso<Recurso> reqs)
+		public bool PoseeRecursos(ListaPeso<Recurso> reqs)
 		{
 			return this >= reqs;
 		}

@@ -52,7 +52,7 @@ namespace Civ
 			CivDueno = Dueño;
 			T.CiudadConstruida = this;
 			Terr = T;
-			Almacén = new AlmacenCiudad(this);
+			Almacen = new AlmacenCiudad(this);
 
 			// Inicializar la armada
 			Defensa = new Armada(CivDueno);

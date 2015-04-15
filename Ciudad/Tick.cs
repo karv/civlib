@@ -17,54 +17,54 @@ namespace Civ
 
 			//Crecimiento prometido por sector de edad.
 			float[] Crecimiento = new float[3];
-			float Consumo = getPoblación * ConsumoAlimentoPorCiudadanoBase * t;
+			float Consumo = getPoblacion * ConsumoAlimentoPorCiudadanoBase * t;
 			//Que coman
 			//Si tienen qué comer
-			if (Consumo <= AlimentoAlmacén)
+			if (Consumo <= AlimentoAlmacen)
 			{
-				AlimentoAlmacén = AlimentoAlmacén - Consumo;
+				AlimentoAlmacen = AlimentoAlmacen - Consumo;
 			}
 			else
 			{
 				//El porcentage de muertes
-				float pctMuerte = (1 - (AlimentoAlmacén / (getPoblación * ConsumoAlimentoPorCiudadanoBase))) * _TasaMortalidadHambruna;
-				AlimentoAlmacén = 0;
+				float pctMuerte = (1 - (AlimentoAlmacen / (getPoblacion * ConsumoAlimentoPorCiudadanoBase))) * _TasaMortalidadHambruna;
+				AlimentoAlmacen = 0;
 				//Promesas de muerte por sector.
-				Crecimiento[0] -= getPoblaciónPreProductiva * pctMuerte;
-				Crecimiento[1] -= PoblaciónProductiva * pctMuerte;
-				Crecimiento[2] -= getPoblaciónPostProductiva * pctMuerte;
+				Crecimiento[0] -= getPoblacionPreProductiva * pctMuerte;
+				Crecimiento[1] -= PoblacionProductiva * pctMuerte;
+				Crecimiento[2] -= getPoblacionPostProductiva * pctMuerte;
 			}
 
 			//Crecimiento poblacional
 
 			//Infantil a productivo.
-			float Desarrollo = TasaDesarrolloBase * getPoblaciónPreProductiva * t;
+			float Desarrollo = TasaDesarrolloBase * getPoblacionPreProductiva * t;
 			Crecimiento[0] -= Desarrollo;
 			Crecimiento[1] += Desarrollo;
 			//Productivo a viejo
-			float Envejecer = TasaVejezBase * PoblaciónProductiva * t;
+			float Envejecer = TasaVejezBase * PoblacionProductiva * t;
 			Crecimiento[1] -= Envejecer;
 			Crecimiento[2] += Envejecer;
 			//Nuevos infantes
-			float Natalidad = TasaNatalidadBase * PoblaciónProductiva * t;
+			float Natalidad = TasaNatalidadBase * PoblacionProductiva * t;
 			Crecimiento[0] += Natalidad;
 			//Mortalidad
-			Crecimiento[0] -= getPoblaciónPreProductiva * TasaMortalidadInfantilBase * t;
-			Crecimiento[1] -= PoblaciónProductiva * TasaMortalidadProductivaBase * t;
-			Crecimiento[2] -= getPoblaciónPostProductiva * TasaMortalidadVejezBase * t;
+			Crecimiento[0] -= getPoblacionPreProductiva * TasaMortalidadInfantilBase * t;
+			Crecimiento[1] -= PoblacionProductiva * TasaMortalidadProductivaBase * t;
+			Crecimiento[2] -= getPoblacionPostProductiva * TasaMortalidadVejezBase * t;
 
 			// Aplicar cambios.
 
 			if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
 			{
 				CivDueno.AgregaMensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this);
-				LiberarTrabajadores(PoblaciónProductiva - (ulong)Crecimiento[1]);
+				LiberarTrabajadores(PoblacionProductiva - (ulong)Crecimiento[1]);
 
 			}
 
-			_PoblaciónPreProductiva = Math.Max(_PoblaciónPreProductiva + Crecimiento[0], 0);
-			_PoblaciónProductiva = Math.Max(_PoblaciónProductiva + Crecimiento[1], 0);
-			_PoblaciónPostProductiva = Math.Max(_PoblaciónPostProductiva + Crecimiento[2], 0);
+			_PoblacionPreProductiva = Math.Max(_PoblacionPreProductiva + Crecimiento[0], 0);
+			_PoblacionProductiva = Math.Max(_PoblacionProductiva + Crecimiento[1], 0);
+			_PoblacionPostProductiva = Math.Max(_PoblacionPostProductiva + Crecimiento[2], 0);
 
 			if (AutoReclutar)
 			{
@@ -97,7 +97,7 @@ namespace Civ
 			if (EdifConstruyendo != null)
 			{
 				EdifConstruyendo.AbsorbeRecursos();
-				if (EdifConstruyendo.EstáCompletado())
+				if (EdifConstruyendo.EstaCompletado())
 				{
 					EdifConstruyendo.Completar();
 					EdifConstruyendo = null;    //  Ya no se contruye edificio. Para evitar error de duplicidad.
@@ -115,9 +115,9 @@ namespace Civ
 			}
 
 			// Recursos no almacenados
-			foreach (var x in Almacén.Keys)
+			foreach (var x in Almacen.Keys)
 			{
-				if (x.Desaparece) Almacén[x] = 0;
+				if (x.Desaparece) Almacen[x] = 0;
 			}
 		}
 
@@ -128,12 +128,12 @@ namespace Civ
 		public void DestruirRecursosTemporales()
 		{
 			// Desaparecen algunos recursos
-			List<Recurso> Alm = new List<Recurso>(Almacén.Keys);
+			List<Recurso> Alm = new List<Recurso>(Almacen.Keys);
 			foreach (Recurso x in Alm)
 			{
 				if (x.Desaparece)
 				{
-					Almacén[x] = 0;
+					Almacen[x] = 0;
 				}
 			}
 
@@ -148,7 +148,7 @@ namespace Civ
 			PopTick(t);
 			Tick(t);
 
-			if (CivDueno != null && getPoblación == 0)
+			if (CivDueno != null && getPoblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				CivDueno.removeCiudad(this);
 			}

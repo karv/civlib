@@ -20,7 +20,7 @@ namespace Civ
 		/// ¿El recurso es científico?
 		/// </summary>
 		[DataMember(Name = "Científico")]
-		public bool EsCientífico;
+		public bool EsCientifico;
 		/// <summary>
 		/// Nombre del recurso.
 		/// </summary>

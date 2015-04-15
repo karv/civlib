@@ -43,9 +43,9 @@ namespace Civ
 		{
 			foreach (TasaProd x in _Salida)
 			{
-				if (C.Almacén[x.Rec] < x.Max)
+				if (C.Almacen[x.Rec] < x.Max)
 				{
-					C.Almacén[x.Rec] = Math.Min(C.Almacén[x.Rec] + x.Crec * t, x.Max);
+					C.Almacen[x.Rec] = Math.Min(C.Almacen[x.Rec] + x.Crec * t, x.Max);
 				}
 			}
 		}

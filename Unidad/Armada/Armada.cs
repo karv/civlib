@@ -136,7 +136,7 @@ namespace Civ
 		/// <param name="U">La unidad con la que se comparará posición.</param>
 		public bool PosicionConsistente(Unidad U)
 		{
-			return Posicion == null || Posicion == U.Posición;
+			return Posicion == null || Posicion == U.Posicion;
 		}
 
 		/// <summary>
