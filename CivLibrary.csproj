@@ -76,6 +76,7 @@
     <Compile Include="Unidad\Armada\PseudoPosicion.cs" />
     <Compile Include="Unidad\Armada\Orden.cs" />
     <Compile Include="Civilización\Almacén.cs" />
+    <Compile Include="Debug.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

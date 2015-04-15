@@ -8,7 +8,7 @@ namespace Civ
 	/// Representa una propiedad innata de un edificio.
 	/// </summary>
 	[DataContract]
-	public class Propiedad : IRequerimiento
+	public class Propiedad : IRequerimiento, CivLibrary.Debug.IPlainSerializable
 	{
 		public Propiedad()
 		{
@@ -80,6 +80,31 @@ namespace Civ
 				Max = nMax;
 				Crec = nCrec;
 			}
+		}
+
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		{
+			string tab = "";
+			string ret;
+			for (int i = 0; i < tabs; i++)
+			{
+				tab += "\t";
+			}
+			ret = tab + "(Propiedad)" + Nombre + "\n";
+
+			// Revisar ecosistemas
+
+			foreach (var x in Global.g_.Data.Ecosistemas)
+			{
+				foreach (var item in tab)
+				{
+					
+				}
+				if (x.PropPropiedad.ContainsKey(this))
+					ret += tab += x.Nombre;
+			}
+
+			return ret;
 		}
 	}
 }

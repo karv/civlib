@@ -3,13 +3,15 @@ using System.Runtime.Serialization;
 
 namespace Civ
 {
-	class RequiereCiencia: ListasExtra.ListaPeso<Recurso>{}
+	class RequiereCiencia: ListasExtra.ListaPeso<Recurso>
+	{
+	}
 
 	/// <summary>
 	/// Representa un adelanto científico.
 	/// </summary>
 	[DataContract(IsReference = true)]
-	public class Ciencia : IRequerimiento
+	public class Ciencia : IRequerimiento, CivLibrary.Debug.IPlainSerializable
 	{
 		[DataContract(IsReference = false)]
 		public class Requerimiento
@@ -56,6 +58,31 @@ namespace Civ
 		bool Civ.IRequerimiento.LoSatisface(Ciudad C)
 		{
 			return C.CivDueno.Avances.Contains(this);
+		}
+
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		{
+			string tab = "";
+			string ret;
+			for (int i = 0; i < tabs; i++)
+			{
+				tab += "\t";
+			}
+			ret = tab + "(Ciencia)" + Nombre + "\n";
+
+			foreach (Ciencia x in Reqs.Ciencias)
+			{
+				CivLibrary.Debug.IPlainSerializable Ser = (CivLibrary.Debug.IPlainSerializable)x;
+				ret += Ser.PlainSerialize(tabs + 1);
+				//ret += (CivLibrary.Debug.IPlainSerializable)(x) .PlainSerialize(tabs + 1);
+			}
+
+			foreach (var x in Reqs.Recursos.Keys)
+			{
+				CivLibrary.Debug.IPlainSerializable Ser = (CivLibrary.Debug.IPlainSerializable)x;
+				ret += Ser.PlainSerialize(tabs + 1);// + "(" + Reqs.Recursos[x] + ")";
+			}
+			return ret;
 		}
 	}
 }

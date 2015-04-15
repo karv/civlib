@@ -10,10 +10,13 @@ namespace Civ
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
 	[DataContract(IsReference = true, Name = "Trabajo")]
-	public class TrabajoRAW
+	public class TrabajoRAW: CivLibrary.Debug.IPlainSerializable
 	{
 		//[DataContract(IsReference = false)]
-		public class DiferenciaRecursos : ListaPeso<Recurso> { }
+		public class DiferenciaRecursos : ListaPeso<Recurso>
+		{
+		}
+
 		/// <summary>
 		/// Nombre
 		/// </summary>
@@ -73,6 +76,30 @@ namespace Civ
 		public List<IRequerimiento> Reqs()
 		{
 			return Requiere.Requiere();
+		}
+
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		{
+			string tab = "";
+			string ret;
+			CivLibrary.Debug.IPlainSerializable Ser;
+			for (int i = 0; i < tabs; i++)
+			{
+				tab += "\t";
+			}
+
+			ret = tab + "(Trabajo)" + Nombre + "\n";
+
+			Ser = (CivLibrary.Debug.IPlainSerializable)Edificio;
+			ret += Ser.PlainSerialize(tabs + 1);
+
+			Ser = (CivLibrary.Debug.IPlainSerializable)Requiere;
+			ret += Ser.PlainSerialize(tabs + 1);
+
+
+
+			return ret;
+
 		}
 	}
 }

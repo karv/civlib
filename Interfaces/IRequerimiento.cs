@@ -15,8 +15,7 @@ namespace Civ
 	}
 
 	[DataContract(Name = "Requerimiento")]
-	public class Requerimiento      // Para juntar los Reqs en una clase. 
-		                            //TODO ¿Olvidarse de IRequerimiento?
+	public class Requerimiento: CivLibrary.Debug.IPlainSerializable
 	{
 		[DataMember]
 		public List<Ciencia> Ciencias = new List<Ciencia>();
@@ -37,6 +36,23 @@ namespace Civ
 			foreach (EdificioRAW x in Edificios)
 			{
 				ret.Add(x);
+			}
+
+			return ret;
+		}
+
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		{
+			string tab = "";
+			string ret = "";
+			for (int i = 0; i < tabs; i++)
+			{
+				tab += "\t";
+			}
+
+			foreach (CivLibrary.Debug.IPlainSerializable x in Requiere ())
+			{
+				ret += x.PlainSerialize(tabs);
 			}
 
 			return ret;

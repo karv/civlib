@@ -8,7 +8,7 @@ namespace Civ
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
 	[DataContract(IsReference = true, Name = "Edificio")]
-	public class EdificioRAW : IRequerimiento
+	public class EdificioRAW : IRequerimiento, CivLibrary.Debug.IPlainSerializable
 	{
 		[DataMember]
 		public string Nombre;
@@ -90,5 +90,27 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public bool EsAutoConstruible;
+
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		{
+			string tab = "";
+			string ret;
+			for (int i = 0; i < tabs; i++)
+			{
+				tab += "\t";
+			}
+
+			ret = tab + "(Edificio)" + Nombre + "\n";
+			foreach (CivLibrary.Debug.IPlainSerializable x in ReqRecursos.Keys)
+			{
+				ret += x.PlainSerialize(tabs + 1);
+			}
+
+			ret += ((CivLibrary.Debug.IPlainSerializable)Requiere).PlainSerialize(tabs + 1);
+
+
+			return ret;
+
+		}
 	}
 }

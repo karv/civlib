@@ -9,17 +9,21 @@ namespace Civ
 	/// Representa una clase de unidad
 	/// </summary>
 	[DataContract(Name = "Unidad", IsReference = true)]
-	public class UnidadRAW
+	public class UnidadRAW: CivLibrary.Debug.IPlainSerializable
 	{
-		public class Modificadores : ListaPeso<string> { }
-		public class Requerimientos : ListaPeso<Recurso> { }
+		public class Modificadores : ListaPeso<string>
+		{
+		}
+
+		public class Requerimientos : ListaPeso<Recurso>
+		{
+		}
 
 		/// <summary>
 		/// El nombre de la clase de unidad.
 		/// </summary>
 		[DataMember]
 		public string Nombre;
-
 		[DataMember(Name = "Modificadores")]
 		Modificadores _Mods = new Modificadores();
 
@@ -83,6 +87,23 @@ namespace Civ
 		public override string ToString()
 		{
 			return Nombre;
+		}
+
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		{
+			string tab = "";
+			string ret;
+			for (int i = 0; i < tabs; i++)
+			{
+				tab += "\t";
+			}
+			ret = tab + "(Unidad)" + Nombre + "\n";
+
+			foreach (var x in Reqs.Keys)
+			{
+				ret += ((CivLibrary.Debug.IPlainSerializable)x).PlainSerialize(tabs + 1);
+			}
+			return ret;
 		}
 	}
 }
