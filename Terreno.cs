@@ -102,7 +102,9 @@ namespace Civ
 		/// Representa las propiedades que puede adquirir un ecosistema.
 		/// </summary>
 		//[DataContract (Name= "Propiedad")]
-		public class EcosistemaPropiedades : ListaPeso<Propiedad> { }
+		public class EcosistemaPropiedades : ListaPeso<Propiedad>
+		{
+		}
 
 		/// <summary>
 		/// El nombre del terreno
@@ -129,5 +131,4 @@ namespace Civ
 			return new Terreno(this);
 		}
 	}
-
 }
