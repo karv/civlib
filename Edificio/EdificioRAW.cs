@@ -100,7 +100,7 @@ namespace Civ
 		/// <summary>
 		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
 		/// </summary>
-		[DataMember]
+		[DataMember(Name = "EsAutoConstruíble")]
 		public bool EsAutoConstruible;
 
 		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
