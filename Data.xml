@@ -453,6 +453,24 @@
 				<Edificios />
 			</Requiere>
 		</Edificio>
+		<Edificio z:Id = "eLenguaje primitivo">
+			<Construcción xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+			<EsAutoConstruíble>true</EsAutoConstruíble>
+			<MaxWorkers>0</MaxWorkers>
+			<Nombre>Propiedad: Lenguaje primitivo</Nombre>
+			<Producción xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+					<d5p1:Key z:Ref="rSocial" />
+					<d5p1:Value>0.3</d5p1:Value>
+				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
+			</Producción>
+			<Requiere>
+				<Ciencias>
+					<Ciencia z:Ref ="cLenguaje" />
+				</Ciencias>
+				<Edificios />
+			</Requiere>
+		</Edificio>
 	</Edificios>
 
 	<Trabajos>
