@@ -61,6 +61,10 @@
 				</Propiedad.TasaProd>
 			</Salida>
 		</Propiedad>
+		<Propiedad z:Id="pCueva">
+			<Nombre>Cuevas</Nombre>
+			<Salida />
+		</Propiedad>
 	</Propiedades>
 
 	<Ecosistemas>
@@ -74,6 +78,23 @@
 				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 					<d4p1:Key z:Ref="pFrutas silvestres" />
 					<d4p1:Value>1</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+			</Propiedades>
+		</Ecosistema>
+		<Ecosistema>
+			<Nombre>Montaña</Nombre>
+			<Propiedades xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pAlimento" />
+					<d4p1:Value>1</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pFrutas silvestres" />
+					<d4p1:Value>0.3</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pCueva" />
+					<d4p1:Value>0.3</d4p1:Value>
 				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 			</Propiedades>
 		</Ecosistema>
@@ -438,6 +459,7 @@
 			<Requiere>
 				<Ciencias />
 				<Edificios />
+				<Propiedades />
 			</Requiere>
 		</Edificio>
 		<Edificio z:Id ="eRecolector">
@@ -451,6 +473,7 @@
 					<Ciencia z:Ref ="cVida nómada" />
 				</Ciencias>
 				<Edificios />
+				<Propiedades />
 			</Requiere>
 		</Edificio>
 		<Edificio z:Id = "eLenguaje primitivo">
@@ -469,6 +492,26 @@
 					<Ciencia z:Ref ="cLenguaje" />
 				</Ciencias>
 				<Edificios />
+				<Propiedades />
+			</Requiere>
+		</Edificio>
+		<Edificio z:Id = "eRefugios en cuevas">
+			<Construcción xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+			<EsAutoConstruíble>true</EsAutoConstruíble>
+			<MaxWorkers>0</MaxWorkers>
+			<Nombre>Refugios en cuevas</Nombre>
+			<Producción xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+					<d5p1:Key z:Ref="rSocial" />
+					<d5p1:Value>0.3</d5p1:Value>
+				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
+			</Producción>
+			<Requiere>
+				<Ciencias>
+					<Ciencia z:Ref ="cAsentamiento de cuevas" />
+				</Ciencias>
+				<Edificios />
+				<Propiedades />
 			</Requiere>
 		</Edificio>
 	</Edificios>
