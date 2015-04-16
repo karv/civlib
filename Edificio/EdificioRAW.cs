@@ -32,6 +32,18 @@ namespace Civ
 		[DataMember]
 		public int MaxPorMundo = 0;
 
+		[DataMember(Name = "Producción")]
+		public TrabajoRAW.DiferenciaRecursos _Salida = new TrabajoRAW.DiferenciaRecursos();
+
+		/// <summary>
+		/// Devuelve los recursos y su cantidad que genera, incluso si no existe trabajador.
+		/// </summary>
+		public TrabajoRAW.DiferenciaRecursos Salida
+		{
+			get { return _Salida; }
+		}
+
+
 		public override string ToString()
 		{
 			return Nombre;

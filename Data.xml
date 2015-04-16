@@ -434,6 +434,7 @@
 			<EsAutoConstruíble>true</EsAutoConstruíble>
 			<MaxWorkers>4</MaxWorkers>
 			<Nombre>Palacio</Nombre>
+			<Producción xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 			<Requiere>
 				<Ciencias />
 				<Edificios />
@@ -444,6 +445,7 @@
 			<EsAutoConstruíble>true</EsAutoConstruíble>
 			<MaxWorkers>30</MaxWorkers>
 			<Nombre>Recolector</Nombre>
+			<Producción xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 			<Requiere>
 				<Ciencias>
 					<Ciencia z:Ref ="cVida nómada" />
