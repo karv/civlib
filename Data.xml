@@ -38,6 +38,24 @@
 			<Global>false</Global>
 			<Nombre>Frutas silvestres</Nombre>
 		</Recurso>
+		<Recurso z:Id="rTela">
+			<Científico>false</Científico>
+			<Desaparece>false</Desaparece>
+			<Global>false</Global>
+			<Nombre>Tela</Nombre>
+		</Recurso>		
+		<Recurso z:Id="rRopa">
+			<Científico>false</Científico>
+			<Desaparece>false</Desaparece>
+			<Global>false</Global>
+			<Nombre>Ropa</Nombre>
+		</Recurso>		
+		<Recurso z:Id="rSeda">
+			<Científico>false</Científico>
+			<Desaparece>false</Desaparece>
+			<Global>false</Global>
+			<Nombre>Seda</Nombre>
+		</Recurso>		
 	</Recursos>
 
 	<Propiedades>
@@ -61,6 +79,16 @@
 				</Propiedad.TasaProd>
 			</Salida>
 		</Propiedad>
+		<Propiedad z:Id="pGusano de seda">
+			<Nombre>Frutas silvestres</Nombre>
+			<Salida>
+				<Propiedad.TasaProd>
+					<Crec>1</Crec>
+					<Max>1000</Max>
+					<Rec z:Ref="rSeda" />
+				</Propiedad.TasaProd>
+			</Salida>
+		</Propiedad>		
 	</Propiedades>
 
 	<Ecosistemas>
@@ -451,6 +479,18 @@
 				<Edificios />
 			</Requiere>
 		</Edificio>
+		<Edificio z:Id ="eTelar primitivo">
+			<Construcción xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+			<EsAutoConstruíble>true</EsAutoConstruíble>
+			<MaxWorkers>30</MaxWorkers>
+			<Nombre>Telar primitivo</Nombre>
+			<Requiere>
+				<Ciencias>
+					<Ciencia z:Ref ="rTejeduría" />
+				</Ciencias>
+				<Edificios />
+			</Requiere>
+		</Edificio>
 	</Edificios>
 
 	<Trabajos>
@@ -537,6 +577,46 @@
 				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
 					<d5p1:Key z:Ref="rArte" />
 					<d5p1:Value>1</d5p1:Value>
+				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
+			</Salida>
+		</Trabajo>
+		<Trabajo z:Id="tHacer tela">
+			<Edificio z:Ref="eTelar primitivo" />
+			<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+					<d5p1:Key z:Ref="rSeda" />
+					<d5p1:Value>0.01</d5p1:Value>
+				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
+			</Entrada>
+			<Nombre>Hacer tela</Nombre>
+			<Requiere>
+				<Ciencias />
+				<Edificios />
+			</Requiere>
+			<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+					<d5p1:Key z:Ref="rTela" />
+					<d5p1:Value>0.01</d5p1:Value>
+				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
+			</Salida>
+		</Trabajo>
+		<Trabajo z:Id="tHacer ropa">
+			<Edificio z:Ref="eTelar primitivo" />
+			<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+					<d5p1:Key z:Ref="rTela" />
+					<d5p1:Value>1</d5p1:Value>
+				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
+			</Entrada>
+			<Nombre>Hacer ropa</Nombre>
+			<Requiere>
+				<Ciencias />
+				<Edificios />
+			</Requiere>
+			<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
+					<d5p1:Key z:Ref="rRopa" />
+					<d5p1:Value>0.1</d5p1:Value>
 				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 			</Salida>
 		</Trabajo>
