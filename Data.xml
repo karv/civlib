@@ -103,6 +103,10 @@
 					<d4p1:Key z:Ref="pFrutas silvestres" />
 					<d4p1:Value>1</d4p1:Value>
 				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pGusano de seda" />
+					<d4p1:Value>0.1</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 			</Propiedades>
 		</Ecosistema>
 	</Ecosistemas>
