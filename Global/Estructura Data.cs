@@ -30,7 +30,6 @@ namespace Global
 		[DataMember(Name = "Alimento", Order = 7)]
 		public Civ.Recurso RecursoAlimento;
 
-
 		/// <summary>
 		/// Revisa si existe una edificio con un nombre específico.
 		/// </summary>
@@ -154,16 +153,16 @@ namespace Global
 		/// Devuelve todos los <see cref="Civ.IRequerimiento"/>s.
 		/// </summary>
 		[System.Xml.Serialization.XmlIgnore()]
-		public List<Civ.IRequerimiento> Reqs
+		public List<Civ.IRequerimiento<Civ.Ciudad>> Reqs
 		{
 			get
 			{
-				List<Civ.IRequerimiento> ret = new List<Civ.IRequerimiento>();
-				foreach (Civ.IRequerimiento x in Edificios)
+				List<Civ.IRequerimiento<Civ.Ciudad>> ret = new List<Civ.IRequerimiento<Civ.Ciudad>>();
+				foreach (Civ.IRequerimiento<Civ.Ciudad> x in Edificios)
 				{
 					ret.Add(x);
 				}
-				foreach (Civ.IRequerimiento x in Ciencias)
+				foreach (Civ.IRequerimiento<Civ.Ciudad> x in Ciencias)
 				{
 					ret.Add(x);
 				}

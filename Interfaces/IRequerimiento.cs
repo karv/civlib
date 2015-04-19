@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace Civ
 {
-	public interface IRequerimiento
+	public interface IRequerimiento<T>
 	{
 		/// <summary>
 		/// Si una ciudad satisface este requerimiento.
 		/// </summary>
 		/// <returns><c>true</c>, Si la ciudad <c>C</c> lo satisface , <c>false</c> si no.</returns>
 		/// <param name="C">La ciudad que intenta satisfacer este requerimiento.</param>
-		bool LoSatisface(Ciudad C);
+		bool LoSatisface(T C);
 	}
 
 	[DataContract(Name = "Requerimiento")]
@@ -28,9 +28,9 @@ namespace Civ
 		/// Junta todos los requeriemintos en una lista de IRequerimientos.
 		/// </summary>
 		/// <returns></returns>
-		public List<IRequerimiento> Requiere()
+		public List<IRequerimiento<Ciudad>> Requiere()
 		{
-			List<IRequerimiento> ret = new List<IRequerimiento>();
+			List<IRequerimiento<Ciudad>> ret = new List<IRequerimiento<Ciudad>>();
 			foreach (Ciencia x in Ciencias)
 			{
 				ret.Add(x);

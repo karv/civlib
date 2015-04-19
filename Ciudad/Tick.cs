@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Civ
 {
-	public partial class Ciudad
+	public partial class Ciudad: ITickable
 	{
 		// Tick
 		/// <summary>
@@ -85,7 +85,7 @@ namespace Civ
 		/// </summary>
 		public void Tick(float t = 1)
 		{
-			foreach (var x in Edificios)
+			foreach (ITickable x in Edificios)
 			{
 				x.Tick(t);
 			}
@@ -117,7 +117,8 @@ namespace Civ
 			// Recursos no almacenados
 			foreach (var x in Almacen.Keys)
 			{
-				if (x.Desaparece) Almacen[x] = 0;
+				if (x.Desaparece)
+					Almacen[x] = 0;
 			}
 		}
 

@@ -8,7 +8,7 @@ namespace Civ
 	/// Representa una propiedad innata de un edificio.
 	/// </summary>
 	[DataContract]
-	public class Propiedad : IRequerimiento, CivLibrary.Debug.IPlainSerializable
+	public class Propiedad : IRequerimiento<Ciudad>, CivLibrary.Debug.IPlainSerializable
 	{
 		public Propiedad()
 		{
@@ -30,7 +30,7 @@ namespace Civ
 			get { return _Salida; }
 		}
 		// IRequerimiento:
-		bool IRequerimiento.LoSatisface(Ciudad C)
+		bool IRequerimiento<Ciudad>.LoSatisface(Ciudad C)
 		{
 			return C.ExistePropiedad(this);
 		}
@@ -39,7 +39,7 @@ namespace Civ
 		/// El tick de este edificio sobre una ciudad.
 		/// </summary>
 		/// <param name="C"><see cref="Civ.Ciudad"/> donde hará un tick esta propiedad.</param>
-		public virtual void Tick(Ciudad C, float t = 1)
+		public virtual void Tick(IAlmacenante C, float t = 1)
 		{
 			foreach (TasaProd x in _Salida)
 			{

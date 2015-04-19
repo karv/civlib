@@ -73,7 +73,7 @@ namespace Civ
 		/// Devuelve la lista de requerimientos.
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public List<IRequerimiento> Reqs()
+		public List<IRequerimiento<Ciudad>> Reqs()
 		{
 			return Requiere.Requiere();
 		}

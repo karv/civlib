@@ -11,7 +11,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="Req">Un requerimiento</param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface un Irequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq(IRequerimiento Req)
+		public bool SatisfaceReq(IRequerimiento<Ciudad> Req)
 		{
 			return Req.LoSatisface(this);
 		}
@@ -21,7 +21,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="Req"></param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface todos los Irequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq(List<IRequerimiento> Req)
+		public bool SatisfaceReq(List<IRequerimiento<Ciudad>> Req)
 		{
 			return Req.TrueForAll(x => x.LoSatisface(this));
 		}

@@ -82,7 +82,7 @@ namespace CivLibrary.Debug
 			{
 				if (Obj is Recurso && x.ReqRecursos.ContainsKey((Recurso)Obj))
 					sw.WriteLine("(Edificio)" + x);
-				if (Obj is IRequerimiento && x.Requiere.Requiere().Contains((IRequerimiento)Obj))
+				if (Obj is IRequerimiento<Ciudad> && x.Requiere.Requiere().Contains((IRequerimiento<Ciudad>)Obj))
 					sw.WriteLine("(Edificio)" + x);
 			}
 
@@ -90,7 +90,7 @@ namespace CivLibrary.Debug
 			{
 				if (x.Edificio == Obj)
 					sw.WriteLine("(Trabajo)" + x);
-				if (Obj is IRequerimiento && x.Reqs().Contains((IRequerimiento)Obj))
+				if (Obj is IRequerimiento<Ciudad> && x.Reqs().Contains((IRequerimiento<Ciudad>)Obj))
 					sw.WriteLine("(Trabajo)" + x);
 			}
 			foreach (var x in glob.Unidades)

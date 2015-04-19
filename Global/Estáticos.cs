@@ -17,9 +17,9 @@ namespace Global
 
 		public static void Tick(float t = 1)
 		{
-			foreach (var Civ in State.Civs)
+			foreach (Civ.ITickable Civ in State.Civs)
 			{
-				Civ.doTick(t);
+				Civ.Tick(t);
 			}
 
 			// Ticks de terreno

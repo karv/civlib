@@ -45,7 +45,7 @@ namespace Civ
 				List<TrabajoRAW> ret = new List<TrabajoRAW>();
 				foreach (var x in Global.g_.Data.Trabajos)
 				{
-					List<IRequerimiento> Req = new List<IRequerimiento>();
+					List<IRequerimiento<Ciudad>> Req = new List<IRequerimiento<Ciudad>>();
 					foreach (var y in x.Requiere.Requiere())
 					{
 						Req.Add(y);

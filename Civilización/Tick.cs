@@ -4,7 +4,7 @@ using Basic;
 
 namespace Civ
 {
-	public partial class Civilizacion
+	public partial class Civilizacion: ITickable
 	{
 		// Ticks
 		/// <summary>
@@ -12,7 +12,7 @@ namespace Civ
 		/// Básicamente hace todo lo necesario y suficiente que le corresponde entre turnos.
 		/// </summary>
 		/// <param name="t">Diración del tick</param>
-		public void doTick(float t = 1)
+		public void Tick(float t = 1)
 		{
 			Random r = new Random();
 			foreach (var x in Ciudades.ToArray())

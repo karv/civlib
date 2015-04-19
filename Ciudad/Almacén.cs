@@ -4,8 +4,16 @@ using System.Collections.Generic;
 
 namespace Civ
 {
-	public partial class Ciudad
+	public partial class Ciudad: IAlmacenante
 	{
+		AlmacenCiudad IAlmacenante.Almacen
+		{
+			get
+			{
+				return Almacen;
+			}
+		}
+
 		/// <summary>
 		/// Almacén de recursos.
 		/// </summary>
@@ -36,14 +44,6 @@ namespace Civ
 		}
 
 		public readonly Ciudad CiudadDueño;
-
-		Terreno.Ecologia Eco
-		{
-			get
-			{
-				return CiudadDueño.Terr.Eco;
-			}
-		}
 
 		/// <summary>
 		/// Devuelve la cantidad de un recurso existente en ciudad.

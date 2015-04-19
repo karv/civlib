@@ -2,7 +2,7 @@ using System;
 
 namespace Civ
 {
-	public partial class Trabajo
+	public partial class Trabajo: ITickable
 	{
 		/// <summary>
 		/// Ejecuta un tick de tiempo

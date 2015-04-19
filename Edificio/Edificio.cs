@@ -6,7 +6,7 @@ namespace Civ
 	/// <summary>
 	/// Representa una instancia de edificio en una ciudad.
 	/// </summary>
-	public partial class Edificio
+	public partial class Edificio: ITickable
 	{
 		/// <summary>
 		/// Devuelve el nombre del (RAW del) edificio.

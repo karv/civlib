@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	public class Terreno
+	public class Terreno: ITickable
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
