@@ -55,7 +55,13 @@
 			<Desaparece>false</Desaparece>
 			<Global>false</Global>
 			<Nombre>Seda</Nombre>
-		</Recurso>		
+		</Recurso>
+		<Recurso z:Id="rMadera">
+			<Científico>false</Científico>
+			<Desaparece>false</Desaparece>
+			<Global>false</Global>
+			<Nombre>Madera</Nombre>
+		</Recurso>
 	</Recursos>
 
 	<Propiedades>
@@ -88,6 +94,46 @@
 					<Rec z:Ref="rSeda" />
 				</Propiedad.TasaProd>
 			</Salida>
+		</Propiedad>
+		<Propiedad z:Id="pArboles dispersos">
+			<Nombre>Árboles dispersos</Nombre>
+			<Salida>
+				<Propiedad.TasaProd>
+					<Crec>1</Crec>
+					<Max>100</Max>
+					<Rec z:Ref="rMadera" />
+				</Propiedad.TasaProd>
+			</Salida>
+		</Propiedad>		
+		<Propiedad z:Id="pArbolela">
+			<Nombre>Arboleda</Nombre>
+			<Salida>
+				<Propiedad.TasaProd>
+					<Crec>1.5</Crec>
+					<Max>500</Max>
+					<Rec z:Ref="rMadera" />
+				</Propiedad.TasaProd>
+			</Salida>
+		</Propiedad>		
+		<Propiedad z:Id="pBosque">
+			<Nombre>Bosque</Nombre>
+			<Salida>
+				<Propiedad.TasaProd>
+					<Crec>4</Crec>
+					<Max>1000</Max>
+					<Rec z:Ref="rMadera" />
+				</Propiedad.TasaProd>
+			</Salida>
+		</Propiedad>		
+		<Propiedad z:Id="pGran bosque">
+			<Nombre>Gran bosque</Nombre>
+			<Salida>
+				<Propiedad.TasaProd>
+					<Crec>5</Crec>
+					<Max>5000</Max>
+					<Rec z:Ref="rMadera" />
+				</Propiedad.TasaProd>
+			</Salida>
 		</Propiedad>		
 	</Propiedades>
 
@@ -100,15 +146,48 @@
 					<d4p1:Value>1</d4p1:Value>
 				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pGusano de seda" />
+					<d4p1:Value>0.1</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pArboles dispersos" />
+					<d4p1:Value>0.05</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+			</Propiedades>
+		</Ecosistema>
+		<Ecosistema>
+			<Nombre>Colina</Nombre>
+			<Propiedades xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pAlimento" />
+					<d4p1:Value>1</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 					<d4p1:Key z:Ref="pFrutas silvestres" />
 					<d4p1:Value>1</d4p1:Value>
 				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 					<d4p1:Key z:Ref="pGusano de seda" />
+					<d4p1:Value>0.2</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pArboles dispersos" />
+					<d4p1:Value>0.2</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pArboleda" />
+					<d4p1:Value>0.15</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pBosque" />
 					<d4p1:Value>0.1</d4p1:Value>
 				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pGran bosque" />
+					<d4p1:Value>0.02</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 			</Propiedades>
-		</Ecosistema>
+		</Ecosistema>		
 	</Ecosistemas>
 
 	<Ciencias>
