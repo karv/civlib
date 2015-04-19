@@ -109,7 +109,7 @@
 				</Propiedad.TasaProd>
 			</Salida>
 		</Propiedad>		
-		<Propiedad z:Id="pArbolela">
+		<Propiedad z:Id="pArboleda">
 			<Nombre>Arboleda</Nombre>
 			<Salida>
 				<Propiedad.TasaProd>
