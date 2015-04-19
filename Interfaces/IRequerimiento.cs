@@ -15,12 +15,14 @@ namespace Civ
 	}
 
 	[DataContract(Name = "Requerimiento")]
-	public class Requerimiento: CivLibrary.Debug.IPlainSerializable
+	public class Requerimiento : CivLibrary.Debug.IPlainSerializable
 	{
 		[DataMember]
 		public List<Ciencia> Ciencias = new List<Ciencia>();
 		[DataMember]
 		public List<EdificioRAW> Edificios = new List<EdificioRAW>();
+		[DataMember]
+		public List<Propiedad> Propiedades = new List<Propiedad>();
 
 		/// <summary>
 		/// Junta todos los requeriemintos en una lista de IRequerimientos.
@@ -50,7 +52,7 @@ namespace Civ
 				tab += "\t";
 			}
 
-			foreach (CivLibrary.Debug.IPlainSerializable x in Requiere ())
+			foreach (CivLibrary.Debug.IPlainSerializable x in Requiere())
 			{
 				ret += x.PlainSerialize(tabs);
 			}

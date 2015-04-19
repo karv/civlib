@@ -9,7 +9,7 @@ namespace Civ
 	/// Representa una clase de unidad
 	/// </summary>
 	[DataContract(Name = "Unidad", IsReference = true)]
-	public class UnidadRAW: CivLibrary.Debug.IPlainSerializable
+	public class UnidadRAW : CivLibrary.Debug.IPlainSerializable
 	{
 		public class Modificadores : ListaPeso<string>
 		{
@@ -76,7 +76,7 @@ namespace Civ
 		/// <summary>
 		/// Población productiva que requiere para entrenar.
 		/// </summary>
-		[DataMember]
+		[DataMember(Name = "CostePoblación")]
 		public ulong CostePoblacion;
 		/// <summary>
 		/// Representa el coste de espacio de esta unidad en una armada.

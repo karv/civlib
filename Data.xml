@@ -85,6 +85,10 @@
 				</Propiedad.TasaProd>
 			</Salida>
 		</Propiedad>
+		<Propiedad z:Id="pCueva">
+			<Nombre>Cuevas</Nombre>
+			<Salida />
+		</Propiedad>
 		<Propiedad z:Id="pGusano de seda">
 			<Nombre>Frutas silvestres</Nombre>
 			<Salida>
@@ -146,12 +150,8 @@
 					<d4p1:Value>1</d4p1:Value>
 				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
-					<d4p1:Key z:Ref="pGusano de seda" />
-					<d4p1:Value>0.1</d4p1:Value>
-				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
-				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
-					<d4p1:Key z:Ref="pArboles dispersos" />
-					<d4p1:Value>0.05</d4p1:Value>
+					<d4p1:Key z:Ref="pFrutas silvestres" />
+					<d4p1:Value>1</d4p1:Value>
 				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 			</Propiedades>
 		</Ecosistema>
@@ -187,7 +187,24 @@
 					<d4p1:Value>0.02</d4p1:Value>
 				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
 			</Propiedades>
-		</Ecosistema>		
+		</Ecosistema>
+		<Ecosistema>
+			<Nombre>Montaña</Nombre>
+			<Propiedades xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pAlimento" />
+					<d4p1:Value>1</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pFrutas silvestres" />
+					<d4p1:Value>0.3</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+				<d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+					<d4p1:Key z:Ref="pCueva" />
+					<d4p1:Value>0.3</d4p1:Value>
+				</d4p1:KeyValueOfPropiedadfloatbN_PeySYD>
+			</Propiedades>
+		</Ecosistema>
 	</Ecosistemas>
 
 	<Ciencias>
@@ -562,18 +579,6 @@
 				<Edificios />
 			</Requiere>
 		</Edificio>
-		<Edificio z:Id ="eTelar primitivo">
-			<Construcción xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-			<EsAutoConstruíble>true</EsAutoConstruíble>
-			<MaxWorkers>30</MaxWorkers>
-			<Nombre>Telar primitivo</Nombre>
-			<Requiere>
-				<Ciencias>
-					<Ciencia z:Ref ="rTejeduría" />
-				</Ciencias>
-				<Edificios />
-			</Requiere>
-		</Edificio>
 	</Edificios>
 
 	<Trabajos>
@@ -660,46 +665,6 @@
 				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
 					<d5p1:Key z:Ref="rArte" />
 					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</Salida>
-		</Trabajo>
-		<Trabajo z:Id="tHacer tela">
-			<Edificio z:Ref="eTelar primitivo" />
-			<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rSeda" />
-					<d5p1:Value>0.01</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</Entrada>
-			<Nombre>Hacer tela</Nombre>
-			<Requiere>
-				<Ciencias />
-				<Edificios />
-			</Requiere>
-			<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rTela" />
-					<d5p1:Value>0.01</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</Salida>
-		</Trabajo>
-		<Trabajo z:Id="tHacer ropa">
-			<Edificio z:Ref="eTelar primitivo" />
-			<Entrada xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rTela" />
-					<d5p1:Value>1</d5p1:Value>
-				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
-			</Entrada>
-			<Nombre>Hacer ropa</Nombre>
-			<Requiere>
-				<Ciencias />
-				<Edificios />
-			</Requiere>
-			<Salida xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-				<d5p1:KeyValueOfRecursofloatbN_PeySYD>
-					<d5p1:Key z:Ref="rRopa" />
-					<d5p1:Value>0.1</d5p1:Value>
 				</d5p1:KeyValueOfRecursofloatbN_PeySYD>
 			</Salida>
 		</Trabajo>
