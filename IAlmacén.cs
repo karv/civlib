@@ -34,4 +34,37 @@ namespace Civ
 			return ret;
 		}
 	}
+
+	public class AlmacénMáximo: AlmacenCiudad
+	{
+		public float max;
+
+		#region ctor
+
+		public AlmacénMáximo(Ciudad C) : base(C)
+		{
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Devuelve el espacio libre.
+		/// </summary>
+		public float libre()
+		{
+			return max - this.SumaTotal();
+		}
+
+		public new float this [Recurso R]
+		{
+			get
+			{
+				return base[R];
+			}
+			set
+			{
+				base[R] = Math.Min(value, base[R] + libre());
+			}
+		}
+	}
 }
