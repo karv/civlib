@@ -6,11 +6,11 @@ namespace Civ
 {
 	public partial class Ciudad: IAlmacenante
 	{
-		AlmacenCiudad IAlmacenante.Almacen
+		IAlmacén IAlmacenante.Almacen
 		{
 			get
 			{
-				return Almacen;
+				return (IAlmacén)Almacen;
 			}
 		}
 

@@ -12,7 +12,7 @@ namespace Civ
 	/// <summary>
 	/// Almacena recursos globales.
 	/// </summary>
-	public class AlmacenCiv:ListaPeso<Recurso>
+	public class AlmacenCiv:ListaPeso<Recurso>, IAlmacén
 	{
 		public readonly Civilizacion Civil;
 
@@ -80,5 +80,31 @@ namespace Civ
 				}
 			}
 		}
+
+		#region IAlmacénRead implementation
+
+		float IAlmacénRead.recurso(Recurso R)
+		{
+			return this[R];
+		}
+
+		System.Collections.Generic.IEnumerable<Recurso> IAlmacénRead.recursos
+		{
+			get
+			{
+				return Keys;
+			}
+		}
+
+		#endregion
+
+		#region IAlmacén implementation
+
+		void IAlmacén.setRecurso(Recurso rec, float val)
+		{
+			this[rec] = val;
+		}
+
+		#endregion
 	}
 }

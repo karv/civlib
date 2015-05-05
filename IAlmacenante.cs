@@ -7,14 +7,14 @@ namespace Civ
 	/// </summary>
 	public interface IAlmacenante
 	{
-		AlmacenCiudad Almacen { get; }
+		IAlmacén Almacen { get; }
 	}
 
 	public static class ExiIAlmacen
 	{
 		public static Single obtenerRecurso(this IAlmacenante a, Recurso R)
 		{
-			return a.Almacen[R];
+			return a.Almacen.recurso(R);
 		}
 	}
 }

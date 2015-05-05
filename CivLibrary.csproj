@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>CivLibrary</RootNamespace>
@@ -79,6 +77,8 @@
     <Compile Include="Debug.cs" />
     <Compile Include="ITickable.cs" />
     <Compile Include="IAlmacenante.cs" />
+    <Compile Include="IAlmacén.cs" />
+    <Compile Include="Par.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -4,12 +4,21 @@ using System.Runtime.Serialization;
 namespace Civ
 {
 	[DataContract(IsReference = true)]
-	public class Recurso : CivLibrary.Debug.IPlainSerializable
+	public class Recurso : CivLibrary.Debug.IPlainSerializable, IEquatable<Recurso>
 	{
 		public override string ToString()
 		{
 			return Nombre;
 		}
+
+		#region IEquatable implementation
+
+		bool IEquatable<Recurso>.Equals(Recurso other)
+		{
+			return ReferenceEquals(this, other);
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Desaparece al final del turno.

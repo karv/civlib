@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	public class Terreno: ITickable
+	public class Terreno: ITickable, IEquatable<Terreno>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
@@ -28,6 +28,15 @@ namespace Civ
 			}
 			Nombre = Eco.Nombre;
 		}
+
+		#region IEquatable implementation
+
+		bool IEquatable<Terreno>.Equals(Terreno other)
+		{
+			return ReferenceEquals(this, other);
+		}
+
+		#endregion
 
 		/// <summary>
 		/// Terrenos vecinos.

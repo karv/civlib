@@ -27,7 +27,7 @@ namespace Civ
 			float ret = 0;
 			foreach (IAlmacenante x in Ciudades)
 			{
-				ret += x.Almacen[R];
+				ret += x.Almacen.recurso(R);
 			}
 			return ret;
 		}
