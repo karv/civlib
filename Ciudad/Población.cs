@@ -72,7 +72,7 @@ namespace Civ
 		{
 			get
 			{
-				return PoblacionProductiva + getPoblacionPreProductiva + getPoblacionPostProductiva;
+				return getPoblacionProductiva + getPoblacionPreProductiva + getPoblacionPostProductiva;
 			}
 		}
 
@@ -80,7 +80,7 @@ namespace Civ
 		/// Devuelve la población productiva.
 		/// </summary>
 		/// <value></value>
-		public ulong PoblacionProductiva
+		public ulong getPoblacionProductiva
 		{
 			get
 			{

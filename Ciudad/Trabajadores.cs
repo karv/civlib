@@ -31,7 +31,7 @@ namespace Civ
 		{
 			get
 			{
-				return PoblacionProductiva - getNumTrabajadores;
+				return getPoblacionProductiva - getNumTrabajadores;
 			}
 		}
 

@@ -31,7 +31,7 @@ namespace Civ
 				AlimentoAlmacen = 0;
 				//Promesas de muerte por sector.
 				Crecimiento[0] -= getPoblacionPreProductiva * pctMuerte;
-				Crecimiento[1] -= PoblacionProductiva * pctMuerte;
+				Crecimiento[1] -= getPoblacionProductiva * pctMuerte;
 				Crecimiento[2] -= getPoblacionPostProductiva * pctMuerte;
 			}
 
@@ -42,15 +42,15 @@ namespace Civ
 			Crecimiento[0] -= Desarrollo;
 			Crecimiento[1] += Desarrollo;
 			//Productivo a viejo
-			float Envejecer = TasaVejezBase * PoblacionProductiva * t;
+			float Envejecer = TasaVejezBase * getPoblacionProductiva * t;
 			Crecimiento[1] -= Envejecer;
 			Crecimiento[2] += Envejecer;
 			//Nuevos infantes
-			float Natalidad = TasaNatalidadBase * PoblacionProductiva * t;
+			float Natalidad = TasaNatalidadBase * getPoblacionProductiva * t;
 			Crecimiento[0] += Natalidad;
 			//Mortalidad
 			Crecimiento[0] -= getPoblacionPreProductiva * TasaMortalidadInfantilBase * t;
-			Crecimiento[1] -= PoblacionProductiva * TasaMortalidadProductivaBase * t;
+			Crecimiento[1] -= getPoblacionProductiva * TasaMortalidadProductivaBase * t;
 			Crecimiento[2] -= getPoblacionPostProductiva * TasaMortalidadVejezBase * t;
 
 			// Aplicar cambios.
@@ -58,7 +58,7 @@ namespace Civ
 			if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
 			{
 				CivDueno.AgregaMensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this);
-				LiberarTrabajadores(PoblacionProductiva - (ulong)Crecimiento[1]);
+				LiberarTrabajadores(getPoblacionProductiva - (ulong)Crecimiento[1]);
 
 			}
 
