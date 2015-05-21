@@ -61,10 +61,11 @@ namespace Civ
 		/// </summary>
 		public void Tick(float t = 1)
 		{
-			foreach (var x in RAW.Salida)
-			{
-				CiudadDueño.Almacen[x.Key] += x.Value * t;
-			}
+			if (RAW.Salida != null)
+				foreach (var x in RAW.Salida)
+				{
+					CiudadDueño.Almacen[x.Key] += x.Value * t;
+				}
 
 			foreach (var x in Trabajos)
 			{
