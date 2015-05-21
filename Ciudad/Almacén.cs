@@ -36,7 +36,7 @@ namespace Civ
 		}
 	}
 
-	public class AlmacenCiudad:ListaPeso<Recurso>
+	public class AlmacenCiudad:ListaPeso<Recurso>, IAlmacén
 	{
 		public AlmacenCiudad(Ciudad C)
 		{
@@ -86,5 +86,31 @@ namespace Civ
 		{
 			return this >= reqs;
 		}
+
+		#region IAlmacén implementation
+
+		void IAlmacén.setRecurso(Recurso rec, float val)
+		{
+			this[rec] = val;
+		}
+
+		#endregion
+
+		#region IAlmacénRead implementation
+
+		float IAlmacénRead.recurso(Recurso R)
+		{
+			return this[R];
+		}
+
+		IEnumerable<Recurso> IAlmacénRead.recursos
+		{
+			get
+			{
+				return Keys;
+			}
+		}
+
+		#endregion
 	}
 }
