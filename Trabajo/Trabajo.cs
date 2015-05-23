@@ -17,10 +17,19 @@ namespace Civ
 
 		public Trabajo(TrabajoRAW nRAW, Edificio EBase)
 		{
-			_RAW = nRAW;
-			_EdificioBase = EBase;
-			_EdificioBase.Trabajos.Add(this);
+			if (EBase.getEspaciosTrabajadoresCiudad > 0)
+			{
+				_RAW = nRAW;
+				_EdificioBase = EBase;
+				_EdificioBase.Trabajos.Add(this);
+				Trabajadores = 1;
+			}
 		}
+
+		public Trabajo(TrabajoRAW nRAW, Ciudad ciudad) : this(nRAW, ciudad.EncuentraInstanciaEdificio(nRAW.Edificio))
+		{
+		}
+
 
 		TrabajoRAW _RAW;
 
