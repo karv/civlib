@@ -4,4 +4,4 @@
 
 [submodule "Grafos"]
 	path = Grafos
-	url = git@github.com:karv/Grafo.git
+	url = git@gitlab.com:karv/Grafo.git
