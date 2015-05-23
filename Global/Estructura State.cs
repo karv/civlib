@@ -84,5 +84,22 @@ namespace Global
 			}
 			return ret;
 		}
+
+		/// <summary>
+		/// Devuelve una lista de ciudades existentes.
+		/// </summary>
+		/// <returns>The ciudades.</returns>
+		public IEnumerable<Civ.Ciudad> getCiudades()
+		{
+			List<Civ.Ciudad> ret = new List<Civ.Ciudad>();
+			foreach (var civil in Civs)
+			{
+				foreach (var c in civil.getCiudades)
+				{
+					ret.Add(c);
+				}
+			}
+			return ret;
+		}
 	}
 }

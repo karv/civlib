@@ -9,7 +9,7 @@ namespace Global
 	/// </summary>	
 	public static class g_
 	{
-
+		static Prefs preferencias = new Prefs();
 		[DataMember(Name = "Data")]
 		public static g_Data Data = new g_Data();
 		public static g_State State = new g_State();
@@ -36,7 +36,7 @@ namespace Global
 				{
 					Civ.Civilizacion civB = State.Civs[j];
 					if ((civA.Diplomacia.ContainsKey(civB) && civA.Diplomacia[civB].PermiteAtacar) ||
-						(civB.Diplomacia.ContainsKey(civA) && civB.Diplomacia[civA].PermiteAtacar))
+					    (civB.Diplomacia.ContainsKey(civA) && civB.Diplomacia[civA].PermiteAtacar))
 					{
 						foreach (var ArmA in civA.Armadas)
 						{
@@ -120,9 +120,21 @@ namespace Global
 
 				State.Civs.Add(C);
 			}
+
+			// Incluir el alimento inicial en cada ciudad
+			foreach (var c in State.getCiudades())
+			{
+				c.AlimentoAlmacen = preferencias.AlimentoInicial;
+			}
 		}
 		// constantes
 		const int numTerrenosIniciales = 40;
 		const int numCivsIniciales = 4;
+
+	}
+
+	public class Prefs
+	{
+		public long AlimentoInicial = 100;
 	}
 }

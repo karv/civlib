@@ -24,6 +24,10 @@ namespace Civ
 				_EdificioBase.Trabajos.Add(this);
 				Trabajadores = 1;
 			}
+			else
+			{
+				throw new Exception("No se puede crear una instancia de trabajo en una ciudad sin población desocupada");
+			}
 		}
 
 		public Trabajo(TrabajoRAW nRAW, Ciudad ciudad) : this(nRAW, ciudad.EncuentraInstanciaEdificio(nRAW.Edificio))
