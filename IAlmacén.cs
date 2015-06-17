@@ -15,7 +15,10 @@ namespace Civ
 
 	public interface IAlmacén : IAlmacénRead
 	{
+		[ObsoleteAttribute]
 		void setRecurso(Recurso rec, float val);
+
+		void changeRecurso(Recurso rec, float delta);
 	}
 
 	public static class ExtIAlmacén

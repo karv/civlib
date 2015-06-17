@@ -100,6 +100,12 @@ namespace Civ
 
 		#region IAlmacén implementation
 
+		public void changeRecurso(Recurso rec, float delta)
+		{
+			this.Add(rec, delta);
+		}
+
+		[Obsolete]
 		void IAlmacén.setRecurso(Recurso rec, float val)
 		{
 			this[rec] = val;
