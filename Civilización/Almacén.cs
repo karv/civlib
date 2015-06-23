@@ -12,7 +12,7 @@ namespace Civ
 	/// <summary>
 	/// Almacena recursos globales.
 	/// </summary>
-	public class AlmacenCiv:ListasExtra.Lock.ListaPesoBloqueable<Recurso>, IAlmacén
+	public class AlmacenCiv:ListaPeso<Recurso>, IAlmacén
 	{
 		public readonly Civilizacion Civil;
 

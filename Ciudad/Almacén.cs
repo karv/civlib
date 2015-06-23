@@ -37,7 +37,7 @@ namespace Civ
 		}
 	}
 
-	public class AlmacenCiudad:ListaPesoBloqueable<Recurso>, IAlmacén
+	public class AlmacenCiudad: ListaPeso<Recurso>, IAlmacén
 	{
 		public AlmacenCiudad(Ciudad C)
 		{
@@ -67,7 +67,7 @@ namespace Civ
 			}
 			set
 			{
-				throw new Exception("Obosoleto :c");
+				System.Diagnostics.Debug.WriteLine("AlmacénCiudad[R].set es Obsoleto");
 				if (R.EsGlobal)
 				{
 					CiudadDueño.CivDueno.Almacen[R] = value;
@@ -86,8 +86,8 @@ namespace Civ
 		/// <returns>true sólo si posee tales recursos.</returns>
 		public bool PoseeRecursos(ListaPeso<Recurso> reqs)
 		{
-			return Contains(reqs); 
-			// return this >= reqs;
+			//return Contains(reqs); 
+			return this >= reqs;
 		}
 
 		#region IAlmacén implementation
@@ -97,7 +97,6 @@ namespace Civ
 			this.Add(rec, delta);
 		}
 
-		[Obsolete]
 		void IAlmacén.setRecurso(Recurso rec, float val)
 		{
 			this[rec] = val;

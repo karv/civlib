@@ -22,7 +22,8 @@ namespace Civ
 			//Si tienen qué comer
 			if (Consumo <= AlimentoAlmacen)
 			{
-				AlimentoAlmacen = AlimentoAlmacen - Consumo;
+				Almacen.changeRecurso(RecursoAlimento, -Consumo);
+				System.Diagnostics.Debug.Assert(!float.IsInfinity(AlimentoAlmacen), "Se acaba de obtener alimento infinito.");
 			}
 			else
 			{
