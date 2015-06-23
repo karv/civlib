@@ -19,14 +19,14 @@ namespace Civ
 			// Consumir recursos
 			foreach (var x in RAW.EntradaBase.Keys)
 			{
-				Almacen[x] -= RAW.EntradaBase[x] * Trabajadores * PctProd * t;
+				Almacen.Add(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * t);
 			}
 
 
 			// Producir recursos
 			foreach (var x in RAW.SalidaBase.Keys)
 			{
-				Almacen[x] += RAW.SalidaBase[x] * Trabajadores * PctProd * t;
+				Almacen.Add(x, RAW.SalidaBase[x] * Trabajadores * PctProd * t);
 			}
 		}
 	}

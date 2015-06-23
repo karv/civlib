@@ -44,14 +44,7 @@ namespace Civ
 			foreach (TasaProd x in _Salida)
 			{
 				if (C.Almacen.recurso(x.Rec) < x.Max)
-				{
-					C.Almacen.setRecurso(x.Rec, 
-						Math.Min(
-							C.Almacen.recurso(x.Rec) + x.Crec * t, 
-							x.Max
-						)
-					);
-				}
+					C.Almacen.changeRecurso(x.Rec, x.Crec * t);
 			}
 		}
 
