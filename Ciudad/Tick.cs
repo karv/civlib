@@ -70,7 +70,7 @@ namespace Civ
 			if (AutoReclutar)
 			{
 				// Autoacomodar trabajadores desocupados
-				List<Trabajo> Lst = ObtenerListaTrabajos;
+				List<Trabajo> Lst = ObtenerListaTrabajos();
 
 				Lst.Sort(((x, y) => x.Prioridad < y.Prioridad ? -1 : 1));
 

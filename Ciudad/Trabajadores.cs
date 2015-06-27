@@ -63,21 +63,17 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la lista de trabajos actuales en esta  <see cref="Civ.Ciudad"/>. 
 		/// </summary>
-		public List<Trabajo> ObtenerListaTrabajos
+		public List<Trabajo> ObtenerListaTrabajos()
 		{
-			get
+			List<Trabajo> ret = new List<Trabajo>();
+			foreach (var x in Edificios)
 			{
-				List<Trabajo> ret = new List<Trabajo>();
-				foreach (var x in Edificios)
+				foreach (var y in x.Trabajos)
 				{
-					foreach (var y in x.Trabajos)
-					{
-						ret.Add(y);
-					}
+					ret.Add(y);
 				}
-				return ret;
 			}
-
+			return ret;
 		}
 
 		/// <summary>
@@ -96,7 +92,7 @@ namespace Civ
 
 			if (Edif == null)
 				return null;    // Devuelve nulo si no existe el edificio donde se trabaja.
-			foreach (Trabajo x in ObtenerListaTrabajos)
+			foreach (Trabajo x in ObtenerListaTrabajos())
 			{
 				if (x.RAW == TRAW)
 					return x;
@@ -125,7 +121,7 @@ namespace Civ
 		/// <param name="n">Número de trabajadores a forzar que sean libres.</param>
 		public void LiberarTrabajadores(ulong n)
 		{
-			List<Trabajo> L = ObtenerListaTrabajos;
+			List<Trabajo> L = ObtenerListaTrabajos();
 			L.Sort((x, y) => x.Prioridad < y.Prioridad ? -1 : 1); // Ordenar por prioridad.
 			while (L.Count > 0 && getTrabajadoresDesocupados < n && getTrabajadoresDesocupados != getPoblacion)
 			{
