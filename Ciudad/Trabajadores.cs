@@ -100,7 +100,7 @@ namespace Civ
 			System.Diagnostics.Debug.Fail("Wtf?");
 			Trabajo ret = new Trabajo(TRAW, this);
 			// Agregar este trabajo al edificio. Sin trabajadores.
-			Edif.Trabajos.Add(ret);
+			//Edif.Trabajos.Add(ret);
 			//throw new Exception("No existe el trabajo buscado.");
 			return ret;
 		}
