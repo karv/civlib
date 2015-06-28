@@ -97,7 +97,6 @@ namespace Civ
 				if (x.RAW == TRAW)
 					return x;
 			}
-			System.Diagnostics.Debug.Fail("Wtf?");
 			Trabajo ret = new Trabajo(TRAW, this);
 			// Agregar este trabajo al edificio. Sin trabajadores.
 			//Edif.Trabajos.Add(ret);
@@ -135,7 +134,12 @@ namespace Civ
 			}
 		}
 
-		public IEnumerable<TrabajoRAW> obtenerTrabajosAbiertos()
+		/// <summary>
+		/// Crea una nueva lista de todos los trabajos abiertos para una ciudad, tomando en cuenta sus edificios y ciencias.
+		/// threadsafe.
+		/// </summary>
+		/// <returns>Devuelve una nueva lista.</returns>
+		public List<TrabajoRAW> obtenerTrabajosAbiertos()
 		{
 			List<TrabajoRAW> ret = new List<TrabajoRAW>();
 			foreach (var x in Global.g_.Data.Trabajos)
