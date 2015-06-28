@@ -9,24 +9,27 @@ namespace Civ
 		/// </summary>
 		public void Tick(float t = 1)
 		{
-			// Obtener eficiencia (generada por la disponibilidad de recursos)
-			float PctProd = 1;
-			foreach (var x in RAW.EntradaBase.Keys)
+			if (Trabajadores > 0)
 			{
-				PctProd = Math.Min(PctProd, Almacen[x] / (RAW.EntradaBase[x] * Trabajadores * t));
-			}
+				// Obtener eficiencia (generada por la disponibilidad de recursos)
+				float PctProd = 1;
+				foreach (var x in RAW.EntradaBase.Keys)
+				{
+					PctProd = Math.Min(PctProd, Almacen[x] / (RAW.EntradaBase[x] * Trabajadores * t));
+				}
 
-			// Consumir recursos
-			foreach (var x in RAW.EntradaBase.Keys)
-			{
-				Almacen.Add(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * t);
-			}
+				// Consumir recursos
+				foreach (var x in RAW.EntradaBase.Keys)
+				{
+					Almacen.Add(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * t);
+				}
 
 
-			// Producir recursos
-			foreach (var x in RAW.SalidaBase.Keys)
-			{
-				Almacen.Add(x, RAW.SalidaBase[x] * Trabajadores * PctProd * t);
+				// Producir recursos
+				foreach (var x in RAW.SalidaBase.Keys)
+				{
+					Almacen.Add(x, RAW.SalidaBase[x] * Trabajadores * PctProd * t);
+				}
 			}
 		}
 	}

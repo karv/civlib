@@ -67,13 +67,15 @@ namespace Civ
 			}
 			set
 			{
-				System.Diagnostics.Debug.WriteLine("AlmacénCiudad[R].set es Obsoleto");
+				// System.Diagnostics.Debug.WriteLine("AlmacénCiudad[R].set es Obsoleto");
 				if (R.EsGlobal)
 				{
 					CiudadDueño.CivDueno.Almacen[R] = value;
 				}
 				else
 				{
+					if (float.IsNaN(value))
+						System.Diagnostics.Debugger.Break();
 					base[R] = value;
 				}
 			}

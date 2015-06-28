@@ -85,11 +85,11 @@ namespace Civ
 		/// <returns>Devuelve el trabajo en la ciudad correspondiente a este TrabajoRAW.</returns>
 		public Trabajo EncuentraInstanciaTrabajo(TrabajoRAW TRAW)
 		{
-			if (TRAW == null)
-				return null;
+			System.Diagnostics.Debug.Assert(TRAW != null);
 			EdificioRAW Ed = TRAW.Edificio;   // La clase de edificio que puede contener este trabajo.
 			Edificio Edif = EncuentraInstanciaEdificio(Ed); // La instancia del edificio en esta ciudad.
 
+			System.Diagnostics.Debug.Assert(Edif != null);
 			if (Edif == null)
 				return null;    // Devuelve nulo si no existe el edificio donde se trabaja.
 			foreach (Trabajo x in ObtenerListaTrabajos())
@@ -97,7 +97,12 @@ namespace Civ
 				if (x.RAW == TRAW)
 					return x;
 			}
-			return null;
+			System.Diagnostics.Debug.Fail("Wtf?");
+			Trabajo ret = new Trabajo(TRAW, this);
+			// Agregar este trabajo al edificio. Sin trabajadores.
+			Edif.Trabajos.Add(ret);
+			//throw new Exception("No existe el trabajo buscado.");
+			return ret;
 		}
 
 		/// <summary>
@@ -128,6 +133,19 @@ namespace Civ
 				L[0].Trabajadores = 0;
 				L.RemoveAt(0);
 			}
+		}
+
+		public IEnumerable<TrabajoRAW> obtenerTrabajosAbiertos()
+		{
+			List<TrabajoRAW> ret = new List<TrabajoRAW>();
+			foreach (var x in Global.g_.Data.Trabajos)
+			{
+				if (SatisfaceReq(x.Reqs()))
+				{
+					ret.Add(x);
+				}
+			}
+			return ret;
 		}
 	}
 }

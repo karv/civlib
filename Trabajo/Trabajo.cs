@@ -17,17 +17,10 @@ namespace Civ
 
 		public Trabajo(TrabajoRAW nRAW, Edificio EBase)
 		{
-			if (EBase.getEspaciosTrabajadoresCiudad > 0)
-			{
-				_RAW = nRAW;
-				_EdificioBase = EBase;
-				_EdificioBase.Trabajos.Add(this);
-				Trabajadores = 1;
-			}
-			else
-			{
-				throw new Exception("No se puede crear una instancia de trabajo en una ciudad sin población desocupada");
-			}
+			_RAW = nRAW;
+			_EdificioBase = EBase;
+			_EdificioBase.Trabajos.Add(this);
+			Trabajadores = 0;
 		}
 
 		public Trabajo(TrabajoRAW nRAW, Ciudad ciudad) : this(nRAW, ciudad.EncuentraInstanciaEdificio(nRAW.Edificio))

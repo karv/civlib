@@ -70,7 +70,10 @@ namespace Civ
 			foreach (var x in Trabajos)
 			{
 				x.Tick(t);
+				if (float.IsNaN(CiudadDueño.AlimentoAlmacen))
+					throw new Exception();
 			}
+
 		}
 	}
 }

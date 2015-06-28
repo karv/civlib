@@ -18,17 +18,25 @@ namespace Civ
 			//Crecimiento prometido por sector de edad.
 			float[] Crecimiento = new float[3];
 			float Consumo = getPoblacion * ConsumoAlimentoPorCiudadanoBase * t;
+			if (float.IsInfinity(AlimentoAlmacen) || float.IsNaN(AlimentoAlmacen))
+			{
+				System.Diagnostics.Debugger.Break();
+			}
+			System.Diagnostics.Debug.Assert(!float.IsInfinity(AlimentoAlmacen) && !float.IsNaN(AlimentoAlmacen), "Se acaba de obtener alimento infinito.");
 			//Que coman
 			//Si tienen qué comer
 			if (Consumo <= AlimentoAlmacen)
 			{
 				Almacen.changeRecurso(RecursoAlimento, -Consumo);
-				System.Diagnostics.Debug.Assert(!float.IsInfinity(AlimentoAlmacen), "Se acaba de obtener alimento infinito.");
+
 			}
 			else
 			{
 				//El porcentage de muertes
 				float pctMuerte = (1 - (AlimentoAlmacen / (getPoblacion * ConsumoAlimentoPorCiudadanoBase))) * _TasaMortalidadHambruna;
+				if (!(0 <= pctMuerte && pctMuerte <= 1))
+					System.Diagnostics.Debugger.Break();
+				System.Diagnostics.Debug.Assert(0 <= pctMuerte && pctMuerte <= 1, "wat?");
 				AlimentoAlmacen = 0;
 				//Promesas de muerte por sector.
 				Crecimiento[0] -= getPoblacionPreProductiva * pctMuerte;
@@ -37,7 +45,6 @@ namespace Civ
 			}
 
 			//Crecimiento poblacional
-
 			//Infantil a productivo.
 			float Desarrollo = TasaDesarrolloBase * getPoblacionPreProductiva * t;
 			Crecimiento[0] -= Desarrollo;
@@ -67,6 +74,9 @@ namespace Civ
 			_PoblacionProductiva = Math.Max(_PoblacionProductiva + Crecimiento[1], 0);
 			_PoblacionPostProductiva = Math.Max(_PoblacionPostProductiva + Crecimiento[2], 0);
 
+			if (getPoblacion > 100)
+				System.Diagnostics.Debugger.Break(); //(getPoblacion < 100);
+
 			if (AutoReclutar)
 			{
 				// Autoacomodar trabajadores desocupados
@@ -90,6 +100,7 @@ namespace Civ
 			{
 				x.Tick(t);
 			}
+
 			foreach (var x in Propiedades)
 			{
 				x.Tick(this, t);
@@ -149,7 +160,6 @@ namespace Civ
 		{
 			PopTick(t);
 			Tick(t);
-
 			if (CivDueno != null && getPoblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				CivDueno.removeCiudad(this);
