@@ -21,14 +21,14 @@ namespace Civ
 				// Consumir recursos
 				foreach (var x in RAW.EntradaBase.Keys)
 				{
-					Almacen.Add(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * t);
+					Almacen.changeRecurso(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * t);
 				}
 
 
 				// Producir recursos
 				foreach (var x in RAW.SalidaBase.Keys)
 				{
-					Almacen.Add(x, RAW.SalidaBase[x] * Trabajadores * PctProd * t);
+					Almacen.changeRecurso(x, RAW.SalidaBase[x] * Trabajadores * PctProd * t);
 				}
 			}
 		}

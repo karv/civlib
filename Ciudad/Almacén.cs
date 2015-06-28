@@ -96,7 +96,8 @@ namespace Civ
 
 		public void changeRecurso(Recurso rec, float delta)
 		{
-			this.Add(rec, delta);
+			this[rec] += delta;
+			//this.Add(rec, delta);
 		}
 
 		void IAlmacén.setRecurso(Recurso rec, float val)
