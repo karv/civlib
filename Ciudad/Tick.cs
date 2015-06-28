@@ -125,13 +125,6 @@ namespace Civ
 					AgregaEdificio(x);
 				}
 			}
-
-			// Recursos no almacenados
-			foreach (var x in Almacen.Keys)
-			{
-				if (x.Desaparece)
-					Almacen[x] = 0;
-			}
 		}
 
 		/// <summary>
