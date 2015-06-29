@@ -29,7 +29,8 @@ namespace Civ
 			List<UnidadRAW> ret = new List<UnidadRAW>();
 			foreach (var x in Unidades)
 			{
-				if (!ret.Contains(x.RAW)) ret.Add(x.RAW);
+				if (!ret.Contains(x.RAW))
+					ret.Add(x.RAW);
 			}
 			return ret.ToArray();
 		}
@@ -268,6 +269,22 @@ namespace Civ
 			{
 				return _CivDueño;
 			}
+		}
+
+		/// <summary>
+		/// Devuelve un nuevo diccionario que asocia a cada UnidadRAW la lista de Unidades que tiene.
+		/// </summary>
+		/// <returns>The dictionary.</returns>
+		public Dictionary <UnidadRAW, List<Unidad>> ToDictionary()
+		{
+			Dictionary <UnidadRAW, List<Unidad>> ret = new Dictionary<UnidadRAW, List<Unidad>>();
+			foreach (var x in Unidades)
+			{
+				if (!ret.ContainsKey(x.RAW))
+					ret.Add(x.RAW, new List<Unidad>());
+				ret[x.RAW].Add(x);
+			}
+			return ret;
 		}
 	}
 }
