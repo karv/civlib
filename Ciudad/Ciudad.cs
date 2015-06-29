@@ -92,17 +92,17 @@ namespace Civ
 
 		/// <summary>
 		/// Devuelve la cantidad de unidades que puede construir esta ciudad de una unidadRAW específica.
-		/// Tiene en cuenta sólo los recursos.
+		/// Tiene en cuenta sólo los recursos y la población desocupada.
 		/// </summary>
 		/// <returns>The construibles.</returns>
 		/// <param name="unid">Unid.</param>
 		public ulong UnidadesConstruibles(UnidadRAW unid)
 		{
-			ulong max = ulong.MaxValue;
+			ulong max = getTrabajadoresDesocupados;
 			foreach (var y in unid.Reqs)
 			{
 				// ¿Cuántas unidades puede hacer, limitando por recursos?
-				max = (ulong)Math.Min(max, Almacen[y.Key] / y.Value);
+				max = (ulong)Math.Min(Almacen[y.Key] / y.Value, max);
 			}
 			return max;
 		}
