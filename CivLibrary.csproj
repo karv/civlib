@@ -78,6 +78,7 @@
     <Compile Include="ITickable.cs" />
     <Compile Include="IAlmacenante.cs" />
     <Compile Include="IAlmacén.cs" />
+    <Compile Include="IPosición.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

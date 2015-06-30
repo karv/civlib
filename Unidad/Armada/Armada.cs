@@ -225,40 +225,8 @@ namespace Civ
 		/// </summary>
 		public void Tick(float t)
 		{
-			switch (Orden.TipoOrden)
-			{
-				case Orden.enumTipoOrden.Ir:
-					Pseudoposicion PS;
-					if (EnTerreno)
-					{
-						// Convertir Posición en Pseudoposición.
-						PS = new Pseudoposicion();
-						PS.Avance = 0;
-						PS.Destino = Orden.Destino.Destino;
-						PS.Origen = Posicion.Origen;
-
-						Posicion = PS;
-					}
-					// Para este encontes, Posición debería ser una auténtica Pseudoposición
-					PS = Posicion;
-					// Avanzar
-					PS.Avance += t * Velocidad;
-
-
-					//Revisar si están en el mismo Terreno-intervalo
-					if (PS.Origen == Orden.Destino.Origen && PS.Destino == Orden.Destino.Destino) // Esto debe pasar siempre, por ahora.
-					{
-						if (PS.Avance >= Orden.Destino.Avance)
-						{
-							// Ya llegó.
-							CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", this, Orden.Destino, Orden));
-							Orden = null;
-						}
-					}
-					break;
-				default:
-					break;
-			}
+			if (Orden.Ejecutar(t, this))
+				Orden = new Civ.Orden.OrdenEstacionado();
 		}
 
 		Civilizacion _CivDueño;

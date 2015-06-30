@@ -5,7 +5,7 @@ namespace Civ
 	/// <summary>
 	/// Representa un lugar que no es terreno, más bien es un punto en una arista de la Topología del mundo.
 	/// </summary>
-	public class Pseudoposicion
+	public class Pseudoposicion : IPosición
 	{
 		/// <summary>
 		/// Punto A de esta posición.
@@ -59,5 +59,29 @@ namespace Civ
 				return Avance == 0;
 			}
 		}
+
+		#region IEquatable implementation
+
+		public bool Equals(IPosición other)
+		{
+			if (ReferenceEquals(this, other))
+				return true;
+			
+			if (other is Terreno)
+			{
+				Terreno otherTerreno = (Terreno)other;
+				return (enOrigen && otherTerreno.Equals(Origen)) || (enDestino && otherTerreno.Equals(Destino));
+			}
+			if (other is Pseudoposicion)
+			{
+				Pseudoposicion otherPP = (Pseudoposicion)other;
+				return (otherPP.Origen.Equals(Origen) && otherPP.Destino.Equals(Destino) && otherPP.Avance == Avance) ||
+				(otherPP.Origen.Equals(Destino) && otherPP.Destino.Equals(Origen) && otherPP.Avance == 1 - Avance);
+			}
+
+			throw new NotImplementedException();
+		}
+
+		#endregion
 	}
 }

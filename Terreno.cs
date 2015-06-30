@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	public class Terreno: ITickable, IEquatable<Terreno>
+	public class Terreno: ITickable, IEquatable<Terreno>, IPosición
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
@@ -34,6 +34,25 @@ namespace Civ
 		bool IEquatable<Terreno>.Equals(Terreno other)
 		{
 			return ReferenceEquals(this, other);
+		}
+
+		#endregion
+
+		#region IPosition
+
+		public bool Equals(IPosición p)
+		{
+			if (p is Terreno)
+			{
+				return ReferenceEquals(p, this);
+			}
+			if (p is Pseudoposicion)
+			{
+				Pseudoposicion pp = (Pseudoposicion)p;
+				return pp.Equals(this);
+			}
+
+			throw new Exception("No se puede calcular Equatable.\nNo debería de parar esto.");
 		}
 
 		#endregion
