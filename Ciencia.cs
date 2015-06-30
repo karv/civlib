@@ -3,8 +3,11 @@ using System.Runtime.Serialization;
 
 namespace Civ
 {
-	class RequiereCiencia: ListasExtra.ListaPeso<Recurso>
+	public class RequiereCiencia: ListasExtra.ListaPeso<Recurso>
 	{
+		public RequiereCiencia() : base(new System.Collections.Generic.Dictionary<Recurso, float>())
+		{
+		}
 	}
 
 	/// <summary>
@@ -23,7 +26,7 @@ namespace Civ
 			/// Devuelve la lista de recursos que se necesita para investigar
 			/// </summary>
 			/// <value>The recursos.</value>
-			public ListasExtra.ListaPeso<Recurso> Recursos
+			public RequiereCiencia Recursos
 			{
 				get
 				{
@@ -48,7 +51,7 @@ namespace Civ
 		{
 			return Nombre;
 		}
-		// Sobre los requerimientos.    
+		// Sobre los requerimientos.
 		/// <summary>
 		/// Requerimientos para poder aprender este avance.
 		/// </summary>

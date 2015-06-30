@@ -16,7 +16,7 @@ namespace Civ
 	{
 		public readonly Civilizacion Civil;
 
-		public AlmacenCiv(Civilizacion C)
+		public AlmacenCiv(Civilizacion C) : base(new System.Collections.Concurrent.ConcurrentDictionary<Recurso, float>())
 		{
 			Civil = C;
 		}

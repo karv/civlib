@@ -39,7 +39,7 @@ namespace Civ
 
 	public class AlmacenCiudad: ListaPeso<Recurso>, IAlmacén
 	{
-		public AlmacenCiudad(Ciudad C)
+		public AlmacenCiudad(Ciudad C) : base(new System.Collections.Concurrent.ConcurrentDictionary<Recurso, float>())
 		{
 			CiudadDueño = C;
 		}
@@ -88,7 +88,6 @@ namespace Civ
 		/// <returns>true sólo si posee tales recursos.</returns>
 		public bool PoseeRecursos(ListaPeso<Recurso> reqs)
 		{
-			//return Contains(reqs); 
 			return this >= reqs;
 		}
 

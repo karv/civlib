@@ -16,7 +16,7 @@ namespace Civ
 			/// <summary>
 			/// Recursos ya usados en el edificio.
 			/// </summary>
-			public ListaPeso<Recurso> RecursosAcumulados = new ListaPeso<Recurso>();
+			public ListaPeso<Recurso> RecursosAcumulados = new ListaPeso<Recurso>(new System.Collections.Concurrent.ConcurrentDictionary<Recurso, float>());
 
 			/// <summary>
 			/// Devuelve la función de recursos faltantes.
