@@ -28,37 +28,15 @@ namespace Civ
 		/// <param name="uRAW">Clase de unidades a entrenar</param>
 		/// <param name="Cantidad">Cantidad</param>
 		/// <returns>Devuelve un arreglo con las unidades que se pudieron entrenar.</returns>
-		public Unidad[] EntrenarUnidades(UnidadRAW uRAW, ulong Cantidad)
+		public Stack EntrenarUnidades(UnidadRAW uRAW, ulong cantidad = 1)
 		{
-			List<Unidad> ret = new List<Unidad>();
-			Unidad U;
-			ulong i = 0;
-
-			do
-			{
-				U = EntrenarUnidades(uRAW);
-				if (U != null)
-					ret.Add(U);
-				i++;
-			} while (i < Cantidad && U != null);
-
-			return ret.ToArray();
-		}
-
-		/// <summary>
-		/// Entrena una unidad de una clase específica.
-		/// Incluye la unidad en la armada de la ciudad.
-		/// </summary>
-		/// <param name="uRAW">Tipo de unidad.</param>
-		/// <returns>Devuelve la instancia de la unidad creada</returns>
-		public Unidad EntrenarUnidades(UnidadRAW uRAW)
-		{
-			Unidad ret = null;
+			Stack ret = null;
 			if (uRAW.CostePoblacion <= getTrabajadoresDesocupados && Almacen.PoseeRecursos((ListasExtra.ListaPeso<Recurso>)uRAW.Reqs))	//Si puede pagar
 			{
-				ret = new Unidad(uRAW, this);
+				ret = new Stack(uRAW, cantidad, this);
 				Defensa.AgregaUnidad(ret);						// Agregar la unidad a la defensa de la ciudad.
-				_PoblacionProductiva -= uRAW.CostePoblacion;	// Recluta desde la población productiva.
+				//TODO revisar si existe poblaciÃ³n?
+				_PoblacionProductiva -= uRAW.CostePoblacion;	// Recluta desde la poblaciï¿½n productiva.
 				foreach (var x in uRAW.Reqs.Keys)				// Quita los recursos que requiere.
 				{
 					Almacen[x] -= uRAW.Reqs[x];
