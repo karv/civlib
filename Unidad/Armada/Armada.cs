@@ -13,6 +13,11 @@ namespace Civ
 		List<Unidad> _Unidades = new List<Unidad>();
 
 		/// <summary>
+		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
+		/// </summary>
+		public readonly bool esDefensa;
+
+		/// <summary>
 		/// Devuelve la lista de unidades en la armada.
 		/// </summary>
 		/// <value>The lista unidades.</value>
@@ -45,9 +50,10 @@ namespace Civ
 			return Unidades.FindAll(x => x.RAW == RAW).ToArray();
 		}
 
-		public Armada(Civilizacion C)
+		public Armada(Civilizacion C, bool esDefensa = false)
 		{
 			_CivDueño = C;
+			this.esDefensa = esDefensa;
 			C.Armadas.Add(this);
 		}
 
@@ -110,9 +116,9 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Agrega unidad(es) a esta armada
+		/// Agrega o mueve unidad(es) a esta armada.
 		/// </summary>
-		/// <param name="U">La unidad que se agregará.</param>
+		/// <param name="U">La unidad que se agregará o moverá.</param>
 		public void AgregaUnidad(Unidad U)
 		{
 			if (PosicionConsistente(U))
@@ -126,7 +132,8 @@ namespace Civ
 			}
 			else
 			{
-				throw new Exception("No se puede agregar unidad a armada si éstas no están en el mismo lugar"); // Más bien no es exception, sino un msg al usuario.
+				// Más bien no es exception, sino un msg al usuario. //TODO
+				System.Diagnostics.Debug.WriteLine("No se puede agregar unidad a armada si éstas no están en el mismo lugar");
 			}
 		}
 
@@ -137,7 +144,7 @@ namespace Civ
 		/// <param name="U">La unidad con la que se comparará posición.</param>
 		public bool PosicionConsistente(Unidad U)
 		{
-			return Posicion == null || Posicion == U.Posicion;
+			return Posicion == null || Posicion.Equals(U.Posicion);
 		}
 
 		/// <summary>

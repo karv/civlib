@@ -6,6 +6,20 @@ namespace Civ
 	public partial class Ciudad
 	{
 		public readonly Armada Defensa;
+
+		public List<Armada> armadasEnCiudad()
+		{
+			Pseudoposicion posCiudad = (Pseudoposicion)Terr;
+			//List<Armada> ret = CivDueno.Armadas.FindAll(x => x.Posicion.Equals(posCiudad));
+			List<Armada> rat = new List<Armada>();
+			foreach (var x in CivDueno.Armadas)
+			{
+				if (!x.esDefensa && x.Posicion.Equals(posCiudad))
+					rat.Add(x);
+			}
+			return rat;
+		}
+
 		// Todo para crear unidades
 		/// <summary>
 		/// Entrena una cantidad de unidades de una clase fija.
@@ -26,13 +40,13 @@ namespace Civ
 				if (U != null)
 					ret.Add(U);
 				i++;
-			} while (i < Cantidad && U != null );
+			} while (i < Cantidad && U != null);
 
 			return ret.ToArray();
 		}
 
 		/// <summary>
-		/// Entrena una unidad de una clase específica.
+		/// Entrena una unidad de una clase especï¿½fica.
 		/// Incluye la unidad en la armada de la ciudad.
 		/// </summary>
 		/// <param name="uRAW">Tipo de unidad.</param>
@@ -44,7 +58,7 @@ namespace Civ
 			{
 				ret = new Unidad(uRAW, this);
 				Defensa.AgregaUnidad(ret);						// Agregar la unidad a la defensa de la ciudad.
-				_PoblacionProductiva -= uRAW.CostePoblacion;	// Recluta desde la población productiva.
+				_PoblacionProductiva -= uRAW.CostePoblacion;	// Recluta desde la poblaciï¿½n productiva.
 				foreach (var x in uRAW.Reqs.Keys)				// Quita los recursos que requiere.
 				{
 					Almacen[x] -= uRAW.Reqs[x];

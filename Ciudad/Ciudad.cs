@@ -55,8 +55,9 @@ namespace Civ
 			Almacen = new AlmacenCiudad(this);
 
 			// Inicializar la armada
-			Defensa = new Armada(CivDueno);
+			Defensa = new Armada(CivDueno, true);
 			Defensa.MaxPeso = float.PositiveInfinity;
+			Defensa.Posicion = (Pseudoposicion)T;
 
 			// Importar desde T.
 
