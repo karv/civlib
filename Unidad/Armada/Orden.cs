@@ -27,7 +27,7 @@ namespace Civ.Orden
 
 	public class OrdenIr : Orden
 	{
-		public IPosición Destino;
+		public Pseudoposicion Destino;
 
 		public override bool Ejecutar(float t, Armada armada)
 		{

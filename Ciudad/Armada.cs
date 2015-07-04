@@ -46,7 +46,7 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Entrena una unidad de una clase especï¿½fica.
+		/// Entrena una unidad de una clase específica.
 		/// Incluye la unidad en la armada de la ciudad.
 		/// </summary>
 		/// <param name="uRAW">Tipo de unidad.</param>
@@ -58,7 +58,7 @@ namespace Civ
 			{
 				ret = new Unidad(uRAW, this);
 				Defensa.AgregaUnidad(ret);						// Agregar la unidad a la defensa de la ciudad.
-				_PoblacionProductiva -= uRAW.CostePoblacion;	// Recluta desde la poblaciï¿½n productiva.
+				_PoblacionProductiva -= uRAW.CostePoblacion;	// Recluta desde la población productiva.
 				foreach (var x in uRAW.Reqs.Keys)				// Quita los recursos que requiere.
 				{
 					Almacen[x] -= uRAW.Reqs[x];
