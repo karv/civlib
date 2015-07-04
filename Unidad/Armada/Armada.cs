@@ -10,7 +10,7 @@ namespace Civ
 	/// </summary>
 	public partial class Armada
 	{
-		List<Unidad> _Unidades = new List<Unidad>();
+		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null, new System.Collections.Concurrent.ConcurrentDictionary<UnidadRAW, Stack>());
 
 		/// <summary>
 		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
@@ -21,23 +21,17 @@ namespace Civ
 		/// Devuelve la lista de unidades en la armada.
 		/// </summary>
 		/// <value>The lista unidades.</value>
-		public List<Unidad> Unidades
+		public ICollection<Stack> Unidades
 		{
 			get
 			{
-				return _Unidades;
+				return _Unidades.Values;
 			}
 		}
 
-		public UnidadRAW[] TiposUnidades()
+		public ICollection<UnidadRAW> TiposUnidades()
 		{
-			List<UnidadRAW> ret = new List<UnidadRAW>();
-			foreach (var x in Unidades)
-			{
-				if (!ret.Contains(x.RAW))
-					ret.Add(x.RAW);
-			}
-			return ret.ToArray();
+			return _Unidades.Keys;
 		}
 
 		/// <summary>
@@ -45,9 +39,9 @@ namespace Civ
 		/// </summary>
 		/// <param name="RAW">Tipo de unidades.</param>
 		/// <returns></returns>
-		public Unidad[] UnidadesAgrupadas(UnidadRAW RAW)
+		public Stack UnidadesAgrupadas(UnidadRAW RAW)
 		{
-			return Unidades.FindAll(x => x.RAW == RAW).ToArray();
+			return _Unidades[RAW];
 		}
 
 		public Armada(Civilizacion C, bool esDefensa = false)
@@ -118,8 +112,8 @@ namespace Civ
 		/// <summary>
 		/// Agrega o mueve unidad(es) a esta armada.
 		/// </summary>
-		/// <param name="U">La unidad que se agregará o moverá.</param>
-		public void AgregaUnidad(Unidad U)
+		/// <param name="U">El stack que se agregará o moverá.</param>
+		public void AgregaUnidad(Stack U)
 		{
 			if (PosicionConsistente(U))
 			{
@@ -127,7 +121,7 @@ namespace Civ
 				{
 					U.AbandonaArmada();
 					U.ArmadaPerteneciente = this;
-					Unidades.Add(U);
+					_Unidades.Add(U.RAW, U);
 				}
 			}
 			else
@@ -142,7 +136,7 @@ namespace Civ
 		/// </summary>
 		/// <returns><c>true</c> si comparten el mismo lugar; <c>false</c> otherwise.</returns>
 		/// <param name="U">La unidad con la que se comparará posición.</param>
-		public bool PosicionConsistente(Unidad U)
+		public bool PosicionConsistente(Stack U)
 		{
 			return Posicion == null || Posicion.Equals(U.Posicion);
 		}
@@ -151,9 +145,9 @@ namespace Civ
 		/// Quita una unidad de la Armada.
 		/// </summary>
 		/// <param name="U">Unidad a quitar</param>
-		public void QuitarUnidad(Unidad U)
+		public void QuitarUnidad(Stack U)
 		{
-			Unidades.Remove(U);
+			_Unidades.Remove(U.RAW);
 		}
 
 		/// <summary>
@@ -168,8 +162,8 @@ namespace Civ
 				r = new Random();
 
 			Armada[] Arms = new Armada[2];
-			Unidad Ata;
-			Unidad Def;
+			Stack Ata;
+			Stack Def;
 			Arms[0] = this;
 			Arms[1] = A;
 
@@ -191,11 +185,11 @@ namespace Civ
 		/// </summary>
 		/// <returns>La unidad que hace el mayor daño menor.</returns>
 		/// <param name="A">A.</param>
-		Unidad MayorDaño(Armada A)
+		Stack MayorDaño(Armada A)
 		{
 			float maxDaño = 0;
 			float currDaño;
-			Unidad ret = null;
+			Stack ret = null;
 			foreach (var x in Unidades)
 			{
 				currDaño = x.DañoPropuesto(x.MenorDaño(A));
@@ -250,13 +244,13 @@ namespace Civ
 		/// Devuelve un nuevo diccionario que asocia a cada UnidadRAW la lista de Unidades que tiene.
 		/// </summary>
 		/// <returns>The dictionary.</returns>
-		public Dictionary <UnidadRAW, List<Unidad>> ToDictionary()
+		public Dictionary <UnidadRAW, List<Stack>> ToDictionary()
 		{
-			Dictionary <UnidadRAW, List<Unidad>> ret = new Dictionary<UnidadRAW, List<Unidad>>();
+			Dictionary <UnidadRAW, List<Stack>> ret = new Dictionary<UnidadRAW, List<Stack>>();
 			foreach (var x in Unidades)
 			{
 				if (!ret.ContainsKey(x.RAW))
-					ret.Add(x.RAW, new List<Unidad>());
+					ret.Add(x.RAW, new List<Stack>());
 				ret[x.RAW].Add(x);
 			}
 			return ret;

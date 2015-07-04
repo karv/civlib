@@ -8,23 +8,25 @@ namespace Civ
 	/// <summary>
 	/// Representa a una instancia de unidad.
 	/// </summary>
-	public class Unidad
+	public class Stack
 	{
 		/// <summary>
 		/// La clase a la que pertenece esta unidad.
 		/// </summary>
 		public readonly UnidadRAW RAW;
+		public ulong cantidad;
 
 		/// <summary>
 		/// Crea una instancia.
 		/// </summary>
 		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
 		/// <param name="A">Armada a la que pertenece esta unidad.</param>
-		public Unidad(UnidadRAW uRAW, Armada A)
+		public Stack(UnidadRAW uRAW, ulong cantidad, Armada A)
 		{
 			RAW = uRAW;
 			Nombre = uRAW.Nombre;
 			_HP = 1;
+			this.cantidad = cantidad;
 			_ArmadaPerteneciente = A;
 		}
 
@@ -33,7 +35,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
 		/// <param name="C">Ciudad donde se creará a esta unidad.</param>
-		public Unidad(UnidadRAW uRAW, Ciudad C):this(uRAW, C.Defensa)
+		public Stack(UnidadRAW uRAW, ulong cantidad, Ciudad C) : this(uRAW, cantidad, C.Defensa)
 		{
 		}
 
@@ -76,18 +78,6 @@ namespace Civ
 				_HP = Math.Max(Math.Min(1, value), 0);
 				if (_HP == 0)		// Si HP = 0, la unidad muere.
 					AbandonaArmada();
-			}
-		}
-
-		/// <summary>
-		/// Devuelve el peso, relativo a Armada, de la unidad.
-		/// </summary>
-		/// <value>The peso.</value>
-		public float Peso
-		{
-			get
-			{
-				return RAW.Peso;
 			}
 		}
 
@@ -142,7 +132,7 @@ namespace Civ
 		/// Devuelve el daño máximo que haría esta unidad contra U.
 		/// </summary>
 		/// <param name="U">Unidad con quien comparar</param>
-		public float DañoPropuesto(Unidad U)
+		public float DañoPropuesto(Stack U)
 		{
 			float ret;
 			float mod = 0;
@@ -157,11 +147,11 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la unidad de una armada, tal que this propone el menor daño.
 		/// </summary>
-		public Unidad MenorDaño(Armada A)
+		public Stack MenorDaño(Armada A)
 		{
 			float minDaño = float.PositiveInfinity;
 			float currDaño;
-			Unidad ret = null;
+			Stack ret = null;
 			foreach (var x in A.Unidades)
 			{
 				currDaño = DañoPropuesto(x);
@@ -176,7 +166,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="U">Unidad a quien dañar</param>
 		/// <param name="t">Tiempo</param>
-		public void CausaDaño(Unidad U, float t)
+		public void CausaDaño(Stack U, float t)
 		{
 			float Daño = DañoPropuesto(U) * t;
 			U.HP -= Daño;
@@ -190,6 +180,40 @@ namespace Civ
 			get
 			{
 				return HP == 0;
+			}
+		}
+
+		/// <summary>
+		/// Une dos stacks del mismo tipo
+		/// </summary>
+		/// <param name="other">Other.</param>
+		public void MergeFrom(Stack other)
+		{
+			if (RAW.Equals(other.RAW))
+			{
+				this.cantidad += other.cantidad;
+				other.cantidad = 0;
+			}
+			else
+				throw new Exception("No se pueden unir Stacks de diferente tipo, Use clase Armada.");
+		}
+
+		/// <summary>
+		/// Une dos Stacks dell mismo tipo en la primera.
+		/// </summary>
+		/// <param name="left">Left.</param>
+		/// <param name="right">Right.</param>
+		public static Stack Merge(Stack left, Stack right)
+		{
+			left.MergeFrom(right);
+			return left;
+		}
+
+		public float Peso
+		{
+			get
+			{
+				return RAW.Peso * cantidad;
 			}
 		}
 	}

@@ -65,7 +65,6 @@
     <Compile Include="Trabajo\Trabajadores.cs" />
     <Compile Include="Trabajo\Tick.cs" />
     <Compile Include="Trabajo\Trabajo.cs" />
-    <Compile Include="Unidad\Unidad.cs" />
     <Compile Include="Unidad\UnidadRAW.cs" />
     <Compile Include="Mensaje.cs" />
     <Compile Include="Civilización\EstadoDiplomatico.cs" />
@@ -78,6 +77,7 @@
     <Compile Include="ITickable.cs" />
     <Compile Include="IAlmacenante.cs" />
     <Compile Include="IAlmacén.cs" />
+    <Compile Include="Unidad\Stack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
