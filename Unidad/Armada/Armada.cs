@@ -110,7 +110,7 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Agrega o mueve unidad(es) a esta armada.
+		/// Agrega, mueve o junta unidad(es) a esta armada.
 		/// </summary>
 		/// <param name="U">El stack que se agregará o moverá.</param>
 		public void AgregaUnidad(Stack U)
@@ -121,13 +121,31 @@ namespace Civ
 				{
 					U.AbandonaArmada();
 					U.ArmadaPerteneciente = this;
-					_Unidades.Add(U.RAW, U);
+					if (_Unidades.ContainsKey(U.RAW))
+					{
+						_Unidades[U.RAW].cantidad += U.cantidad;
+						U = _Unidades[U.RAW];
+					}
+					else
+						_Unidades.Add(U.RAW, U);
 				}
 			}
 			else
 			{
 				// Más bien no es exception, sino un msg al usuario. //TODO
 				System.Diagnostics.Debug.WriteLine("No se puede agregar unidad a armada si éstas no están en el mismo lugar");
+			}
+		}
+
+		public void AgregaUnidad(UnidadRAW raw, ulong cantidad)
+		{
+			if (_Unidades.ContainsKey(raw))
+			{
+				_Unidades[raw].cantidad += cantidad;
+			}
+			else
+			{
+				_Unidades.Add(raw, new Stack(raw, cantidad, this));
 			}
 		}
 

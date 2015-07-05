@@ -30,19 +30,20 @@ namespace Civ
 		/// <returns>Devuelve un arreglo con las unidades que se pudieron entrenar.</returns>
 		public Stack EntrenarUnidades(UnidadRAW uRAW, ulong cantidad = 1)
 		{
-			Stack ret = null;
+			//Stack ret = null;
 			if (uRAW.CostePoblacion <= getTrabajadoresDesocupados && Almacen.PoseeRecursos((ListasExtra.ListaPeso<Recurso>)uRAW.Reqs))	//Si puede pagar
 			{
-				ret = new Stack(uRAW, cantidad, this);
-				Defensa.AgregaUnidad(ret);						// Agregar la unidad a la defensa de la ciudad.
-				//TODO revisar si existe población?
 				_PoblacionProductiva -= uRAW.CostePoblacion;	// Recluta desde la poblaci�n productiva.
 				foreach (var x in uRAW.Reqs.Keys)				// Quita los recursos que requiere.
 				{
 					Almacen[x] -= uRAW.Reqs[x];
 				}
+
+				Defensa.AgregaUnidad(uRAW, cantidad);
+				//ret = new Stack(uRAW, cantidad, this);
+				//Defensa.AgregaUnidad(ret);						// Agregar la unidad a la defensa de la ciudad.
 			}
-			return ret;											// Devuelve la unidad creada.
+			return Defensa.UnidadesAgrupadas(uRAW);											// Devuelve la unidad creada.
 		}
 	}
 }
