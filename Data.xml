@@ -56,11 +56,11 @@
 			<Global>false</Global>
 			<Nombre>Seda</Nombre>
 		</Recurso>
-		<Recurso z:Id="rMadera">
+		<Recurso z:Id="rArbol">
 			<Científico>false</Científico>
 			<Desaparece>false</Desaparece>
 			<Global>false</Global>
-			<Nombre>Madera</Nombre>
+			<Nombre>Árboles</Nombre>
 		</Recurso>
 	</Recursos>
 
@@ -105,7 +105,7 @@
 				<Propiedad.TasaProd>
 					<Crec>1</Crec>
 					<Max>100</Max>
-					<Rec z:Ref="rMadera" />
+					<Rec z:Ref="rArbol" />
 				</Propiedad.TasaProd>
 			</Salida>
 		</Propiedad>		
@@ -115,7 +115,7 @@
 				<Propiedad.TasaProd>
 					<Crec>1.5</Crec>
 					<Max>500</Max>
-					<Rec z:Ref="rMadera" />
+					<Rec z:Ref="rArbol" />
 				</Propiedad.TasaProd>
 			</Salida>
 		</Propiedad>		
@@ -125,7 +125,7 @@
 				<Propiedad.TasaProd>
 					<Crec>4</Crec>
 					<Max>1000</Max>
-					<Rec z:Ref="rMadera" />
+					<Rec z:Ref="rArbol" />
 				</Propiedad.TasaProd>
 			</Salida>
 		</Propiedad>		
@@ -135,7 +135,7 @@
 				<Propiedad.TasaProd>
 					<Crec>5</Crec>
 					<Max>5000</Max>
-					<Rec z:Ref="rMadera" />
+					<Rec z:Ref="rArbol" />
 				</Propiedad.TasaProd>
 			</Salida>
 		</Propiedad>		
