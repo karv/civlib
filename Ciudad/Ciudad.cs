@@ -99,12 +99,13 @@ namespace Civ
 		/// <param name="unid">Unid.</param>
 		public ulong UnidadesConstruibles(UnidadRAW unid)
 		{
-			ulong max = getTrabajadoresDesocupados;
-			foreach (var y in unid.Reqs)
-			{
-				// ¿Cuántas unidades puede hacer, limitando por recursos?
-				max = (ulong)Math.Min(Almacen[y.Key] / y.Value, max);
-			}
+			ulong max = (ulong)(getTrabajadoresDesocupados / unid.CostePoblacion);
+			if (unid.Reqs != null)
+				foreach (var y in unid.Reqs)
+				{
+					// ¿Cuántas unidades puede hacer, limitando por recursos?
+					max = (ulong)Math.Min(Almacen[y.Key] / y.Value, max);
+				}
 			return max;
 		}
 	}
