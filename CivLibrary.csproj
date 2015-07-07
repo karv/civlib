@@ -32,52 +32,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ciudad\Opciones.cs" />
-    <Compile Include="Ciudad\Propiedades.cs" />
-    <Compile Include="Civilización\Mensaje.cs" />
-    <Compile Include="Edificio\Propiedad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ciencia.cs" />
     <Compile Include="Recurso.cs" />
-    <Compile Include="Ciudad\Ciudad.cs" />
-    <Compile Include="Ciudad\Almacén.cs" />
-    <Compile Include="Ciudad\Construcción.cs" />
-    <Compile Include="Ciudad\Edificios.cs" />
-    <Compile Include="Ciudad\Población.cs" />
-    <Compile Include="Ciudad\Requerimientos.cs" />
-    <Compile Include="Ciudad\Tick.cs" />
-    <Compile Include="Ciudad\Trabajadores.cs" />
-    <Compile Include="Civilización\Civilización.cs" />
-    <Compile Include="Civilización\Ciudades.cs" />
-    <Compile Include="Civilización\Tick.cs" />
-    <Compile Include="Civilización\Ciencia.cs" />
-    <Compile Include="Edificio\Edificio.cs" />
-    <Compile Include="Edificio\EdificioRAW.cs" />
-    <Compile Include="Edificio\Trabajo.cs" />
     <Compile Include="Interfaces\IRequerimiento.cs" />
     <Compile Include="Global\Estructura Data.cs" />
     <Compile Include="Global\Estructura State.cs" />
     <Compile Include="Global\Estáticos.cs" />
     <Compile Include="Global\Basic.cs" />
     <Compile Include="Terreno.cs" />
-    <Compile Include="Trabajo\TrabajoRAW.cs" />
-    <Compile Include="Trabajo\CiudadEdificio.cs" />
-    <Compile Include="Trabajo\Trabajadores.cs" />
-    <Compile Include="Trabajo\Tick.cs" />
-    <Compile Include="Trabajo\Trabajo.cs" />
-    <Compile Include="Unidad\UnidadRAW.cs" />
     <Compile Include="Mensaje.cs" />
-    <Compile Include="Civilización\EstadoDiplomatico.cs" />
-    <Compile Include="Ciudad\Armada.cs" />
-    <Compile Include="Unidad\Armada\Armada.cs" />
-    <Compile Include="Unidad\Armada\PseudoPosicion.cs" />
-    <Compile Include="Unidad\Armada\Orden.cs" />
-    <Compile Include="Civilización\Almacén.cs" />
     <Compile Include="Debug.cs" />
-    <Compile Include="ITickable.cs" />
-    <Compile Include="IAlmacenante.cs" />
-    <Compile Include="IAlmacén.cs" />
-    <Compile Include="Unidad\Stack.cs" />
+    <Compile Include="AlmacénCiudad.cs" />
+    <Compile Include="EdificioConstruyendo.cs" />
+    <Compile Include="Ciudad.cs" />
+    <Compile Include="AlmacénCiv.cs" />
+    <Compile Include="InvestigandoCiencia.cs" />
+    <Compile Include="ListaInvestigación.cs" />
+    <Compile Include="EstadoDiplomatico.cs" />
+    <Compile Include="Civilización.cs" />
+    <Compile Include="Propiedad.cs" />
+    <Compile Include="Edificio.cs" />
+    <Compile Include="Interfaces\IAlmacén.cs" />
+    <Compile Include="Interfaces\IAlmacenante.cs" />
+    <Compile Include="Interfaces\ITickable.cs" />
+    <Compile Include="RAW\EdificioRAW.cs" />
+    <Compile Include="Trabajo.cs" />
+    <Compile Include="RAW\TrabajoRAW.cs" />
+    <Compile Include="Orden.cs" />
+    <Compile Include="OrdenEstacionado.cs" />
+    <Compile Include="PseudoPosicion.cs" />
+    <Compile Include="Armada.cs" />
+    <Compile Include="RAW\UnidadRAW.cs" />
+    <Compile Include="Stack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -113,5 +100,8 @@
     <EmbeddedResource Include="Data.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RAW\" />
   </ItemGroup>
 </Project>

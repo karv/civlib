@@ -8,8 +8,10 @@ namespace Civ
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public partial class Armada
+	public class Armada
 	{
+		#region General
+
 		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null, new System.Collections.Concurrent.ConcurrentDictionary<UnidadRAW, Stack>());
 
 		/// <summary>
@@ -273,5 +275,9 @@ namespace Civ
 			}
 			return ret;
 		}
+
+		public Civ.Orden.Orden Orden;
+
+		#endregion
 	}
 }
