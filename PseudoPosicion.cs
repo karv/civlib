@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Civ
 {
@@ -64,6 +66,28 @@ namespace Civ
 			get
 			{
 				return Avance == 0;
+			}
+		}
+
+		/// <summary>
+		/// Devuelve la lista de terrenos contiguos a esta pseudoposición.
+		/// </summary>
+		/// <returns>Una nueva lista.</returns>
+		public System.Collections.Generic.List<Terreno> getVecindad()
+		{
+			System.Collections.Generic.List<Terreno> ret;
+
+			if (enTerreno)
+				// Si está en terreno, devolver las vecindades como gráfica
+			{
+				return Origen.Vecinos.Keys.ToList();
+			}
+			else
+			{
+				ret = new System.Collections.Generic.List<Terreno>();
+				ret.Add(Origen);
+				ret.Add(Destino);
+				return ret;
 			}
 		}
 
