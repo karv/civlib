@@ -276,7 +276,7 @@ namespace Civ
 			return ret;
 		}
 
-		public Civ.Orden.Orden Orden;
+		public Civ.Orden.Orden Orden = new Civ.Orden.OrdenEstacionado();
 
 		#endregion
 	}
