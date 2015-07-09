@@ -39,7 +39,12 @@ namespace Civ.Orden
 
 	public class OrdenIr : Orden
 	{
-		public Pseudoposicion Destino;
+		public Pseudoposicion destino;
+
+		public OrdenIr(Pseudoposicion destino)
+		{
+			this.destino = destino;
+		}
 
 		public override bool Ejecutar(float t, Armada armada)
 		{
