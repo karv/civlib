@@ -302,6 +302,12 @@ namespace Civ
 
 			// Fase final, desaparecer recursos.
 			Almacen.RemoverRecursosDesaparece();
+
+			// Armadas
+			foreach (var x in Armadas)
+			{
+				x.Tick(t);
+			}
 		}
 
 		#endregion

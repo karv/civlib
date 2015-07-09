@@ -48,21 +48,14 @@ namespace Civ.Orden
 
 		public override bool Ejecutar(float t, Armada armada)
 		{
-			Pseudoposicion PS;
+			Pseudoposicion PS = armada.Posicion;
 			if (armada.EnTerreno)
 			{
-				// Convertir Posición en Pseudoposición.
-				// TODO
-				PS = new Pseudoposicion();
-				PS.Avance = 0;
+				armada.Posicion.Destino = this.destino.Destino;
+
 				//				PS.Destino = Destino;
 				//				PS.Origen = armada.Posicion.Origen;
 
-				armada.Posicion = PS;
-			}
-			else
-			{
-				PS = armada.Posicion;
 			}
 
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
