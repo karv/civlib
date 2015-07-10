@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	public class Terreno: ITickable, IEquatable<Terreno>
+	public class Terreno: Pseudoposicion, ITickable, IEquatable<Terreno>, IEquatable<Pseudoposicion>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
@@ -17,6 +17,8 @@ namespace Civ
 		public Terreno(Ecosistema Eco)
 		{
 			Vecinos.Nulo = float.PositiveInfinity;
+			A = this;
+			loc = 0;
 			Random r = new Random();
 
 			foreach (var x in Eco.PropPropiedad.Keys)
@@ -34,6 +36,11 @@ namespace Civ
 		bool IEquatable<Terreno>.Equals(Terreno other)
 		{
 			return ReferenceEquals(this, other);
+		}
+
+		bool IEquatable<Pseudoposicion>.Equals(Pseudoposicion other)
+		{
+			return other.enTerreno && ((IEquatable<Terreno>)other.A).Equals(this);
 		}
 
 		#endregion
