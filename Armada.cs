@@ -46,11 +46,24 @@ namespace Civ
 			return _Unidades[RAW];
 		}
 
-		public Armada(Civilizacion C, bool esDefensa = false)
+		/// <summary>
+		/// Crea una nueva armada
+		/// </summary>
+		/// <param name="C">Civilización</param>
+		/// <param name="esDefensa">If set to <c>true</c> es defensa.</param>
+		/// <param name="posición">Posición de la armada (se clona) </param>
+		public Armada(Civilizacion C, Pseudoposicion posición, bool esDefensa = false)
 		{
 			_CivDueño = C;
 			this.esDefensa = esDefensa;
+			Posicion.A = posición.A;
+			Posicion.B = posición.B;
+			Posicion.loc = posición.loc;
 			C.Armadas.Add(this);
+		}
+
+		public Armada(Ciudad C, bool esDefensa = false) : this(C.CivDueno, C.Pos, esDefensa)
+		{
 		}
 
 		float _MaxPeso;
