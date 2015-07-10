@@ -74,18 +74,21 @@ namespace Global
 			Store.Store<g_Data>.Serialize(f, Data);
 		}
 
+		static Random r = new Random();
+
 		/// <summary>
 		/// Inicializa el g_State, a partir de el g_Data.
 		/// Usarse cuando se quiera iniciar un juego.
 		/// </summary>
 		public static void InicializarJuego()
 		{
-			Random r = new Random();
 			State = new g_State();
 
 			// Hacer la topología
 			List<Civ.Terreno> Terrenos = new List<Civ.Terreno>();
+			State.Topologia = new Graficas.Grafica<Civ.Terreno>();
 			State.Mapa = new Graficas.Continuo.Continuo<Civ.Terreno>(State.Topologia);
+
 			Civ.Terreno T;
 			Civ.Ecosistema Eco;
 			Civ.Civilizacion C;
@@ -95,9 +98,12 @@ namespace Global
 			{
 				Eco = Data.Ecosistemas[r.Next(Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
 				T = new Civ.Terreno(Eco);                               // Le asocio un terreno consistente con el ecosistema.
-				Terrenos.Add(T);                                        // Lo enlisto.
+				Terrenos.Add(T);
+				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());
 			}
-			State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
+
+			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
+			ConstruirTopologia(Terrenos);
 
 			// Vaciar la topología en cada Terreno
 			foreach (var x in State.Topologia.Vecinos.Keys)
@@ -132,7 +138,22 @@ namespace Global
 		const int numTerrenosIniciales = 40;
 		const int numCivsIniciales = 4;
 
+
+		public static void ConstruirTopologia(IEnumerable<Civ.Terreno> lista)
+		{
+			foreach (var x in lista)
+			{
+				foreach (var y in lista)
+				{
+					if (r.NextDouble() < 2) //< 0.15?
+					{
+						State.Topologia.AgregaVertice(x, y, 1 + (float)r.NextDouble());
+					}
+				}
+			}
+		}
 	}
+
 
 	public class Prefs
 	{
