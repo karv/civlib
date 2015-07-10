@@ -11,6 +11,8 @@ namespace Civ
 	{
 		#region General
 
+		public Pseudoposicion Pos;
+
 		public override string ToString()
 		{
 			return Nombre;
@@ -64,7 +66,7 @@ namespace Civ
 			// Inicializar la armada
 			Defensa = new Armada(CivDueno, true);
 			Defensa.MaxPeso = float.PositiveInfinity;
-			Defensa.Posicion = (Pseudoposicion)T;
+			Defensa.Posicion.FromGrafica(T);
 
 			// Importar desde T.
 
@@ -73,6 +75,9 @@ namespace Civ
 				// Si r.next < (algo):
 				AgregaPropiedad(x);
 			}
+
+			Pos = new Pseudoposicion();
+			Pos.FromGrafica(T);
 		}
 		// Partial no asinado.
 		/// <summary>
@@ -157,12 +162,11 @@ namespace Civ
 
 		public List<Armada> armadasEnCiudad()
 		{
-			Pseudoposicion posCiudad = (Pseudoposicion)Terr;
 			//List<Armada> ret = CivDueno.Armadas.FindAll(x => x.Posicion.Equals(posCiudad));
 			List<Armada> rat = new List<Armada>();
 			foreach (var x in CivDueno.Armadas)
 			{
-				if (!x.esDefensa && x.Posicion.Equals(posCiudad))
+				if (!x.esDefensa && x.Posicion.Equals(Pos))
 					rat.Add(x);
 			}
 			return rat;

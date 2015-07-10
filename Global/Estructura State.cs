@@ -14,6 +14,7 @@ namespace Global
 		/// La topología del mundo.
 		/// </summary>
 		public Grafica<Terreno> Topologia;
+		public Graficas.Continuo.Continuo<Terreno> Mapa;
 		List<Civilizacion> _Civs = new List<Civilizacion>();
 
 		public g_State()

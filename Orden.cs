@@ -51,7 +51,7 @@ namespace Civ.Orden
 			Pseudoposicion PS = armada.Posicion;
 			if (armada.EnTerreno)
 			{
-				armada.Posicion.Destino = this.destino.Destino;
+				armada.Posicion.B = this.destino.B;
 
 				//				PS.Destino = Destino;
 				//				PS.Origen = armada.Posicion.Origen;
@@ -61,7 +61,7 @@ namespace Civ.Orden
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
 			// Avanzar
-			PS.Avance += t * armada.Velocidad;
+			PS.loc += t * armada.Velocidad;
 
 
 			//Revisar si están en el mismo Terreno-intervalo

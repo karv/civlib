@@ -99,7 +99,7 @@ namespace Civ
 			}
 		}
 
-		Pseudoposicion _Posicion;
+		readonly Pseudoposicion _Posicion = new Pseudoposicion();
 
 		/// <summary>
 		/// Devuelve o establece el lugar donde está la armada.
@@ -108,7 +108,6 @@ namespace Civ
 		public Pseudoposicion Posicion
 		{
 			get { return _Posicion; }
-			set { _Posicion = value; }
 		}
 
 		/// <summary>
@@ -233,13 +232,7 @@ namespace Civ
 		/// Devuelve <c>true</c> sólo si esta armada se encuentra en terreno
 		/// </summary>
 		/// <value><c>true</c> if en terreno; otherwise, <c>false</c>.</value>
-		public bool EnTerreno
-		{
-			get
-			{
-				return Posicion.Avance == 0;
-			}
-		}
+		public bool EnTerreno{ get { return Posicion.enOrigen(); } }
 
 		/// <summary>
 		/// Un Tick de la armada
