@@ -59,5 +59,21 @@ namespace Civ
 
 		#endregion
 
+		#region Cloneable implementation
+
+		/// <summary>
+		/// Devuelve una nueva pseudoposición equivalente a ésta.
+		/// </summary>
+		public Pseudoposicion Clonar()
+		{
+			Pseudoposicion ret = new Pseudoposicion();
+			ret.A = A;
+			ret.B = B;
+			ret.loc = loc;
+			return ret;
+		}
+
+		#endregion
+
 	}
 }

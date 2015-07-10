@@ -11,7 +11,17 @@ namespace Civ
 	{
 		#region General
 
-		public Pseudoposicion Pos;
+		/// <summary>
+		/// Posición de la ciudad.
+		/// </summary>
+		/// <value>The position.</value>
+		public Pseudoposicion Pos
+		{
+			get
+			{
+				return Terr;
+			}
+		}
 
 		public override string ToString()
 		{
@@ -64,7 +74,7 @@ namespace Civ
 			Almacen = new AlmacenCiudad(this);
 
 			// Inicializar la armada
-			Defensa = new Armada(CivDueno, true);
+			Defensa = new Armada(CivDueno, this.Pos, true);
 			Defensa.MaxPeso = float.PositiveInfinity;
 			Defensa.Posicion.FromGrafica(T);
 
@@ -75,9 +85,6 @@ namespace Civ
 				// Si r.next < (algo):
 				AgregaPropiedad(x);
 			}
-
-			Pos = new Pseudoposicion();
-			Pos.FromGrafica(T);
 		}
 		// Partial no asinado.
 		/// <summary>
