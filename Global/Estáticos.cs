@@ -85,6 +85,7 @@ namespace Global
 
 			// Hacer la topología
 			List<Civ.Terreno> Terrenos = new List<Civ.Terreno>();
+			State.Mapa = new Graficas.Continuo.Continuo<Civ.Terreno>(State.Topologia);
 			Civ.Terreno T;
 			Civ.Ecosistema Eco;
 			Civ.Civilizacion C;
