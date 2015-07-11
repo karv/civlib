@@ -65,7 +65,13 @@ namespace Civ.Orden
 
 
 			//Revisar si están en el mismo Terreno-intervalo
-			//TODO
+			//TODO por ahora sólo debe funcionar si destino es un Terreno.
+			if (this.destino.Equals(PS))
+			{
+				AlLlegar();
+				return true;
+			}
+
 			/*
 			if (PS.Origen == Destino.Origen && PS.Destino == Destino.Destino) // Esto debe pasar siempre, por ahora.
 			{
@@ -76,9 +82,14 @@ namespace Civ.Orden
 					return true;
 					// Orden = null;
 				}
-			}
-*/
+			} */
+
 			return false;
+		}
+
+		protected virtual void AlLlegar()
+		{
+			return;
 		}
 	}
 
