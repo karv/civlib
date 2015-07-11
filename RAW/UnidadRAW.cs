@@ -40,6 +40,8 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public float Fuerza;
+		[DataMember]
+		public float Velocidad;
 		[DataMember(Name = "Flags")]
 		private List<string> _Flags = new List<string>();
 
