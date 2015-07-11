@@ -183,7 +183,7 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Pelea durante t chronons
+		/// Pelea durante t horas
 		/// </summary>
 		/// <param name="A">Armada</param>
 		/// <param name="t">tiempo de pelea</param>
@@ -262,7 +262,10 @@ namespace Civ
 		public void Tick(float t)
 		{
 			if (Orden.Ejecutar(t, this))
+			{
 				Orden = new Civ.Orden.OrdenEstacionado();
+				CivDueño.AgregaMensaje("{0} llegó a {1}", this, Posicion);
+			}
 		}
 
 		Civilizacion _CivDueño;
