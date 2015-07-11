@@ -237,9 +237,18 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Velocidad de desplazamiento
+		/// Velocidad de desplazamiento.
+		/// Es la velocidad mínima de sus Stacks.
 		/// </summary>
-		public float Velocidad;
+		public float Velocidad
+		{
+			get
+			{
+				if (Unidades.Count == 0)
+					return 0;
+				return Unidades.Min(x => x.RAW.Velocidad);
+			}
+		}
 
 		/// <summary>
 		/// Devuelve <c>true</c> sólo si esta armada se encuentra en terreno
