@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public class Armada
+	public class Armada: IDisposable
 	{
 		#region General
 
@@ -283,6 +283,28 @@ namespace Civ
 		}
 
 		public Civ.Orden.Orden Orden = new Civ.Orden.OrdenEstacionado();
+
+		#endregion
+
+		#region IDisposable implementation
+
+		/// <summary>
+		/// Releases all resource used by the <see cref="Civ.Armada"/> object.
+		/// Libera su posición en el mapa, así como sus apuntadores en su civilización.
+		/// </summary>
+		/// <remarks>Call <see cref="Dispose"/> when you are finished using the <see cref="Civ.Armada"/>. The <see cref="Dispose"/>
+		/// method leaves the <see cref="Civ.Armada"/> in an unusable state. After calling <see cref="Dispose"/>, you must
+		/// release all references to the <see cref="Civ.Armada"/> so the garbage collector can reclaim the memory that the
+		/// <see cref="Civ.Armada"/> was occupying.</remarks>
+		public void Dispose()
+		{
+			if (Unidades.Count == 0)
+				throw new Exception("No se puede desechar una armada con unidades en ella.");
+			IDisposable destr = (IDisposable)_Posicion;
+			destr.Dispose();
+			if (this.CivDueño != null)
+				CivDueño.Armadas.Remove(this);
+		}
 
 		#endregion
 	}
