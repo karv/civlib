@@ -33,6 +33,21 @@ namespace Civ
 			}
 		}
 
+		/// <summary>
+		/// Devuelve el extremo de esta pseudoposición que no es el extremo dado.
+		/// Si sólo tiene un extremo, devuelve este único.
+		/// </summary>
+		/// <param name="noExtremo">Extremo excluido.</param>
+		public Terreno getExtremoNo(Terreno noExtremo)
+		{
+			if (B == null)
+				return A;
+			if (A.Equals(noExtremo))
+				return B;
+			else
+				return A;
+		}
+
 		#region IEquatable implementation
 
 		/*
