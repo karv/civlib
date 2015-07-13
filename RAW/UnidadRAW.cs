@@ -26,8 +26,10 @@ namespace Civ
 			/// <summary>
 			/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
 			/// </summary>
+			[DataMember(Name = "Población")]
 			public float poblacionACiudad;
 
+			[DataMember(Name = "Edificios")]
 			EdificioRAW[] _edificiosIniciales;
 
 			/// <summary>
@@ -46,6 +48,7 @@ namespace Civ
 			}
 		}
 
+		[DataMember(Name = "Colonizar")]
 		public ColonizarOpciones? colonizacion;
 
 		public bool PuedeColonizar

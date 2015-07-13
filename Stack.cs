@@ -251,7 +251,7 @@ namespace Civ
 		{
 			get
 			{
-				return ArmadaPerteneciente.Orden == Orden.OrdenEstacionado &&
+				return ArmadaPerteneciente.Orden is Orden.OrdenEstacionado &&
 				RAW.PuedeColonizar &&
 				Posicion.enTerreno &&
 				Posicion.A.CiudadConstruida == null;
