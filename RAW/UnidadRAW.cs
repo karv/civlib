@@ -28,10 +28,22 @@ namespace Civ
 			/// </summary>
 			public float poblacionACiudad;
 
+			EdificioRAW[] _edificiosIniciales;
+
 			/// <summary>
 			/// Edificios con los que inicia la nueva ciudad.
 			/// </summary>
-			public List<EdificioRAW> edificiosIniciales;
+			public EdificioRAW[] edificiosIniciales
+			{
+				get
+				{
+					return _edificiosIniciales ?? new EdificioRAW[0];
+				}
+				set
+				{
+					_edificiosIniciales = value;
+				}
+			}
 		}
 
 		public ColonizarOpciones? colonizacion;
