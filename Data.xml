@@ -69,7 +69,7 @@
 			<Nombre>Alimento</Nombre>
 			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
 				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
-					<d4p1:crecrec>30</d4p1:crecrec>
+					<d4p1:crec>30</d4p1:crec>
 					<d4p1:max>999999</d4p1:max>
 					<d4p1:recurso z:Ref="rAlimento" />
 				</d4p1:TasaProd>
@@ -79,7 +79,7 @@
 			<Nombre>Frutas silvestres</Nombre>
 			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
 				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
-					<d4p1:baseCrec>2</d4p1:baseCrec>
+					<d4p1:crec>2</d4p1:crec>
 					<d4p1:max>1000</d4p1:max>
 					<d4p1:recurso z:Ref="rFrutas silvestres" />
 				</d4p1:TasaProd>
@@ -93,7 +93,7 @@
 			<Nombre>Frutas silvestres</Nombre>
 			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
 				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
-					<d4p1:baseCrec>1</d4p1:baseCrec>
+					<d4p1:crec>1</d4p1:crec>
 					<d4p1:max>1000</d4p1:max>
 					<d4p1:recurso z:Ref="rSeda" />
 				</d4p1:TasaProd>
@@ -103,7 +103,7 @@
 			<Nombre>Árboles dispersos</Nombre>
 			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
 				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
-					<d4p1:baseCrec>1</d4p1:baseCrec>
+					<d4p1:crec>1</d4p1:crec>
 					<d4p1:max>100</d4p1:max>
 					<d4p1:recurso z:Ref="rArbol" />
 				</d4p1:TasaProd>
@@ -113,7 +113,7 @@
 			<Nombre>Arboleda</Nombre>
 			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
 				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
-					<d4p1:baseCrec>1.5</d4p1:baseCrec>
+					<d4p1:crec>1.5</d4p1:crec>
 					<d4p1:max>500</d4p1:max>
 					<d4p1:recurso z:Ref="rArbol" />
 				</d4p1:TasaProd>
@@ -133,7 +133,7 @@
 			<Nombre>Gran bosque</Nombre>
 			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
 				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
-					<d4p1:baseCrec>5</d4p1:baseCrec>
+					<d4p1:crec>5</d4p1:crec>
 					<d4p1:max>5000</d4p1:max>
 					<d4p1:recurso z:Ref="rArbol" />
 				</d4p1:TasaProd>
