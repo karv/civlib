@@ -67,22 +67,22 @@
 	<Propiedades>
 		<Propiedad z:Id="pAlimento">
 			<Nombre>Alimento</Nombre>
-			<Salida>
-				<Propiedad.TasaProd>
-					<Crec>30</Crec>
-					<Max>999999</Max>
-					<Rec z:Ref="rAlimento" />
-				</Propiedad.TasaProd>
+			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
+				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
+					<d4p1:crecrec>30</d4p1:crecrec>
+					<d4p1:max>999999</d4p1:max>
+					<d4p1:recurso z:Ref="rAlimento" />
+				</d4p1:TasaProd>
 			</Salida>
 		</Propiedad>
 		<Propiedad z:Id="pFrutas silvestres">
 			<Nombre>Frutas silvestres</Nombre>
-			<Salida>
-				<Propiedad.TasaProd>
-					<Crec>2</Crec>
-					<Max>1000</Max>
-					<Rec z:Ref="rFrutas silvestres" />
-				</Propiedad.TasaProd>
+			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
+				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
+					<d4p1:baseCrec>2</d4p1:baseCrec>
+					<d4p1:max>1000</d4p1:max>
+					<d4p1:recurso z:Ref="rFrutas silvestres" />
+				</d4p1:TasaProd>
 			</Salida>
 		</Propiedad>
 		<Propiedad z:Id="pCueva">
@@ -91,54 +91,54 @@
 		</Propiedad>
 		<Propiedad z:Id="pGusano de seda">
 			<Nombre>Frutas silvestres</Nombre>
-			<Salida>
-				<Propiedad.TasaProd>
-					<Crec>1</Crec>
-					<Max>1000</Max>
-					<Rec z:Ref="rSeda" />
-				</Propiedad.TasaProd>
+			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
+				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
+					<d4p1:baseCrec>1</d4p1:baseCrec>
+					<d4p1:max>1000</d4p1:max>
+					<d4p1:recurso z:Ref="rSeda" />
+				</d4p1:TasaProd>
 			</Salida>
 		</Propiedad>
 		<Propiedad z:Id="pArboles dispersos">
 			<Nombre>Árboles dispersos</Nombre>
-			<Salida>
-				<Propiedad.TasaProd>
-					<Crec>1</Crec>
-					<Max>100</Max>
-					<Rec z:Ref="rArbol" />
-				</Propiedad.TasaProd>
+			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
+				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
+					<d4p1:baseCrec>1</d4p1:baseCrec>
+					<d4p1:max>100</d4p1:max>
+					<d4p1:recurso z:Ref="rArbol" />
+				</d4p1:TasaProd>
 			</Salida>
 		</Propiedad>		
 		<Propiedad z:Id="pArboleda">
 			<Nombre>Arboleda</Nombre>
-			<Salida>
-				<Propiedad.TasaProd>
-					<Crec>1.5</Crec>
-					<Max>500</Max>
-					<Rec z:Ref="rArbol" />
-				</Propiedad.TasaProd>
+			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
+				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
+					<d4p1:baseCrec>1.5</d4p1:baseCrec>
+					<d4p1:max>500</d4p1:max>
+					<d4p1:recurso z:Ref="rArbol" />
+				</d4p1:TasaProd>
 			</Salida>
 		</Propiedad>		
 		<Propiedad z:Id="pBosque">
 			<Nombre>Bosque</Nombre>
-			<Salida>
-				<Propiedad.TasaProd>
-					<Crec>4</Crec>
-					<Max>1000</Max>
-					<Rec z:Ref="rArbol" />
-				</Propiedad.TasaProd>
+			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
+				<d4p1:TasaProd i:type="d4p1:TasaProdExp">
+					<d4p1:baseCrec>4</d4p1:baseCrec>
+					<d4p1:max>1000</d4p1:max>
+					<d4p1:recurso z:Ref="rArbol" />
+				</d4p1:TasaProd>
 			</Salida>
 		</Propiedad>		
 		<Propiedad z:Id="pGran bosque">
 			<Nombre>Gran bosque</Nombre>
-			<Salida>
-				<Propiedad.TasaProd>
-					<Crec>5</Crec>
-					<Max>5000</Max>
-					<Rec z:Ref="rArbol" />
-				</Propiedad.TasaProd>
+			<Salida xmlns:d4p1="http://schemas.datacontract.org/2004/07/Civ.TasaProd">
+				<d4p1:TasaProd i:type="d4p1:TasaProdConstante">
+					<d4p1:baseCrec>5</d4p1:baseCrec>
+					<d4p1:max>5000</d4p1:max>
+					<d4p1:recurso z:Ref="rArbol" />
+				</d4p1:TasaProd>
 			</Salida>
-		</Propiedad>		
+		</Propiedad>
 	</Propiedades>
 
 	<Ecosistemas>
