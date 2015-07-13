@@ -20,12 +20,12 @@ namespace Civ
 		[DataMember]
 		public string Nombre;
 		[DataMember(Name = "Salida")]
-		List<TasaProd> _Salida = new List<TasaProd>();
+		List<Civ.TasaProd.TasaProd> _Salida = new List<Civ.TasaProd.TasaProd>();
 
 		/// <summary>
 		/// Recursos que produce esta propiedad por turno.
 		/// </summary>
-		public List<TasaProd> Salida
+		public List<Civ.TasaProd.TasaProd> Salida
 		{
 			get { return _Salida; }
 		}
@@ -41,43 +41,15 @@ namespace Civ
 		/// <param name="C"><see cref="Civ.Ciudad"/> donde hará un tick esta propiedad.</param>
 		public virtual void Tick(IAlmacenante C, float t = 1)
 		{
-			foreach (TasaProd x in _Salida)
+			foreach (Civ.TasaProd.TasaProd x in _Salida)
 			{
-				if (C.Almacen.recurso(x.Rec) < x.Max)
-					C.Almacen.changeRecurso(x.Rec, x.Crec * t);
+				x.Tick(C, t);
 			}
 		}
 
 		public override string ToString()
 		{
 			return Nombre;
-		}
-
-		/// <summary>
-		/// Es la tasa de producción para cada recurso.
-		/// La forma en que se comporta
-		/// </summary>
-		public struct TasaProd
-		{
-			/// <summary>
-			/// Recurso
-			/// </summary>
-			public Recurso Rec;
-			/// <summary>
-			/// Valor máximo
-			/// </summary>
-			public float Max;
-			/// <summary>
-			/// Crecimiento por chronon
-			/// </summary>
-			public float Crec;
-
-			public TasaProd(Recurso nRec, float nMax, float nCrec)
-			{
-				Rec = nRec;
-				Max = nMax;
-				Crec = nCrec;
-			}
 		}
 
 		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)

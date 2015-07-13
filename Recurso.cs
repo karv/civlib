@@ -90,6 +90,8 @@ namespace Civ
 				}
 			}
 
+			//TODO
+			/*
 			foreach (var x in Global.g_.Data.Propiedades)
 			{
 				foreach (var y in x.Salida)
@@ -100,7 +102,7 @@ namespace Civ
 						ret += Ser.PlainSerialize(tabs + 1);
 					}
 				}
-			}
+			} */
 
 			return ret;
 		}
