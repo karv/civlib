@@ -36,6 +36,10 @@ namespace Civ.TasaProd
 		#endregion
 	}
 
+	/// <summary>
+	/// Tasa prod constante.
+	/// Comportamiento lineal
+	/// </summary>
 	public class TasaProdConstante: TasaProd
 	{
 		/// <summary>
@@ -59,6 +63,29 @@ namespace Civ.TasaProd
 
 		#endregion
 		
+	}
+
+	/// <summary>
+	/// Tasa prod exp.
+	/// Comportamiento exponencial
+	/// </summary>
+	public class TasaProdExp:TasaProd
+	{
+		public float max;
+		public float baseCrec;
+
+		#region implemented abstract members of TasaProd
+
+		public override void Tick(IAlmacenante alm, float t)
+		{
+			if (alm.Almacen.recurso(recurso) < max)
+			{
+				float crec = alm.obtenerRecurso(recurso) * baseCrec * t;
+				alm.Almacen.changeRecurso(recurso, crec);
+			}
+		}
+
+		#endregion
 	}
 }
 
