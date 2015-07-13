@@ -65,8 +65,9 @@ namespace Civ
 		/// <param name="Nom">Nombre de la ciudad.</param>
 		/// <param name="Dueño">Civ a la que pertenece esta ciudad.</param>
 		/// <param name="T">Terreno de contrucción de la ciudad.</param>
-		public Ciudad(string Nom, Civilizacion Dueño, Terreno T)
+		public Ciudad(string Nom, Civilizacion Dueño, Terreno T, float iniPop = 1)
 		{
+			_PoblacionProductiva = iniPop;
 			Nombre = Nom;
 			CivDueno = Dueño;
 			T.CiudadConstruida = this;

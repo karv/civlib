@@ -10,11 +10,22 @@ namespace Civ
 	/// </summary>
 	public class Stack
 	{
+		#region General
+
 		/// <summary>
 		/// La clase a la que pertenece esta unidad.
 		/// </summary>
 		public readonly UnidadRAW RAW;
 		public ulong cantidad;
+
+		public override string ToString()
+		{
+			return Nombre;
+		}
+
+		#endregion
+
+		#region ctor
 
 		/// <summary>
 		/// Crea una instancia.
@@ -39,10 +50,9 @@ namespace Civ
 		{
 		}
 
-		public override string ToString()
-		{
-			return Nombre;
-		}
+		#endregion
+
+		#region Estado inherente
 
 		/// <summary>
 		/// Devuelve o establece el nombre de esta unidad.
@@ -82,6 +92,17 @@ namespace Civ
 		}
 
 		/// <summary>
+		/// Devuelve <c>true</c> sólo si esta unidad está muerta.
+		/// </summary>
+		public bool Muerto
+		{
+			get
+			{
+				return HP == 0;
+			}
+		}
+
+		/// <summary>
 		/// Devuelve la IPosición de esta unidad.
 		/// O equivalentemente de la armada a la que pertenece.
 		/// </summary>
@@ -93,6 +114,10 @@ namespace Civ
 				return ArmadaPerteneciente.Posicion;
 			}
 		}
+
+		#endregion
+
+		#region Armada
 
 		Armada _ArmadaPerteneciente;
 
@@ -127,6 +152,10 @@ namespace Civ
 				ArmadaPerteneciente.QuitarUnidad(this);
 			}
 		}
+
+		#endregion
+
+		#region Daño
 
 		/// <summary>
 		/// Devuelve el daño máximo que haría esta unidad contra U.
@@ -172,16 +201,9 @@ namespace Civ
 			U.HP -= Daño;
 		}
 
-		/// <summary>
-		/// Devuelve <c>true</c> sólo si esta unidad está muerta.
-		/// </summary>
-		public bool Muerto
-		{
-			get
-			{
-				return HP == 0;
-			}
-		}
+		#endregion
+
+		#region Merge/split
 
 		/// <summary>
 		/// Une dos stacks del mismo tipo
@@ -216,5 +238,44 @@ namespace Civ
 				return RAW.Peso * cantidad;
 			}
 		}
+
+		#endregion
+
+		#region Settler
+
+		/// <summary>
+		/// Revisa si esta unidad puede colonizar en este terreno
+		/// </summary>
+		/// <value><c>true</c> if puede colonizar aqui; otherwise, <c>false</c>.</value>
+		public bool PuedeColonizarAqui
+		{
+			get
+			{
+				return ArmadaPerteneciente.Orden == Orden.OrdenEstacionado &&
+				RAW.PuedeColonizar &&
+				Posicion.enTerreno &&
+				Posicion.A.CiudadConstruida == null;
+			}
+		}
+
+		/// <summary>
+		/// Coloniza en el terreno actual.
+		/// </summary>
+		public Ciudad Colonizar()
+		{
+			if (!PuedeColonizarAqui)
+				return null;
+			
+			//TODO generador de nombres de ciudad
+			Ciudad ret = new Ciudad("Nueva ciudad", 
+				             ArmadaPerteneciente.CivDueño, 
+				             Posicion.A, 
+				             RAW.colonizacion.Value.poblacionACiudad * cantidad);
+
+			return ret;
+
+		}
+
+		#endregion
 	}
 }
