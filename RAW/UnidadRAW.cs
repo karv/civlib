@@ -19,6 +19,34 @@ namespace Civ
 		{
 		}
 
+		#region Settler
+
+		public struct ColonizarOpciones
+		{
+			/// <summary>
+			/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
+			/// </summary>
+			public float poblacionACiudad;
+
+			/// <summary>
+			/// Edificios con los que inicia la nueva ciudad.
+			/// </summary>
+			public List<EdificioRAW> edificiosIniciales;
+		}
+
+		public ColonizarOpciones? colonizacion;
+
+		public bool PuedeColonizar
+		{
+			get
+			{
+				return colonizacion != null;
+			}
+		}
+
+		#endregion
+
+
 		/// <summary>
 		/// El nombre de la clase de unidad.
 		/// </summary>
