@@ -78,6 +78,7 @@ namespace Civ
 			Defensa = new Armada(CivDueno, this.Pos, true);
 			Defensa.MaxPeso = float.PositiveInfinity;
 			Defensa.Posicion.FromGrafica(T);
+			//TODO Pos = T?
 
 			// Importar desde T.
 
@@ -649,7 +650,7 @@ namespace Civ
 			List<TrabajoRAW> ret = new List<TrabajoRAW>();
 			foreach (var x in Global.g_.Data.Trabajos)
 			{
-				if (SatisfaceReq(x.Reqs()))
+				if (SatisfaceReq(x.Reqs()) && this.ExisteEdificio(x.Edificio))
 				{
 					ret.Add(x);
 				}
