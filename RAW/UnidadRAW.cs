@@ -19,6 +19,49 @@ namespace Civ
 		{
 		}
 
+		#region Settler
+
+		public struct ColonizarOpciones
+		{
+			/// <summary>
+			/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
+			/// </summary>
+			[DataMember(Name = "Población")]
+			public float poblacionACiudad;
+
+			[DataMember(Name = "Edificios")]
+			EdificioRAW[] _edificiosIniciales;
+
+			/// <summary>
+			/// Edificios con los que inicia la nueva ciudad.
+			/// </summary>
+			public EdificioRAW[] edificiosIniciales
+			{
+				get
+				{
+					return _edificiosIniciales ?? new EdificioRAW[0];
+				}
+				set
+				{
+					_edificiosIniciales = value;
+				}
+			}
+		}
+
+		[DataMember(Name = "Colonizar")]
+		public ColonizarOpciones? colonizacion;
+
+		public bool PuedeColonizar
+		{
+			get
+			{
+				return colonizacion != null;
+			}
+		}
+
+		#endregion
+
+
 		/// <summary>
 		/// El nombre de la clase de unidad.
 		/// </summary>

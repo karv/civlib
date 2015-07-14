@@ -319,5 +319,40 @@ namespace Civ
 		}
 
 		#endregion
+
+		#region Comandos especiales
+
+		#region Colonizar
+
+		/// <summary>
+		/// Devuelve true si al menos un stack puede colonizar.
+		/// </summary>
+		/// <returns><c>true</c>, if colonizar was pueded, <c>false</c> otherwise.</returns>
+		public bool PuedeColonizar()
+		{
+			foreach (var x in _Unidades.Keys)
+			{
+				if (x.PuedeColonizar)
+					return true;
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Coloniza y contruye una ciudad. Usa sólo un stack que pueda colonizar.
+		/// Devuelve la ciudad colonizada.
+		/// </summary>
+		public Ciudad Coloniza()
+		{
+			foreach (var x in _Unidades)
+			{
+				return x.Value.Colonizar();
+			}
+			return null;
+		}
+
+		#endregion
+
+		#endregion
 	}
 }

@@ -690,6 +690,24 @@
 			<Requerimientos xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
 			<Velocidad>1</Velocidad>
 		</Unidad>
+		<Unidad z:Id="uColono">
+			<Colonizar xmlns:d4p1="http://schemas.datacontract.org/2004/07/System">
+				<poblacionACiudad>1</poblacionACiudad>
+			</Colonizar>
+			<CostePoblación>10</CostePoblación>
+			<Flags xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+				<d4p1:string>Unidad a pie</d4p1:string>
+				<d4p1:string>Humano</d4p1:string>
+				<d4p1:string>Colono</d4p1:string>
+				<d4p1:string>Civil</d4p1:string>
+			</Flags>
+			<Fuerza>0.3</Fuerza>
+			<Modificadores/>
+			<Nombre>Colono</Nombre>
+			<Peso>10</Peso>
+			<Requerimientos xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+			<Velocidad>0.3</Velocidad>
+		</Unidad>
 	</Unidades>
 
 	<Alimento z:Ref ="rAlimento" />

@@ -122,7 +122,7 @@ namespace Global
 				List<Civ.Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 				T = Terrs[r.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
 
-				Cd = new Civ.Ciudad("Ciudad inicial.", C, T);
+				Cd = new Civ.Ciudad("Ciudad inicial.", C, T, popInicial);
 				C.addCiudad(Cd);
 
 				State.Civs.Add(C);
@@ -137,6 +137,7 @@ namespace Global
 		// constantes
 		const int numTerrenosIniciales = 40;
 		const int numCivsIniciales = 4;
+		const int popInicial = 10;
 
 
 		public static void ConstruirTopologia(IEnumerable<Civ.Terreno> lista)

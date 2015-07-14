@@ -65,8 +65,9 @@ namespace Civ
 		/// <param name="Nom">Nombre de la ciudad.</param>
 		/// <param name="Dueño">Civ a la que pertenece esta ciudad.</param>
 		/// <param name="T">Terreno de contrucción de la ciudad.</param>
-		public Ciudad(string Nom, Civilizacion Dueño, Terreno T)
+		public Ciudad(string Nom, Civilizacion Dueño, Terreno T, float iniPop = 1)
 		{
+			_PoblacionProductiva = iniPop;
 			Nombre = Nom;
 			CivDueno = Dueño;
 			T.CiudadConstruida = this;
@@ -77,6 +78,7 @@ namespace Civ
 			Defensa = new Armada(CivDueno, this.Pos, true);
 			Defensa.MaxPeso = float.PositiveInfinity;
 			Defensa.Posicion.FromGrafica(T);
+			//TODO Pos = T?
 
 			// Importar desde T.
 
@@ -648,7 +650,7 @@ namespace Civ
 			List<TrabajoRAW> ret = new List<TrabajoRAW>();
 			foreach (var x in Global.g_.Data.Trabajos)
 			{
-				if (SatisfaceReq(x.Reqs()))
+				if (SatisfaceReq(x.Reqs()) && this.ExisteEdificio(x.Edificio))
 				{
 					ret.Add(x);
 				}
