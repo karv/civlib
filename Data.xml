@@ -691,7 +691,6 @@
 			<Velocidad>1</Velocidad>
 		</Unidad>
 		<Unidad z:Id="uColono">
-			<Ciencia />
 			<Colonizar xmlns:d4p1="http://schemas.datacontract.org/2004/07/System">
 				<poblacionACiudad>1</poblacionACiudad>
 			</Colonizar>
