@@ -138,6 +138,7 @@ namespace Global
 		const int numTerrenosIniciales = 40;
 		const int numCivsIniciales = 4;
 		const int popInicial = 10;
+		const float compacidad = 0.15f;	//Qu¨¦ tan probable es que dos nodos sean vecinos.
 
 
 		public static void ConstruirTopologia(IEnumerable<Civ.Terreno> lista)
@@ -146,7 +147,7 @@ namespace Global
 			{
 				foreach (var y in lista)
 				{
-					if (r.NextDouble() < 2) //< 0.15?
+					if (r.NextDouble() < compacidad)
 					{
 						State.Topologia.AgregaVertice(x, y, 1 + (float)r.NextDouble());
 					}
