@@ -139,6 +139,8 @@ namespace Global
 		const int numCivsIniciales = 4;
 		const int popInicial = 10;
 		const float compacidad = 0.15f;	//Qu¨¦ tan probable es que dos nodos sean vecinos.
+		const float minDistNodo = 0.3f;	//M¨ªnima y m¨¢xima distancia entre nodos adyacentes de la topolog¨ªa.
+		const float maxDistNodo = 2f;
 
 
 		public static void ConstruirTopologia(IEnumerable<Civ.Terreno> lista)
@@ -149,7 +151,7 @@ namespace Global
 				{
 					if (r.NextDouble() < compacidad)
 					{
-						State.Topologia.AgregaVertice(x, y, 1 + (float)r.NextDouble());
+						State.Topologia.AgregaVertice(x, y, minDistNodo + (float)r.NextDouble() * (maxDistNodo - minDistNodo));
 					}
 				}
 			}
