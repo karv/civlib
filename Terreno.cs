@@ -21,6 +21,8 @@ namespace Civ
 			loc = 0;
 			Random r = new Random();
 
+			Nombre = Eco.Nombres[r.Next(Eco.Nombres.Count)];
+
 			foreach (var x in Eco.PropPropiedad.Keys)
 			{
 				if (r.NextDouble() <= Eco.PropPropiedad[x])
@@ -28,7 +30,6 @@ namespace Civ
 					Innatos.Add(x);
 				}
 			}
-			Nombre = Eco.Nombre;
 		}
 
 		#region IEquatable implementation
@@ -141,6 +142,9 @@ namespace Civ
 				return _PropPropiedad;
 			}
 		}
+
+		[DataMember(Name = "Nombres")]
+		public List<string> Nombres;
 
 		public Terreno CrearTerreno()
 		{
