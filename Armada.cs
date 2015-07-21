@@ -12,7 +12,7 @@ namespace Civ
 	{
 		#region General
 
-		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null, new System.Collections.Concurrent.ConcurrentDictionary<UnidadRAW, Stack>());
+		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null);
 
 		/// <summary>
 		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
