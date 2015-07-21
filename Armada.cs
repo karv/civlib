@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public class Armada: IDisposable
+	public class Armada: IDisposable, IPosicionable
 	{
 		#region General
 
@@ -316,6 +316,15 @@ namespace Civ
 			destr.Dispose();
 			if (this.CivDueño != null)
 				CivDueño.Armadas.Remove(this);
+		}
+
+		#endregion
+
+		#region IPosicionable implementation
+
+		Pseudoposicion IPosicionable.getPosicion()
+		{
+			return Posicion;
 		}
 
 		#endregion

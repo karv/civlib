@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	public class Terreno: Pseudoposicion, ITickable, IEquatable<Terreno>, IEquatable<Pseudoposicion>
+	public class Terreno: Pseudoposicion, ITickable, IEquatable<Terreno>, IEquatable<Pseudoposicion>, IPosicionable
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
@@ -31,6 +31,15 @@ namespace Civ
 				}
 			}
 		}
+
+		#region IPosicionable implementation
+
+		Pseudoposicion IPosicionable.getPosicion()
+		{
+			return this;
+		}
+
+		#endregion
 
 		#region IEquatable implementation
 
