@@ -755,9 +755,6 @@ namespace Civ
 			_PoblacionProductiva = Math.Max(_PoblacionProductiva + Crecimiento[1], 0);
 			_PoblacionPostProductiva = Math.Max(_PoblacionPostProductiva + Crecimiento[2], 0);
 
-			if (getPoblacion > 100)
-				System.Diagnostics.Debugger.Break(); //(getPoblacion < 100);
-
 			if (AutoReclutar)
 			{
 				// Autoacomodar trabajadores desocupados
