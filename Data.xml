@@ -705,9 +705,9 @@
 		</Unidad>
 		<Unidad z:Id="uColono">
 			<Colonizar xmlns:d4p1="http://schemas.datacontract.org/2004/07/System">
-				<poblacionACiudad>1</poblacionACiudad>
+				<poblacionACiudad>10</poblacionACiudad>
 			</Colonizar>
-			<CostePoblación>1</CostePoblación>
+			<CostePoblación>10</CostePoblación>
 			<Flags xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d4p1:string>Unidad a pie</d4p1:string>
 				<d4p1:string>Humano</d4p1:string>
