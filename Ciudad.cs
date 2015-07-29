@@ -1,6 +1,7 @@
 using System;
 using ListasExtra;
 using System.Collections.Generic;
+using Global;
 
 namespace Civ
 {
@@ -57,6 +58,11 @@ namespace Civ
 				if (_CivDueño != null)
 					_CivDueño.getCiudades.Add(this);
 			}
+		}
+
+		public Ciudad(Civilizacion dueño, Terreno t, float inipop = 1)
+			: this(g_.getUniqueCityName(), dueño, t, inipop)
+		{
 		}
 
 		/// <summary>

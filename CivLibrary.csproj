@@ -106,4 +106,12 @@
   <ItemGroup>
     <Folder Include="RAW\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="NombresCiv.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="NombresCiudad.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

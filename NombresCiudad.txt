@@ -1,0 +1,4 @@
+﻿Ciudad
+Pueblo
+Casa
+Otra casa

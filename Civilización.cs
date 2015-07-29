@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Basic;
+using Global;
 
 namespace Civ
 {
@@ -13,6 +14,7 @@ namespace Civ
 		public Civilizacion()
 		{
 			Almacen = new AlmacénCiv(this);
+			Nombre = g_.getUniqueCivName();
 		}
 
 		/// <summary>

@@ -266,9 +266,7 @@ namespace Civ
 			if (!PuedeColonizarAqui)
 				return null;
 			
-			//TODO generador de nombres de ciudad
-			Ciudad ret = new Ciudad("Nueva ciudad", 
-				             ArmadaPerteneciente.CivDueño, 
+			Ciudad ret = new Ciudad(ArmadaPerteneciente.CivDueño, 
 				             Posicion.A, 
 				             RAW.colonizacion.Value.poblacionACiudad * cantidad);
 

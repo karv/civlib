@@ -1,6 +1,8 @@
 using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
+using System.Xml;
+using Civ;
 
 namespace Global
 {
@@ -118,11 +120,11 @@ namespace Global
 			for (int i = 0; i < numCivsIniciales; i++)
 			{
 				C = new Civ.Civilizacion();
-				C.Nombre = DateTime.Now.Millisecond.ToString();     //TODO: Un generador de nombres de civs.
+				// C.Nombre = DateTime.Now.Millisecond.ToString();
 				List<Civ.Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 				T = Terrs[r.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
 
-				Cd = new Civ.Ciudad("Ciudad inicial.", C, T, popInicial);
+				Cd = new Civ.Ciudad(C, T, popInicial);
 				C.addCiudad(Cd);
 
 				State.Civs.Add(C);
@@ -138,8 +140,10 @@ namespace Global
 		const int numTerrenosIniciales = 40;
 		const int numCivsIniciales = 4;
 		const int popInicial = 10;
-		const float compacidad = 0.15f;	//Qu¨¦ tan probable es que dos nodos sean vecinos.
-		const float minDistNodo = 0.3f;	//M¨ªnima y m¨¢xima distancia entre nodos adyacentes de la topolog¨ªa.
+		const float compacidad = 0.15f;
+		//Qu¨¦ tan probable es que dos nodos sean vecinos.
+		const float minDistNodo = 0.3f;
+		//M¨ªnima y m¨¢xima distancia entre nodos adyacentes de la topolog¨ªa.
 		const float maxDistNodo = 2f;
 
 
@@ -156,7 +160,73 @@ namespace Global
 				}
 			}
 		}
+
+		/// <summary>
+		/// Devuelve un nombre de civilizaci¨®n ¨²nico
+		/// </summary>
+		/// <returns>The unique civ name.</returns>
+		public static string getUniqueCivName()
+		{
+			// Copiar el contenido en una lista
+			System.IO.StreamReader read = new System.IO.StreamReader("NombresCiv.txt");
+			List<string> nombres = new List<string>();
+			while (!read.EndOfStream)
+			{
+				nombres.Add(read.ReadLine());
+			}
+
+			string baseNombre = nombres[r.Next(nombres.Count)];
+			string unique = HacerUnico(baseNombre, State.Civs.ConvertAll(c => c.Nombre));
+
+			return unique;
+		}
+
+		/// <summary>
+		/// Devuelve un nombre de civilizaci¨®n ¨²nico
+		/// </summary>
+		/// <returns>The unique civ name.</returns>
+		public static string getUniqueCityName()
+		{
+			// Copiar el contenido en una lista
+			System.IO.StreamReader read = new System.IO.StreamReader("NombresCiudad.txt");
+			List<string> nombres = new List<string>();
+			while (!read.EndOfStream)
+			{
+				nombres.Add(read.ReadLine());
+			}
+
+			string baseNombre = nombres[r.Next(nombres.Count)];
+			string unique = HacerUnico(baseNombre, new List<Ciudad>(State.getCiudades()).ConvertAll(c => c.Nombre));
+
+			return unique;
+		}
+
+
+		/// <summary>
+		/// Devuelve un string que se genera al agregar un entero al final 
+		/// de tal forma que el nombre no est¨¦ en una lista determinada.
+		/// </summary>
+		/// <returns>The unico.</returns>
+		/// <param name="str">String base</param>
+		/// <param name="universo">Lista de strings que debe evitar devolver</param>
+		/// <param name="enumInicial">N¨²mero entero con el que se empieza la enumeraci¨®n en caso de repetici¨®n</param>
+		static string HacerUnico(string str, ICollection<string> universo, int enumInicial = 0)
+		{
+			if (!universo.Contains(str))
+				return str;
+
+			string strtmp;
+			int i = enumInicial;
+
+			while (true)
+			{
+				strtmp = str + (i++);
+				if (!universo.Contains(strtmp))
+					return strtmp;
+			}
+		}
 	}
+
 
 
 	public class Prefs
