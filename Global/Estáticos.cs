@@ -118,7 +118,7 @@ namespace Global
 			for (int i = 0; i < numCivsIniciales; i++)
 			{
 				C = new Civ.Civilizacion();
-				C.Nombre = "Necesito un generador de nombres.";     //TODO: Un generador de nombres de civs.
+				C.Nombre = DateTime.Now.Millisecond.ToString();     //TODO: Un generador de nombres de civs.
 				List<Civ.Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 				T = Terrs[r.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
 

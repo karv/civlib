@@ -37,7 +37,7 @@ namespace Civ
 		/// Initializes a new instance of the <see cref="Civ.InvestigandoCiencia"/> class.
 		/// </summary>
 		/// <param name="C">Ciencia</param>
-		public InvestigandoCiencia(Ciencia C) : base(new System.Collections.Concurrent.ConcurrentDictionary<Recurso, float>())
+		public InvestigandoCiencia(Ciencia C) : base()
 		{
 			Ciencia = C;
 		}

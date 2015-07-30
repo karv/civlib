@@ -26,7 +26,7 @@ namespace Civ
 {
 	public class AlmacenCiudad: ListaPeso<Recurso>, IAlmacén
 	{
-		public AlmacenCiudad(Ciudad C) : base(new System.Collections.Concurrent.ConcurrentDictionary<Recurso, float>())
+		public AlmacenCiudad(Ciudad C) : base()
 		{
 			CiudadDueño = C;
 		}

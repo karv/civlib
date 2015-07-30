@@ -8,11 +8,11 @@ namespace Civ
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public class Armada: IDisposable
+	public class Armada: IDisposable, IPosicionable
 	{
 		#region General
 
-		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null, new System.Collections.Concurrent.ConcurrentDictionary<UnidadRAW, Stack>());
+		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null);
 
 		/// <summary>
 		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
@@ -316,6 +316,15 @@ namespace Civ
 			destr.Dispose();
 			if (this.CivDueño != null)
 				CivDueño.Armadas.Remove(this);
+		}
+
+		#endregion
+
+		#region IPosicionable implementation
+
+		Pseudoposicion IPosicionable.getPosicion()
+		{
+			return Posicion;
 		}
 
 		#endregion

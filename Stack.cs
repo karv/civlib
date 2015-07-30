@@ -272,6 +272,11 @@ namespace Civ
 				             Posicion.A, 
 				             RAW.colonizacion.Value.poblacionACiudad * cantidad);
 
+			// Al usuario
+			this.ArmadaPerteneciente.CivDueño.AgregaMensaje("ciudad {0} construida en {1}", ret, ret.Terr);
+			// Deshacer el stack
+			AbandonaArmada();
+
 			return ret;
 
 		}

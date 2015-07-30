@@ -19,6 +19,12 @@ namespace Civ
 		/// Nombre de la <see cref="Civ.Civilización"/>.
 		/// </summary>
 		public string Nombre;
+
+		public override string ToString()
+		{
+			return Nombre;
+		}
+
 		// **** Economía
 		[Obsolete("Use AlmacenCiv[R]")]
 		/// <summary>

@@ -69,13 +69,12 @@ namespace Civ
 		{
 			_PoblacionProductiva = iniPop;
 			Nombre = Nom;
-			CivDueno = Dueño;
+			Almacen = new AlmacenCiudad(this);
 			T.CiudadConstruida = this;
 			Terr = T;
-			Almacen = new AlmacenCiudad(this);
 
 			// Inicializar la armada
-			Defensa = new Armada(CivDueno, this.Pos, true);
+			Defensa = new Armada(Dueño, this.Pos, true);
 			Defensa.MaxPeso = float.PositiveInfinity;
 			Defensa.Posicion.FromGrafica(T);
 			//TODO Pos = T?
@@ -87,6 +86,8 @@ namespace Civ
 				// Si r.next < (algo):
 				AgregaPropiedad(x);
 			}
+
+			CivDueno = Dueño;	//Éste debe ser último.
 		}
 		// Partial no asinado.
 		/// <summary>
@@ -753,9 +754,6 @@ namespace Civ
 			_PoblacionPreProductiva = Math.Max(_PoblacionPreProductiva + Crecimiento[0], 0);
 			_PoblacionProductiva = Math.Max(_PoblacionProductiva + Crecimiento[1], 0);
 			_PoblacionPostProductiva = Math.Max(_PoblacionPostProductiva + Crecimiento[2], 0);
-
-			if (getPoblacion > 100)
-				System.Diagnostics.Debugger.Break(); //(getPoblacion < 100);
 
 			if (AutoReclutar)
 			{

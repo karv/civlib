@@ -66,6 +66,7 @@
     <Compile Include="RAW\UnidadRAW.cs" />
     <Compile Include="Stack.cs" />
     <Compile Include="TasaProd.cs" />
+    <Compile Include="IPosicionable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
