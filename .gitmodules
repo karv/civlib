@@ -1,7 +1,7 @@
 [submodule "ListaExtras"]
 	path = ListaExtras
-	url = git@gitlab.com:karvayoedgar/listaextras.git
+	url = git@github.com:karv/ListaExtras.git
 
 [submodule "Grafos"]
 	path = Grafos
-	url = git@gitlab.com:karv/Grafo.git
+	url = git@github.com:karv/Grafo.git
