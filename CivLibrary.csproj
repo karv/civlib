@@ -7,6 +7,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>CivLibrary</RootNamespace>
     <AssemblyName>CivLibrary</AssemblyName>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +32,12 @@
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
+    <Reference Include="ListaExtras">
+      <HintPath>dll\ListaExtras.dll</HintPath>
+    </Reference>
+    <Reference Include="Grafos">
+      <HintPath>dll\Grafos.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,20 +77,6 @@
     <Compile Include="IPosicionable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="Grafos\Grafos.csproj">
-      <Project>{AF2E2C37-9F1D-4D32-AE62-8484B0A9DD50}</Project>
-      <Name>Grafos</Name>
-    </ProjectReference>
-    <ProjectReference Include="ListaExtras\ListaExtras.csproj">
-      <Project>{B9F315AE-47F8-4629-83FC-3B4D70087083}</Project>
-      <Name>ListaExtras</Name>
-    </ProjectReference>
-    <ProjectReference Include="Store\Store\Store.csproj">
-      <Project>{B5651422-0901-4E7F-976A-A4F7893267CA}</Project>
-      <Name>Store</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
@@ -105,6 +99,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="RAW\" />
+    <Folder Include="Nueva carpeta\" />
+    <Folder Include="dll\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Store\Store\Store.csproj">
+      <Project>{B5651422-0901-4E7F-976A-A4F7893267CA}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dll\ListaExtras.dll" />
+    <None Include="dll\Grafos.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NombresCiv.txt">
