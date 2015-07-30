@@ -1,7 +1,0 @@
-[submodule "ListaExtras"]
-	path = ListaExtras
-	url = git@github.com:karv/ListaExtras.git
-
-[submodule "Grafos"]
-	path = Grafos
-	url = git@github.com:karv/Grafo.git
