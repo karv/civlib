@@ -38,6 +38,16 @@ namespace Store
 			xr.Close();
 			return (T)r;
 		}
+
+		public static T Deserialize(Stream stream)
+		{
+			XmlTextReader xr = new XmlTextReader(stream);
+			DataContractSerializer deserializer = new DataContractSerializer(typeof(T));
+			object r = deserializer.ReadObject(xr);
+			xr.Close();
+			return (T)r;
+
+		}
 	}
 }
 

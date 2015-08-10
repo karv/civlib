@@ -63,7 +63,11 @@ namespace Global
 		/// </summary>
 		public static void CargaData()
 		{
-			Data = Store.Store<g_Data>.Deserialize(archivo);
+			System.IO.Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Data.xml");
+			Data = Store.Store<Global.g_Data>.Deserialize(stream);
+			stream.Dispose();
+
+			//Data = Store.Store<g_Data>.Deserialize(archivo);
 		}
 
 		public static void GuardaData()
@@ -168,12 +172,15 @@ namespace Global
 		public static string getUniqueCivName()
 		{
 			// Copiar el contenido en una lista
-			System.IO.StreamReader read = new System.IO.StreamReader("NombresCiv.txt");
+			System.IO.Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("NombresCiv.txt");
+			System.IO.StreamReader read = new System.IO.StreamReader(stream);
 			List<string> nombres = new List<string>();
 			while (!read.EndOfStream)
 			{
 				nombres.Add(read.ReadLine());
 			}
+			stream.Dispose();
+			read.Dispose();
 
 			string baseNombre = nombres[r.Next(nombres.Count)];
 			string unique = HacerUnico(baseNombre, State.Civs.ConvertAll(c => c.Nombre));
@@ -188,12 +195,15 @@ namespace Global
 		public static string getUniqueCityName()
 		{
 			// Copiar el contenido en una lista
-			System.IO.StreamReader read = new System.IO.StreamReader("NombresCiudad.txt");
+			System.IO.Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("NombresCiudad.txt");
+			System.IO.StreamReader read = new System.IO.StreamReader(stream);
 			List<string> nombres = new List<string>();
 			while (!read.EndOfStream)
 			{
 				nombres.Add(read.ReadLine());
 			}
+			stream.Dispose();
+			read.Dispose();
 
 			string baseNombre = nombres[r.Next(nombres.Count)];
 			string unique = HacerUnico(baseNombre, new List<Ciudad>(State.getCiudades()).ConvertAll(c => c.Nombre));

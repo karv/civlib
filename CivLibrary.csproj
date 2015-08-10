@@ -94,30 +94,23 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <LogicalName>Data.xml</LogicalName>
+      <DeployService-Deploy>True</DeployService-Deploy>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NombresCiv.txt">
+      <LogicalName>NombresCiv.txt</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NombresCiudad.txt">
+      <LogicalName>NombresCiudad.txt</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="RAW\" />
-    <Folder Include="Nueva carpeta\" />
-    <Folder Include="dll\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Store\Store\Store.csproj">
       <Project>{B5651422-0901-4E7F-976A-A4F7893267CA}</Project>
       <Name>Store</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="dll\ListaExtras.dll" />
-    <None Include="dll\Grafos.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="NombresCiv.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NombresCiudad.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
