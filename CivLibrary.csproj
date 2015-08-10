@@ -99,10 +99,6 @@
     <EmbeddedResource Include="NombresCiudad.txt">
       <LogicalName>NombresCiudad.txt</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="img\Comida.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <LogicalName>Comida.jpg</LogicalName>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="RAW\" />
