@@ -38,7 +38,7 @@ namespace Civ
 		/// <summary>
 		/// Determina si se autoreclutan trabajadores, por prioridad, al aumentar la población.
 		/// </summary>
-		public bool AutoReclutar = true;
+		public bool AutoReclutar = false;
 
 		/// <summary>
 		/// Devuelve o establece la civilización a la cual pertecene esta ciudad.
