@@ -75,6 +75,7 @@
     <Compile Include="Stack.cs" />
     <Compile Include="TasaProd.cs" />
     <Compile Include="IPosicionable.cs" />
+    <Compile Include="NewGameOptions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

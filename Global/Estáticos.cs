@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using System.Collections.Generic;
 using System.Xml;
 using Civ;
+using Civ.Options;
 
 namespace Global
 {
@@ -11,7 +12,7 @@ namespace Global
 	/// </summary>	
 	public static class g_
 	{
-		static Prefs preferencias = new Prefs();
+		static NewGameOptions PrefsJuegoNuevo = new NewGameOptions();
 		[DataMember(Name = "Data")]
 		public static g_Data Data = new g_Data();
 		public static g_State State = new g_State();
@@ -100,7 +101,7 @@ namespace Global
 			Civ.Civilizacion C;
 			Civ.Ciudad Cd;
 
-			for (int i = 0; i < numTerrenosIniciales; i++)
+			for (int i = 0; i < PrefsJuegoNuevo.numTerrenos; i++)
 			{
 				Eco = Data.Ecosistemas[r.Next(Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
 				T = new Civ.Terreno(Eco);                               // Le asocio un terreno consistente con el ecosistema.
@@ -121,14 +122,14 @@ namespace Global
 			}
 
 			// Asignar una ciudad de cada civilización en terrenos vacíos y distintos lugares.
-			for (int i = 0; i < numCivsIniciales; i++)
+			for (int i = 0; i < PrefsJuegoNuevo.numCivs; i++)
 			{
 				C = new Civ.Civilizacion();
 				// C.Nombre = DateTime.Now.Millisecond.ToString();
 				List<Civ.Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 				T = Terrs[r.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
 
-				Cd = new Civ.Ciudad(C, T, popInicial);
+				Cd = new Civ.Ciudad(C, T, PrefsJuegoNuevo.poblacionInicial);
 				C.addCiudad(Cd);
 
 				State.Civs.Add(C);
@@ -137,19 +138,9 @@ namespace Global
 			// Incluir el alimento inicial en cada ciudad
 			foreach (var c in State.getCiudades())
 			{
-				c.AlimentoAlmacen = preferencias.AlimentoInicial;
+				c.AlimentoAlmacen = PrefsJuegoNuevo.AlimentoInicial;
 			}
 		}
-		// constantes
-		const int numTerrenosIniciales = 40;
-		const int numCivsIniciales = 4;
-		const int popInicial = 10;
-		const float compacidad = 0.15f;
-		//Qu¨¦ tan probable es que dos nodos sean vecinos.
-		const float minDistNodo = 0.3f;
-		//M¨ªnima y m¨¢xima distancia entre nodos adyacentes de la topolog¨ªa.
-		const float maxDistNodo = 2f;
-
 
 		public static void ConstruirTopologia(IEnumerable<Civ.Terreno> lista)
 		{
@@ -157,9 +148,10 @@ namespace Global
 			{
 				foreach (var y in lista)
 				{
-					if (r.NextDouble() < compacidad)
+					if (r.NextDouble() < PrefsJuegoNuevo.compacidad)
 					{
-						State.Topologia.AgregaVertice(x, y, minDistNodo + (float)r.NextDouble() * (maxDistNodo - minDistNodo));
+						State.Topologia.AgregaVertice(x, y, 
+							PrefsJuegoNuevo.minDistNodos + (float)r.NextDouble() * (PrefsJuegoNuevo.maxDistNodos - PrefsJuegoNuevo.minDistNodos));
 					}
 				}
 			}
@@ -235,12 +227,5 @@ namespace Global
 					return strtmp;
 			}
 		}
-	}
-
-
-
-	public class Prefs
-	{
-		public long AlimentoInicial = 100;
 	}
 }
