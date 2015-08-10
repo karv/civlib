@@ -89,11 +89,6 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <Content Include="img\Comida.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Data.xml">
       <LogicalName>Data.xml</LogicalName>
       <DeployService-Deploy>True</DeployService-Deploy>
@@ -103,6 +98,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NombresCiudad.txt">
       <LogicalName>NombresCiudad.txt</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="img\Comida.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LogicalName>Comida.jpg</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
