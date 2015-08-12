@@ -8,7 +8,7 @@ namespace Civ
 	/// <summary>
 	/// Representa una instancia de ciudad.
 	/// </summary>
-	public class Ciudad : ITickable, IAlmacenante
+	public class Ciudad : ITickable, IAlmacenante, IPosicionable
 	{
 		#region General
 
@@ -23,6 +23,15 @@ namespace Civ
 				return Terr;
 			}
 		}
+
+		#region IPosicionable implementation
+
+		public Pseudoposicion getPosicion()
+		{
+			return Terr;
+		}
+
+		#endregion
 
 		public override string ToString()
 		{
@@ -83,7 +92,6 @@ namespace Civ
 			Defensa = new Armada(Dueño, this.Pos, true);
 			Defensa.MaxPeso = float.PositiveInfinity;
 			Defensa.Posicion.FromGrafica(T);
-			//TODO Pos = T?
 
 			// Importar desde T.
 
