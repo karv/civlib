@@ -812,7 +812,7 @@ namespace Civ
 			List<EdificioRAW> PosiblesEdif = Global.g_.Data.EdificiosAutoconstruibles().FindAll(x => !ExisteEdificio(x)); 	// Obtener lista de edificios autocontruibles no construidos.
 			foreach (var x in PosiblesEdif)
 			{
-				if (SatisfaceReq(x.Reqs()))
+				if (PuedeConstruir(x))
 				{	// Si satisface requerimientos de construcción:
 					AgregaEdificio(x);
 				}
