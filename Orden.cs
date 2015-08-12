@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Security.Cryptography;
 
 
 namespace Civ.Orden
@@ -49,6 +50,7 @@ namespace Civ.Orden
 		public override bool Ejecutar(float t, Armada armada)
 		{
 			Pseudoposicion PS = armada.Posicion;
+			int orientacion = 0;
 			if (armada.EnTerreno)
 			{
 				armada.Posicion.B = destino.getExtremoNo(armada.Posicion.A);  //Asigna la posición de la armada en el intervalo correcto.
@@ -58,37 +60,49 @@ namespace Civ.Orden
 
 			}
 
+			orientacion = PS.getOrientacion(destino);
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
 			// Avanzar
 			PS.Avanzar(t * armada.Velocidad);
 
+			// Si cambia de orientación, significa que llegó
+			if (orientacion != PS.getOrientacion(destino))
+			{
+				AlLlegar(armada);
+				return true;
+			}
+
 
 			//Revisar si están en el mismo Terreno-intervalo
-			//TODO por ahora sólo debe funcionar si destino es un Terreno.
 			if (this.destino.Equals(PS))
 			{
-				AlLlegar();
+				armada.Posicion.A = destino.A;
+				armada.Posicion.B = destino.B;
+				armada.Posicion.loc = destino.loc;
+				AlLlegar(armada);
 				return true;
 			}
 
 			/*
-			if (PS.Origen == Destino.Origen && PS.Destino == Destino.Destino) // Esto debe pasar siempre, por ahora.
+			if (PS.A == destino.A && PS.B == destino.B) // Esto debe pasar siempre, por ahora.
 			{
-				if (PS.Avance >= Destino.Avance)
+				if (PS.loc >= destino.loc)
 				{
 					// Ya llegó.
-					armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", armada, Destino, this));
+					armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", armada, destino, this));
 					return true;
 					// Orden = null;
 				}
-			} */
-
+			} 
+*/
 			return false;
+
 		}
 
-		protected virtual void AlLlegar()
+		protected virtual void AlLlegar(Armada armada)
 		{
+			armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", armada, destino, this));
 			return;
 		}
 	}

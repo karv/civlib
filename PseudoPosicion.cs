@@ -90,5 +90,14 @@ namespace Civ
 
 		#endregion
 
+		/// <summary>
+		/// Devuelve la orientación de esta posición cn respecto a otra.
+		/// </summary>
+		/// <returns>The orientacion.</returns>
+		/// <param name="other">Other.</param>
+		public int getOrientacion(Pseudoposicion other)
+		{
+			return A == other.A && B == other.B && loc < other.loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
+		}
 	}
 }
