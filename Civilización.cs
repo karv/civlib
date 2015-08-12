@@ -305,6 +305,7 @@ namespace Civ
 			{
 				Avances.Add(Avan);
 				Investigando.RemoveAll(x => x.Ciencia == Avan);
+				AlDescubrir(Avan);
 				AgregaMensaje("Investigación terminada: {0}", Avan);
 			}
 
@@ -315,6 +316,18 @@ namespace Civ
 			foreach (var x in Armadas)
 			{
 				x.Tick(t);
+			}
+		}
+
+		/// <summary>
+		/// Se ejecuta al descubrir una ciencia
+		/// </summary>
+		/// <param name="c">Ciencia descubierta</param>
+		protected virtual void AlDescubrir(Ciencia c)
+		{
+			foreach (var ciudad in getCiudades)
+			{
+				ciudad.IntentaConstruirAutoconstruibles();
 			}
 		}
 

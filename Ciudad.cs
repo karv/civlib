@@ -94,6 +94,8 @@ namespace Civ
 			}
 
 			CivDueno = Dueño;	//Éste debe ser último.
+
+			IntentaConstruirAutoconstruibles(); // Construir autoconstruibles
 		}
 		// Partial no asinado.
 		/// <summary>
@@ -683,7 +685,7 @@ namespace Civ
 		/// Revisa si esta ciudad satisface una lista de requerimientos.
 		/// </summary>
 		/// <param name="Req"></param>
-		/// <returns>Devuelve <c>true</c> si esta ciudad satisface todos los Irequerimiento. <c>false</c> en caso contrario.</returns>
+		/// <returns>Devuelve <c>true</c> si esta ciudad satisface todos los IRequerimiento. <c>false</c> en caso contrario.</returns>
 		public bool SatisfaceReq(List<IRequerimiento<Ciudad>> Req)
 		{
 			return Req.TrueForAll(x => x.LoSatisface(this));
@@ -799,7 +801,13 @@ namespace Civ
 					EdifConstruyendo = null;    //  Ya no se contruye edificio. Para evitar error de duplicidad.
 				}
 			}
+		}
 
+		/// <summary>
+		/// Intenta construir edificios autoconstruibles
+		/// </summary>
+		public void IntentaConstruirAutoconstruibles()
+		{
 			// Autocontruible
 			List<EdificioRAW> PosiblesEdif = Global.g_.Data.EdificiosAutoconstruibles().FindAll(x => !ExisteEdificio(x)); 	// Obtener lista de edificios autocontruibles no construidos.
 			foreach (var x in PosiblesEdif)
