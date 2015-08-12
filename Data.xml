@@ -573,6 +573,7 @@
 				</d4p1:KeyValueOfRecursofloatbN_PeySYD>
 			</Construcción>
 			<EsAutoConstruíble>true</EsAutoConstruíble>
+			<MaxPorCivilizacion>1</MaxPorCivilizacion>
 			<MaxWorkers>4</MaxWorkers>
 			<Nombre>Palacio</Nombre>
 			<Requiere>

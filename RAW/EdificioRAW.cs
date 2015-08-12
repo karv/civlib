@@ -122,5 +122,22 @@ namespace Civ
 			return ret;
 
 		}
+
+		#region Defaults
+
+		[OnDeserializing]
+		void OnDeserializing(StreamingContext context)
+		{
+			SetDefaults();
+		}
+
+		void SetDefaults()
+		{
+			MaxPorCiudad = 1;
+			MaxPorCivilizacion = 0;
+			MaxPorMundo = 0;
+		}
+
+		#endregion
 	}
 }
