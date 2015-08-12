@@ -90,7 +90,7 @@ namespace Civ
 				}
 			}
 
-			//TODO
+			//TODO PlainSerialize Recursos
 			/*
 			foreach (var x in Global.g_.Data.Propiedades)
 			{
