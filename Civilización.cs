@@ -305,9 +305,13 @@ namespace Civ
 			Almacen.RemoverRecursosDesaparece();
 
 			// Armadas
-			foreach (var x in Armadas)
+
+			foreach (var x in new List<Armada> (Armadas))
 			{
-				x.Tick(t);
+				if (x.Unidades.Count == 0)
+					Armadas.Remove(x);
+				else
+					x.Tick(t);
 			}
 		}
 

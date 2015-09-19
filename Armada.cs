@@ -2,6 +2,7 @@ using ListasExtra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CivLibrary.Debug;
 
 namespace Civ
 {
@@ -138,7 +139,7 @@ namespace Civ
 					U.ArmadaPerteneciente = this;
 					if (_Unidades.ContainsKey(U.RAW))
 					{
-						_Unidades[U.RAW].cantidad += U.cantidad;
+						_Unidades[U.RAW].Cantidad += U.Cantidad;
 						U = _Unidades[U.RAW];
 					}
 					else
@@ -156,7 +157,7 @@ namespace Civ
 		{
 			if (_Unidades.ContainsKey(raw))
 			{
-				_Unidades[raw].cantidad += cantidad;
+				_Unidades[raw].Cantidad += cantidad;
 			}
 			else
 			{
@@ -211,6 +212,8 @@ namespace Civ
 				Ata = Arms[i].MayorDaño(Arms[j]);
 				Def = Ata.MenorDaño(Arms[j]);
 				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, t);
+				if (Def.Muerto)
+					return;
 			}
 				
 			i = j; // Arms[1 - 1] le sigue.
@@ -239,6 +242,7 @@ namespace Civ
 				if (currDaño > maxDaño)
 					ret = x;
 			}
+			System.Diagnostics.Debug.Assert(ret != null);
 			return ret;
 		}
 
@@ -330,7 +334,9 @@ namespace Civ
 		public void DañarStack(UnidadRAW unidad, float deltaHP)
 		{
 			Stack currStack = this[unidad];
-			currStack.HP = Math.Min(currStack.HP + deltaHP, 1);
+			// TODO 0.3f es temporal
+			currStack.Dañar(-deltaHP, 0.3f);
+			//currStack.HP = Math.Min(currStack.HP + deltaHP, 1);
 			if (currStack.HP < 0)
 			{
 				this._Unidades.Remove(unidad);

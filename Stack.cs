@@ -2,6 +2,7 @@
 using ListasExtra;
 using Basic;
 using System.Collections.Generic;
+using Global;
 
 namespace Civ
 {
@@ -16,12 +17,33 @@ namespace Civ
 		/// La clase a la que pertenece esta unidad.
 		/// </summary>
 		public readonly UnidadRAW RAW;
-		public ulong cantidad;
+		ulong _cantidad;
+
+		public ulong Cantidad
+		{
+			get
+			{
+				return _cantidad;
+			}
+			set
+			{
+				_cantidad = Math.Max(0, value);
+				if (_cantidad == 0)
+					AbandonaArmada();
+				//AlMorir.Invoke(this, null);
+			}
+		}
 
 		public override string ToString()
 		{
 			return Nombre;
 		}
+
+		#endregion
+
+		#region Eventos
+
+		public event EventHandler AlMorir;
 
 		#endregion
 
@@ -37,7 +59,7 @@ namespace Civ
 			RAW = uRAW;
 			Nombre = uRAW.Nombre;
 			_HP = 1;
-			this.cantidad = cantidad;
+			this._cantidad = cantidad;
 			_ArmadaPerteneciente = A;
 		}
 
@@ -92,13 +114,45 @@ namespace Civ
 		}
 
 		/// <summary>
+		/// Daña este stack 
+		/// </summary>
+		/// <param name="TotalDaño">Total daño.</param>
+		/// <param name="Dispersion">Dispersion. En [0, 1]</param>
+		public void Dañar(float TotalDaño, float Dispersion)
+		{
+			float DañoDirecto = TotalDaño * (1 - Dispersion);
+			float DañoDisperso = TotalDaño * Dispersion;
+
+			DañarDisperso(DañoDisperso);
+			DañarDirecto(DañoDirecto);
+		}
+
+		void DañarDisperso(float Daño)
+		{
+			HP -= Daño / _cantidad;
+		}
+
+		void DañarDirecto(float Daño)
+		{
+			// Esto se supone que es el piso.
+			float MuertosPct = Daño / HP; // Probabilidad de muerte
+			ulong Muertos = (ulong)MuertosPct;
+			MuertosPct -= Muertos;
+
+			if (g_.r.Next() < MuertosPct)
+				Muertos++;
+
+			Cantidad -= Muertos;
+		}
+
+		/// <summary>
 		/// Devuelve <c>true</c> sólo si esta unidad está muerta.
 		/// </summary>
 		public bool Muerto
 		{
 			get
 			{
-				return HP == 0;
+				return HP == 0 || Cantidad == 0;
 			}
 		}
 
@@ -165,7 +219,7 @@ namespace Civ
 		{
 			float ret;
 			float mod = 0;
-			ret = RAW.Fuerza * cantidad / U.RAW.Fuerza;
+			ret = RAW.Fuerza * _cantidad / U.RAW.Fuerza;
 			foreach (var x in U.RAW.Flags)
 			{
 				mod += RAW.Mods[x];
@@ -210,12 +264,12 @@ namespace Civ
 		/// Une dos stacks del mismo tipo
 		/// </summary>
 		/// <param name="other">Other.</param>
-		public void MergeFrom(Stack other)
+		public void MergeFrom(Stack other) //TODO actualizar ahora que Cantidad está siendo utilizada
 		{
 			if (RAW.Equals(other.RAW))
 			{
-				this.cantidad += other.cantidad;
-				other.cantidad = 0;
+				this._cantidad += other._cantidad;
+				other._cantidad = 0;
 			}
 			else
 				throw new Exception("No se pueden unir Stacks de diferente tipo, Use clase Armada.");
@@ -236,7 +290,7 @@ namespace Civ
 		{
 			get
 			{
-				return RAW.Peso * cantidad;
+				return RAW.Peso * _cantidad;
 			}
 		}
 
@@ -269,7 +323,7 @@ namespace Civ
 			
 			Ciudad ret = new Ciudad(ArmadaPerteneciente.CivDueño, 
 				             Posicion.A, 
-				             RAW.colonizacion.Value.poblacionACiudad * cantidad);
+				             RAW.colonizacion.Value.poblacionACiudad * _cantidad);
 
 			// Al usuario
 			this.ArmadaPerteneciente.CivDueño.AgregaMensaje("ciudad {0} construida en {1}", ret, ret.Terr);

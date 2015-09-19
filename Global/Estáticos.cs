@@ -83,7 +83,7 @@ namespace Global
 			Store.Store<g_Data>.Serialize(f, Data);
 		}
 
-		static Random r = new Random();
+		public static Random r = new Random();
 
 		/// <summary>
 		/// Inicializa el g_State, a partir de el g_Data.
