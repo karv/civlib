@@ -47,9 +47,10 @@ namespace test
 
 			Armada ac1 = new Armada(c1, p);
 			ac1.AgregaUnidad(u, 150);
+			ac1[u].Entrenamiento = 1;
 			//ac1.AgregaUnidad(uGordo, 1);
 			Armada ac2 = new Armada(c2, p);
-			ac2.AgregaUnidad(uGordo, 1);
+			ac2.AgregaUnidad(u, 150);
 
 
 			// Listos para matarse
