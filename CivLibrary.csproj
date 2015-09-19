@@ -79,7 +79,7 @@
     <Compile Include="NewGameOptions.cs" />
     <Compile Include="IDiplomacia.cs" />
     <Compile Include="ControlDiplomacia.cs" />
-    <Compile Include="DiplomaciaNómadas.cs" />
+    <Compile Include="DiplomaciaNomada.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

@@ -5,9 +5,9 @@ namespace Civ
 	/// <summary>
 	/// Clase de diplomacia para civilizaciones nómadas
 	/// </summary>
-	public class DiplomaciaNómadas:IDiplomacia
+	public class DiplomaciaNomada:IDiplomacia
 	{
-		public DiplomaciaNómadas()
+		public DiplomaciaNomada()
 		{
 		}
 
