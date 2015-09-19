@@ -38,16 +38,18 @@ namespace Global
 				for (int j = 0; j < i; j++)
 				{
 					Civ.Civilizacion civB = State.Civs[j];
-					if ((civA.Diplomacia.ContainsKey(civB) && civA.Diplomacia[civB].PermiteAtacar) ||
-					    (civB.Diplomacia.ContainsKey(civA) && civB.Diplomacia[civA].PermiteAtacar))
 					{
 						foreach (var ArmA in civA.Armadas)
 						{
 							foreach (var ArmB in civB.Armadas)
 							{
-								if (ArmA.Posicion.Equals(ArmB.Posicion))
+								if ((civA.Diplomacia.PermiteAtacar(ArmB)) ||
+								    (civB.Diplomacia.PermiteAtacar(ArmA)))
 								{
-									ArmA.Pelea(ArmB, t);
+									if (ArmA.Posicion.Equals(ArmB.Posicion))
+									{
+										ArmA.Pelea(ArmB, t);
+									}
 								}
 							}
 						}
@@ -113,10 +115,10 @@ namespace Global
 			ConstruirTopologia(Terrenos);
 
 			// Vaciar la topología en cada Terreno
-			foreach (var x in State.Topologia.Vecinos.Keys)
+			foreach (var x in State.Topologia.Nodos)
 			{
-				Civ.Terreno a = (Civ.Terreno)x.Item1;
-				Civ.Terreno b = (Civ.Terreno)x.Item2;
+				Civ.Terreno a = (Civ.Terreno)x;
+				Civ.Terreno b = (Civ.Terreno)x;
 				a.Vecinos[b] = State.Topologia[a, b];
 				b.Vecinos[a] = State.Topologia[b, a];
 			}

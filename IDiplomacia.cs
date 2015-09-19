@@ -10,5 +10,6 @@ namespace Civ
 	{
 		bool PermiteAtacar(Armada arm);
 	}
+		
 }
 

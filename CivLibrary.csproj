@@ -78,6 +78,7 @@
     <Compile Include="IPosicionable.cs" />
     <Compile Include="NewGameOptions.cs" />
     <Compile Include="IDiplomacia.cs" />
+    <Compile Include="ControlDiplomacia.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

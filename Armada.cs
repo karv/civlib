@@ -190,6 +190,7 @@ namespace Civ
 		/// <param name="r">Randomizer</param>
 		public void Pelea(Armada A, float t, Random r = null)
 		{
+			int i, j;
 			if (r == null)
 				r = new Random();
 
@@ -199,17 +200,23 @@ namespace Civ
 			Arms[0] = this;
 			Arms[1] = A;
 
-			int i = r.Next(2); // Arms[i] Inicia
-			int j = 1 - i;
-			Ata = Arms[i].MayorDaño(Arms[j]);
-			Def = Ata.MenorDaño(Arms[j]);
-			Ata.CausaDaño(Def, t);
-
+			i = r.Next(2); // Arms[i] Inicia
+			j = 1 - i;
+			if (Arms[i].Unidades.Count > 0)
+			{
+				Ata = Arms[i].MayorDaño(Arms[j]);
+				Def = Ata.MenorDaño(Arms[j]);
+				Ata.CausaDaño(Def, t);
+			}
+				
 			i = j; // Arms[1 - 1] le sigue.
 			j = 1 - i;
-			Ata = Arms[i].MayorDaño(Arms[j]);
-			Def = Ata.MenorDaño(Arms[j]);
-			Ata.CausaDaño(Def, t);
+			if (Arms[i].Unidades.Count > 0)
+			{
+				Ata = Arms[i].MayorDaño(Arms[j]);
+				Def = Ata.MenorDaño(Arms[j]);
+				Ata.CausaDaño(Def, t);
+			}
 		}
 
 		/// <summary>

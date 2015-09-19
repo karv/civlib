@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Graficas.Continuo;
+using System.Collections;
+using Global;
 
 namespace Civ
 {
@@ -9,8 +12,31 @@ namespace Civ
 	/// </summary>
 	public class Pseudoposicion :Graficas.Continuo.Continuo<Terreno>.ContinuoPunto
 	{
+		Continuo<Terreno> _grafica
+		{
+			get
+			{
+				return this._universo;
+			}
+		}
+
 		public Pseudoposicion() : base(Global.g_.State.Mapa)
 		{
+		}
+
+		/// <summary>
+		/// Devuelve una colección con las armadas que existen en esta misma poisición
+		/// </summary>
+		/// <returns>The posición.</returns>
+		public ICollection<Armada> ArmadasMismaPos()
+		{
+			List<Armada> ret = new List<Armada>();
+			foreach (var x in g_.State.getArmadas())
+			{
+				if (this.Equals((Continuo<Terreno>.ContinuoPunto)x.Posicion))
+					ret.Add(x);
+			}
+			return ret;
 		}
 
 		/// <summary>

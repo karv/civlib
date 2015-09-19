@@ -58,19 +58,11 @@ namespace Civ
 			}
 		}
 
-		Dictionary<Civilizacion, EstadoDiplomatico> _Diplomacia = new Dictionary<Civilizacion, EstadoDiplomatico>();
-
 		/// <summary>
 		/// Devuelve el estado diplomático de esta Civilización.
 		/// </summary>
 		/// <value>The _ diplomacia.</value>
-		public Dictionary<Civilizacion, EstadoDiplomatico> Diplomacia
-		{
-			get
-			{
-				return _Diplomacia;
-			}
-		}
+		public ControlDiplomacia Diplomacia = new ControlDiplomacia();
 
 		#endregion
 
