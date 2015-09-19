@@ -37,11 +37,13 @@ namespace test
 			u.Fuerza = 1;
 			u.Nombre = "Guerrero";
 			u.Flags.Add("A pie");
+
 			UnidadRAW uGordo = new UnidadRAW();
 			uGordo.Fuerza = 150;
 			uGordo.Nombre = "Hulk";
 			uGordo.Flags.Add("A pie");
-			uGordo.Mods.Add("A pie", 0.1f);
+			uGordo.Mods.Add("A pie", 1f);
+			uGordo.Dispersion = 0.1f;
 
 			Armada ac1 = new Armada(c1, p);
 			ac1.AgregaUnidad(u, 150);
@@ -56,6 +58,8 @@ namespace test
 				Debug.WriteLine(string.Format("1]{0}\n2]{1}\n\n", ac1, ac2));
 				g_.Tick(0.001f);
 			}
+
+			Debug.WriteLine("Ganador: " + (ac1.Unidades.Count > 0 ? "1" : "2"));
 
 		}
 	}

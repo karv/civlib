@@ -257,13 +257,15 @@ namespace Civ
 		/// <summary>
 		/// Causa el daño a la unidad U que le corresponde.
 		/// </summary>
-		/// <param name="U">Unidad a quien dañar</param>
+		/// <param name="arm">Armada a quién dañar</param>
+		/// <param name="raw">RAW de la armada a dañar</param>
+		/// <param name="Atacante">Quien ataca</param>
 		/// <param name="t">Tiempo</param>
-		public void CausaDaño(Armada arm, UnidadRAW raw, float t)
+		public void CausaDaño(Armada arm, UnidadRAW raw, Stack Atacante, float t)
 		{
 			Stack U = arm[raw];
 			float Daño = DañoPropuesto(U) * t;
-			arm.DañarStack(raw, -Daño);
+			arm.DañarStack(raw, Atacante, -Daño);
 		}
 
 		#endregion

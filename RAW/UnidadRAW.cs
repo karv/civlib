@@ -83,8 +83,20 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public float Fuerza;
+
+		/// <summary>
+		/// Flotante en [0, 1]
+		/// Qué tanto se dispersa el daño entre el stack enemigo.
+		/// </summary>
+		[DataMember]
+		public float Dispersion;
+
+		/// <summary>
+		/// Cómo se mueve por el mapa
+		/// </summary>
 		[DataMember]
 		public float Velocidad;
+
 		[DataMember(Name = "Flags")]
 		private List<string> _Flags = new List<string>();
 

@@ -688,6 +688,7 @@
 		<Unidad z:Id="uBruto">
 			<Ciencia z:Ref="cVida nómada" />
 			<CostePoblación>1</CostePoblación>
+			<Dispersion>0.1</Dispersion>
 			<Flags xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d4p1:string>Unidad a pie</d4p1:string>
 				<d4p1:string>Humano</d4p1:string>
@@ -709,6 +710,7 @@
 				<poblacionACiudad>10</poblacionACiudad>
 			</Colonizar>
 			<CostePoblación>10</CostePoblación>
+			<Dispersion>0.1</Dispersion>
 			<Flags xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d4p1:string>Unidad a pie</d4p1:string>
 				<d4p1:string>Humano</d4p1:string>

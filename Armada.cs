@@ -211,7 +211,7 @@ namespace Civ
 			{
 				Ata = Arms[i].MayorDaño(Arms[j]);
 				Def = Ata.MenorDaño(Arms[j]);
-				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, t);
+				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, Ata, t);
 				if (Def.Muerto)
 					return;
 			}
@@ -222,7 +222,7 @@ namespace Civ
 			{
 				Ata = Arms[i].MayorDaño(Arms[j]);
 				Def = Ata.MenorDaño(Arms[j]);
-				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, t);
+				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, Ata, t);
 			}
 		}
 
@@ -349,12 +349,10 @@ namespace Civ
 		/// </summary>
 		/// <param name="unidad">Unidad.</param>
 		/// <param name="daltaHP">Daño o cura (negativo es daño)</param>
-		public void DañarStack(UnidadRAW unidad, float deltaHP)
+		public void DañarStack(UnidadRAW unidad, Stack Atacante, float deltaHP)
 		{
 			Stack currStack = this[unidad];
-			// TODO 0.3f es temporal
-			currStack.Dañar(-deltaHP, 0.3f);
-			//currStack.HP = Math.Min(currStack.HP + deltaHP, 1);
+			currStack.Dañar(-deltaHP, Atacante.RAW.Dispersion);
 			if (currStack.HP < 0)
 			{
 				this._Unidades.Remove(unidad);
