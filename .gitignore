@@ -3,5 +3,4 @@ obj/
 *.userprefs
 *.csproj
 /CivLibrary.sln
-/test/
 *.autosave
