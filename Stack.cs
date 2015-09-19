@@ -28,6 +28,19 @@ namespace Civ
 			}
 		}
 
+		/// <summary>
+		/// Es la fuerza que se usa en el cálculode daño
+		/// NO toma en cuenta la cantidad.
+		/// </summary>
+		/// <value>The fuerza.</value>
+		public float Fuerza
+		{
+			get
+			{
+				return RAW.Fuerza * (1 + Entrenamiento);
+			}
+		}
+
 		public ulong Cantidad
 		{
 			get
@@ -228,7 +241,7 @@ namespace Civ
 		{
 			float ret;
 			float mod = 0;
-			ret = RAW.Fuerza * _cantidad / U.RAW.Fuerza;
+			ret = Fuerza * Cantidad / U.Fuerza;
 			foreach (var x in U.RAW.Flags)
 			{
 				mod += RAW.Mods[x];
