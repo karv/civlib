@@ -303,6 +303,17 @@ namespace Civ
 
 		public Civ.Orden.Orden Orden = new Civ.Orden.OrdenEstacionado();
 
+		/// <summary>
+		/// Devuelve el stack que le corresponde a una clase de unidad
+		/// </summary>
+		public Stack this [UnidadRAW uRAW]
+		{
+			get
+			{
+				return UnidadesAgrupadas(uRAW);
+			}
+		}
+
 		#endregion
 
 		#region IDisposable implementation
