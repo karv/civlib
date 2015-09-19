@@ -85,20 +85,4 @@ namespace Civ.Orden
 		}
 	}
 
-	/// <summary>
-	/// Ataca a toda armada que entre a la misma pseudoposición
-	/// </summary>
-	public class OrdenDefensiva:Orden
-	{
-		public override bool Ejecutar(float t, Armada armada)
-		{
-			foreach (var x in armada.Posicion.ArmadasMismaPos ())
-			{
-				//if (armada.CivDueño.Diplomacia)
-				//	armada.Pelea((Armada)x, t);
-			}
-			return false;
-		}
-	}
-
 }
