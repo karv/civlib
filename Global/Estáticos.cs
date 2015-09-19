@@ -34,10 +34,10 @@ namespace Global
 			// Peleas entre armadas de Civs enemigas
 			for (int i = 1; i < State.Civs.Count; i++)
 			{
-				Civ.Civilizacion civA = State.Civs[i];
+				Civ.ICivilizacion civA = State.Civs[i];
 				for (int j = 0; j < i; j++)
 				{
-					Civ.Civilizacion civB = State.Civs[j];
+					Civ.ICivilizacion civB = State.Civs[j];
 					{
 						foreach (var ArmA in civA.Armadas)
 						{
@@ -58,7 +58,7 @@ namespace Global
 			}
 
 			// Matar Civs sin ciudades.
-			State.Civs.RemoveAll(x => (x.getCiudades.Count == 0));
+			State.Civs.RemoveAll(x => (x.Ciudades.Count == 0));
 		}
 
 		/// <summary>
@@ -200,7 +200,7 @@ namespace Global
 			read.Dispose();
 
 			string baseNombre = nombres[r.Next(nombres.Count)];
-			string unique = HacerUnico(baseNombre, new List<Ciudad>(State.getCiudades()).ConvertAll(c => c.Nombre));
+			string unique = HacerUnico(baseNombre, new List<ICiudad>(State.getCiudades()).ConvertAll(c => c.Nombre));
 
 			return unique;
 		}

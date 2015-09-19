@@ -54,7 +54,7 @@ namespace Civ
 		/// <param name="C">Civilización</param>
 		/// <param name="esDefensa">If set to <c>true</c> es defensa.</param>
 		/// <param name="posición">Posición de la armada (se clona) </param>
-		public Armada(Civilizacion C, Pseudoposicion posición, bool esDefensa = false)
+		public Armada(ICivilizacion C, Pseudoposicion posición, bool esDefensa = false)
 		{
 			_CivDueño = C;
 			this.esDefensa = esDefensa;
@@ -297,13 +297,13 @@ namespace Civ
 			if (Orden.Ejecutar(t, this))
 			{
 				Orden = new Civ.Orden.OrdenEstacionado();
-				CivDueño.AgregaMensaje("{0} llegó a {1}", this, Posicion);
+				CivDueño.AgregaMensaje(new IU.Mensaje("{0} llegó a {1}", this, Posicion));
 			}
 		}
 
-		Civilizacion _CivDueño;
+		ICivilizacion _CivDueño;
 
-		public Civilizacion CivDueño
+		public ICivilizacion CivDueño
 		{
 			get
 			{

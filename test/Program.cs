@@ -20,8 +20,8 @@ namespace test
 
 		static void TestPeleaArmadas()
 		{
-			Civilizacion c1 = g_.State.Civs[0];
-			Civilizacion c2 = g_.State.Civs[1];
+			Civilizacion c1 = (Civilizacion)g_.State.Civs[0];
+			Civilizacion c2 = (Civilizacion)g_.State.Civs[1];
 			EstadoDiplomatico diplomaciaGuerra = new EstadoDiplomatico();
 			diplomaciaGuerra.PermiteAtacar = true;
 			c1.Diplomacia.Add(c2, diplomaciaGuerra);

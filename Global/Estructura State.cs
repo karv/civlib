@@ -16,7 +16,7 @@ namespace Global
 		public Grafica<Terreno> Topologia;
 
 		public Graficas.Continuo.Continuo<Terreno> Mapa;
-		List<Civilizacion> _Civs = new List<Civilizacion>();
+		List<ICivilizacion> _Civs = new List<ICivilizacion>();
 
 		public g_State()
 		{
@@ -27,20 +27,20 @@ namespace Global
 		/// <summary>
 		/// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
 		/// </summary>        
-		public List<Civilizacion> Civs      // Las vivas bien las podría obtener accesando la topología.
+		public List<ICivilizacion> Civs      // Las vivas bien las podría obtener accesando la topología.
 		{
 			get { return _Civs; }
 		}
 
 		/// <summary>
-		/// Devuelve la lista de civilizaciones vivas (eq. en el mapa)
+		/// Devuelve una lista de civilizaciones vivas (eq. en el mapa)
 		/// </summary>
-		public List<Civilizacion> CivsVivas()
+		public List<ICivilizacion> CivsVivas()
 		{
-			List<Civilizacion> ret = new List<Civilizacion>();
+			List<ICivilizacion> ret = new List<ICivilizacion>();
 			foreach (var x in Topologia.Nodos)
 			{
-				Civilizacion C = x.CiudadConstruida.CivDueno;
+				ICivilizacion C = x.CiudadConstruida.CivDueno;
 				if (!ret.Contains(C))
 					ret.Add(C);
 			}
@@ -91,12 +91,12 @@ namespace Global
 		/// Devuelve una lista de ciudades existentes.
 		/// </summary>
 		/// <returns>The ciudades.</returns>
-		public IEnumerable<Civ.Ciudad> getCiudades()
+		public IEnumerable<ICiudad> getCiudades()
 		{
-			List<Civ.Ciudad> ret = new List<Civ.Ciudad>();
+			List<ICiudad> ret = new List<ICiudad>();
 			foreach (var civil in Civs)
 			{
-				foreach (var c in civil.getCiudades)
+				foreach (var c in civil.Ciudades)
 				{
 					ret.Add(c);
 				}

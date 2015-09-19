@@ -5,8 +5,58 @@ using Global;
 
 namespace Civ
 {
-	public class Civilizacion : ITickable
+	public class Civilizacion : ICivilizacion
 	{
+		#region ICivilizacion
+
+		public string Nombre
+		{
+			get
+			{
+				return _nombre;
+			}
+			set
+			{
+				_nombre = value;
+			}
+		}
+
+		public ICollection<ICiudad> Ciudades
+		{ 
+			get
+			{
+				return _ciudades;
+			}
+				
+		}
+
+		ICollection<Armada> ICivilizacion.Armadas
+		{
+			get
+			{
+				return _Armadas;
+			}
+		}
+
+		IDiplomacia ICivilizacion.Diplomacia
+		{
+			get
+			{
+				return Diplomacia;
+			}
+		}
+
+		ICollection<Ciencia> ICivilizacion.Avances
+		{ 
+			get { return Avances; }
+		}
+
+		AlmacénCiv ICivilizacion.Almacen { get { return Almacen; } }
+
+
+
+		#endregion
+
 		#region General
 
 		public readonly AlmacénCiv Almacen;
@@ -20,7 +70,7 @@ namespace Civ
 		/// <summary>
 		/// Nombre de la <see cref="Civ.Civilización"/>.
 		/// </summary>
-		public string Nombre;
+		public string _nombre;
 
 		public override string ToString()
 		{
@@ -127,19 +177,7 @@ namespace Civ
 		/// <summary>
 		/// Lista de ciudades.
 		/// </summary>
-		List<Ciudad> Ciudades = new List<Ciudad>();
-
-		/// <summary>
-		/// Devuelve la lista de ciudades que pertenecen a esta <see cref="Civ.Civilización"/>.
-		/// </summary>
-		/// <value>The get ciudades.</value>
-		public List<Ciudad> getCiudades
-		{
-			get
-			{
-				return Ciudades;
-			}
-		}
+		List<ICiudad> _ciudades = new List<ICiudad>();
 
 		/// <summary>
 		/// Agrega una ciudad a esta civ.
@@ -259,10 +297,10 @@ namespace Civ
 		public void Tick(float t = 1)
 		{
 			Random r = new Random();
-			foreach (var x in Ciudades.ToArray())
+			foreach (var x in Ciudades)
 			{
 				{
-					x.FullTick(t);
+					x.Tick(t);
 				}
 			}
 
@@ -321,7 +359,7 @@ namespace Civ
 		/// <param name="c">Ciencia descubierta</param>
 		protected virtual void AlDescubrir(Ciencia c)
 		{
-			foreach (var ciudad in getCiudades)
+			foreach (var ciudad in Ciudades)
 			{
 				ciudad.IntentaConstruirAutoconstruibles();
 			}

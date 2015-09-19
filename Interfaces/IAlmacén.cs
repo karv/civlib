@@ -19,6 +19,8 @@ namespace Civ
 		void setRecurso(Recurso rec, float val);
 
 		void changeRecurso(Recurso rec, float delta);
+
+
 	}
 
 	public static class ExtIAlmacén

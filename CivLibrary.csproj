@@ -80,6 +80,9 @@
     <Compile Include="IDiplomacia.cs" />
     <Compile Include="ControlDiplomacia.cs" />
     <Compile Include="DiplomaciaNomada.cs" />
+    <Compile Include="ICivilizacion.cs" />
+    <Compile Include="ICivImportante.cs" />
+    <Compile Include="ICiudad.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
