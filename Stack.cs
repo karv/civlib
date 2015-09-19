@@ -165,7 +165,7 @@ namespace Civ
 		{
 			float ret;
 			float mod = 0;
-			ret = RAW.Fuerza * HP / U.RAW.Fuerza;
+			ret = RAW.Fuerza * cantidad / U.RAW.Fuerza;
 			foreach (var x in U.RAW.Flags)
 			{
 				mod += RAW.Mods[x];
@@ -195,10 +195,11 @@ namespace Civ
 		/// </summary>
 		/// <param name="U">Unidad a quien dañar</param>
 		/// <param name="t">Tiempo</param>
-		public void CausaDaño(Stack U, float t)
+		public void CausaDaño(Armada arm, UnidadRAW raw, float t)
 		{
+			Stack U = arm[raw];
 			float Daño = DañoPropuesto(U) * t;
-			U.HP -= Daño;
+			arm.DañarStack(raw, -Daño);
 		}
 
 		#endregion

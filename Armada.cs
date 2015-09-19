@@ -10,6 +10,7 @@ namespace Civ
 	/// </summary>
 	public class Armada: IDisposable, IPosicionable
 	{
+		
 		#region General
 
 		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null);
@@ -190,6 +191,9 @@ namespace Civ
 		/// <param name="r">Randomizer</param>
 		public void Pelea(Armada A, float t, Random r = null)
 		{
+			if (this.Unidades.Count == 0 || A.Unidades.Count == 0)
+				return;
+
 			int i, j;
 			if (r == null)
 				r = new Random();
@@ -206,7 +210,7 @@ namespace Civ
 			{
 				Ata = Arms[i].MayorDaño(Arms[j]);
 				Def = Ata.MenorDaño(Arms[j]);
-				Ata.CausaDaño(Def, t);
+				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, t);
 			}
 				
 			i = j; // Arms[1 - 1] le sigue.
@@ -215,7 +219,7 @@ namespace Civ
 			{
 				Ata = Arms[i].MayorDaño(Arms[j]);
 				Def = Ata.MenorDaño(Arms[j]);
-				Ata.CausaDaño(Def, t);
+				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, t);
 			}
 		}
 
@@ -311,6 +315,25 @@ namespace Civ
 			get
 			{
 				return UnidadesAgrupadas(uRAW);
+			}
+		}
+
+		#endregion
+
+		#region Daño
+
+		/// <summary>
+		/// Daña un stack
+		/// </summary>
+		/// <param name="unidad">Unidad.</param>
+		/// <param name="daltaHP">Daño o cura (negativo es daño)</param>
+		public void DañarStack(UnidadRAW unidad, float deltaHP)
+		{
+			Stack currStack = this[unidad];
+			currStack.HP = Math.Min(currStack.HP + deltaHP, 1);
+			if (currStack.HP < 0)
+			{
+				this._Unidades.Remove(unidad);
 			}
 		}
 

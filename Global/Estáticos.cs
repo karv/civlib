@@ -32,7 +32,7 @@ namespace Global
 			}
 
 			// Peleas entre armadas de Civs enemigas
-			for (int i = 0; i < State.Civs.Count; i++)
+			for (int i = 1; i < State.Civs.Count; i++)
 			{
 				Civ.Civilizacion civA = State.Civs[i];
 				for (int j = 0; j < i; j++)
