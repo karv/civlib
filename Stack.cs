@@ -3,6 +3,7 @@ using ListasExtra;
 using Basic;
 using System.Collections.Generic;
 using Global;
+using System.Diagnostics;
 
 namespace Civ
 {
@@ -18,6 +19,14 @@ namespace Civ
 		/// </summary>
 		public readonly UnidadRAW RAW;
 		ulong _cantidad;
+
+		public float Vitalidad
+		{
+			get
+			{
+				return _cantidad * _HP * RAW.Fuerza;
+			}
+		}
 
 		public ulong Cantidad
 		{
@@ -135,11 +144,11 @@ namespace Civ
 		void DañarDirecto(float Daño)
 		{
 			// Esto se supone que es el piso.
-			float MuertosPct = Daño / HP; // Probabilidad de muerte
+			double MuertosPct = Daño / HP; // Probabilidad de muerte
 			ulong Muertos = (ulong)MuertosPct;
 			MuertosPct -= Muertos;
 
-			if (g_.r.Next() < MuertosPct)
+			if (g_.r.NextDouble() < MuertosPct)
 				Muertos++;
 
 			Cantidad -= Muertos;
@@ -238,9 +247,10 @@ namespace Civ
 			foreach (var x in A.Unidades)
 			{
 				currDaño = DañoPropuesto(x);
-				if (currDaño < minDaño)
+				if (currDaño <= minDaño)
 					ret = x;
 			}
+			Debug.Assert(ret != null);
 			return ret;
 		}
 

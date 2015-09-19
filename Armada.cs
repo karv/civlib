@@ -239,11 +239,24 @@ namespace Civ
 			foreach (var x in Unidades)
 			{
 				currDaño = x.DañoPropuesto(x.MenorDaño(A));
-				if (currDaño > maxDaño)
+				if (currDaño >= maxDaño)
 					ret = x;
 			}
 			System.Diagnostics.Debug.Assert(ret != null);
 			return ret;
+		}
+
+		public float Vitalidad
+		{
+			get
+			{
+				float ret = 0;
+				foreach (var s in Unidades)
+				{
+					ret += s.Vitalidad;
+				}
+				return ret;
+			}
 		}
 
 		public override string ToString()
