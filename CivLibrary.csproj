@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>CivLibrary</RootNamespace>
+    <RootNamespace>Civ</RootNamespace>
     <AssemblyName>CivLibrary</AssemblyName>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -33,10 +33,11 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="ListaExtras">
-      <HintPath>dll\ListaExtras.dll</HintPath>
+      <HintPath>..\ListaExtras\bin\Release\ListaExtras.dll</HintPath>
     </Reference>
     <Reference Include="Grafos">
-      <HintPath>dll\Grafos.dll</HintPath>
+      <HintPath>..\Grafo\bin\Release\Grafos.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +77,8 @@
     <Compile Include="TasaProd.cs" />
     <Compile Include="IPosicionable.cs" />
     <Compile Include="NewGameOptions.cs" />
+    <Compile Include="IDiplomacia.cs" />
+    <Compile Include="ControlDiplomacia.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

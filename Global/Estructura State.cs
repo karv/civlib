@@ -103,5 +103,21 @@ namespace Global
 			}
 			return ret;
 		}
+
+		/// <summary>
+		/// Devuelve una lista de armadas.
+		/// </summary>
+		public IList<Armada> getArmadas()
+		{
+			List<Armada> ret = new List<Armada>();
+			foreach (var civ in _Civs)
+			{
+				foreach (var a in civ.Armadas)
+				{
+					ret.Add(a);
+				}
+			}
+			return ret;
+		}
 	}
 }

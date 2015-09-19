@@ -2,6 +2,7 @@ using ListasExtra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CivLibrary.Debug;
 
 namespace Civ
 {
@@ -10,6 +11,7 @@ namespace Civ
 	/// </summary>
 	public class Armada: IDisposable, IPosicionable
 	{
+		
 		#region General
 
 		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null);
@@ -137,7 +139,7 @@ namespace Civ
 					U.ArmadaPerteneciente = this;
 					if (_Unidades.ContainsKey(U.RAW))
 					{
-						_Unidades[U.RAW].cantidad += U.cantidad;
+						_Unidades[U.RAW].Cantidad += U.Cantidad;
 						U = _Unidades[U.RAW];
 					}
 					else
@@ -155,7 +157,7 @@ namespace Civ
 		{
 			if (_Unidades.ContainsKey(raw))
 			{
-				_Unidades[raw].cantidad += cantidad;
+				_Unidades[raw].Cantidad += cantidad;
 			}
 			else
 			{
@@ -190,6 +192,10 @@ namespace Civ
 		/// <param name="r">Randomizer</param>
 		public void Pelea(Armada A, float t, Random r = null)
 		{
+			if (this.Unidades.Count == 0 || A.Unidades.Count == 0)
+				return;
+
+			int i, j;
 			if (r == null)
 				r = new Random();
 
@@ -199,17 +205,25 @@ namespace Civ
 			Arms[0] = this;
 			Arms[1] = A;
 
-			int i = r.Next(2); // Arms[i] Inicia
-			int j = 1 - i;
-			Ata = Arms[i].MayorDaño(Arms[j]);
-			Def = Ata.MenorDaño(Arms[j]);
-			Ata.CausaDaño(Def, t);
-
+			i = r.Next(2); // Arms[i] Inicia
+			j = 1 - i;
+			if (Arms[i].Unidades.Count > 0)
+			{
+				Ata = Arms[i].MayorDaño(Arms[j]);
+				Def = Ata.MenorDaño(Arms[j]);
+				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, t);
+				if (Def.Muerto)
+					return;
+			}
+				
 			i = j; // Arms[1 - 1] le sigue.
 			j = 1 - i;
-			Ata = Arms[i].MayorDaño(Arms[j]);
-			Def = Ata.MenorDaño(Arms[j]);
-			Ata.CausaDaño(Def, t);
+			if (Arms[i].Unidades.Count > 0)
+			{
+				Ata = Arms[i].MayorDaño(Arms[j]);
+				Def = Ata.MenorDaño(Arms[j]);
+				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, t);
+			}
 		}
 
 		/// <summary>
@@ -225,10 +239,24 @@ namespace Civ
 			foreach (var x in Unidades)
 			{
 				currDaño = x.DañoPropuesto(x.MenorDaño(A));
-				if (currDaño > maxDaño)
+				if (currDaño >= maxDaño)
 					ret = x;
 			}
+			System.Diagnostics.Debug.Assert(ret != null);
 			return ret;
+		}
+
+		public float Vitalidad
+		{
+			get
+			{
+				float ret = 0;
+				foreach (var s in Unidades)
+				{
+					ret += s.Vitalidad;
+				}
+				return ret;
+			}
 		}
 
 		public override string ToString()
@@ -295,6 +323,38 @@ namespace Civ
 		}
 
 		public Civ.Orden.Orden Orden = new Civ.Orden.OrdenEstacionado();
+
+		/// <summary>
+		/// Devuelve el stack que le corresponde a una clase de unidad
+		/// </summary>
+		public Stack this [UnidadRAW uRAW]
+		{
+			get
+			{
+				return UnidadesAgrupadas(uRAW);
+			}
+		}
+
+		#endregion
+
+		#region Daño
+
+		/// <summary>
+		/// Daña un stack
+		/// </summary>
+		/// <param name="unidad">Unidad.</param>
+		/// <param name="daltaHP">Daño o cura (negativo es daño)</param>
+		public void DañarStack(UnidadRAW unidad, float deltaHP)
+		{
+			Stack currStack = this[unidad];
+			// TODO 0.3f es temporal
+			currStack.Dañar(-deltaHP, 0.3f);
+			//currStack.HP = Math.Min(currStack.HP + deltaHP, 1);
+			if (currStack.HP < 0)
+			{
+				this._Unidades.Remove(unidad);
+			}
+		}
 
 		#endregion
 

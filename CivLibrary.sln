@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CivLibrary", "CivLibrary.csproj", "{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "Store\Store\Store.csproj", "{B5651422-0901-4E7F-976A-A4F7893267CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{4F144F36-1708-48A0-9457-211E569A379E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F144F36-1708-48A0-9457-211E569A379E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F144F36-1708-48A0-9457-211E569A379E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F144F36-1708-48A0-9457-211E569A379E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F144F36-1708-48A0-9457-211E569A379E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5651422-0901-4E7F-976A-A4F7893267CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5651422-0901-4E7F-976A-A4F7893267CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5651422-0901-4E7F-976A-A4F7893267CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5651422-0901-4E7F-976A-A4F7893267CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
