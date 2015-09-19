@@ -261,7 +261,12 @@ namespace Civ
 
 		public override string ToString()
 		{
-			return string.Format("[Armada: Unidades={0}, MaxPeso={1}, Peso={2}, PesoLibre={3}, Posición={4}]", Unidades, MaxPeso, Peso, PesoLibre, Posicion);
+			string ret = string.Format("Pos: {0}", Posicion);
+			foreach (var u in Unidades)
+			{
+				ret += string.Format("\n\tClase:{0}\tCantidad:{1}\tVitalidad:{2}", u, u.Cantidad, u.Vitalidad);
+			}
+			return ret;
 		}
 
 		/// <summary>
