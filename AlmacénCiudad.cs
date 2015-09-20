@@ -78,6 +78,22 @@ namespace Civ
 			return this >= reqs;
 		}
 
+		/// <summary>
+		/// Revisa si el almacén posee al menos una lista de recursos.
+		/// </summary>
+		/// <param name="reqs">Lista de recursos para ver si posee</param>
+		/// <param name="Veces">Cuántas veces contiene estos requisitos</param>
+		/// <returns>true sólo si posee tales recursos.</returns>
+		public bool PoseeRecursos(ListaPeso<Recurso> reqs, ulong Veces)
+		{
+			foreach (var item in reqs)
+			{
+				if (this[item.Key] < item.Value * Veces)
+					return false;
+			}
+			return true;
+		}
+
 		#region IAlmacén implementation
 
 		public void changeRecurso(Recurso rec, float delta)

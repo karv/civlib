@@ -283,15 +283,16 @@ namespace Civ
 		/// <param name="uRAW">Clase de unidades a entrenar</param>
 		/// <param name="Cantidad">Cantidad</param>
 		/// <returns>Devuelve un arreglo con las unidades que se pudieron entrenar.</returns>
-		public Stack EntrenarUnidades(UnidadRAW uRAW, ulong cantidad = 1)
+		public Stack Reclutar(UnidadRAW uRAW, ulong cantidad = 1)
 		{
 			//Stack ret = null;
-			if (uRAW.CostePoblacion <= getTrabajadoresDesocupados && Almacen.PoseeRecursos((ListasExtra.ListaPeso<Recurso>)uRAW.Reqs))	//Si puede pagar
+			if (uRAW.CostePoblacion * cantidad <= getTrabajadoresDesocupados &&
+			    Almacen.PoseeRecursos((ListasExtra.ListaPeso<Recurso>)uRAW.Reqs, cantidad))	//Si puede pagar
 			{
-				_PoblacionProductiva -= uRAW.CostePoblacion;	// Recluta desde la poblaci�n productiva.
+				_PoblacionProductiva -= uRAW.CostePoblacion * cantidad;	// Recluta desde la poblaci�n productiva.
 				foreach (var x in uRAW.Reqs.Keys)				// Quita los recursos que requiere.
 				{
-					Almacen[x] -= uRAW.Reqs[x];
+					Almacen[x] -= uRAW.Reqs[x] * cantidad;
 				}
 
 				Defensa.AgregaUnidad(uRAW, cantidad);

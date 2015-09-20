@@ -13,19 +13,29 @@ namespace test
 {
 	class MainClass
 	{
+		static ICivilizacion MyCiv;
+		static ICiudad MyCiudad;
+
 		public static void Main(string[] args)
 		{
 			g_.CargaData();
 			Global.g_.InicializarJuego();
 
-			TestArmadaDesaparecen();
+
+			MyCiv = g_.State.Civs[0];
+			MyCiudad = MyCiv.Ciudades[0];
+
+			TestReclutar();
+		}
+
+		static void TestReclutar()
+		{
+			UnidadRAW u = g_.Data.Unidades[0];
+			MyCiudad.Reclutar(u, 3);
 		}
 
 		static void TestArmadaDesaparecen()
 		{
-			ICivilizacion MyCiv = g_.State.Civs[0];
-			ICiudad MyCiudad = MyCiv.Ciudades[0];
-
 			Armada arm = new Armada(MyCiudad, false);
 
 			Debug.WriteLine(arm.CivDueño.Armadas);

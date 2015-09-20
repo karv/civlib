@@ -33,7 +33,7 @@ namespace Civ
 
 		ICollection<UnidadRAW> UnidadesConstruibles();
 
-		Stack EntrenarUnidades(UnidadRAW uRAW, ulong cantidad = 1);
+		Stack Reclutar(UnidadRAW uRAW, ulong cantidad = 1);
 
 		ulong getNumTrabajadores { get; }
 	}
