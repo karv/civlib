@@ -9,7 +9,7 @@ namespace Civ
 	/// Representa una clase de unidad
 	/// </summary>
 	[DataContract(Name = "Unidad", IsReference = true)]
-	public class UnidadRAW : CivLibrary.Debug.IPlainSerializable
+	public class UnidadRAW : CivLibrary.Debug.IPlainSerializable, IPuntuado
 	{
 		public class Modificadores : ListaPeso<string>
 		{
@@ -61,6 +61,17 @@ namespace Civ
 
 		#endregion
 
+		#region IPuntuado
+
+		float IPuntuado.Puntuacion
+		{
+			get
+			{
+				return Fuerza;
+			}
+		}
+
+		#endregion
 
 		/// <summary>
 		/// El nombre de la clase de unidad.

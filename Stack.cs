@@ -10,7 +10,7 @@ namespace Civ
 	/// <summary>
 	/// Representa a una instancia de unidad.
 	/// </summary>
-	public class Stack
+	public class Stack: IPuntuado
 	{
 		#region General
 
@@ -311,6 +311,18 @@ namespace Civ
 			{
 				return RAW.Peso * _cantidad;
 			}
+		}
+
+		#endregion
+
+		#region IPuntuado
+
+		float IPuntuado.Puntuacion
+		{ 
+			get
+			{ 
+				return Fuerza * Cantidad; 
+			} 
 		}
 
 		#endregion

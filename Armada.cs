@@ -9,9 +9,8 @@ namespace Civ
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public class Armada: IDisposable, IPosicionable
+	public class Armada: IDisposable, IPosicionable, IPuntuado
 	{
-		
 		#region General
 
 		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null);
@@ -356,6 +355,23 @@ namespace Civ
 			if (currStack.HP < 0)
 			{
 				this._Unidades.Remove(unidad);
+			}
+		}
+
+		#endregion
+
+		#region IPuntuado
+
+		float IPuntuado.Puntuacion
+		{
+			get
+			{
+				float ret = 0;
+				foreach (IPuntuado x in _Unidades.Values)
+				{
+					ret += x.Puntuacion;
+				}
+				return ret;
 			}
 		}
 
