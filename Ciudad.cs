@@ -188,6 +188,39 @@ namespace Civ
 		/// </summary>
 		public AlmacenCiudad Almacen;
 
+		/// <summary>
+		/// Calcula el cambio en el almacén de un recurso.
+		/// </summary>
+		/// <returns>The delta recurso.</returns>
+		/// <param name="Recurso">Recurso.</param>
+		public float CalculaDeltaRecurso(Recurso Recurso)
+		{
+			float ret = 0;
+
+			// Trabajos
+			foreach (var x in ObtenerListaTrabajos())
+			{
+				if (x.RAW.EntradaBase.ContainsKey(Recurso))
+					ret -= x.Trabajadores * x.RAW.EntradaBase[Recurso];
+				if (x.RAW.SalidaBase.ContainsKey(Recurso))
+					ret -= x.Trabajadores * x.RAW.SalidaBase[Recurso];
+
+			}
+
+			// Propiedades
+			foreach (var x in _Prop)
+			{
+				foreach (var y in x.Salida)
+				{
+					if (y.recurso == Recurso)
+					{
+						ret += y.DeltaEsperado(this);
+					}
+				}
+			}
+			return ret;
+		}
+
 
 		#endregion
 

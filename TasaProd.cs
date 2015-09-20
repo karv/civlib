@@ -33,6 +33,8 @@ namespace Civ.TasaProd
 
 		public abstract void Tick(IAlmacenante alm, float t);
 
+		public abstract float DeltaEsperado(IAlmacenante alm);
+
 		#endregion
 	}
 
@@ -61,6 +63,11 @@ namespace Civ.TasaProd
 				alm.Almacen.changeRecurso(recurso, crec * t);
 		}
 
+		public override float DeltaEsperado(IAlmacenante alm)
+		{
+			return crec;
+		}
+
 		#endregion
 		
 	}
@@ -74,6 +81,7 @@ namespace Civ.TasaProd
 		public float max;
 		public float baseCrec;
 
+
 		#region implemented abstract members of TasaProd
 
 		public override void Tick(IAlmacenante alm, float t)
@@ -83,6 +91,11 @@ namespace Civ.TasaProd
 				float crec = alm.obtenerRecurso(recurso) * baseCrec * t;
 				alm.Almacen.changeRecurso(recurso, crec);
 			}
+		}
+
+		public override float DeltaEsperado(IAlmacenante alm)
+		{
+			return alm.obtenerRecurso(recurso) * baseCrec;
 		}
 
 		#endregion

@@ -116,11 +116,7 @@ namespace Civ
 			if (Trabajadores > 0)
 			{
 				// Obtener eficiencia (generada por la disponibilidad de recursos)
-				float PctProd = 1;
-				foreach (var x in RAW.EntradaBase.Keys)
-				{
-					PctProd = Math.Min(PctProd, Almacen[x] / (RAW.EntradaBase[x] * Trabajadores * t));
-				}
+				float PctProd = GetEficiencia(t);
 
 				// Consumir recursos
 				foreach (var x in RAW.EntradaBase.Keys)
@@ -136,6 +132,21 @@ namespace Civ
 				}
 			}
 		}
+
+		/// <summary>
+		/// Devuelve la eficiencia de este trabajo.
+		/// </summary>
+		/// <returns>The eficiencia.</returns>
+		public float GetEficiencia(float t = 1)
+		{
+			float PctProd = 1;
+			foreach (var x in RAW.EntradaBase.Keys)
+			{
+				PctProd = Math.Min(PctProd, Almacen[x] / (RAW.EntradaBase[x] * Trabajadores * t));
+			}
+			return PctProd;
+		}
+
 
 		#endregion
 

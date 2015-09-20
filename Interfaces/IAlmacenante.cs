@@ -8,6 +8,8 @@ namespace Civ
 	public interface IAlmacenante
 	{
 		IAlmacén Almacen { get; }
+
+		float CalculaDeltaRecurso(Recurso Recurso);
 	}
 
 	public static class ExiIAlmacen

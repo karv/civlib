@@ -18,7 +18,7 @@ namespace test
 			g_.CargaData();
 			Global.g_.InicializarJuego();
 
-			TestGeneradorArmadas();
+			TestCiudad();
 		}
 
 		/// <summary>
@@ -43,6 +43,26 @@ namespace test
 					throw new Exception("Ya se acabó el juego :3");
 			}
 
+		}
+
+		static void TestCiudad()
+		{
+			ICiudad cd = g_.State.getCiudades()[0];
+			Action Entreturnos = delegate
+			{
+				if (g_.r.NextDouble() < 0.001f)
+				{
+					foreach (var x in cd.Almacen.recursos)
+					{
+						Debug.WriteLine(
+							string.Format("{0}: {1}({2})", x, cd.Almacen.recurso(x), cd.CalculaDeltaRecurso(x))
+						);
+					}
+
+				}
+			};
+			
+			Ciclo(100, Entreturnos);
 		}
 
 		static void TestGeneradorArmadas()
