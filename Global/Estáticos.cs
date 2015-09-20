@@ -14,7 +14,7 @@ namespace Global
 	public static class g_
 	{
 		static NewGameOptions PrefsJuegoNuevo = new NewGameOptions();
-		static GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras();
+		public static GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras();
 		[DataMember(Name = "Data")]
 		public static g_Data Data = new g_Data();
 		public static g_State State = new g_State();

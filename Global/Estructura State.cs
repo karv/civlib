@@ -40,8 +40,8 @@ namespace Global
 			List<ICivilizacion> ret = new List<ICivilizacion>();
 			foreach (var x in Topologia.Nodos)
 			{
-				ICivilizacion C = x.CiudadConstruida.CivDueno;
-				if (!ret.Contains(C))
+				ICivilizacion C = x.CiudadConstruida?.CivDueno;
+				if (C != null && !ret.Contains(C))
 					ret.Add(C);
 			}
 			return ret;
@@ -91,7 +91,7 @@ namespace Global
 		/// Devuelve una lista de ciudades existentes.
 		/// </summary>
 		/// <returns>The ciudades.</returns>
-		public IEnumerable<ICiudad> getCiudades()
+		public IList<ICiudad> getCiudades()
 		{
 			List<ICiudad> ret = new List<ICiudad>();
 			foreach (var civil in Civs)
@@ -119,5 +119,23 @@ namespace Global
 			}
 			return ret;
 		}
+
+		#region Estad¨ªstico
+
+		/// <summary>
+		/// Devuelve la puntuaci¨®n total del juego
+		/// </summary>
+		/// <returns>The puntuacion.</returns>
+		public float SumaPuntuacion()
+		{
+			float ret = 0;
+			foreach (IPuntuado x in CivsVivas ())
+			{
+				ret += x.Puntuacion;
+			}
+			return ret;
+		}
+
+		#endregion
 	}
 }

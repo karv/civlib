@@ -5,6 +5,9 @@ using System.IO;
 using Global;
 using Civ.Orden;
 using System.Diagnostics;
+using Civ.Barbaros;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace test
 {
@@ -18,11 +21,14 @@ namespace test
 			TestGeneradorArmadas();
 		}
 
-		static void TestGeneradorArmadas()
+		/// <summary>
+		/// Ejecuta el ciclo del juego
+		/// </summary>
+		/// <param name="MultiplicadorVelocidad">Multiplicador velocidad.</param>
+		/// <param name="entreCiclos">Entre ciclos.</param>
+		static void Ciclo(float MultiplicadorVelocidad, Action entreCiclos = null)
 		{
 			DateTime timer = DateTime.Now;
-			float MultiplicadorVelocidad = 100;
-
 			while (true)
 			{
 				TimeSpan tiempo = DateTime.Now - timer;
@@ -32,9 +38,26 @@ namespace test
 				// Console.WriteLine (t);
 				Global.g_.Tick(t);
 
+				entreCiclos?.Invoke();
 				if (Global.g_.State.Civs.Count == 0)
 					throw new Exception("Ya se acabó el juego :3");
 			}
+
+		}
+
+		static void TestGeneradorArmadas()
+		{
+			UnidadRAW u = new UnidadRAW();
+			u.Fuerza = 1;
+			u.Nombre = "Gordo";
+			ReglaGeneracionPuntuacion reg = new ReglaGeneracionPuntuacion();
+			reg.ClaseArmada = new List<Tuple<UnidadRAW, ulong>>();
+			reg.ClaseArmada.Add(new Tuple<UnidadRAW, ulong>(u, 100));
+			reg.MaxPuntuacion = float.PositiveInfinity;
+			reg.MinPuntuacion = 0;
+			g_.BarbGen.Reglas.Add(reg);
+
+			Ciclo(1000);
 
 		}
 

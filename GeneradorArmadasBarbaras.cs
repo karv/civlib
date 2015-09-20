@@ -1,6 +1,8 @@
 ﻿using System;
 using Global;
 using CivLibrary.Debug;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Civ.Barbaros
 {
@@ -14,6 +16,8 @@ namespace Civ.Barbaros
 		/// En horas
 		/// </summary>
 		public double TiempoEsperadoGenerar = 1.0 / 6.0;
+
+		public List<IReglaGeneracion> Reglas = new List<IReglaGeneracion>();
 
 		double lambda
 		{
@@ -49,9 +53,24 @@ namespace Civ.Barbaros
 		/// <returns>The armada.</returns>
 		public Armada getArmada()
 		{
-			System.Diagnostics.Debug.WriteLine("Generar bárbaro");
-			return null;
+			System.Diagnostics.Debug.WriteLine("Generar bárbaro...");
+
+			// Escoger una regla
+			List<IReglaGeneracion> reglas = Reglas.FindAll(x => x.EsPosibleGenerar(g_.State));
+			if (reglas.Count == 0)
+			{
+				System.Diagnostics.Debug.WriteLine("No hay regla para este caso");
+				return null;
+			}
+			
+
+			IReglaGeneracion usarRegla = reglas[g_.r.Next(reglas.Count)];
+			Armada ret = usarRegla.GenerarArmada();
+			System.Diagnostics.Debug.WriteLine(string.Format("Armada generada {0}", ret));
+			return ret;
 		}
+
+
 
 		public void Tick(float t)
 		{

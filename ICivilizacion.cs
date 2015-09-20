@@ -9,7 +9,7 @@ namespace Civ
 	/// </summary>
 	public interface ICivilizacion : ITickable, IPuntuado
 	{
-		string Nombre { get; set; }
+		string Nombre { get; }
 
 		int CuentaEdificios(EdificioRAW ClaseEdif);
 
