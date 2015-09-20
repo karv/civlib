@@ -18,7 +18,20 @@ namespace test
 			g_.CargaData();
 			Global.g_.InicializarJuego();
 
-			TestCiudad();
+			TestArmadaDesaparecen();
+		}
+
+		static void TestArmadaDesaparecen()
+		{
+			ICivilizacion MyCiv = g_.State.Civs[0];
+			ICiudad MyCiudad = MyCiv.Ciudades[0];
+
+			Armada arm = new Armada(MyCiudad, false);
+
+			Debug.WriteLine(arm.CivDueño.Armadas);
+
+			g_.Tick();
+			Debug.WriteLine(arm.CivDueño.Armadas);
 		}
 
 		/// <summary>

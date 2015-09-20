@@ -21,7 +21,7 @@ namespace Civ
 			}
 		}
 
-		public ICollection<ICiudad> Ciudades
+		public IList<ICiudad> Ciudades
 		{ 
 			get
 			{
@@ -369,9 +369,7 @@ namespace Civ
 
 			foreach (var x in new List<Armada> (Armadas))
 			{
-				if (x.Unidades.Count == 0)
-					Armadas.Remove(x);
-				else
+				if (x.Unidades.Count > 0)
 					x.Tick(t);
 			}
 		}

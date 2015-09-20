@@ -16,7 +16,26 @@ namespace Civ
 		void IntentaConstruirAutoconstruibles();
 
 		bool ExisteEdificio(EdificioRAW Edif);
-	
+
+		ICollection<TrabajoRAW> ObtenerTrabajosAbiertos();
+
+		Trabajo EncuentraInstanciaTrabajo(TrabajoRAW TRAW);
+
+		List<Armada> ArmadasEnCiudad();
+
+		Armada Defensa { get; }
+
+		ICivilizacion CivDueño{ get; }
+
+		InfoPoblacion GetPoblacionInfo{ get; }
+
+		ulong UnidadesConstruibles(UnidadRAW unidad);
+
+		ICollection<UnidadRAW> UnidadesConstruibles();
+
+		Stack EntrenarUnidades(UnidadRAW uRAW, ulong cantidad = 1);
+
+		ulong getNumTrabajadores { get; }
 	}
 
 

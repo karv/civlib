@@ -63,7 +63,7 @@ namespace Civ
 			C.Armadas.Add(this);
 		}
 
-		public Armada(Ciudad C, bool esDefensa = false) : this(C.CivDueno, C.Pos, esDefensa)
+		public Armada(ICiudad C, bool esDefensa = false) : this(C.CivDueño, C.getPosicion(), esDefensa)
 		{
 		}
 

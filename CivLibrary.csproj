@@ -89,6 +89,7 @@
     <Compile Include="IReglaGeneracion.cs" />
     <Compile Include="CivilizacionBarbara.cs" />
     <Compile Include="ReglaGeneracionBarbaraGeneral.cs" />
+    <Compile Include="InfoPoblacion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

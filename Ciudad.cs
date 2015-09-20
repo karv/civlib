@@ -12,6 +12,11 @@ namespace Civ
 	{
 		#region ICiudad
 
+		ICollection<UnidadRAW> ICiudad.UnidadesConstruibles()
+		{
+			return UnidadesConstruibles().Keys;
+		}
+
 		public string Nombre
 		{
 			get
@@ -21,6 +26,35 @@ namespace Civ
 			set
 			{
 				_nombre = value;
+			}
+		}
+
+		public InfoPoblacion GetPoblacionInfo
+		{ 
+			get
+			{
+				return new InfoPoblacion(getPoblacionPreProductiva, getPoblacionProductiva, getPoblacionPostProductiva);
+			}
+		}
+
+		ICivilizacion ICiudad.CivDueño
+		{
+			get
+			{
+				return _CivDueño;
+			}
+		}
+
+		ICollection<TrabajoRAW> ICiudad.ObtenerTrabajosAbiertos()
+		{
+			return obtenerTrabajosAbiertos();
+		}
+
+		Armada ICiudad.Defensa
+		{
+			get
+			{
+				return Defensa;
 			}
 		}
 
@@ -47,6 +81,7 @@ namespace Civ
 				return CivDueno.Avances;
 			}
 		}
+
 
 		#region IPosicionable implementation
 
@@ -228,7 +263,7 @@ namespace Civ
 
 		public readonly Armada Defensa;
 
-		public List<Armada> armadasEnCiudad()
+		public List<Armada> ArmadasEnCiudad()
 		{
 			//List<Armada> ret = CivDueno.Armadas.FindAll(x => x.Posicion.Equals(posCiudad));
 			List<Armada> rat = new List<Armada>();

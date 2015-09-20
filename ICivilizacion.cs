@@ -13,7 +13,7 @@ namespace Civ
 
 		int CuentaEdificios(EdificioRAW ClaseEdif);
 
-		ICollection<ICiudad> Ciudades { get; }
+		IList<ICiudad> Ciudades { get; }
 
 		ICollection<Armada> Armadas { get; }
 

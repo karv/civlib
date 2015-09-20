@@ -25,7 +25,7 @@ namespace Civ
 			return 0;
 		}
 
-		public ICollection<ICiudad> Ciudades
+		public IList<ICiudad> Ciudades
 		{
 			get
 			{
