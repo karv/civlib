@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
-using System.Xml;
 using Civ;
 using Civ.Options;
 using Civ.Barbaros;
@@ -18,6 +17,11 @@ namespace Global
 		[DataMember(Name = "Data")]
 		public static g_Data Data = new g_Data();
 		public static g_State State = new g_State();
+
+		static g_()
+		{
+			BarbGen.Reglas.Add(new ReglaGeneracionBarbaraGeneral());
+		}
 
 		public static void Tick(float t = 1)
 		{

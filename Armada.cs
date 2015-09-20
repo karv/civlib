@@ -154,6 +154,8 @@ namespace Civ
 
 		public void AgregaUnidad(UnidadRAW raw, ulong cantidad)
 		{
+			if (cantidad <= 0)
+				return;
 			if (_Unidades.ContainsKey(raw))
 			{
 				_Unidades[raw].Cantidad += cantidad;
@@ -260,7 +262,7 @@ namespace Civ
 
 		public override string ToString()
 		{
-			string ret = string.Format("Pos: {0}", Posicion);
+			string ret = string.Format("Pos: {0}\tFuerza: {1}", Posicion, ((IPuntuado)this).Puntuacion);
 			foreach (var u in Unidades)
 			{
 				ret += string.Format("\n\tClase:{0}\tCantidad:{1}\tVitalidad:{2}", u, u.Cantidad, u.Vitalidad);

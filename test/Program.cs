@@ -55,7 +55,7 @@ namespace test
 			reg.ClaseArmada.Add(new Tuple<UnidadRAW, ulong>(u, 100));
 			reg.MaxPuntuacion = float.PositiveInfinity;
 			reg.MinPuntuacion = 0;
-			g_.BarbGen.Reglas.Add(reg);
+			//g_.BarbGen.Reglas.Add(reg);
 
 			Ciclo(1000);
 
