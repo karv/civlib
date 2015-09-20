@@ -29,9 +29,9 @@ namespace Civ
 	/// </summary>
 	public class AlmacénCiv:ListaPeso<Recurso>, IAlmacén
 	{
-		public readonly Civilizacion Civil;
+		public readonly ICivilizacion Civil;
 
-		public AlmacénCiv(Civilizacion C) : base()
+		public AlmacénCiv(ICivilizacion C) : base()
 		{
 			Civil = C;
 		}
@@ -78,9 +78,9 @@ namespace Civ
 				else
 				{
 					float ret = 0;
-					foreach (var x in Civil.getCiudades)
+					foreach (var x in Civil.Ciudades)
 					{
-						ret += x.Almacen[R];
+						ret += x.Almacen.recurso(R);
 					}
 					return ret;
 				}

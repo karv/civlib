@@ -9,13 +9,5 @@ namespace Civ
 	{
 		void Tick(float t);
 	}
-
-	public static class ExtITickable
-	{
-		public static void Tick(this ITickable ticker)
-		{
-			ticker.Tick(1);
-		}
-	}
 }
 

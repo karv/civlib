@@ -82,7 +82,7 @@ namespace CivLibrary.Debug
 			{
 				if (Obj is Recurso && x.ReqRecursos.ContainsKey((Recurso)Obj))
 					sw.WriteLine("(Edificio)" + x);
-				if (Obj is IRequerimiento<Ciudad> && x.Requiere.Requiere().Contains((IRequerimiento<Ciudad>)Obj))
+				if (Obj is IRequerimiento<ICiudad> && x.Requiere.Requiere().Contains((IRequerimiento<ICiudad>)Obj))
 					sw.WriteLine("(Edificio)" + x);
 			}
 
@@ -90,7 +90,7 @@ namespace CivLibrary.Debug
 			{
 				if (x.Edificio == Obj)
 					sw.WriteLine("(Trabajo)" + x);
-				if (Obj is IRequerimiento<Ciudad> && x.Reqs().Contains((IRequerimiento<Ciudad>)Obj))
+				if (Obj is IRequerimiento<ICiudad> && x.Reqs().Contains((IRequerimiento<ICiudad>)Obj))
 					sw.WriteLine("(Trabajo)" + x);
 			}
 			foreach (var x in glob.Unidades)
@@ -106,9 +106,10 @@ namespace CivLibrary.Debug
 
 		public static void CrearArchivoObjetosAbiertos()
 		{
-			string[] Dirs = {"Doc", "Doc/Ciencias", "Doc/Ecosistemas", "Doc/Edificios", "Doc/Propiedades", "Doc/Recursos", "Doc/Trabajos", "Doc/Unidades"};
+			string[] Dirs = { "Doc", "Doc/Ciencias", "Doc/Ecosistemas", "Doc/Edificios", "Doc/Propiedades", "Doc/Recursos", "Doc/Trabajos", "Doc/Unidades" };
 
-			foreach (var x in Dirs) {
+			foreach (var x in Dirs)
+			{
 				if (!Directory.Exists(x))
 					Directory.CreateDirectory(x);
 			}

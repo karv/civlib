@@ -14,7 +14,7 @@ namespace Civ
 	/// Representa un adelanto científico.
 	/// </summary>
 	[DataContract(IsReference = true)]
-	public class Ciencia : IRequerimiento<Ciudad>, CivLibrary.Debug.IPlainSerializable
+	public class Ciencia : IRequerimiento<ICiudad>, CivLibrary.Debug.IPlainSerializable
 	{
 		[DataContract(IsReference = false)]
 		public class Requerimiento
@@ -58,9 +58,9 @@ namespace Civ
 		[DataMember(Name = "Requiere")]
 		public Requerimiento Reqs = new Requerimiento();
 		// IRequerimiento
-		bool Civ.IRequerimiento<Ciudad>.LoSatisface(Ciudad C)
+		bool Civ.IRequerimiento<ICiudad>.LoSatisface(ICiudad C)
 		{
-			return C.CivDueno.Avances.Contains(this);
+			return C.Avances.Contains(this);
 		}
 
 		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)

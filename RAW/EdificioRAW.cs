@@ -8,7 +8,7 @@ namespace Civ
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
 	[DataContract(IsReference = true, Name = "Edificio")]
-	public class EdificioRAW : IRequerimiento<Ciudad>, CivLibrary.Debug.IPlainSerializable
+	public class EdificioRAW : IRequerimiento<ICiudad>, CivLibrary.Debug.IPlainSerializable
 	{
 		[DataMember]
 		public string Nombre;
@@ -51,7 +51,7 @@ namespace Civ
 		{
 		}
 		// IRequerieminto
-		bool Civ.IRequerimiento<Ciudad>.LoSatisface(Ciudad C)
+		bool Civ.IRequerimiento<ICiudad>.LoSatisface(ICiudad C)
 		{
 			return C.ExisteEdificio(this);
 		}
@@ -89,7 +89,7 @@ namespace Civ
 		/// Devuelve la lista de requerimientos
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public List<IRequerimiento<Ciudad>> Reqs()
+		public List<IRequerimiento<ICiudad>> Reqs()
 		{
 			//List<IRequerimiento> ret = Basic.Covertidor<string, IRequerimiento>.ConvertirLista(Requiere, x => Global.g_.Data.EncuentraRequerimiento(x));
 			return Requiere.Requiere();

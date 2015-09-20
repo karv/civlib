@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Civ
 {
-	public class ControlDiplomacia : Dictionary<Civilizacion, EstadoDiplomatico>, IDiplomacia
+	public class ControlDiplomacia : Dictionary<ICivilizacion, EstadoDiplomatico>, IDiplomacia
 	{
 		public ControlDiplomacia()
 		{

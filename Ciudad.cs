@@ -8,8 +8,24 @@ namespace Civ
 	/// <summary>
 	/// Representa una instancia de ciudad.
 	/// </summary>
-	public class Ciudad : ITickable, IAlmacenante, IPosicionable
+	public class Ciudad : ICiudad
 	{
+		#region ICiudad
+
+		public string Nombre
+		{
+			get
+			{
+				return _nombre;
+			}
+			set
+			{
+				_nombre = value;
+			}
+		}
+
+		#endregion
+
 		#region General
 
 		/// <summary>
@@ -21,6 +37,14 @@ namespace Civ
 			get
 			{
 				return Terr;
+			}
+		}
+
+		public ICollection<Ciencia> Avances
+		{ 
+			get
+			{
+				return CivDueno.Avances;
 			}
 		}
 
@@ -41,8 +65,8 @@ namespace Civ
 		/// <summary>
 		/// Nombre de la ciudad.
 		/// </summary>
-		public string Nombre;
-		Civilizacion _CivDueño;
+		public string _nombre;
+		ICivilizacion _CivDueño;
 
 		/// <summary>
 		/// Determina si se autoreclutan trabajadores, por prioridad, al aumentar la población.
@@ -53,7 +77,7 @@ namespace Civ
 		/// Devuelve o establece la civilización a la cual pertecene esta ciudad.
 		/// </summary>
 		/// <value>The civ dueño.</value>
-		public Civilizacion CivDueno
+		public ICivilizacion CivDueno
 		{
 			get
 			{
@@ -62,14 +86,14 @@ namespace Civ
 			set
 			{
 				if (_CivDueño != null)
-					_CivDueño.getCiudades.Remove(this);
+					_CivDueño.Ciudades.Remove(this);
 				_CivDueño = value;
 				if (_CivDueño != null)
-					_CivDueño.getCiudades.Add(this);
+					_CivDueño.Ciudades.Add(this);
 			}
 		}
 
-		public Ciudad(Civilizacion dueño, Terreno t, float inipop = 1)
+		public Ciudad(ICivilizacion dueño, Terreno t, float inipop = 1)
 			: this(g_.getUniqueCityName(), dueño, t, inipop)
 		{
 		}
@@ -80,7 +104,7 @@ namespace Civ
 		/// <param name="Nom">Nombre de la ciudad.</param>
 		/// <param name="Dueño">Civ a la que pertenece esta ciudad.</param>
 		/// <param name="T">Terreno de contrucción de la ciudad.</param>
-		public Ciudad(string Nom, Civilizacion Dueño, Terreno T, float iniPop = 1)
+		public Ciudad(string Nom, ICivilizacion Dueño, Terreno T, float iniPop = 1)
 		{
 			_PoblacionProductiva = iniPop;
 			Nombre = Nom;
@@ -164,21 +188,6 @@ namespace Civ
 		/// </summary>
 		public AlmacenCiudad Almacen;
 
-		/// <summary>
-		/// Devuelve el alimento existente en la ciudad.
-		/// </summary>
-		/// <value>The alimento almacén.</value>
-		public float AlimentoAlmacen
-		{
-			get
-			{
-				return Almacen[RecursoAlimento];
-			}
-			set
-			{
-				Almacen.Add(RecursoAlimento, value);
-			}
-		}
 
 		#endregion
 
@@ -568,7 +577,7 @@ namespace Civ
 				List<TrabajoRAW> ret = new List<TrabajoRAW>();
 				foreach (var x in Global.g_.Data.Trabajos)
 				{
-					List<IRequerimiento<Ciudad>> Req = new List<IRequerimiento<Ciudad>>();
+					List<IRequerimiento<ICiudad>> Req = new List<IRequerimiento<ICiudad>>();
 					foreach (var y in x.Requiere.Requiere())
 					{
 						Req.Add(y);
@@ -684,9 +693,9 @@ namespace Civ
 		/// </summary>
 		/// <param name="Req">Un requerimiento</param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface un Irequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq(IRequerimiento<Ciudad> Req)
+		public bool SatisfaceReq(IRequerimiento<ICiudad> Req)
 		{
-			return Req.LoSatisface(this);
+			return  Req.LoSatisface(this);
 		}
 
 		/// <summary>
@@ -694,12 +703,46 @@ namespace Civ
 		/// </summary>
 		/// <param name="Req"></param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface todos los IRequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq(List<IRequerimiento<Ciudad>> Req)
+		public bool SatisfaceReq(List<IRequerimiento<ICiudad>> Req)
 		{
 			return Req.TrueForAll(x => x.LoSatisface(this));
 		}
 
 		#endregion
+
+		#region Puntuación
+
+		float IPuntuado.Puntuacion
+		{
+			get
+			{
+				float ret = 0;
+				// Recursos
+				foreach (var x in Almacen)
+				{
+					ret += x.Value;
+				}
+
+				// Población
+				ret += getPoblacionPreProductiva * 2 + getPoblacionProductiva * 3 + getPoblacionPostProductiva;
+
+				return ret;
+			}
+		}
+
+		#endregion
+
+		public float AlimentoAlmacen
+		{ 
+			get
+			{
+				return Almacen[RecursoAlimento];
+			}
+			set
+			{
+				Almacen[RecursoAlimento] = value;
+			}
+		}
 
 		#region ITickable
 
@@ -762,7 +805,7 @@ namespace Civ
 
 			if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
 			{
-				CivDueno.AgregaMensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this);
+				CivDueno.AgregaMensaje(new IU.Mensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this));
 				LiberarTrabajadores(getPoblacionProductiva - (ulong)Crecimiento[1]);
 
 			}
@@ -788,7 +831,7 @@ namespace Civ
 		/// <summary>
 		/// Da un tick hereditario.
 		/// </summary>
-		public void Tick(float t = 1)
+		public void ResourceTick(float t = 1)
 		{
 			foreach (ITickable x in Edificios)
 			{
@@ -849,10 +892,10 @@ namespace Civ
 		/// Ejecuta ambos: Tick () y PopTick ().
 		/// En ese orden.
 		/// </summary>
-		public void FullTick(float t = 1)
+		public void Tick(float t = 1)
 		{
 			PopTick(t);
-			Tick(t);
+			ResourceTick(t);
 			if (CivDueno != null && getPoblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				CivDueno.removeCiudad(this);
