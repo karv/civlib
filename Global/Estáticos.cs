@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using Civ;
 using Civ.Options;
+using Civ.Barbaros;
 
 namespace Global
 {
@@ -13,10 +14,10 @@ namespace Global
 	public static class g_
 	{
 		static NewGameOptions PrefsJuegoNuevo = new NewGameOptions();
+		static GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras();
 		[DataMember(Name = "Data")]
 		public static g_Data Data = new g_Data();
 		public static g_State State = new g_State();
-		private const string archivo = "Data.xml";
 
 		public static void Tick(float t = 1)
 		{
@@ -59,7 +60,14 @@ namespace Global
 
 			// Matar Civs sin ciudades.
 			State.Civs.RemoveAll(x => (x.Ciudades.Count == 0));
+
+			// Generar b¨¢rbaros
+			BarbGen.Tick(t);
 		}
+
+		#region IO
+
+		private const string archivo = "Data.xml";
 
 		/// <summary>
 		/// Carga del archivo predeterminado.
@@ -82,6 +90,8 @@ namespace Global
 		{
 			Store.Store<g_Data>.Serialize(f, Data);
 		}
+
+		#endregion
 
 		public static Random r = new Random();
 
@@ -159,6 +169,8 @@ namespace Global
 			}
 		}
 
+		#region Unicidad de nombres
+
 		/// <summary>
 		/// Devuelve un nombre de civilizaci¨®n ¨²nico
 		/// </summary>
@@ -229,5 +241,7 @@ namespace Global
 					return strtmp;
 			}
 		}
+
+		#endregion
 	}
 }

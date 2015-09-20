@@ -15,7 +15,27 @@ namespace test
 			g_.CargaData();
 			Global.g_.InicializarJuego();
 
-			TestPeleaArmadas();
+			TestGeneradorArmadas();
+		}
+
+		static void TestGeneradorArmadas()
+		{
+			DateTime timer = DateTime.Now;
+			float MultiplicadorVelocidad = 100;
+
+			while (true)
+			{
+				TimeSpan tiempo = DateTime.Now - timer;
+				timer = DateTime.Now;
+				float t = (float)tiempo.TotalHours * MultiplicadorVelocidad;
+
+				// Console.WriteLine (t);
+				Global.g_.Tick(t);
+
+				if (Global.g_.State.Civs.Count == 0)
+					throw new Exception("Ya se acabó el juego :3");
+			}
+
 		}
 
 		static void TestPeleaArmadas()
