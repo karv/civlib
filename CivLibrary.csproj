@@ -84,6 +84,7 @@
     <Compile Include="ICivImportante.cs" />
     <Compile Include="ICiudad.cs" />
     <Compile Include="GeneradorArmadasBarbaras.cs" />
+    <Compile Include="IPuntuado.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

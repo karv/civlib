@@ -2,14 +2,13 @@ using System;
 using ListasExtra;
 using System.Collections.Generic;
 using Global;
-using ListasExtra.Set;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa una instancia de ciudad.
 	/// </summary>
-	public class Ciudad : ITickable, IAlmacenante, IPosicionable, ICiudad
+	public class Ciudad : ICiudad
 	{
 		#region ICiudad
 
@@ -707,6 +706,28 @@ namespace Civ
 		public bool SatisfaceReq(List<IRequerimiento<ICiudad>> Req)
 		{
 			return Req.TrueForAll(x => x.LoSatisface(this));
+		}
+
+		#endregion
+
+		#region Puntuación
+
+		float IPuntuado.Puntuacion
+		{
+			get
+			{
+				float ret = 0;
+				// Recursos
+				foreach (var x in Almacen)
+				{
+					ret += x.Value;
+				}
+
+				// Población
+				ret += getPoblacionPreProductiva * 2 + getPoblacionProductiva * 3 + getPoblacionPostProductiva;
+
+				return ret;
+			}
 		}
 
 		#endregion

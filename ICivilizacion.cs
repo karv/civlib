@@ -7,7 +7,7 @@ namespace Civ
 	/// <summary>
 	/// Una interface de civilización
 	/// </summary>
-	public interface ICivilizacion : ITickable
+	public interface ICivilizacion : ITickable, IPuntuado
 	{
 		string Nombre { get; set; }
 

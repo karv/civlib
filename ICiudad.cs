@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Civ
 {
-	public interface ICiudad: IAlmacenante, ITickable
+	public interface ICiudad: IAlmacenante, ITickable, IPuntuado, IPosicionable
 	{
 		ICollection<Ciencia> Avances { get; }
 

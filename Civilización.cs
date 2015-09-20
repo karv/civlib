@@ -286,6 +286,29 @@ namespace Civ
 
 		#endregion
 
+		#region Puntuación
+
+		float IPuntuado.Puntuacion
+		{ 
+			get
+			{
+				float ret = 0;
+
+				// De las ciudades
+				foreach (IPuntuado x in Ciudades)
+				{
+					ret += x.Puntuacion;
+				}
+
+				// De las ciencias
+				ret += 100 * Avances.Count;
+
+				return ret;
+			}
+		}
+
+		#endregion
+
 		#region Tick
 
 		// Ticks
