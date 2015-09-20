@@ -63,12 +63,6 @@ namespace Civ
 
 		#endregion
 
-		#region Eventos
-
-		public event EventHandler AlMorir;
-
-		#endregion
-
 		#region ctor
 
 		/// <summary>
