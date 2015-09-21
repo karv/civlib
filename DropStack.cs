@@ -5,7 +5,10 @@ using Civ.Data;
 
 namespace Civ
 {
-	public class DropStack: IPosicionable, IAlmacén
+	/// <summary>
+	/// Representa un conjunto de recursos que no están (necesariamente) en una ciudad.
+	/// </summary>
+	public class DropStack : IPosicionable, IAlmacén
 	{
 		public DropStack (Pseudoposición pos)
 		{
