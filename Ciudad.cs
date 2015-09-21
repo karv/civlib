@@ -253,6 +253,12 @@ namespace Civ
 					}
 				}
 			}
+
+			// Si es alimento, lo que se van a comer
+			if (Recurso == RecursoAlimento)
+				ret -= getPoblacion * ConsumoAlimentoPorCiudadanoBase;
+
+
 			return ret;
 		}
 
