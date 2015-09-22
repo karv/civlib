@@ -74,21 +74,20 @@
     <Compile Include="RAW\UnidadRAW.cs" />
     <Compile Include="Stack.cs" />
     <Compile Include="TasaProd.cs" />
-    <Compile Include="IPosicionable.cs" />
     <Compile Include="NewGameOptions.cs" />
-    <Compile Include="IDiplomacia.cs" />
     <Compile Include="ControlDiplomacia.cs" />
     <Compile Include="DiplomaciaNomada.cs" />
-    <Compile Include="ICivilizacion.cs" />
-    <Compile Include="ICivImportante.cs" />
-    <Compile Include="ICiudad.cs" />
     <Compile Include="GeneradorArmadasBarbaras.cs" />
-    <Compile Include="IPuntuado.cs" />
     <Compile Include="ReglaGeneracion.cs" />
-    <Compile Include="IReglaGeneracion.cs" />
     <Compile Include="CivilizacionBarbara.cs" />
     <Compile Include="ReglaGeneracionBarbaraGeneral.cs" />
     <Compile Include="InfoPoblacion.cs" />
+    <Compile Include="Interfaces\ICiudad.cs" />
+    <Compile Include="Interfaces\ICivilizacion.cs" />
+    <Compile Include="Interfaces\IDiplomacia.cs" />
+    <Compile Include="Interfaces\IPosicionable.cs" />
+    <Compile Include="Interfaces\IPuntuado.cs" />
+    <Compile Include="Interfaces\IReglaGeneracion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
