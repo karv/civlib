@@ -4,3 +4,4 @@ obj/
 *.csproj
 /CivLibrary.sln
 *.autosave
+/dll/

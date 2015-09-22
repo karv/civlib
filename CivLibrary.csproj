@@ -32,12 +32,11 @@
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
-    <Reference Include="ListaExtras">
-      <HintPath>..\ListaExtras\bin\Release\ListaExtras.dll</HintPath>
-    </Reference>
     <Reference Include="Grafos">
-      <HintPath>..\Grafo\bin\Release\Grafos.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>dll\Grafos.dll</HintPath>
+    </Reference>
+    <Reference Include="ListaExtras">
+      <HintPath>dll\ListaExtras.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
