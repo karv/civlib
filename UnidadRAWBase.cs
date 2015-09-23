@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ListasExtra;
+using Civ.Comandos;
 
 namespace Civ.Data
 {
-	public abstract class UnidadRAWBase : IUnidadRAW
+	public class UnidadRAWBase : IUnidadRAW
 	{
 		List<String> _flags = new List<string> ();
 
@@ -17,12 +18,12 @@ namespace Civ.Data
 		[DataMember (Name = "CostePoblación")]
 		public ulong CostePoblacional;
 
-		List<ComandoEspecial> _comandos = new List<ComandoEspecial> ();
+		List<IComandoEspecial> _comandos = new List<IComandoEspecial> ();
 
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad
 		/// </summary>
-		IEnumerable<ComandoEspecial> IUnidadRAW.Comandos
+		IEnumerable<IComandoEspecial> IUnidadRAW.Comandos
 		{
 			get
 			{
@@ -33,7 +34,7 @@ namespace Civ.Data
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad
 		/// </summary>
-		IList<ComandoEspecial> Comandos
+		IList<IComandoEspecial> Comandos
 		{
 			get
 			{

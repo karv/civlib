@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using Civ.Comandos;
 
 namespace Civ
 {
@@ -53,7 +54,6 @@ namespace Civ
 		/// Devuelve los comandos especiales de la unidad
 		/// </summary>
 		/// <value>The comandos.</value>
-		IEnumerable<ComandoEspecial> Comandos { get; }
+		IEnumerable<IComandoEspecial> Comandos { get; }
 	}
 }
-

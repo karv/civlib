@@ -1,27 +1,32 @@
-﻿using System;
-
-namespace Civ
+﻿namespace Civ.Comandos
 {
 	/// <summary>
 	/// Representa un comando especial para un stack.
 	/// pe Colonizar, Ir
 	/// </summary>
-	public struct ComandoEspecial
+	public interface IComandoEspecial
 	{
 		/// <summary>
 		/// Es posible realizar esta acción ahora
 		/// </summary>
-		public bool Habilitado;
+		bool Habilitado (Stack stack);
 
 		/// <summary>
 		/// nombre del comando
 		/// </summary>
-		public string Nombre;
+		string Nombre { get; }
 
 		/// <summary>
 		/// Realiza el comando para un Stack dado.
 		/// </summary>
-		public Action<Stack> Ejecutar;
+		void Ejecutar (Stack stack, ArgComando arg);
+	}
+
+	/// <summary>
+	/// Argumentos de un comando
+	/// </summary>
+	public class ArgComando
+	{
 	}
 }
 

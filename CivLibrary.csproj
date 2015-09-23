@@ -101,12 +101,13 @@
     <Compile Include="IUnidadRAWCombate.cs" />
     <Compile Include="UnidadRAWBase.cs" />
     <Compile Include="IUnidadRAWColoniza.cs" />
-    <Compile Include="ComandoEspecial.cs" />
     <Compile Include="Interfaces\ICivilización.cs" />
     <Compile Include="Ecología.cs" />
     <Compile Include="Objetos de estado\DiplomaciaNómada.cs" />
     <Compile Include="Orden\IOrden.cs" />
     <Compile Include="Orden\OrdenRecoger.cs" />
+    <Compile Include="Comandos\ComandoIr.cs" />
+    <Compile Include="Comandos\IComandoEspecial.cs" />
     <Compile Include="Objetos de estado\CivilizacionBárbara.cs" />
     <Compile Include="Ciencia\RequiereCiencia.cs" />
     <Compile Include="IImportable.cs" />
