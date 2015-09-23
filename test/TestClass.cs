@@ -148,13 +148,13 @@ namespace Test
 			DateTime timer = DateTime.Now;
 			while (duración.Ticks > 0)
 			{				
-				TimeSpan Tiempo = DateTime.Now - timer;
+				TimeSpan tiempo = DateTime.Now - timer;
 				timer = DateTime.Now;
-				duración -= Tiempo;
-				Tiempo = new TimeSpan ((long)(Tiempo.Ticks * multiplicadorVelocidad));
+				duración -= tiempo;
+				tiempo = new TimeSpan ((long)(tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);
-				Juego.Tick (Tiempo);
+				Juego.Tick (tiempo);
 
 				entreCiclos?.Invoke ();
 				if (Juego.State.Civs.Count == 0)

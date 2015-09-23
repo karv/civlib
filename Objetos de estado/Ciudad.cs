@@ -190,7 +190,7 @@ namespace Civ
 		/// <param name="unid">Unid.</param>
 		public ulong UnidadesConstruibles (UnidadRAW unid)
 		{
-			ulong max = TrabajadoresDesocupados / unid.CostePoblacion;
+			ulong max = TrabajadoresDesocupados / unid.CostePoblación;
 			if (unid.Reqs != null)
 				foreach (var y in unid.Reqs)
 				{
@@ -284,22 +284,12 @@ namespace Civ
 		/// <param name="uRAW">Clase de unidades a entrenar</param>
 		/// <param name="cantidad">Cantidad</param>
 		/// <returns>Devuelve un arreglo con las unidades que se pudieron entrenar.</returns>
-		public Stack Reclutar (UnidadRAW uRAW, ulong cantidad = 1)
+		public Stack Reclutar (IUnidadRAW uRAW, ulong cantidad = 1)
 		{
-			//Stack ret = null;
-			if (uRAW.CostePoblacion * cantidad <= TrabajadoresDesocupados &&
-			    Almacen.PoseeRecursos (uRAW.Reqs, cantidad))	//Si puede pagar
-			{
-				RealPoblaciónProductiva -= uRAW.CostePoblacion * cantidad;	// Recluta desde la poblaci�n productiva.
-				foreach (var x in uRAW.Reqs.Keys)				// Quita los recursos que requiere.
-				{
-					Almacen [x] -= uRAW.Reqs [x] * cantidad;
-				}
+			uRAW.Reclutar (cantidad, this);
+			AlReclutar?.Invoke (uRAW, cantidad);
 
-				Defensa.AgregaUnidad (uRAW, cantidad);
-				AlReclutar?.Invoke (uRAW, cantidad);
-			}
-			return Defensa [uRAW];
+			return Defensa [uRAW];											// Devuelve la unidad creada.
 		}
 
 		#endregion
@@ -825,7 +815,7 @@ namespace Civ
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		public event Action<UnidadRAW, ulong> AlReclutar;
+		public event Action<IUnidadRAW, ulong> AlReclutar;
 
 		/// <summary>
 		/// Ocurre cuando se cambia un proyecto de construcción

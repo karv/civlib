@@ -14,8 +14,7 @@ namespace Civ
 		/// <summary>
 		/// La clase a la que pertenece esta unidad.
 		/// </summary>
-		public UnidadRAW RAW { get; }
-
+		public readonly IUnidadRAW RAW;
 		ulong _cantidad;
 
 		/// <summary>
@@ -24,13 +23,25 @@ namespace Civ
 		public AlmacénStack Carga { get; }
 
 		/// <summary>
+		/// Devuelve la fuerza del RAW
+		/// </summary>
+		/// <value>The RAW fuerza.</value>
+		float RAWFuerza
+		{
+			get
+			{
+				return (RAW as IUnidadRAWCombate).Fuerza;
+			}
+		}
+
+		/// <summary>
 		/// Una medida de la habilidad actual de pelea
 		/// </summary>
 		public float Vitalidad
 		{
 			get
 			{
-				return _cantidad * _HP * RAW.Fuerza;
+				return _cantidad * _HP * RAWFuerza;
 			}
 		}
 
@@ -43,7 +54,7 @@ namespace Civ
 		{
 			get
 			{
-				return RAW.Fuerza * (1 + Entrenamiento);
+				return RAWFuerza * (1 + Entrenamiento);
 			}
 		}
 
@@ -80,14 +91,13 @@ namespace Civ
 		/// <summary>
 		/// Crea una instancia.
 		/// </summary>
-		/// <param name="uRAW">El RAW que tendrá esta unidad</param>
-		/// <param name="armada">Armada a la que pertenece este stack</param>
+		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
+		/// <param name="armada">Armada a la que pertenece esta unidad.</param>
 		/// <param name="cantidad">Cantidad de unidades que pertenecen al stack </param>
-		public Stack (UnidadRAW uRAW, ulong cantidad, Armada armada)
+		public Stack (IUnidadRAW uRAW, ulong cantidad, Armada armada)
 		{
 			Carga = new AlmacénStack (this);
 			RAW = uRAW;
-			Nombre = uRAW.Nombre;
 			_HP = 1;
 			_cantidad = cantidad;
 			_armadaPerteneciente = armada;
@@ -113,7 +123,14 @@ namespace Civ
 		/// <summary>
 		/// Devuelve o establece el nombre de esta unidad.
 		/// </summary>
-		public string Nombre;
+		public string Nombre
+		{
+			get
+			{
+				return RAW.Nombre;
+			}
+		}
+
 		float _Entrenamiento;
 
 		/// <summary>
@@ -255,12 +272,15 @@ namespace Civ
 		/// <param name="stack">Stack con quien comparar</param>
 		public float DañoPropuesto (Stack stack)
 		{
+			var cRAW = RAW as IUnidadRAWCombate;
 			float ret;
 			float mod = 0;
 			ret = Fuerza * Cantidad / stack.Fuerza;
-			foreach (var x in stack.RAW.Flags)
+
+			foreach (var y in cRAW.Modificadores)
 			{
-				mod += RAW.Mods [x];
+				if (stack.RAW.TieneFlag (y))
+					mod += cRAW.getModificador (y);
 			}
 			return ret * (1 + mod);
 		}
@@ -293,7 +313,7 @@ namespace Civ
 		/// <param name="raw">RAW de la armada a dañar</param>
 		/// <param name="atacante">Quien ataca</param>
 		/// <param name="t">Tiempo</param>
-		public void CausaDaño (Armada arm, UnidadRAW raw, Stack atacante, float t)
+		public void CausaDaño (Armada arm, IUnidadRAW raw, Stack atacante, float t)
 		{
 			Stack U = arm [raw];
 			float Daño = DañoPropuesto (U) * t;
@@ -366,36 +386,19 @@ namespace Civ
 		{
 			get
 			{
-				return ArmadaPerteneciente.Orden is Orden.OrdenEstacionado &&
-				RAW.PuedeColonizar &&
-				Posición.EnTerreno &&
-				Posición.A.CiudadConstruida == null;
+				return (ArmadaPerteneciente.Orden is Orden.OrdenEstacionado) &&
+				((RAW as IUnidadRAWColoniza).PuedeColonizar);
 			}
 		}
 
 		/// <summary>
 		/// Coloniza en el terreno actual.
 		/// </summary>
-		public Ciudad Colonizar ()
+		public ICiudad Colonizar ()
 		{
-			if (!PuedeColonizarAqui)
-				return null;
-			
-			var ret = new Ciudad (ArmadaPerteneciente.CivDueño, 
-				          Posición.A, 
-				          RAW.Colonización.Value.PoblacionACiudad * _cantidad);
-
-			// Al usuario
-			ArmadaPerteneciente.CivDueño.AgregaMensaje (new IU.Mensaje (
-				"ciudad {0} construida en {1}",
-				ret,
-				ret.Terr));
-			// Deshacer el stack
-			AbandonaArmada ();
-			AlColonizar?.Invoke (ret);
-
+			var ret = (RAW as IUnidadRAWColoniza)?.Coloniza ();
+			AlColonizar.Invoke (ret);
 			return ret;
-
 		}
 
 		#endregion

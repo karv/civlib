@@ -9,7 +9,7 @@ namespace Civ.Data
 	/// Representa una clase de unidad
 	/// </summary>
 	[DataContract (Name = "Unidad", IsReference = true)]
-	public class UnidadRAW : Civ.Debug.IPlainSerializable, IPuntuado
+	public class UnidadRAW : UnidadRAWBase, Civ.Debug.IPlainSerializable, IPuntuado
 	{
 		public class Modificadores : ListaPeso<string>
 		{
@@ -18,6 +18,7 @@ namespace Civ.Data
 		public class Requerimientos : ListaPeso<Recurso>
 		{
 		}
+
 
 		#region Settler
 
@@ -74,12 +75,6 @@ namespace Civ.Data
 		#endregion
 
 		/// <summary>
-		/// El nombre de la clase de unidad.
-		/// </summary>
-		[DataMember]
-		public string Nombre;
-
-		/// <summary>
 		/// Lista de modificadores de combate de la unidad.
 		/// </summary>        
 		[DataMember (Name = "Modificadores")]
@@ -99,12 +94,6 @@ namespace Civ.Data
 		public float Dispersion;
 
 		/// <summary>
-		/// Cómo se mueve por el mapa
-		/// </summary>
-		[DataMember]
-		public float Velocidad;
-
-		/// <summary>
 		/// Flags.
 		/// </summary>
 		[DataMember (Name = "Flags")]
@@ -122,27 +111,6 @@ namespace Civ.Data
 		/// </summary>
 		[DataMember (Name = "Ciencia")]
 		public Ciencia ReqCiencia { get; set; }
-
-		/// <summary>
-		/// Población productiva que requiere para entrenar.
-		/// </summary>
-		[DataMember (Name = "CostePoblación")]
-		public ulong CostePoblacion;
-		/// <summary>
-		/// Representa el coste de espacio de esta unidad en una armada.
-		/// </summary>
-		[DataMember]
-		public float Peso;
-
-		#region Posesión
-
-		/// <summary>
-		/// Cantidad de peso que puede cargar
-		/// </summary>
-		[DataMember]
-		public float MaxCarga;
-
-		#endregion
 
 		public override string ToString ()
 		{

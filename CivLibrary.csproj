@@ -97,6 +97,11 @@
     <Compile Include="DropStack.cs" />
     <Compile Include="Orden\OrdenIrALugar.cs" />
     <Compile Include="Almacén\AlmacénStack.cs" />
+    <Compile Include="IUnidadRAW.cs" />
+    <Compile Include="IUnidadRAWCombate.cs" />
+    <Compile Include="UnidadRAWBase.cs" />
+    <Compile Include="IUnidadRAWColoniza.cs" />
+    <Compile Include="ComandoEspecial.cs" />
     <Compile Include="Interfaces\ICivilización.cs" />
     <Compile Include="Ecología.cs" />
     <Compile Include="Objetos de estado\DiplomaciaNómada.cs" />
