@@ -112,12 +112,12 @@
     <Compile Include="ImportMachine.cs" />
     <Compile Include="UnidadRAW.cs" />
     <Compile Include="UnidadRAWColono.cs" />
-    <Compile Include="RAW\UnidadRAWCombate.cs" />    
+    <Compile Include="RAW\UnidadRAWCombate.cs" />
+    <Compile Include="ListaUnidades.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <EmbeddedResource Include="Data.xml">
-      <LogicalName>Data.xml</LogicalName>
       <DeployService-Deploy>True</DeployService-Deploy>
     </EmbeddedResource>
     <EmbeddedResource Include="Nombres\NombresCiudad.txt">
