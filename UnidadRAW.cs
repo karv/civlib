@@ -6,10 +6,11 @@ using Civ.Comandos;
 
 namespace Civ.Data
 {
-	public class UnidadRAWBase : IUnidadRAW
+	public class UnidadRAW : IUnidadRAW
 	{
 		List<String> _flags = new List<string> ();
 
+		[DataMember (Name = "Requerimientos")]
 		ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso> ();
 
 		/// <summary>
@@ -18,8 +19,6 @@ namespace Civ.Data
 		[DataMember (Name = "CostePoblación")]
 		public ulong CostePoblacional;
 
-		List<IComandoEspecial> _comandos = new List<IComandoEspecial> ();
-
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad
 		/// </summary>
@@ -27,20 +26,22 @@ namespace Civ.Data
 		{
 			get
 			{
-				return _comandos;
+				return Comandos;
+			}
+		}
+
+		public float Puntuación
+		{
+			get
+			{
+				throw new NotImplementedException ();
 			}
 		}
 
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad
 		/// </summary>
-		IList<IComandoEspecial> Comandos
-		{
-			get
-			{
-				return _comandos;
-			}
-		}
+		public IList<IComandoEspecial> Comandos { get; }
 
 		/// <summary>
 		/// Peso de cada unidad de este tipo
@@ -58,7 +59,7 @@ namespace Civ.Data
 		/// Gets or sets the position.
 		/// </summary>
 		/// <value>The position.</value>
-		public Pseudoposicion Pos { get; set; }
+		public Pseudoposición Pos { get; set; }
 
 		/// <summary>
 		/// Velocidad de desplazamiento (unidades por hora)

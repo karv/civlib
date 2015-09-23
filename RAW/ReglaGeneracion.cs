@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Global;
-using Civ.Data;
 
 namespace Civ.Bárbaros
 {
@@ -22,7 +21,7 @@ namespace Civ.Bárbaros
 		/// <summary>
 		/// Armada que podría generar.
 		/// </summary>
-		public ICollection<Tuple<UnidadRAW, ulong>> ClaseArmada;
+		public ICollection<Tuple<IUnidadRAW, ulong>> ClaseArmada;
 		GameState _estado;
 
 		#region IReglaGeneracion

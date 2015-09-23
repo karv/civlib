@@ -9,7 +9,7 @@ namespace Civ.Data
 	/// Representa una clase de unidad
 	/// </summary>
 	[DataContract (Name = "Unidad", IsReference = true)]
-	public class UnidadRAW : UnidadRAWBase, Civ.Debug.IPlainSerializable, IPuntuado
+	public class UnidadRAWCombate : UnidadRAW, IPuntuado, IUnidadRAWCombate
 	{
 		public class Modificadores : ListaPeso<string>
 		{
@@ -80,18 +80,25 @@ namespace Civ.Data
 		[DataMember (Name = "Modificadores")]
 		public Modificadores Mods { get; }
 
+		float IUnidadRAWCombate.getModificador (string modificador)
+		{
+			return Mods [modificador];
+		}
+
+		IEnumerable<string> IUnidadRAWCombate.Modificadores{ get { return Mods.Keys; } }
+
 		/// <summary>
 		/// Fuerza de la unidad.
 		/// </summary>
 		[DataMember]
-		public float Fuerza;
+		public float Fuerza { get; set; }
 
 		/// <summary>
 		/// Flotante en [0, 1]
 		/// Qué tanto se dispersa el daño entre el stack enemigo.
 		/// </summary>
 		[DataMember]
-		public float Dispersion;
+		public float Dispersion { get; set; }
 
 		/// <summary>
 		/// Flags.
@@ -115,23 +122,6 @@ namespace Civ.Data
 		public override string ToString ()
 		{
 			return Nombre;
-		}
-
-		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
-		{
-			string tab = "";
-			string ret;
-			for (int i = 0; i < tabs; i++)
-			{
-				tab += "\t";
-			}
-			ret = tab + "(Unidad)" + Nombre + "\n";
-
-			foreach (var x in Reqs.Keys)
-			{
-				ret += ((Civ.Debug.IPlainSerializable)x).PlainSerialize (tabs + 1);
-			}
-			return ret;
 		}
 	}
 }

@@ -94,13 +94,6 @@ namespace Civ.Debug
 				if (obj is IRequerimiento<ICiudad> && x.Reqs ().Contains ((IRequerimiento<ICiudad>)obj))
 					sw.WriteLine ("(Trabajo)" + x);
 			}
-			foreach (var x in glob.Unidades)
-			{
-				if (x.ReqCiencia == obj)
-					sw.WriteLine ("(Unidad)" + x);
-				if (obj is Recurso && x.Reqs.ContainsKey ((Recurso)obj))
-					sw.WriteLine ("(Unidad)" + x);
-			}
 
 			sw.Close ();
 		}

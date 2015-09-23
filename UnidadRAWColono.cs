@@ -1,0 +1,85 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Civ.Orden;
+
+namespace Civ.Data
+{
+	public class UnidadRAWColono : UnidadRAW, IUnidadRAWColoniza
+	{
+		[DataMember (Name = "RecursosIniciales")]
+		public AlmacenCiudad RecursosPorUnidad;
+
+		[DataMember (Name = "Edificios")]
+		EdificioRAW [] _edificiosIniciales;
+
+		/// <summary>
+		/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
+		/// </summary>
+		[DataMember (Name = "Población")]
+		public float PoblacionACiudad;
+
+		/// <summary>
+		/// Mínica cantidad para poder colonizar
+		/// </summary>
+		/// <value>The edificios iniciales.</value>
+		[DataMember (Name = "CantidadColonizar")]
+		public ulong MinCantidadColonizar;
+
+		/// <summary>
+		/// Edificios con los que inicia la nueva ciudad.
+		/// </summary>
+		public EdificioRAW[] EdificiosIniciales
+		{
+			get
+			{
+				return _edificiosIniciales ?? new EdificioRAW[0];
+			}
+			set
+			{
+				_edificiosIniciales = value;
+			}
+		}
+
+		/// <summary>
+		/// Coloniza aquí
+		/// </summary>
+		/// <returns>Devuelve la ciudad que colonizó</returns>
+		/// <param name="stack">Stack.</param>
+		public ICiudad Coloniza (Stack stack)
+		{
+			var ret = new Ciudad (stack.ArmadaPerteneciente.CivDueño, 
+				          stack.Posición.A, 
+				          PoblacionACiudad * stack.Cantidad);
+
+			// Hacer los primeros edificios
+			foreach (var x in _edificiosIniciales)
+			{
+				ret.AgregaEdificio (x);
+			}
+
+			// Los recursos
+			foreach (var x in RecursosPorUnidad)
+			{
+				ret.Almacen [x.Key] = x.Value * stack.Cantidad;
+			}
+
+			AlColonizar?.Invoke (ret);
+
+			return ret;
+		}
+
+		public bool PuedeColonizar (Stack stack)
+		{
+			return stack.Posición.EnTerreno &&
+			stack.ArmadaPerteneciente.Orden is OrdenEstacionado &&
+			stack.Cantidad >= MinCantidadColonizar;
+		}
+
+		/// <summary>
+		/// Ocurre cuando esta unidad coloniza
+		/// </summary>
+		public event Action<ICiudad> AlColonizar;
+	}
+}
+

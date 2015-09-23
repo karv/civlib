@@ -376,7 +376,8 @@ namespace Civ
 		public void DañarStack (IUnidadRAW unidad, Stack atacante, float deltaHP)
 		{
 			Stack currStack = this [unidad];
-			currStack.Dañar (-deltaHP, (atacante.RAW as IUnidadRAWCombate).Dispersion);
+			var atacanteRAW = atacante.RAW as IUnidadRAWCombate;
+			currStack.Dañar (-deltaHP, atacanteRAW.Dispersion);
 			if (currStack.HP < 0)
 			{
 				_unidades.Remove (unidad);

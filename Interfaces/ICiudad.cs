@@ -65,12 +65,12 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la cantidad máxima de unidades contruíbles de cierto tipo.
 		/// </summary>
-		ulong UnidadesConstruibles (UnidadRAW unidad);
+		ulong UnidadesConstruibles (IUnidadRAW unidad);
 
 		/// <summary>
 		/// Devuelve una colección de las unidades que podrían ser contruidas en esta ciudad
 		/// </summary>
-		ICollection<UnidadRAW> UnidadesConstruibles ();
+		ICollection<IUnidadRAW> UnidadesConstruibles ();
 
 		/// <summary>
 		/// Recluta unidades directamente a la armada Defensa

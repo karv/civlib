@@ -13,7 +13,7 @@ namespace Civ
 	{
 		#region ICiudad
 
-		System.Collections.Generic.ICollection<UnidadRAW> ICiudad.UnidadesConstruibles ()
+		System.Collections.Generic.ICollection<IUnidadRAW> ICiudad.UnidadesConstruibles ()
 		{
 			return UnidadesConstruibles ().Keys;
 		}
@@ -168,16 +168,15 @@ namespace Civ
 		/// Devuelve un nuevo diccionario cuyas entradas son el número de unidades que puede construir la ciudad, por cada unidad.
 		/// </summary>
 		/// <returns>The construibles.</returns>
-		public Dictionary<UnidadRAW, ulong> UnidadesConstruibles ()
+		public Dictionary<IUnidadRAW, ulong> UnidadesConstruibles ()
 		{
-			var ret = new Dictionary<UnidadRAW, ulong> ();
+			var ret = new Dictionary<IUnidadRAW, ulong> ();
 
 			foreach (var x in Juego.Data.Unidades)
 			{
-				if (x.ReqCiencia == null || CivDueno.Avances.Contains (x.ReqCiencia))
-				{
-					ret.Add (x, UnidadesConstruibles (x));
-				}
+				var recl = x.MaxReclutables (this);
+				if (recl > 0)
+					ret.Add (x, x.MaxReclutables (this));
 			}
 			return ret;
 		}
@@ -188,16 +187,9 @@ namespace Civ
 		/// </summary>
 		/// <returns>The construibles.</returns>
 		/// <param name="unid">Unid.</param>
-		public ulong UnidadesConstruibles (UnidadRAW unid)
+		public ulong UnidadesConstruibles (IUnidadRAW unid)
 		{
-			ulong max = TrabajadoresDesocupados / unid.CostePoblación;
-			if (unid.Reqs != null)
-				foreach (var y in unid.Reqs)
-				{
-					// ¿Cuántas unidades puede hacer, limitando por recursos?
-					max = (ulong)Math.Min (Almacen [y.Key] / y.Value, max);
-				}
-			return max;
+			return unid.MaxReclutables (this);
 		}
 
 		#endregion
@@ -682,8 +674,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la instancia de trabajo en esta ciudad, si existe. Si no, la crea y la devuelve cuando <c>CrearInstancia</c>.
 		/// </summary>
-		/// <param name="raw"></param>
-		/// TrabajoRAW que se busca
+		/// <param name="raw">TrabajoRAW que se busca</param>
 		/// <returns>Devuelve el trabajo en la ciudad correspondiente a este TrabajoRAW.</returns>
 		public Trabajo EncuentraInstanciaTrabajo (TrabajoRAW raw)
 		{
@@ -994,7 +985,7 @@ namespace Civ
 		}
 
 		/// <summary>
-		/// Ejecuta ambos: Tick () y PopTick ().
+		/// Ejecuta PopTick (), ResourseTick y PopTick ().
 		/// En ese orden.
 		/// </summary>
 		public void Tick (TimeSpan t)

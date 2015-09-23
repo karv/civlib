@@ -19,7 +19,7 @@
 
 		public class Args : ArgComando
 		{
-			public Pseudoposicion Destino;
+			public Pseudoposición Destino;
 		}
 	}
 }

@@ -109,7 +109,7 @@ namespace Civ
 		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
 		/// <param name="ciudad">Ciudad donde se creará a esta unidad.</param>
 		/// <param name="cantidad">Cantidad de unidades que pertenecen al stack </param>
-		public Stack (UnidadRAW uRAW, ulong cantidad, ICiudad ciudad)
+		public Stack (IUnidadRAW uRAW, ulong cantidad, ICiudad ciudad)
 			: this (uRAW,
 			        cantidad,
 			        ciudad.Defensa)
@@ -387,7 +387,7 @@ namespace Civ
 			get
 			{
 				return (ArmadaPerteneciente.Orden is Orden.OrdenEstacionado) &&
-				((RAW as IUnidadRAWColoniza).PuedeColonizar);
+				((RAW as IUnidadRAWColoniza).PuedeColonizar (this));
 			}
 		}
 
@@ -396,7 +396,7 @@ namespace Civ
 		/// </summary>
 		public ICiudad Colonizar ()
 		{
-			var ret = (RAW as IUnidadRAWColoniza)?.Coloniza ();
+			var ret = (RAW as IUnidadRAWColoniza)?.Coloniza (this);
 			AlColonizar.Invoke (ret);
 			return ret;
 		}

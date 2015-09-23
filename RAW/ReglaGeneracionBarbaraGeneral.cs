@@ -1,7 +1,6 @@
 ﻿using Civ;
 using Global;
 using System.Collections.Generic;
-using Civ.Data;
 
 namespace Civ.Bárbaros
 {
@@ -31,7 +30,7 @@ namespace Civ.Bárbaros
 		{
 			float PuntRestante = CoefPuntuacion * _estado.SumaPuntuacion () / _estado.CivsVivas ().Count;
 
-			var Unidades = new List<UnidadRAW> (Juego.Data.Unidades);
+			var Unidades = new List<IUnidadRAW> (Juego.Data.Unidades);
 			var cb = new CivilizacionBárbara ();
 
 			var ppos = new List<Pseudoposición> (_estado.Topología.Nodos);
@@ -41,11 +40,11 @@ namespace Civ.Bárbaros
 
 			while (Unidades.Count > 0 && PuntRestante >= 0)
 			{
-				UnidadRAW unid = Unidades [Juego.Rnd.Next (Unidades.Count)];
+				IUnidadRAW unid = Unidades [Juego.Rnd.Next (Unidades.Count)];
 				Unidades.Remove (unid);
-				ulong Cant = (ulong)(PuntRestante / ((IPuntuado)unid).Puntuación);
+				ulong Cant = (ulong)(PuntRestante / unid.Puntuación);
 				ret.AgregaUnidad (unid, Cant);
-				PuntRestante -= Cant * ((IPuntuado)unid).Puntuación;
+				PuntRestante -= Cant * unid.Puntuación;
 			}
 
 			return ret;

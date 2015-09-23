@@ -6,7 +6,7 @@ namespace Civ
 	/// <summary>
 	/// Una clase de unidad
 	/// </summary>
-	public interface IUnidadRAW
+	public interface IUnidadRAW : IPuntuado
 	{
 		/// <summary>
 		/// Revisa si esta unidad tiene un flag
