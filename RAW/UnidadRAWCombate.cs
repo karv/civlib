@@ -106,19 +106,6 @@ namespace Civ.Data
 		[DataMember (Name = "Flags")]
 		public ICollection<string> Flags { get; }
 
-		// Reqs
-		/// <summary>
-		/// Requerimientos para crearse.
-		/// </summary>
-		[DataMember (Name = "Requerimientos")]
-		public Requerimientos Reqs { get; }
-
-		/// <summary>
-		/// Devuelve la ciencia requerida para entrenar a la unidad.
-		/// </summary>
-		[DataMember (Name = "Ciencia")]
-		public Ciencia ReqCiencia { get; set; }
-
 		public override string ToString ()
 		{
 			return Nombre;

@@ -174,8 +174,7 @@ namespace Civ
 
 			foreach (var x in Juego.Data.Unidades)
 			{
-				var recl = x.MaxReclutables (this);
-				if (recl > 0)
+				if (x.EstaDisponible(CivDueno))
 					ret.Add (x, x.MaxReclutables (this));
 			}
 			return ret;

@@ -55,5 +55,12 @@ namespace Civ
 		/// </summary>
 		/// <value>The comandos.</value>
 		IEnumerable<IComandoEspecial> Comandos { get; }
+
+		/// <summary>
+		/// Revisa si esta unidad está disponible para ser creada por una civilización
+		/// </summary>
+		/// <returns><c>true</c>, si está disponible; <c>false</c> otherwise.</returns>
+		/// <param name="civil">Civilización</param>
+		bool EstaDisponible (ICivilización civil);
 	}
 }

@@ -6,18 +6,35 @@ using Civ.Comandos;
 
 namespace Civ.Data
 {
+	[DataContract (Name = "Unidad", IsReference = true)]
 	public class UnidadRAW : IUnidadRAW
 	{
 		List<String> _flags = new List<string> ();
 
 		[DataMember (Name = "Requerimientos")]
-		ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso> ();
+		readonly ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso> ();
 
 		/// <summary>
 		/// Coste poblacional por cada unidad
 		/// </summary>
 		[DataMember (Name = "CostePoblación")]
 		public ulong CostePoblacional;
+
+		/// <summary>
+		/// Devuelve la ciencia requerida para entrenar a la unidad.
+		/// </summary>
+		public Ciencia ReqCiencia
+		{
+			get { return _ReqCiencia; }
+			set { _ReqCiencia = value; }
+		}
+
+		[DataMember (Name = "Ciencia")]
+		Ciencia _ReqCiencia;
+
+
+
+		#region UnidadRAW
 
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad
@@ -124,6 +141,32 @@ namespace Civ.Data
 
 			ciudad.Defensa.AgregaUnidad (this, realCantidad);
 		}
+
+
+
+		[DataMember]
+		public float Puntuacion { get; set; }
+
+		public bool EstaDisponible (ICivilización civil)
+		{
+			return civil.Avances.Contains (ReqCiencia);
+		}
+
+		#endregion
+
+		public override string ToString ()
+		{
+			return Nombre;
+		}
+
+		/// <summary>
+		/// Requerimientos para crearse.
+		/// </summary>
+		public ListaPeso<Recurso> Reqs
+		{
+			get { return _Reqs; }
+		}
+
 	}
 }
 
