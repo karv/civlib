@@ -137,6 +137,7 @@ namespace Civ
 		public Ciudad(string nombre, ICivilizacion dueño, Terreno terreno, float iniPop = 1)
 		{
 			_PoblacionProductiva = iniPop;
+			CivDueno = dueño;
 			Nombre = nombre;
 			Almacen = new AlmacenCiudad(this);
 			terreno.CiudadConstruida = this;
@@ -155,7 +156,7 @@ namespace Civ
 				AgregaPropiedad(x);
 			}
 
-			CivDueno = dueño;	//Éste debe ser último.
+
 
 			IntentaConstruirAutoconstruibles(); // Construir autoconstruibles
 		}
