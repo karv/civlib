@@ -10,15 +10,15 @@ namespace Civ
 	{
 		IEnumerable<Recurso> recursos { get; }
 
-		float recurso(Recurso R);
+		float recurso(Recurso recurso);
 	}
 
 	public interface IAlmacén : IAlmacénRead
 	{
 		[ObsoleteAttribute]
-		void setRecurso(Recurso rec, float val);
+		void SetRecurso(Recurso rec, float val);
 
-		void changeRecurso(Recurso rec, float delta);
+		void ChangeRecurso(Recurso rec, float delta);
 
 
 	}
@@ -31,7 +31,7 @@ namespace Civ
 		/// <returns>Un diccionario con las mismas entradas que este IAlmacén.</returns>
 		public static Dictionary<Recurso, float> ToDictionary(this IAlmacénRead alm)
 		{
-			Dictionary<Recurso, float> ret = new Dictionary<Recurso, float>();
+			var ret = new Dictionary<Recurso, float>();
 			foreach (var x in alm.recursos)
 			{
 				ret.Add(x, alm.recurso(x));
@@ -42,11 +42,11 @@ namespace Civ
 
 	public class AlmacénMáximo: AlmacenCiudad
 	{
-		public float max;
+		public float Max;
 
 		#region ctor
 
-		public AlmacénMáximo(Ciudad C) : base(C)
+		public AlmacénMáximo(Ciudad ciudad) : base(ciudad)
 		{
 		}
 
@@ -55,20 +55,20 @@ namespace Civ
 		/// <summary>
 		/// Devuelve el espacio libre.
 		/// </summary>
-		public float libre()
+		public float Libre()
 		{
-			return max - this.SumaTotal();
+			return Max - SumaTotal();
 		}
 
-		public new float this [Recurso R]
+		public new float this [Recurso recurso]
 		{
 			get
 			{
-				return base[R];
+				return base[recurso];
 			}
 			set
 			{
-				base[R] = Math.Min(value, base[R] + libre());
+				base[recurso] = Math.Min(value, base[recurso] + Libre());
 			}
 		}
 	}

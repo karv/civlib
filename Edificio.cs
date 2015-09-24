@@ -61,7 +61,7 @@ namespace Civ
 		/// <summary>
 		/// Produce un tick productivo hereditario.
 		/// </summary>
-		public void Tick(float t = 1)
+		public void Tick(float t)
 		{
 			if (RAW.Salida != null)
 				foreach (var x in RAW.Salida)
@@ -82,13 +82,13 @@ namespace Civ
 
 		#region Trabajo
 
-		System.Collections.Generic.List<Trabajo> _Trabajo = new System.Collections.Generic.List<Trabajo>();
+		readonly List<Trabajo> _Trabajo = new List<Trabajo>();
 
 		/// <summary>
 		/// Devuelve la lista de instancias de trabajo de este edificio
 		/// </summary>
 		/// <value>The _ trabajo.</value>
-		public System.Collections.Generic.List<Trabajo> Trabajos
+		public List<Trabajo> Trabajos
 		{
 			get
 			{
@@ -100,7 +100,7 @@ namespace Civ
 		/// Devuelve el número de trabajadores ocupados en este edificio.
 		/// </summary>
 		/// <value>The get trabajadores.</value>
-		public ulong getTrabajadores
+		public ulong Trabajadores
 		{
 			get
 			{
@@ -118,11 +118,11 @@ namespace Civ
 		/// Ignora el estado de la ciudad.
 		/// </summary>
 		/// <value>The get espacios trabajadores.</value>
-		public ulong getEspaciosTrabajadores
+		public ulong EspaciosTrabajadores
 		{
 			get
 			{
-				return RAW.MaxWorkers - getTrabajadores;
+				return RAW.MaxWorkers - Trabajadores;
 			}
 		}
 
@@ -131,34 +131,29 @@ namespace Civ
 		/// Tomando en cuenta el estado de la ciudad.
 		/// </summary>
 		/// <value>The get espacios trabajadores.</value>
-		public ulong getEspaciosTrabajadoresCiudad
+		public ulong EspaciosTrabajadoresCiudad
 		{
 			get
 			{
-				return (ulong)Math.Min(getEspaciosTrabajadores, CiudadDueño.getTrabajadoresDesocupados);
+				return Math.Min(EspaciosTrabajadores, CiudadDueño.TrabajadoresDesocupados);
 			}
 		}
 		// Trabajos
 		/// <summary>
 		/// Devuelve o establece el número de trabajadores en un trabajo
 		/// </summary>
-		/// <param name="Trab">El trabajo</param>
-		public ulong this [Trabajo Trab]
+		/// <param name="trabajo">El trabajo</param>
+		public ulong this [Trabajo trabajo]
 		{
 			get
 			{
-				if (Trabajos.Contains(Trab))
-				{
-					return Trab.Trabajadores;
-				}
-				else
-					return 0;
+				return Trabajos.Contains(trabajo) ? trabajo.Trabajadores : 0;
 			}
 			set
 			{
-				if (Trabajos.Contains(Trab))
+				if (Trabajos.Contains(trabajo))
 				{
-					Trab.Trabajadores = value;
+					trabajo.Trabajadores = value;
 				}
 			}
 		}
@@ -167,12 +162,12 @@ namespace Civ
 		/// Devuelve la instancia de trabajo de un RAW de trabajo.
 		/// Si no existe, la crea.
 		/// </summary>
-		/// <param name="Trab">El RAW del trabajo.</param>
-		public Trabajo this [TrabajoRAW Trab]
+		/// <param name="trabajo">El RAW del trabajo.</param>
+		public Trabajo this [TrabajoRAW trabajo]
 		{
 			get
 			{
-				return getInstanciaTrabajo(Trab);
+				return InstanciaTrabajo(trabajo);
 			}
 		}
 
@@ -181,15 +176,15 @@ namespace Civ
 		/// Si no existe, la crea.
 		/// </summary>
 		/// <returns>The instancia trabajo.</returns>
-		/// <param name="Trab">El RAW de trabajo.</param>
-		public Trabajo getInstanciaTrabajo(TrabajoRAW Trab)
+		/// <param name="trabajo">El RAW de trabajo.</param>
+		public Trabajo InstanciaTrabajo(TrabajoRAW trabajo)
 		{
 			foreach (var x in Trabajos)
 			{
-				if (x.RAW == Trab)
+				if (x.RAW == trabajo)
 					return x;
 			}
-			return new Trabajo(Trab, this);
+			return new Trabajo(trabajo, this);
 		}
 
 		#endregion

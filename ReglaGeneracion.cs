@@ -9,33 +9,44 @@ namespace Civ.Barbaros
 	/// </summary>
 	public class ReglaGeneracionPuntuacion : IReglaGeneracion
 	{
-		public ReglaGeneracionPuntuacion()
-		{
-		}
-
+		/// <summary>
+		/// Puntuación mínica para generar armada
+		/// </summary>
 		public float MinPuntuacion;
+		/// <summary>
+		/// Puntuación máxima para generar armada
+		/// </summary>
 		public float MaxPuntuacion;
 
+		/// <summary>
+		/// Armada que podría generar.
+		/// </summary>
 		public ICollection<Tuple<UnidadRAW, ulong>> ClaseArmada;
-		g_State _estado;
+		GameState _estado;
 
 		#region IReglaGeneracion
 
-		public bool EsPosibleGenerar(g_State Estado)
+		/// <summary>
+		/// Revisa si se debe generar esta clase de armada
+		/// </summary>
+		/// <param name="estado">Estado del juego.</param>
+		/// <returns><c>true</c>, if posible generar was esed, <c>false</c> otherwise.</returns>
+		/// <param name="estado">Estado.</param>
+		public bool EsPosibleGenerar(GameState estado)
 		{
-			float Puntuacion = Estado.SumaPuntuacion();
-			_estado = Estado;
+			float Puntuacion = estado.SumaPuntuacion();
+			_estado = estado;
 			return Puntuacion < MaxPuntuacion && Puntuacion > MinPuntuacion;
 		}
 
 		public Armada GenerarArmada()
 		{
-			CivilizacionBarbara cb = new CivilizacionBarbara();
+			var cb = new CivilizacionBarbara();
 
-			List<Pseudoposicion> ppos = new List<Pseudoposicion>(_estado.Topologia.Nodos);
-			Pseudoposicion pos = ppos[g_.r.Next(ppos.Count)];
+			var ppos = new List<Pseudoposicion>(_estado.Topologia.Nodos);
+			Pseudoposicion pos = ppos[Juego.Rnd.Next(ppos.Count)];
 
-			Armada ret = new Armada(cb, pos, false);
+			var ret = new Armada(cb, pos);
 			foreach (var x in ClaseArmada)
 			{
 				ret.AgregaUnidad(x.Item1, x.Item2);

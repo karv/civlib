@@ -9,15 +9,14 @@ namespace Civ
 	{
 		IAlmacén Almacen { get; }
 
-		float CalculaDeltaRecurso(Recurso Recurso);
+		float CalculaDeltaRecurso(Recurso recurso);
 	}
 
 	public static class ExiIAlmacen
 	{
-		public static Single obtenerRecurso(this IAlmacenante a, Recurso R)
+		public static Single ObtenerRecurso(this IAlmacenante almacén, Recurso recurso)
 		{
-			return a.Almacen.recurso(R);
+			return almacén.Almacen.recurso(recurso);
 		}
 	}
 }
-

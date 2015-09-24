@@ -31,9 +31,13 @@ namespace Civ
 	{
 		public readonly ICivilizacion Civil;
 
-		public AlmacénCiv(ICivilizacion C) : base()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.AlmacénCiv"/> class.
+		/// </summary>
+		/// <param name="civilizacion">civilizacion vinculada a este almacén</param>
+		public AlmacénCiv(ICivilizacion civilizacion)
 		{
-			Civil = C;
+			Civil = civilizacion;
 		}
 
 		/// <summary>
@@ -66,41 +70,41 @@ namespace Civ
 		/// 
 		/// O establece los recursos globales del almacén global.
 		/// </summary>
-		/// <param name="R">Recurso</param>
-		new public float this [Recurso R]
+		/// <param name="recurso">Recurso</param>
+		new public float this [Recurso recurso]
 		{
 			get
 			{
-				if (R.EsGlobal)
+				if (recurso.EsGlobal)
 				{
-					return base[R];
+					return base[recurso];
 				}
 				else
 				{
 					float ret = 0;
 					foreach (var x in Civil.Ciudades)
 					{
-						ret += x.Almacen.recurso(R);
+						ret += x.Almacen.recurso(recurso);
 					}
 					return ret;
 				}
 			}
 			set
 			{
-				if (R.EsGlobal)
-					base[R] = value;
+				if (recurso.EsGlobal)
+					base[recurso] = value;
 				else
 				{
-					throw new Exception(string.Format("Sólo se pueden almacenar recursos globales en AlmacenCiv.\n{0} no es global.", R));
+					throw new Exception(string.Format("Sólo se pueden almacenar recursos globales en AlmacenCiv.\n{0} no es global.", recurso));
 				}
 			}
 		}
 
 		#region IAlmacénRead implementation
 
-		float IAlmacénRead.recurso(Recurso R)
+		float IAlmacénRead.recurso(Recurso recurso)
 		{
-			return this[R];
+			return this[recurso];
 		}
 
 		System.Collections.Generic.IEnumerable<Recurso> IAlmacénRead.recursos
@@ -115,13 +119,13 @@ namespace Civ
 
 		#region IAlmacén implementation
 
-		public void changeRecurso(Recurso rec, float delta)
+		public void ChangeRecurso(Recurso rec, float delta)
 		{
-			this.Add(rec, delta);
+			Add(rec, delta);
 		}
 
 		[Obsolete]
-		void IAlmacén.setRecurso(Recurso rec, float val)
+		void IAlmacén.SetRecurso(Recurso rec, float val)
 		{
 			this[rec] = val;
 		}

@@ -18,7 +18,6 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections.Generic;
 
 namespace Civ
@@ -31,26 +30,26 @@ namespace Civ
 		/// <summary>
 		/// Agrega cierta cantidad de recursos, a la investigación de una ciencia.
 		/// </summary>
-		/// <param name="C">Ciencia investigando.</param>
-		/// <param name="R">Recurso del que se agrega.</param>
-		/// <param name="Cantidad">Cantidad de tal recurso.</param>
-		public void Invertir(Ciencia C, Recurso R, float Cantidad)
+		/// <param name="ciencia">Ciencia investigando.</param>
+		/// <param name="recurso">Recurso del que se agrega.</param>
+		/// <param name="cantidad">Cantidad de tal recurso.</param>
+		public void Invertir(Ciencia ciencia, Recurso recurso, float cantidad)
 		{
-			if (!Exists(x => x.Ciencia == C)) // Si no existe la ciencia C en la lista, se agrega
-				Add(new InvestigandoCiencia(C));
+			if (!Exists(x => x.Ciencia == ciencia)) // Si no existe la ciencia C en la lista, se agrega
+				Add(new InvestigandoCiencia(ciencia));
 
-			InvestigandoCiencia IC = Find(x => x.Ciencia == C); //IC es la correspondiente a la ciencia C.
-			IC[R] += Cantidad;
+			InvestigandoCiencia IC = Find(x => x.Ciencia == ciencia); //IC es la correspondiente a la ciencia C.
+			IC[recurso] += cantidad;
 		}
 
 		/// <summary>
 		/// Encuentra la instancia (si existe) de una ciencia.
 		/// </summary>
 		/// <returns>The instancia.</returns>
-		/// <param name="C">Ciencia a buscar</param>
-		public InvestigandoCiencia EncuentraInstancia(Ciencia C)
+		/// <param name="ciencia">Ciencia a buscar</param>
+		public InvestigandoCiencia EncuentraInstancia(Ciencia ciencia)
 		{
-			return Find(x => x.Ciencia == C);
+			return Find(x => x.Ciencia == ciencia);
 		}
 	}
 }

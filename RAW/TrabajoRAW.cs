@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using ListasExtra;
 using System.Runtime.Serialization;
@@ -89,10 +88,10 @@ namespace Civ
 
 			ret = tab + "(Trabajo)" + Nombre + "\n";
 
-			Ser = (CivLibrary.Debug.IPlainSerializable)Edificio;
+			Ser = Edificio;
 			ret += Ser.PlainSerialize(tabs + 1);
 
-			Ser = (CivLibrary.Debug.IPlainSerializable)Requiere;
+			Ser = Requiere;
 			ret += Ser.PlainSerialize(tabs + 1);
 
 

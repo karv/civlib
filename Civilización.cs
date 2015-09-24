@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Basic;
 using Global;
+using System.Diagnostics;
 
 namespace Civ
 {
@@ -9,17 +10,10 @@ namespace Civ
 	{
 		#region ICivilizacion
 
-		public string Nombre
-		{
-			get
-			{
-				return _nombre;
-			}
-			set
-			{
-				_nombre = value;
-			}
-		}
+		/// <summary>
+		/// Nombre de la <see cref="Civ.Civilizacion"/>.
+		/// </summary>
+		public string Nombre { get; set; }
 
 		public IList<ICiudad> Ciudades
 		{ 
@@ -64,32 +58,26 @@ namespace Civ
 		public Civilizacion()
 		{
 			Almacen = new AlmacénCiv(this);
-			Nombre = g_.getUniqueCivName();
+			Nombre = Juego.NombreCivUnico();
 		}
-
-		/// <summary>
-		/// Nombre de la <see cref="Civ.Civilización"/>.
-		/// </summary>
-		public string _nombre;
 
 		public override string ToString()
 		{
 			return Nombre;
 		}
 
-		// **** Economía
-		[Obsolete("Use AlmacenCiv[R]")]
 		/// <summary>
 		/// Devuelve la cantidad que existe en la civilización de un cierto recurso.
 		/// </summary>
 		/// <returns>Devuelve la suma de la cantidad que existe de algún recurso sobre cada ciudad.</returns>
-		/// <param name="R">Recurso que se quiere contar</param>
-		public float ObtenerGlobalRecurso(Recurso R)
+		/// <param name="recurso">Recurso que se quiere contar</param>
+		[Obsolete("Use AlmacenCiv[R]")]
+		public float ObtenerGlobalRecurso(Recurso recurso)
 		{
 			float ret = 0;
 			foreach (IAlmacenante x in Ciudades)
 			{
-				ret += x.Almacen.recurso(R);
+				ret += x.Almacen.recurso(recurso);
 			}
 			return ret;
 		}
@@ -133,8 +121,8 @@ namespace Civ
 		/// </summary>
 		public List<Ciencia> CienciasAbiertas()
 		{
-			List<Ciencia> ret = new List<Ciencia>();
-			foreach (Ciencia x in Global.g_.Data.Ciencias)
+			var ret = new List<Ciencia>();
+			foreach (Ciencia x in Juego.Data.Ciencias)
 			{
 				if (EsCienciaAbierta(x))
 				{
@@ -147,27 +135,27 @@ namespace Civ
 		/// <summary>
 		/// Revisa si una ciencia se puede investigar.
 		/// </summary>
-		/// <param name="C">Una ciencia</param>
+		/// <param name="ciencia">Una ciencia</param>
 		/// <returns><c>true</c> si la ciencia se puede investigar; <c>false</c> si no.</returns>
-		bool EsCienciaAbierta(Ciencia C)
+		bool EsCienciaAbierta(Ciencia ciencia)
 		{
-			return !Avances.Contains(C) && C.Reqs.Ciencias.TrueForAll(z => Avances.Contains(z));
+			return !Avances.Contains(ciencia) && ciencia.Reqs.Ciencias.TrueForAll(Avances.Contains);
 		}
 
 		/// <summary>
 		/// Devuelve true sólo si la ciencia ya está completada.
 		/// </summary>
 		/// <returns><c>true</c>, if requerimientos recursos was satisfaced, <c>false</c> otherwise.</returns>
-		/// <param name="C">C.</param>
-		bool SatisfaceRequerimientosRecursos(Ciencia C)
+		bool SatisfaceRequerimientosRecursos(Ciencia ciencia)
 		{
 			// Si ya se conoce la ciencia, entonces devuelve true.
-			if (Avances.Contains(C))
+			if (Avances.Contains(ciencia))
 				return true;
-			InvestigandoCiencia I = Investigando.EncuentraInstancia(C);
-			if (I == null)
-				return false; // Si no se empieza a investigar aún, regresa false.
-			return I.EstaCompletada(); // Si está en la lista, revisar si está completada.
+
+			Debug.Fail("No creo que sea posible llegar aquí");
+			throw new Exception();
+			//InvestigandoCiencia I = Investigando.EncuentraInstancia(ciencia);
+			//return I?.EstaCompletada() ?? false;
 		}
 
 		#endregion
@@ -182,45 +170,44 @@ namespace Civ
 		/// <summary>
 		/// Agrega una ciudad a esta civ.
 		/// </summary>
-		/// <param name="C">C.</param>
-		public void addCiudad(Ciudad C)
+		/// <param name="ciudad">C.</param>
+		public void AddCiudad(ICiudad ciudad)
 		{
-			if (C.CivDueno != this)
-				C.CivDueno = this;
+			// obs: Los cambios en las listas de ciudades se hacne automáticamente.
+			ciudad.CivDueño = this;
 		}
 
 		/// <summary>
 		/// Quita una ciudad de la civilización, haciendo que quede sin <c>CivDueño</c>.
 		/// </summary>
-		/// <param name="C">Ciudad a quitar.</param>
-		public void removeCiudad(Ciudad C)
+		/// <param name="ciudad">Ciudad a quitar.</param>
+		public void RemoveCiudad(Ciudad ciudad)
 		{
-			if (C.CivDueno == this)
-				C.CivDueno = null;
+			if (ciudad.CivDueno == this)
+				ciudad.CivDueno = null;
 		}
 
 		/// <summary>
 		/// Agrega una nueva ciudad a esta civ.
 		/// </summary>
 		/// <returns>Devuelve la ciudad que se agregó.</returns>
-		/// <param name="Nom">Nombre de la ciudad.</param>
-		public Ciudad addCiudad(string Nom, Terreno T)
+		/// <param name="nombre">Nombre de la ciudad.</param>
+		/// <param name="terreno">Terreno donde se construye la ciudad</param>
+		public Ciudad AddCiudad(string nombre, Terreno terreno)
 		{
-			Ciudad C = new Ciudad(Nom, this, T);
-			return C;
+			return new Ciudad(nombre, this, terreno);
 		}
 
 		/// <summary>
 		/// Cuenta el número de edificios que existen en la ciudad.
 		/// </summary>
-		/// <param name="Edif"></param>
-		/// <returns></returns>
-		public int CuentaEdificios(EdificioRAW Edif)
+		/// <param name="edif"></param>
+		public int CuentaEdificios(EdificioRAW edif)
 		{
 			int ret = 0;
 			foreach (var x in Ciudades)
 			{
-				ret += x.NumEdificios(Edif);
+				ret += x.NumEdificios(edif);
 			}
 			return ret;
 		}
@@ -237,22 +224,21 @@ namespace Civ
 		/// <summary>
 		/// Agrega un mensaje de usuario a la cola.
 		/// </summary>
-		/// <param name="Mens">Mensaje</param>
-		public void AgregaMensaje(IU.Mensaje Mens)
+		/// <param name="mensaje">Mensaje</param>
+		public void AgregaMensaje(IU.Mensaje mensaje)
 		{
-			Mensajes.Enqueue(Mens);
+			Mensajes.Enqueue(mensaje);
 		}
 
 		/// <summary>
 		/// Agrega un mensaje de usuario a la cola.
 		/// </summary>
 		/// <param name="str">Cadena de texto, con formato de string.Format</param>
-		/// <param name="Ref">Referencias u orígenes del mensaje.</param>
-		public void AgregaMensaje(string str, params object[] Ref)
+		/// <param name="referencia">Referencias u orígenes del mensaje.</param>
+		public void AgregaMensaje(string str, params object[] referencia)
 		{
-			AgregaMensaje(new IU.Mensaje(str, Ref));
-			if (OnNuevoMensaje != null)
-				OnNuevoMensaje.Invoke();
+			AgregaMensaje(new IU.Mensaje(str, referencia));
+			OnNuevoMensaje?.Invoke();
 		}
 
 		/// <summary>
@@ -272,15 +258,12 @@ namespace Civ
 		/// <returns>Devuelve el mensaje siguiente en la cola.</returns>
 		public IU.Mensaje SiguitenteMensaje()
 		{
-			if (ExisteMensaje)
-			{
-				IU.Mensaje ret = (IU.Mensaje)Mensajes.Dequeue();
-				return ret;
-			}
-			else
-				return null;
+			return ExisteMensaje ? (IU.Mensaje)Mensajes.Dequeue() : null;
 		}
 
+		/// <summary>
+		/// Ocurre cuando se recibe un nuevo menaje
+		/// </summary>
 		public event Action OnNuevoMensaje;
 
 
@@ -317,9 +300,9 @@ namespace Civ
 		/// Básicamente hace todo lo necesario y suficiente que le corresponde entre turnos.
 		/// </summary>
 		/// <param name="t">Diración del tick</param>
-		public void Tick(float t = 1)
+		public void Tick(float t)
 		{
-			Random r = new Random();
+			Random r = Juego.Rnd;
 			foreach (var x in Ciudades)
 			{
 				{
@@ -328,9 +311,9 @@ namespace Civ
 			}
 
 			// Las ciencias.
-			List<Ciencia> Investigado = new List<Ciencia>();
+			var Investigado = new List<Ciencia>();
 
-			foreach (Recurso Rec in Global.g_.Data.ObtenerRecursosCientificos())
+			foreach (Recurso Rec in Juego.Data.ObtenerRecursosCientificos())
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
 				List<Ciencia> CienciaInvertibleRec = CienciasAbiertas().FindAll(z => z.Reqs.Recursos.ContainsKey(Rec) && // Que la ciencia requiera de tal recurso

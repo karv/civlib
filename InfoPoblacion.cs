@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace Civ
+﻿namespace Civ
 {
+	/// <summary>
+	/// Mantiene información sobre la distribución por edades de una población
+	/// </summary>
 	public struct InfoPoblacion
 	{
 		public ulong PreProductiva;
@@ -16,11 +17,11 @@ namespace Civ
 			}
 		}
 
-		public InfoPoblacion(ulong Pre, ulong Prod, ulong Post)
+		public InfoPoblacion(ulong pre, ulong prod, ulong post)
 		{
-			PreProductiva = Pre;
-			Productiva = Prod;
-			PostProductiva = Post;
+			PreProductiva = pre;
+			Productiva = prod;
+			PostProductiva = post;
 		}
 	}
 }

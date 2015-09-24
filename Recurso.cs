@@ -40,7 +40,7 @@ namespace Civ
 		/// De ser true, cada ciudad puede tomar de un almacén global.
 		/// </summary>
 		[DataMember(Name = "Global")]
-		public bool EsGlobal = false;
+		public bool EsGlobal;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Recurso"/> class.
@@ -56,7 +56,7 @@ namespace Civ
 		}
 
 		[DataMember(Name = "Imagen")]
-		public string Img = null;
+		public string Img;
 
 		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
 		{
@@ -69,7 +69,7 @@ namespace Civ
 
 			ret = tab + "(Recurso)" + Nombre + "\n";
 
-			foreach (var x in Global.g_.Data.Trabajos)
+			foreach (var x in Global.Juego.Data.Trabajos)
 			{
 				// ¿Agregar?
 				bool Agregar = false;
@@ -85,7 +85,7 @@ namespace Civ
 				// Si este trabajo produce Robj
 				if (Agregar)
 				{
-					CivLibrary.Debug.IPlainSerializable Ser = (CivLibrary.Debug.IPlainSerializable)x;
+					CivLibrary.Debug.IPlainSerializable Ser = x;
 					ret += Ser.PlainSerialize(tabs + 1);
 				}
 			}

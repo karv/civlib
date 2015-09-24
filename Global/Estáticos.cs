@@ -10,22 +10,22 @@ namespace Global
 	/// <summary>
 	/// Los objetos globales.
 	/// </summary>	
-	public static class g_
+	public static class Juego
 	{
 		static NewGameOptions PrefsJuegoNuevo = new NewGameOptions();
 		public static GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras();
 		[DataMember(Name = "Data")]
-		public static g_Data Data = new g_Data();
-		public static g_State State = new g_State();
+		public static GameData Data = new GameData();
+		public static GameState State = new GameState();
 
-		static g_()
+		static Juego()
 		{
 			BarbGen.Reglas.Add(new ReglaGeneracionBarbaraGeneral());
 		}
 
 		public static void Tick(float t = 1)
 		{
-			foreach (Civ.ITickable Civ in State.Civs)
+			foreach (ITickable Civ in State.Civs)
 			{
 				Civ.Tick(t);
 			}
@@ -39,10 +39,10 @@ namespace Global
 			// Peleas entre armadas de Civs enemigas
 			for (int i = 1; i < State.Civs.Count; i++)
 			{
-				Civ.ICivilizacion civA = State.Civs[i];
+				ICivilizacion civA = State.Civs[i];
 				for (int j = 0; j < i; j++)
 				{
-					Civ.ICivilizacion civB = State.Civs[j];
+					ICivilizacion civB = State.Civs[j];
 					{
 						foreach (var ArmA in civA.Armadas)
 						{
@@ -71,7 +71,7 @@ namespace Global
 
 		#region IO
 
-		private const string archivo = "Data.xml";
+		const string archivo = "Data.xml";
 
 		/// <summary>
 		/// Carga del archivo predeterminado.
@@ -79,25 +79,26 @@ namespace Global
 		public static void CargaData()
 		{
 			System.IO.Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Data.xml");
-			Data = Store.Store<Global.g_Data>.Deserialize(stream);
+			Data = Store.Store<GameData>.Deserialize(stream);
 			stream.Dispose();
-
-			//Data = Store.Store<g_Data>.Deserialize(archivo);
 		}
 
 		public static void GuardaData()
 		{
-			Store.Store<g_Data>.Serialize(archivo, Data);
+			Store.Store<GameData>.Serialize(archivo, Data);
 		}
 
 		public static void GuardaData(string f)
 		{
-			Store.Store<g_Data>.Serialize(f, Data);
+			Store.Store<GameData>.Serialize(f, Data);
 		}
 
 		#endregion
 
-		public static Random r = new Random();
+		/// <summary>
+		/// Un Random compartido
+		/// </summary>
+		public static Random Rnd = new Random();
 
 		/// <summary>
 		/// Inicializa el g_State, a partir de el g_Data.
@@ -105,22 +106,22 @@ namespace Global
 		/// </summary>
 		public static void InicializarJuego()
 		{
-			State = new g_State();
+			State = new GameState();
 
 			// Hacer la topología
-			List<Civ.Terreno> Terrenos = new List<Civ.Terreno>();
-			State.Topologia = new Graficas.Grafica<Civ.Terreno>();
-			State.Mapa = new Graficas.Continuo.Continuo<Civ.Terreno>(State.Topologia);
+			var Terrenos = new List<Terreno>();
+			State.Topologia = new Graficas.Grafica<Terreno>();
+			State.Mapa = new Graficas.Continuo.Continuo<Terreno>(State.Topologia);
 
-			Civ.Terreno T;
-			Civ.Ecosistema Eco;
-			Civ.Civilizacion C;
-			Civ.Ciudad Cd;
+			Terreno T;
+			Ecosistema Eco;
+			Civilizacion C;
+			Ciudad Cd;
 
-			for (int i = 0; i < PrefsJuegoNuevo.numTerrenos; i++)
+			for (int i = 0; i < PrefsJuegoNuevo.NumTerrenos; i++)
 			{
-				Eco = Data.Ecosistemas[r.Next(Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
-				T = new Civ.Terreno(Eco);                               // Le asocio un terreno consistente con el ecosistema.
+				Eco = Data.Ecosistemas[Rnd.Next(Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
+				T = new Terreno(Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add(T);
 				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());
 			}
@@ -131,43 +132,43 @@ namespace Global
 			// Vaciar la topología en cada Terreno
 			foreach (var x in State.Topologia.Nodos)
 			{
-				Civ.Terreno a = (Civ.Terreno)x;
-				Civ.Terreno b = (Civ.Terreno)x;
+				Terreno a = x;
+				Terreno b = x;
 				a.Vecinos[b] = State.Topologia[a, b];
 				b.Vecinos[a] = State.Topologia[b, a];
 			}
 
 			// Asignar una ciudad de cada civilización en terrenos vacíos y distintos lugares.
-			for (int i = 0; i < PrefsJuegoNuevo.numCivs; i++)
+			for (int i = 0; i < PrefsJuegoNuevo.NumCivs; i++)
 			{
-				C = new Civ.Civilizacion();
+				C = new Civilizacion();
 				// C.Nombre = DateTime.Now.Millisecond.ToString();
-				List<Civ.Terreno> Terrs = State.ObtenerListaTerrenosLibres();
-				T = Terrs[r.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
+				List<Terreno> Terrs = State.ObtenerListaTerrenosLibres();
+				T = Terrs[Rnd.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
 
-				Cd = new Civ.Ciudad(C, T, PrefsJuegoNuevo.poblacionInicial);
-				C.addCiudad(Cd);
+				Cd = new Ciudad(C, T, PrefsJuegoNuevo.PoblacionInicial);
+				C.AddCiudad(Cd);
 
 				State.Civs.Add(C);
 			}
 
 			// Incluir el alimento inicial en cada ciudad
-			foreach (var c in State.getCiudades())
+			foreach (var c in State.CiudadesExistentes())
 			{
 				c.AlimentoAlmacen = PrefsJuegoNuevo.AlimentoInicial;
 			}
 		}
 
-		public static void ConstruirTopologia(IEnumerable<Civ.Terreno> lista)
+		public static void ConstruirTopologia(IEnumerable<Terreno> lista)
 		{
 			foreach (var x in lista)
 			{
-				foreach (var y in lista)
+				foreach (var y in new List<Terreno> (lista)) // Evitar m¨²ltiples enumeraciones de lista
 				{
-					if (r.NextDouble() < PrefsJuegoNuevo.compacidad)
+					if (Rnd.NextDouble() < PrefsJuegoNuevo.Compacidad)
 					{
 						State.Topologia.AgregaVertice(x, y, 
-							PrefsJuegoNuevo.minDistNodos + (float)r.NextDouble() * (PrefsJuegoNuevo.maxDistNodos - PrefsJuegoNuevo.minDistNodos));
+							PrefsJuegoNuevo.MinDistNodos + (float)Rnd.NextDouble() * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos));
 					}
 				}
 			}
@@ -179,12 +180,12 @@ namespace Global
 		/// Devuelve un nombre de civilizaci¨®n ¨²nico
 		/// </summary>
 		/// <returns>The unique civ name.</returns>
-		public static string getUniqueCivName()
+		public static string NombreCivUnico()
 		{
 			// Copiar el contenido en una lista
 			System.IO.Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("NombresCiv.txt");
-			System.IO.StreamReader read = new System.IO.StreamReader(stream);
-			List<string> nombres = new List<string>();
+			var read = new System.IO.StreamReader(stream);
+			var nombres = new List<string>();
 			while (!read.EndOfStream)
 			{
 				nombres.Add(read.ReadLine());
@@ -192,7 +193,7 @@ namespace Global
 			stream.Dispose();
 			read.Dispose();
 
-			string baseNombre = nombres[r.Next(nombres.Count)];
+			string baseNombre = nombres[Rnd.Next(nombres.Count)];
 			string unique = HacerUnico(baseNombre, State.Civs.ConvertAll(c => c.Nombre));
 
 			return unique;
@@ -202,12 +203,12 @@ namespace Global
 		/// Devuelve un nombre de civilizaci¨®n ¨²nico
 		/// </summary>
 		/// <returns>The unique civ name.</returns>
-		public static string getUniqueCityName()
+		public static string NombreCiudadUnico()
 		{
 			// Copiar el contenido en una lista
 			System.IO.Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("NombresCiudad.txt");
-			System.IO.StreamReader read = new System.IO.StreamReader(stream);
-			List<string> nombres = new List<string>();
+			var read = new System.IO.StreamReader(stream);
+			var nombres = new List<string>();
 			while (!read.EndOfStream)
 			{
 				nombres.Add(read.ReadLine());
@@ -215,8 +216,8 @@ namespace Global
 			stream.Dispose();
 			read.Dispose();
 
-			string baseNombre = nombres[r.Next(nombres.Count)];
-			string unique = HacerUnico(baseNombre, new List<ICiudad>(State.getCiudades()).ConvertAll(c => c.Nombre));
+			string baseNombre = nombres[Rnd.Next(nombres.Count)];
+			string unique = HacerUnico(baseNombre, new List<ICiudad>(State.CiudadesExistentes()).ConvertAll(c => c.Nombre));
 
 			return unique;
 		}

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -18,28 +17,28 @@ namespace Civ
 		/// Devuelve o establece el máximo número de instancias de este edificio por ciudad
 		/// </summary>
 		[DataMember]
-		public int MaxPorCiudad = 1;
+		public int MaxPorCiudad;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por civilización
 		/// Si vale 0, significa "sin límite"
 		/// </summary>
 		[DataMember]
-		public int MaxPorCivilizacion = 0;
+		public int MaxPorCivilizacion;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por mundo
 		/// Si vale 0, significa "sin límite"
 		/// </summary>
 		[DataMember]
-		public int MaxPorMundo = 0;
+		public int MaxPorMundo;
 		[DataMember(Name = "Producción")]
-		public TrabajoRAW.DiferenciaRecursos _Salida = new TrabajoRAW.DiferenciaRecursos();
+		TrabajoRAW.DiferenciaRecursos _salida = new TrabajoRAW.DiferenciaRecursos();
 
 		/// <summary>
 		/// Devuelve los recursos y su cantidad que genera, incluso si no existe trabajador.
 		/// </summary>
 		public TrabajoRAW.DiferenciaRecursos Salida
 		{
-			get { return _Salida; }
+			get { return _salida; }
 		}
 
 		public override string ToString()
@@ -47,13 +46,10 @@ namespace Civ
 			return Nombre;
 		}
 
-		public EdificioRAW()
-		{
-		}
 		// IRequerieminto
-		bool Civ.IRequerimiento<ICiudad>.LoSatisface(ICiudad C)
+		bool IRequerimiento<ICiudad>.LoSatisface(ICiudad ciudad)
 		{
-			return C.ExisteEdificio(this);
+			return ciudad.ExisteEdificio(this);
 		}
 		// Requiere
 		/*  //TODO: Borrar si es que funciona

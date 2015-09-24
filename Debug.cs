@@ -26,7 +26,7 @@ namespace CivLibrary.Debug
 		/// <param name="f">F.</param>
 		public static void CrearArchivoLeible(string f)
 		{
-			g_Data glob = g_.Data; //Dandole nuevo nombre al archivo.
+			GameData glob = Juego.Data; //Dandole nuevo nombre al archivo.
 			StreamWriter sw = new StreamWriter(f, false);
 			// System.IO.FileStream stream = new FileStream(f, FileMode.Create); // Sobreescribe.
 
@@ -67,7 +67,7 @@ namespace CivLibrary.Debug
 
 		public static void CrearArchivoObjetosAbiertos(string f, object Obj)
 		{
-			g_Data glob = g_.Data; //Dandole nuevo nombre al archivo.
+			GameData glob = Juego.Data; //Dandole nuevo nombre al archivo.
 			StreamWriter sw = new StreamWriter(f, false);
 
 			foreach (var x in glob.Ciencias)
@@ -114,37 +114,37 @@ namespace CivLibrary.Debug
 					Directory.CreateDirectory(x);
 			}
 
-			foreach (var x in Global.g_.Data.Ciencias)
+			foreach (var x in Global.Juego.Data.Ciencias)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Ciencias/" + x.Nombre + ".Ciencia.txt", x);
 			}
 
-			foreach (var x in Global.g_.Data.Ecosistemas)
+			foreach (var x in Global.Juego.Data.Ecosistemas)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Ecosistemas/" + x.Nombre + ".Ecosistema.txt", x);
 			}
 			
-			foreach (var x in Global.g_.Data.Edificios)
+			foreach (var x in Global.Juego.Data.Edificios)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Edificios/" + x.Nombre + ".Edificio.txt", x);
 			}
 			
-			foreach (var x in Global.g_.Data.Propiedades)
+			foreach (var x in Global.Juego.Data.Propiedades)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Propiedades/" + x.Nombre + ".Propiedad.txt", x);
 			}
 			
-			foreach (var x in Global.g_.Data.Recursos)
+			foreach (var x in Global.Juego.Data.Recursos)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Recursos/" + x.Nombre + ".Recurso.txt", x);
 			}
 			
-			foreach (var x in Global.g_.Data.Trabajos)
+			foreach (var x in Global.Juego.Data.Trabajos)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Trabajos/" + x.Nombre + ".Trabajo.txt", x);
 			}
 			
-			foreach (var x in Global.g_.Data.Unidades)
+			foreach (var x in Global.Juego.Data.Unidades)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Unidades/" + x.Nombre + ".Unidad.txt", x);
 			}

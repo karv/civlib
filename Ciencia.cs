@@ -20,7 +20,7 @@ namespace Civ
 		public class Requerimiento
 		{
 			[DataMember(Name = "Recurso")]
-			RequiereCiencia _Recursos = new RequiereCiencia();
+			readonly RequiereCiencia _Recursos = new RequiereCiencia();
 
 			/// <summary>
 			/// Devuelve la lista de recursos que se necesita para investigar
@@ -57,11 +57,18 @@ namespace Civ
 		/// </summary>
 		[DataMember(Name = "Requiere")]
 		public Requerimiento Reqs = new Requerimiento();
-		// IRequerimiento
-		bool Civ.IRequerimiento<ICiudad>.LoSatisface(ICiudad C)
+
+
+		#region IRequerimiento
+
+		bool IRequerimiento<ICiudad>.LoSatisface(ICiudad ciudad)
 		{
-			return C.Avances.Contains(this);
+			return ciudad.Avances.Contains(this);
 		}
+
+		#endregion
+
+		#region PlainSerializable
 
 		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
 		{
@@ -75,17 +82,18 @@ namespace Civ
 
 			foreach (Ciencia x in Reqs.Ciencias)
 			{
-				CivLibrary.Debug.IPlainSerializable Ser = (CivLibrary.Debug.IPlainSerializable)x;
+				CivLibrary.Debug.IPlainSerializable Ser = x;
 				ret += Ser.PlainSerialize(tabs + 1);
-				//ret += (CivLibrary.Debug.IPlainSerializable)(x) .PlainSerialize(tabs + 1);
 			}
 
 			foreach (var x in Reqs.Recursos.Keys)
 			{
-				CivLibrary.Debug.IPlainSerializable Ser = (CivLibrary.Debug.IPlainSerializable)x;
-				ret += Ser.PlainSerialize(tabs + 1);// + "(" + Reqs.Recursos[x] + ")";
+				CivLibrary.Debug.IPlainSerializable Ser = x;
+				ret += Ser.PlainSerialize(tabs + 1);
 			}
 			return ret;
 		}
+
+		#endregion
 	}
 }

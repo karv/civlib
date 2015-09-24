@@ -1,5 +1,4 @@
-﻿using System;
-using Civ;
+﻿using Civ;
 
 namespace Civ
 {

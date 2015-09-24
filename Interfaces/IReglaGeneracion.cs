@@ -1,5 +1,4 @@
-﻿using System;
-using Global;
+﻿using Global;
 
 namespace Civ.Barbaros
 {
@@ -11,8 +10,8 @@ namespace Civ.Barbaros
 		/// <summary>
 		/// Revisa si se debe generar esta clase de armada
 		/// </summary>
-		/// <param name="Estado">Estado del juego.</param>
-		bool EsPosibleGenerar(g_State Estado);
+		/// <param name="estado">Estado del juego.</param>
+		bool EsPosibleGenerar(GameState estado);
 
 		/// <summary>
 		/// Genera una armada

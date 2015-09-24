@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Civ
+﻿namespace Civ
 {
 	/// <summary>
 	/// Permite pedirle una puntuación.

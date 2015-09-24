@@ -2,6 +2,7 @@
 using ListasExtra;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Global;
 
 namespace Civ
 {
@@ -13,19 +14,19 @@ namespace Civ
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
 		/// </summary>
-		/// <param name="Eco">Ecología a usar para crear el terreno.</param>
-		public Terreno(Ecosistema Eco)
+		/// <param name="ecosistema">Ecología a usar para crear el terreno.</param>
+		public Terreno(Ecosistema ecosistema)
 		{
 			Vecinos.Nulo = float.PositiveInfinity;
 			A = this;
 			loc = 0;
-			Random r = new Random();
+			Random r = Juego.Rnd;
 
-			Nombre = Eco.Nombres[r.Next(Eco.Nombres.Count)];
+			Nombre = ecosistema.Nombres[r.Next(ecosistema.Nombres.Count)];
 
-			foreach (var x in Eco.PropPropiedad.Keys)
+			foreach (var x in ecosistema.PropPropiedad.Keys)
 			{
-				if (r.NextDouble() <= Eco.PropPropiedad[x])
+				if (r.NextDouble() <= ecosistema.PropPropiedad[x])
 				{	// Si el azar determina (¡Qué loco suena eso!) que hay que agregarle la propiedad...
 					Innatos.Add(x);
 				}
@@ -34,7 +35,7 @@ namespace Civ
 
 		#region IPosicionable implementation
 
-		Pseudoposicion IPosicionable.getPosicion()
+		Pseudoposicion IPosicionable.Posicion()
 		{
 			return this;
 		}
@@ -50,7 +51,7 @@ namespace Civ
 
 		bool IEquatable<Pseudoposicion>.Equals(Pseudoposicion other)
 		{
-			return other.enTerreno && ((IEquatable<Terreno>)other.A).Equals(this);
+			return other.EnTerreno && ((IEquatable<Terreno>)other.A).Equals(this);
 		}
 
 		#endregion
@@ -104,7 +105,7 @@ namespace Civ
 			//Crecimiento automático de recursos ecológicos.
 			foreach (var x in Eco.RecursoEcologico.Keys)
 			{
-				Ecologia.RecursoEstado RE = new Ecologia.RecursoEstado();
+				var RE = new Ecologia.RecursoEstado();
 
 				RE.Cant = Eco.RecursoEcologico[x].Cant + Eco.RecursoEcologico[x].Crec * t;
 				RE.Cant = Math.Min(Eco.RecursoEcologico[x].Cant, Eco.RecursoEcologico[x].Max);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Civ;
 
 namespace Civ
@@ -11,7 +10,7 @@ namespace Civ
 	{
 		string Nombre { get; }
 
-		int CuentaEdificios(EdificioRAW ClaseEdif);
+		int CuentaEdificios(EdificioRAW claseEdif);
 
 		IList<ICiudad> Ciudades { get; }
 
@@ -23,7 +22,7 @@ namespace Civ
 
 		AlmacénCiv Almacen { get; }
 
-		void AgregaMensaje(IU.Mensaje Mens);
+		void AgregaMensaje(IU.Mensaje mensaje);
 	}
 
 	public static class CivExt
@@ -31,11 +30,12 @@ namespace Civ
 		/// <summary>
 		/// Quita una ciudad de la civilización, haciendo que quede sin <c>CivDueño</c>.
 		/// </summary>
-		/// <param name="C">Ciudad a quitar.</param>
-		public static void removeCiudad(this ICivilizacion civ, Ciudad C)
+		/// <param name="ciudad">Ciudad a quitar.</param>
+		/// <param name="civilización"></param>
+		public static void RemoveCiudad(this ICivilizacion civilización, Ciudad ciudad)
 		{
-			if (C.CivDueno == civ)
-				C.CivDueno = null;
+			if (ciudad.CivDueno == civilización)
+				ciudad.CivDueno = null;
 		}
 
 	}

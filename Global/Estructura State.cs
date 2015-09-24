@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Civ;
 using Graficas;
@@ -8,7 +7,7 @@ namespace Global
 	/// <summary>
 	/// Representa el estado de un juego.
 	/// </summary>
-	public class g_State
+	public class GameState
 	{
 		/// <summary>
 		/// La topología del mundo.
@@ -18,7 +17,7 @@ namespace Global
 		public Graficas.Continuo.Continuo<Terreno> Mapa;
 		List<ICivilizacion> _Civs = new List<ICivilizacion>();
 
-		public g_State()
+		public GameState()
 		{
 			Topologia = new Grafica<Terreno>();
 			Topologia.EsSimetrico = true;
@@ -37,7 +36,7 @@ namespace Global
 		/// </summary>
 		public List<ICivilizacion> CivsVivas()
 		{
-			List<ICivilizacion> ret = new List<ICivilizacion>();
+			var ret = new List<ICivilizacion>();
 			foreach (var x in Topologia.Nodos)
 			{
 				ICivilizacion C = x.CiudadConstruida?.CivDueno;
@@ -53,7 +52,7 @@ namespace Global
 		/// <returns>Devuelve una lista enumerando a los <c>Terrenos</c>.</returns>
 		public List<Terreno> ObtenerListaTerrenos()
 		{
-			List<Terreno> ret = new List<Terreno>();
+			var ret = new List<Terreno>();
 
 			foreach (var x in Topologia.Nodos)
 			{
@@ -75,14 +74,14 @@ namespace Global
 		/// <summary>
 		/// Devuelve el número de edificios de un tipo determinado en el mundo
 		/// </summary>
-		/// <param name="Edif">Una clase de edificio.</param>
+		/// <param name="edif">Una clase de edificio.</param>
 		/// <returns></returns>
-		public int CuentaEdificios(EdificioRAW Edif)
+		public int CuentaEdificios(EdificioRAW edif)
 		{
 			int ret = 0;
 			foreach (var x in Civs)
 			{
-				ret += x.CuentaEdificios(Edif);
+				ret += x.CuentaEdificios(edif);
 			}
 			return ret;
 		}
@@ -91,9 +90,9 @@ namespace Global
 		/// Devuelve una lista de ciudades existentes.
 		/// </summary>
 		/// <returns>The ciudades.</returns>
-		public IList<ICiudad> getCiudades()
+		public List<ICiudad> CiudadesExistentes()
 		{
-			List<ICiudad> ret = new List<ICiudad>();
+			var ret = new List<ICiudad>();
 			foreach (var civil in Civs)
 			{
 				foreach (var c in civil.Ciudades)
@@ -107,9 +106,9 @@ namespace Global
 		/// <summary>
 		/// Devuelve una lista de armadas.
 		/// </summary>
-		public IList<Armada> getArmadas()
+		public List<Armada> ArmadasExistentes()
 		{
-			List<Armada> ret = new List<Armada>();
+			var ret = new List<Armada>();
 			foreach (var civ in _Civs)
 			{
 				foreach (var a in civ.Armadas)

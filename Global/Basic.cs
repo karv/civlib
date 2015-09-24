@@ -5,39 +5,39 @@ using System.Runtime.Serialization;
 namespace Basic
 {
 	[DataContract(IsReference = true)]
-	[Obsolete()]
-	public struct Par<S, T>
+	[Obsolete]
+	public struct Par<T1, T2>
 	{
-		public S x;
-		public T y;
+		public T1 X;
+		public T2 Y;
 
-		public Par(S s, T t)
+		public Par(T1 x, T2 y)
 		{
-			x = s;
-			y = t;
+			X = x;
+			Y = y;
 		}
 
 		public override string ToString()
 		{
-			return string.Format("({0}, {1})", x, y);
+			return string.Format("({0}, {1})", X, Y);
 		}
 	}
 
-	public static class Covertidor<S, T>
+	public static class Covertidor<T1, T2>
 	{
 		/// <summary>
 		/// Convierte una lista de objetos S en la equivalente lista de objetos T, mediante un Convertidos
 		/// </summary>
-		/// <param name="Entrada"></param>
-		/// <param name="Conver"></param>
+		/// <param name="entrada"></param>
+		/// <param name="convertidor"></param>
 		/// <returns></returns>
-		public static List<T> ConvertirLista(List<S> Entrada, Func<S, T> Conver)
+		public static List<T2> ConvertirLista(List<T1> entrada, Func<T1, T2> convertidor)
 		{
-			List<T> ret = new List<T>();
+			var ret = new List<T2>();
 
-			foreach (S x in Entrada)
+			foreach (T1 x in entrada)
 			{
-				ret.Add(Conver(x));
+				ret.Add(convertidor(x));
 			}
 			return ret;
 		}
@@ -49,23 +49,23 @@ namespace Basic
 		/// Elije aleatoriamente $a_0, \dots, a_{Partes - 1}$ de tal forma que su suma sea Suma.
 		/// </summary>
 		/// <param name="r">Clase random que se usará</param>
-		/// <param name="Suma">La suma que debe de tener el conjunto.</param>
-		/// <param name="Partes">Valor máximo </param>
+		/// <param name="suma">La suma que debe de tener el conjunto.</param>
+		/// <param name="partes">Valor máximo </param>
 		/// <returns>Devuelve un arreglo pseudoaleatoriamente generado de flotantes cuya suma es 1.</returns>
-		public static float[] Separadores(this Random r, int Partes, float Suma = 1)
+		public static float[] Separadores(this Random r, int partes, float suma = 1)
 		{
 			//List<float> ret = new List<float>();
-			float[] ret = new float[Partes];
+			var ret = new float[partes];
 			float S = 0;
-			for (int i = 0; i < Partes; i++)
+			for (int i = 0; i < partes; i++)
 			{
 				ret[i] = (float)r.NextDouble();
 				S += ret[i];
 			}
 
-			for (int i = 0; i < Partes; i++)
+			for (int i = 0; i < partes; i++)
 			{
-				ret[i] = ret[i] * Suma / S;
+				ret[i] = ret[i] * suma / S;
 			}
 
 			return ret;
@@ -76,9 +76,9 @@ namespace Basic
 		/// </summary>
 		/// <param name="r"></param>
 		/// <param name="n">Número de elementos a seleccionar.</param>
-		/// <param name="Lista">Lista de dónde seleccionar la sublista.</param>
+		/// <param name="lista">Lista de dónde seleccionar la sublista.</param>
 		/// <returns>Devuelve una lista con los elementos seleccionados.</returns>
-		public static List<object> SeleccionaPeso(this Random r, int n, ListasExtra.ListaPeso<object> Lista)
+		public static List<object> SeleccionaPeso(this Random r, int n, ListasExtra.ListaPeso<object> lista)
 		{
 			List<object> ret;
 			float Suma = 0;
@@ -87,20 +87,20 @@ namespace Basic
 				return new List<object>();
 			else
 			{
-				ret = r.SeleccionaPeso(n - 1, Lista);
+				ret = r.SeleccionaPeso(n - 1, lista);
 
 				foreach (var x in ret)
 				{
-					Lista[x] = 0;
+					lista[x] = 0;
 				}
 
 				// Ahora seleecionar uno.
 				Suma = 0;
-				rn = (float)r.NextDouble() * Lista.SumaTotal();
+				rn = (float)r.NextDouble() * lista.SumaTotal();
 
-				foreach (var x in Lista.Keys)
+				foreach (var x in lista.Keys)
 				{
-					Suma += Lista[x];
+					Suma += lista[x];
 					if (Suma >= rn)
 					{
 						ret.Add(x);

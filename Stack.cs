@@ -1,7 +1,4 @@
 ﻿using System;
-using ListasExtra;
-using Basic;
-using System.Collections.Generic;
 using Global;
 using System.Diagnostics;
 
@@ -51,8 +48,10 @@ namespace Civ
 			{
 				_cantidad = Math.Max(0, value);
 				if (_cantidad == 0)
+				{
 					AbandonaArmada();
-				//AlMorir.Invoke(this, null);
+					AlMorir.Invoke(this, null);
+				}
 			}
 		}
 
@@ -68,23 +67,25 @@ namespace Civ
 		/// <summary>
 		/// Crea una instancia.
 		/// </summary>
-		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
-		/// <param name="A">Armada a la que pertenece esta unidad.</param>
-		public Stack(UnidadRAW uRAW, ulong cantidad, Armada A)
+		/// <param name="uRAW">El RAW que tendrá esta unidad</param>
+		/// <param name="armada">Armada a la que pertenece este stack</param>
+		/// <param name="cantidad">Cantidad de unidades que pertenecen al stack </param>
+		public Stack(UnidadRAW uRAW, ulong cantidad, Armada armada)
 		{
 			RAW = uRAW;
 			Nombre = uRAW.Nombre;
 			_HP = 1;
-			this._cantidad = cantidad;
-			_ArmadaPerteneciente = A;
+			_cantidad = cantidad;
+			_ArmadaPerteneciente = armada;
 		}
 
 		/// <summary>
 		/// Crea una instancia.
 		/// </summary>
 		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
-		/// <param name="C">Ciudad donde se creará a esta unidad.</param>
-		public Stack(UnidadRAW uRAW, ulong cantidad, Ciudad C) : this(uRAW, cantidad, C.Defensa)
+		/// <param name="ciudad">Ciudad donde se creará a esta unidad.</param>
+		/// <param name="cantidad">Cantidad de unidades que pertenecen al stack </param>
+		public Stack(UnidadRAW uRAW, ulong cantidad, ICiudad ciudad) : this(uRAW, cantidad, ciudad.Defensa)
 		{
 		}
 
@@ -124,38 +125,41 @@ namespace Civ
 			set
 			{
 				_HP = Math.Max(Math.Min(1, value), 0);
-				if (_HP == 0)		// Si HP = 0, la unidad muere.
+				if (_HP <= 0)		// Si HP = 0, la unidad muere.
+				{
+					AlMorir.Invoke(this, null);
 					AbandonaArmada();
+				}
 			}
 		}
 
 		/// <summary>
 		/// Daña este stack 
 		/// </summary>
-		/// <param name="TotalDaño">Total daño.</param>
-		/// <param name="Dispersion">Dispersion. En [0, 1]</param>
-		public void Dañar(float TotalDaño, float Dispersion)
+		/// <param name="dañoTotal">Total daño.</param>
+		/// <param name="dispersión">Dispersión del daño. En [0, 1]</param>
+		public void Dañar(float dañoTotal, float dispersión)
 		{
-			float DañoDirecto = TotalDaño * (1 - Dispersion);
-			float DañoDisperso = TotalDaño * Dispersion;
+			float DañoDirecto = dañoTotal * (1 - dispersión);
+			float DañoDisperso = dañoTotal * dispersión;
 
 			DañarDisperso(DañoDisperso);
 			DañarDirecto(DañoDirecto);
 		}
 
-		void DañarDisperso(float Daño)
+		void DañarDisperso(float daño)
 		{
-			HP -= Daño / _cantidad;
+			HP -= daño / _cantidad;
 		}
 
-		void DañarDirecto(float Daño)
+		void DañarDirecto(float daño)
 		{
 			// Esto se supone que es el piso.
-			double MuertosPct = Daño / HP; // Probabilidad de muerte
+			double MuertosPct = daño / HP; // Probabilidad de muerte
 			ulong Muertos = (ulong)MuertosPct;
 			MuertosPct -= Muertos;
 
-			if (g_.r.NextDouble() < MuertosPct)
+			if (Juego.Rnd.NextDouble() < MuertosPct)
 				Muertos++;
 
 			Cantidad -= Muertos;
@@ -168,7 +172,9 @@ namespace Civ
 		{
 			get
 			{
+				// Analysis disable CompareOfFloatsByEqualityOperator
 				return HP == 0 || Cantidad == 0;
+				// Analysis restore CompareOfFloatsByEqualityOperator
 			}
 		}
 
@@ -230,13 +236,13 @@ namespace Civ
 		/// <summary>
 		/// Devuelve el daño máximo que haría esta unidad contra U.
 		/// </summary>
-		/// <param name="U">Unidad con quien comparar</param>
-		public float DañoPropuesto(Stack U)
+		/// <param name="stack">Stack con quien comparar</param>
+		public float DañoPropuesto(Stack stack)
 		{
 			float ret;
 			float mod = 0;
-			ret = Fuerza * Cantidad / U.Fuerza;
-			foreach (var x in U.RAW.Flags)
+			ret = Fuerza * Cantidad / stack.Fuerza;
+			foreach (var x in stack.RAW.Flags)
 			{
 				mod += RAW.Mods[x];
 			}
@@ -246,16 +252,19 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la unidad de una armada, tal que this propone el menor daño.
 		/// </summary>
-		public Stack MenorDaño(Armada A)
+		public Stack MenorDaño(Armada armada)
 		{
 			float minDaño = float.PositiveInfinity;
 			float currDaño;
 			Stack ret = null;
-			foreach (var x in A.Unidades)
+			foreach (var x in armada.Unidades)
 			{
 				currDaño = DañoPropuesto(x);
 				if (currDaño <= minDaño)
+				{
 					ret = x;
+					minDaño = currDaño;
+				}
 			}
 			Debug.Assert(ret != null);
 			return ret;
@@ -266,13 +275,13 @@ namespace Civ
 		/// </summary>
 		/// <param name="arm">Armada a quién dañar</param>
 		/// <param name="raw">RAW de la armada a dañar</param>
-		/// <param name="Atacante">Quien ataca</param>
+		/// <param name="atacante">Quien ataca</param>
 		/// <param name="t">Tiempo</param>
-		public void CausaDaño(Armada arm, UnidadRAW raw, Stack Atacante, float t)
+		public void CausaDaño(Armada arm, UnidadRAW raw, Stack atacante, float t)
 		{
 			Stack U = arm[raw];
 			float Daño = DañoPropuesto(U) * t;
-			arm.DañarStack(raw, Atacante, -Daño);
+			arm.DañarStack(raw, atacante, -Daño);
 		}
 
 		#endregion
@@ -283,12 +292,16 @@ namespace Civ
 		/// Une dos stacks del mismo tipo
 		/// </summary>
 		/// <param name="other">Other.</param>
-		public void MergeFrom(Stack other) //TODO actualizar ahora que Cantidad está siendo utilizada
+		public void MergeFrom(Stack other)
 		{
 			if (RAW.Equals(other.RAW))
 			{
-				this._cantidad += other._cantidad;
+				_cantidad += other._cantidad;
+
+				// Desmantelar a other
+				// No llamar a AlMorir cuando pasa esto
 				other._cantidad = 0;
+				//other.RAW = null;
 			}
 			else
 				throw new Exception("No se pueden unir Stacks de diferente tipo, Use clase Armada.");
@@ -309,7 +322,7 @@ namespace Civ
 		{
 			get
 			{
-				return RAW.Peso * _cantidad;
+				return RAW.Peso * Cantidad;
 			}
 		}
 
@@ -339,7 +352,7 @@ namespace Civ
 			{
 				return ArmadaPerteneciente.Orden is Orden.OrdenEstacionado &&
 				RAW.PuedeColonizar &&
-				Posicion.enTerreno &&
+				Posicion.EnTerreno &&
 				Posicion.A.CiudadConstruida == null;
 			}
 		}
@@ -352,18 +365,24 @@ namespace Civ
 			if (!PuedeColonizarAqui)
 				return null;
 			
-			Ciudad ret = new Ciudad(ArmadaPerteneciente.CivDueño, 
-				             Posicion.A, 
-				             RAW.colonizacion.Value.poblacionACiudad * _cantidad);
+			var ret = new Ciudad(ArmadaPerteneciente.CivDueño, 
+				          Posicion.A, 
+				          RAW.Colonización.Value.PoblacionACiudad * _cantidad);
 
 			// Al usuario
-			this.ArmadaPerteneciente.CivDueño.AgregaMensaje(new IU.Mensaje("ciudad {0} construida en {1}", ret, ret.Terr));
+			ArmadaPerteneciente.CivDueño.AgregaMensaje(new IU.Mensaje("ciudad {0} construida en {1}", ret, ret.Terr));
 			// Deshacer el stack
 			AbandonaArmada();
 
 			return ret;
 
 		}
+
+		#endregion
+
+		#region Eventos
+
+		public event EventHandler AlMorir;
 
 		#endregion
 	}

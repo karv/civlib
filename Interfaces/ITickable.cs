@@ -1,5 +1,3 @@
-using System;
-
 namespace Civ
 {
 	/// <summary>

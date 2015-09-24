@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 
@@ -10,8 +9,8 @@ namespace Civ
 		/// Si una ciudad satisface este requerimiento.
 		/// </summary>
 		/// <returns><c>true</c>, Si la ciudad <c>C</c> lo satisface , <c>false</c> si no.</returns>
-		/// <param name="C">La ciudad que intenta satisfacer este requerimiento.</param>
-		bool LoSatisface(T C);
+		/// <param name="objeto">El objeto que intenta satisfacer este requerimiento.</param>
+		bool LoSatisface(T objeto);
 	}
 
 	[DataContract(Name = "Requerimiento")]
@@ -30,7 +29,7 @@ namespace Civ
 		/// <returns></returns>
 		public List<IRequerimiento<ICiudad>> Requiere()
 		{
-			List<IRequerimiento<ICiudad>> ret = new List<IRequerimiento<ICiudad>>();
+			var ret = new List<IRequerimiento<ICiudad>>();
 			foreach (Ciencia x in Ciencias)
 			{
 				ret.Add(x);

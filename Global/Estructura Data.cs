@@ -1,4 +1,4 @@
-using System;
+using Civ;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -8,48 +8,48 @@ namespace Global
 	/// Representa las opciones del juego.
 	/// </summary>
 	[DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/Civ", Name = "Data")]
-	public class g_Data
+	public class GameData
 	{
 		[DataMember(Name = "Ciencias", Order = 3)]
-		public List<Civ.Ciencia> Ciencias = new List<Civ.Ciencia>();
+		public List<Ciencia> Ciencias = new List<Ciencia>();
 		[DataMember(Name = "Edificios", Order = 4)]
-		public List<Civ.EdificioRAW> Edificios = new List<Civ.EdificioRAW>();
+		public List<EdificioRAW> Edificios = new List<EdificioRAW>();
 		[DataMember(Name = "Recursos", Order = 0)]
-		public List<Civ.Recurso> Recursos = new List<Civ.Recurso>();
+		public List<Recurso> Recursos = new List<Recurso>();
 		[DataMember(Name = "Trabajos", Order = 5)]
-		public List<Civ.TrabajoRAW> Trabajos = new List<Civ.TrabajoRAW>();
+		public List<TrabajoRAW> Trabajos = new List<TrabajoRAW>();
 		[DataMember(Name = "Unidades", Order = 6)]
-		public List<Civ.UnidadRAW> Unidades = new List<Civ.UnidadRAW>();
+		public List<UnidadRAW> Unidades = new List<UnidadRAW>();
 		[DataMember(Name = "Propiedades", Order = 1)]
-		public List<Civ.Propiedad> Propiedades = new List<Civ.Propiedad>();
+		public List<Propiedad> Propiedades = new List<Propiedad>();
 		[DataMember(Name = "Ecosistemas", Order = 2)]
-		public List<Civ.Ecosistema> Ecosistemas = new List<Civ.Ecosistema>();
+		public List<Ecosistema> Ecosistemas = new List<Ecosistema>();
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
 		/// </summary>
 		[DataMember(Name = "Alimento", Order = 7)]
-		public Civ.Recurso RecursoAlimento;
+		public Recurso RecursoAlimento;
 
 		/// <summary>
 		/// Revisa si existe una edificio con un nombre específico.
 		/// </summary>
 		/// <returns><c>true</c>, si existe un edificio con ese nombre, <c>false</c> otherwise.</returns>
-		/// <param name="NombreRecurso">Nombre del eidficio.</param>
-		public bool ExisteEdificio(string NombreEdificio)
+		/// <param name="nombreEdificio">Nombre del eidficio.</param>
+		public bool ExisteEdificio(string nombreEdificio)
 		{
 			foreach (var x in Edificios)
 			{
-				if (x.Nombre == NombreEdificio)
+				if (x.Nombre == nombreEdificio)
 					return true;
 			}
 			return false;
 		}
 
-		public bool ExisteEdificio(Civ.EdificioRAW Edificio)
+		public bool ExisteEdificio(EdificioRAW edificio)
 		{
-			foreach (Civ.EdificioRAW x in Edificios)
+			foreach (EdificioRAW x in Edificios)
 			{
-				if (x == Edificio)
+				if (x == edificio)
 				{
 					return true;
 				}
@@ -61,12 +61,12 @@ namespace Global
 		/// Revisa si existe una ciencia con un nombre específico.
 		/// </summary>
 		/// <returns><c>true</c>, si existe una ciencia con ese nombre, <c>false</c> otherwise.</returns>
-		/// <param name="NombreRecurso">Nombre del recurso.</param>
-		public bool ExisteRecurso(string NombreRecurso)
+		/// <param name="nombreRecurso">Nombre del recurso.</param>
+		public bool ExisteRecurso(string nombreRecurso)
 		{
 			foreach (var x in Recursos)
 			{
-				if (x.Nombre == NombreRecurso)
+				if (x.Nombre == nombreRecurso)
 					return true;
 			}
 			return false;
@@ -76,12 +76,12 @@ namespace Global
 		/// Revisa si existe una ciencia con un nombre específico.
 		/// </summary>
 		/// <returns><c>true</c>, si existe una ciencia con ese nombre, <c>false</c> otherwise.</returns>
-		/// <param name="NombreCiencia">Nombre ciencia.</param>
-		public bool ExisteCiencia(string NombreCiencia)
+		/// <param name="nombreCiencia">Nombre ciencia.</param>
+		public bool ExisteCiencia(string nombreCiencia)
 		{
 			foreach (var x in Ciencias)
 			{
-				if (x.Nombre == NombreCiencia)
+				if (x.Nombre == nombreCiencia)
 					return true;
 			}
 			return false;
@@ -92,7 +92,7 @@ namespace Global
 		/// </summary>
 		/// <returns>The recurso.</returns>
 		/// <param name="nombre">Nombre del edificio a buscar.</param>
-		public Civ.EdificioRAW EncuentraEdificio(string nombre)
+		public EdificioRAW EncuentraEdificio(string nombre)
 		{
 			foreach (var x in Edificios)
 			{
@@ -108,12 +108,12 @@ namespace Global
 		/// Devuelve el edificio con un nombre específico.
 		/// </summary>
 		/// <returns>The recurso.</returns>
-		/// <param name="Nombre">Nombre del edificio a buscar.</param>
-		public Civ.Propiedad EncuentraPropiedad(string Nombre)
+		/// <param name="nombre">Nombre del edificio a buscar.</param>
+		public Propiedad EncuentraPropiedad(string nombre)
 		{
 			foreach (var x in Propiedades)
 			{
-				if (x.Nombre == Nombre)
+				if (x.Nombre == nombre)
 				{
 					return x;
 				}
@@ -126,7 +126,7 @@ namespace Global
 		/// </summary>
 		/// <returns>TrabajoRAW.</returns>
 		/// <param name="nombre">Nombre del Trabajo a buscar.</param>
-		public Civ.TrabajoRAW EncuentraTrabajo(string nombre)
+		public TrabajoRAW EncuentraTrabajo(string nombre)
 		{
 			return Trabajos.Find(x => x.Nombre == nombre);
 		}
@@ -135,7 +135,7 @@ namespace Global
 		/// Devuelve un arreglo de recursos que son científicos
 		/// </summary>
 		/// <returns>The lista recursos científicos.</returns>
-		public Civ.Recurso[] ObtenerRecursosCientificos()
+		public Recurso[] ObtenerRecursosCientificos()
 		{
 			return Recursos.FindAll(y => y.EsCientifico).ToArray();
 		}
@@ -144,25 +144,25 @@ namespace Global
 		/// Devuelve la lista de edificios autocontruibles.
 		/// </summary>
 		/// <returns>The autoconstruibles.</returns>
-		public List<Civ.EdificioRAW> EdificiosAutoconstruibles()
+		public List<EdificioRAW> EdificiosAutoconstruibles()
 		{
 			return Edificios.FindAll(x => x.EsAutoConstruible);
 		}
 
 		/// <summary>
-		/// Devuelve todos los <see cref="Civ.IRequerimiento"/>s.
+		/// Devuelve todos los IRequerimientos.
 		/// </summary>
-		[System.Xml.Serialization.XmlIgnore()]
-		public List<Civ.IRequerimiento<Civ.Ciudad>> Reqs
+		[System.Xml.Serialization.XmlIgnore]
+		public List<IRequerimiento<ICiudad>> Reqs
 		{
 			get
 			{
-				List<Civ.IRequerimiento<Civ.Ciudad>> ret = new List<Civ.IRequerimiento<Civ.Ciudad>>();
-				foreach (Civ.IRequerimiento<Civ.Ciudad> x in Edificios)
+				var ret = new List<IRequerimiento<ICiudad>>();
+				foreach (IRequerimiento<ICiudad> x in Edificios)
 				{
 					ret.Add(x);
 				}
-				foreach (Civ.IRequerimiento<Civ.Ciudad> x in Ciencias)
+				foreach (IRequerimiento<ICiudad> x in Ciencias)
 				{
 					ret.Add(x);
 				}

@@ -18,7 +18,6 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using ListasExtra;
 
 namespace Civ
@@ -36,10 +35,10 @@ namespace Civ
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.InvestigandoCiencia"/> class.
 		/// </summary>
-		/// <param name="C">Ciencia</param>
-		public InvestigandoCiencia(Ciencia C) : base()
+		/// <param name="ciencia">Ciencia</param>
+		public InvestigandoCiencia(Ciencia ciencia)
 		{
-			Ciencia = C;
+			Ciencia = ciencia;
 		}
 
 		/// <summary>
@@ -67,7 +66,7 @@ namespace Civ
 
 		public override string ToString()
 		{
-			return string.Format("{0}: {1}", Ciencia.Nombre, ObtPct().ToString());
+			return string.Format("{0}: {1}", Ciencia.Nombre, ObtPct());
 		}
 
 		/// <summary>

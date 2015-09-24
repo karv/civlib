@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Civ.Orden
+﻿namespace Civ.Orden
 {
 	/// <summary>
 	/// Representa una orden de una armada
@@ -18,34 +16,41 @@ namespace Civ.Orden
 
 	public class OrdenIr : Orden
 	{
-		public Pseudoposicion destino;
+		/// <summary>
+		/// Destino de la orden
+		/// </summary>
+		public Pseudoposicion Destino;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Orden.OrdenIr"/> class.
+		/// </summary>
+		/// <param name="destino">Destino.</param>
 		public OrdenIr(Pseudoposicion destino)
 		{
-			this.destino = destino;
+			Destino = destino;
 		}
 
 		public override bool Ejecutar(float t, Armada armada)
 		{
 			Pseudoposicion PS = armada.Posicion;
-			int orientacion = 0;
+			int orientacion; // Orientación de esta posición con respecto a PS
 			if (armada.EnTerreno)
 			{
-				armada.Posicion.B = destino.getExtremoNo(armada.Posicion.A);  //Asigna la posición de la armada en el intervalo correcto.
+				armada.Posicion.B = Destino.ExtremoNo(armada.Posicion.A);  //Asigna la posición de la armada en el intervalo correcto.
 
 				//				PS.Destino = Destino;
 				//				PS.Origen = armada.Posicion.Origen;
 
 			}
 
-			orientacion = PS.getOrientacion(destino);
+			orientacion = PS.Orientacion(Destino);
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
 			// Avanzar
 			PS.Avanzar(t * armada.Velocidad);
 
 			// Si cambia de orientación, significa que llegó
-			if (orientacion != PS.getOrientacion(destino))
+			if (orientacion != PS.Orientacion(Destino))
 			{
 				AlLlegar(armada);
 				return true;
@@ -53,11 +58,11 @@ namespace Civ.Orden
 
 
 			//Revisar si están en el mismo Terreno-intervalo
-			if (this.destino.Equals(PS))
+			if (Destino.Equals(PS))
 			{
-				armada.Posicion.A = destino.A;
-				armada.Posicion.B = destino.B;
-				armada.Posicion.loc = destino.loc;
+				armada.Posicion.A = Destino.A;
+				armada.Posicion.B = Destino.B;
+				armada.Posicion.loc = Destino.loc;
 				AlLlegar(armada);
 				return true;
 			}
@@ -80,7 +85,7 @@ namespace Civ.Orden
 
 		protected virtual void AlLlegar(Armada armada)
 		{
-			armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", armada, destino, this));
+			armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", armada, Destino, this));
 			return;
 		}
 	}

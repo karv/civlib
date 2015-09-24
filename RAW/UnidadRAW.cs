@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ListasExtra;
 
@@ -27,7 +26,7 @@ namespace Civ
 			/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
 			/// </summary>
 			[DataMember(Name = "Población")]
-			public float poblacionACiudad;
+			public float PoblacionACiudad;
 
 			[DataMember(Name = "Edificios")]
 			EdificioRAW[] _edificiosIniciales;
@@ -35,7 +34,7 @@ namespace Civ
 			/// <summary>
 			/// Edificios con los que inicia la nueva ciudad.
 			/// </summary>
-			public EdificioRAW[] edificiosIniciales
+			public EdificioRAW[] EdificiosIniciales
 			{
 				get
 				{
@@ -49,13 +48,13 @@ namespace Civ
 		}
 
 		[DataMember(Name = "Colonizar")]
-		public ColonizarOpciones? colonizacion;
+		public ColonizarOpciones? Colonización;
 
 		public bool PuedeColonizar
 		{
 			get
 			{
-				return colonizacion != null;
+				return Colonización != null;
 			}
 		}
 
@@ -109,7 +108,7 @@ namespace Civ
 		public float Velocidad;
 
 		[DataMember(Name = "Flags")]
-		private List<string> _Flags = new List<string>();
+		List<string> _Flags = new List<string>();
 
 		/// <summary>
 		/// Flags.
@@ -120,7 +119,7 @@ namespace Civ
 		}
 		// Reqs
 		[DataMember(Name = "Requerimientos")]
-		private Requerimientos _Reqs = new Requerimientos();
+		Requerimientos _Reqs = new Requerimientos();
 
 		/// <summary>
 		/// Requerimientos para crearse.
@@ -130,16 +129,11 @@ namespace Civ
 			get { return _Reqs; }
 		}
 
-		[DataMember(Name = "Ciencia")]
-		Ciencia _ReqCiencia;
-
 		/// <summary>
 		/// Devuelve la ciencia requerida para entrenar a la unidad.
 		/// </summary>
-		public Ciencia ReqCiencia
-		{
-			get { return _ReqCiencia; }
-		}
+		[DataMember(Name = "Ciencia")]
+		public Ciencia ReqCiencia { get; set; }
 
 		/// <summary>
 		/// Población productiva que requiere para entrenar.

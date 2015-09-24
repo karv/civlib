@@ -1,6 +1,4 @@
 using System;
-using ListasExtra;
-using System.Collections.Generic;
 
 namespace Civ
 {
@@ -16,10 +14,10 @@ namespace Civ
 			return string.Format("{0} trabajadores haciendo {1} en {2} de la ciudad {3}", Trabajadores, RAW.Nombre, EdificioBase.Nombre, CiudadDueño.Nombre);
 		}
 
-		public Trabajo(TrabajoRAW nRAW, Edificio EBase)
+		public Trabajo(TrabajoRAW nRAW, Edificio eBase)
 		{
 			_RAW = nRAW;
-			_EdificioBase = EBase;
+			_EdificioBase = eBase;
 			_EdificioBase.Trabajos.Add(this);
 			Trabajadores = 0;
 		}
@@ -110,7 +108,7 @@ namespace Civ
 		/// <summary>
 		/// Ejecuta un tick de tiempo
 		/// </summary>
-		public void Tick(float t = 1)
+		public void Tick(float t)
 		{
 			if (Trabajadores > 0)
 			{
@@ -120,14 +118,14 @@ namespace Civ
 				// Consumir recursos
 				foreach (var x in RAW.EntradaBase.Keys)
 				{
-					Almacen.changeRecurso(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * t);
+					Almacen.ChangeRecurso(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * t);
 				}
 
 
 				// Producir recursos
 				foreach (var x in RAW.SalidaBase.Keys)
 				{
-					Almacen.changeRecurso(x, RAW.SalidaBase[x] * Trabajadores * PctProd * t);
+					Almacen.ChangeRecurso(x, RAW.SalidaBase[x] * Trabajadores * PctProd * t);
 				}
 			}
 		}
@@ -151,7 +149,7 @@ namespace Civ
 
 		#region Trabajadores
 
-		ulong _Trabajadores;
+		ulong _trabajadores;
 
 		/// <summary>
 		/// Devuelve o establece el número de trabajadores ocupados en este trabajo.
@@ -161,15 +159,13 @@ namespace Civ
 		{
 			get
 			{
-				return _Trabajadores;
+				return _trabajadores;
 			}
 			set
 			{
-				ulong realValue;
-
-				_Trabajadores = 0;
-				realValue = (ulong)Math.Min(value, EdificioBase.getEspaciosTrabajadoresCiudad);
-				_Trabajadores = realValue;
+				_trabajadores = 0;
+				ulong realValue = Math.Min(value, EdificioBase.EspaciosTrabajadoresCiudad);
+				_trabajadores = realValue;
 			}
 		}
 
@@ -181,7 +177,7 @@ namespace Civ
 		{
 			get
 			{
-				return EdificioBase.getEspaciosTrabajadoresCiudad + Trabajadores;
+				return EdificioBase.EspaciosTrabajadoresCiudad + Trabajadores;
 			}
 		}
 

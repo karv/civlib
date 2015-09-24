@@ -18,8 +18,6 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-
 namespace Civ
 {
 	/// <summary>
@@ -31,7 +29,7 @@ namespace Civ
 		/// Obtener la posicion del objeto.
 		/// </summary>
 		/// <returns>The posicion.</returns>
-		Pseudoposicion getPosicion();
+		Pseudoposicion Posicion();
 	}
 }
 

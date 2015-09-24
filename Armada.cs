@@ -2,7 +2,6 @@ using ListasExtra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CivLibrary.Debug;
 
 namespace Civ
 {
@@ -13,12 +12,12 @@ namespace Civ
 	{
 		#region General
 
-		ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>((x, y) => Stack.Merge(x, y), null);
+		readonly ListaPeso<UnidadRAW, Stack> _Unidades = new ListaPeso<UnidadRAW, Stack>(Stack.Merge, null);
 
 		/// <summary>
 		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
 		/// </summary>
-		public readonly bool esDefensa;
+		public readonly bool EsDefensa;
 
 		/// <summary>
 		/// Devuelve la lista de unidades en la armada.
@@ -40,31 +39,36 @@ namespace Civ
 		/// <summary>
 		/// Devuelve las unidades que son de una clase específica.
 		/// </summary>
-		/// <param name="RAW">Tipo de unidades.</param>
+		/// <param name="raw">Tipo de unidades.</param>
 		/// <returns></returns>
-		public Stack UnidadesAgrupadas(UnidadRAW RAW)
+		public Stack UnidadesAgrupadas(UnidadRAW raw)
 		{
-			return _Unidades[RAW];
+			return _Unidades[raw];
 		}
 
 		/// <summary>
 		/// Crea una nueva armada
 		/// </summary>
-		/// <param name="C">Civilización</param>
-		/// <param name="esDefensa">If set to <c>true</c> es defensa.</param>
+		/// <param name="civilizacion">Civilización</param>
 		/// <param name="posición">Posición de la armada (se clona) </param>
-		public Armada(ICivilizacion C, Pseudoposicion posición, bool esDefensa = false)
+		public Armada(ICivilizacion civilizacion, Pseudoposicion posición)
 		{
-			_CivDueño = C;
-			this.esDefensa = esDefensa;
+			_CivDueño = civilizacion;
+			EsDefensa = false;
 			Posicion.A = posición.A;
 			Posicion.B = posición.B;
 			Posicion.loc = posición.loc;
-			C.Armadas.Add(this);
+			civilizacion.Armadas.Add(this);
 		}
 
-		public Armada(ICiudad C, bool esDefensa = false) : this(C.CivDueño, C.getPosicion(), esDefensa)
+		/// <summary>
+		/// Crea una nueva armada
+		/// </summary>
+		/// <param name="ciudad">Ciudad donde estará</param>
+		/// <param name="esDefensa">If set to <c>true</c> es defensa.</param>
+		public Armada(ICiudad ciudad, bool esDefensa = false) : this(ciudad.CivDueño, ciudad.Posicion())
 		{
+			EsDefensa = esDefensa;
 		}
 
 		float _MaxPeso;
@@ -127,22 +131,21 @@ namespace Civ
 		/// <summary>
 		/// Agrega, mueve o junta unidad(es) a esta armada.
 		/// </summary>
-		/// <param name="U">El stack que se agregará o moverá.</param>
-		public void AgregaUnidad(Stack U)
+		/// <param name="stack">El stack que se agregará o moverá.</param>
+		public void AgregaUnidad(Stack stack)
 		{
-			if (PosicionConsistente(U))
+			if (PosicionConsistente(stack))
 			{
-				if (PesoLibre >= U.Peso)
+				if (PesoLibre >= stack.Peso)
 				{
-					U.AbandonaArmada();
-					U.ArmadaPerteneciente = this;
-					if (_Unidades.ContainsKey(U.RAW))
+					stack.AbandonaArmada();
+					stack.ArmadaPerteneciente = this;
+					if (_Unidades.ContainsKey(stack.RAW))
 					{
-						_Unidades[U.RAW].Cantidad += U.Cantidad;
-						U = _Unidades[U.RAW];
+						_Unidades[stack.RAW].Cantidad += stack.Cantidad;
 					}
 					else
-						_Unidades.Add(U.RAW, U);
+						_Unidades.Add(stack.RAW, stack);
 				}
 			}
 			else
@@ -170,43 +173,41 @@ namespace Civ
 		/// Revisa si una armada y una unidad tienen la misma posición.
 		/// </summary>
 		/// <returns><c>true</c> si comparten el mismo lugar; <c>false</c> otherwise.</returns>
-		/// <param name="U">La unidad con la que se comparará posición.</param>
-		public bool PosicionConsistente(Stack U)
+		/// <param name="stack">El stack con la que se comparará posición.</param>
+		public bool PosicionConsistente(Stack stack)
 		{
-			return Posicion == null || Posicion.Equals(U.Posicion);
+			System.Diagnostics.Debug.Assert(Posicion != null);
+			return Posicion.Equals(stack.Posicion);
 		}
 
 		/// <summary>
-		/// Quita una unidad de la Armada.
+		/// Quita un stack de la Armada.
 		/// </summary>
-		/// <param name="U">Unidad a quitar</param>
-		public void QuitarUnidad(Stack U)
+		/// <param name="stack">Unidad a quitar</param>
+		public void QuitarUnidad(Stack stack)
 		{
-			_Unidades.Remove(U.RAW);
+			_Unidades.Remove(stack.RAW);
 		}
 
 		/// <summary>
 		/// Pelea durante t horas
 		/// </summary>
-		/// <param name="A">Armada</param>
+		/// <param name="armada">Armada</param>
 		/// <param name="t">tiempo de pelea</param>
-		/// <param name="r">Randomizer</param>
-		public void Pelea(Armada A, float t, Random r = null)
+		public void Pelea(Armada armada, float t)
 		{
-			if (this.Unidades.Count == 0 || A.Unidades.Count == 0)
+			if (Unidades.Count == 0 || armada.Unidades.Count == 0)
 				return;
 
 			int i, j;
-			if (r == null)
-				r = new Random();
 
-			Armada[] Arms = new Armada[2];
+			var Arms = new Armada[2];
 			Stack Ata;
 			Stack Def;
 			Arms[0] = this;
-			Arms[1] = A;
+			Arms[1] = armada;
 
-			i = r.Next(2); // Arms[i] Inicia
+			i = Global.Juego.Rnd.Next(2); // Arms[i] Inicia
 			j = 1 - i;
 			if (Arms[i].Unidades.Count > 0)
 			{
@@ -231,17 +232,20 @@ namespace Civ
 		/// Devuelve la unidad de maximin daño de this.Unidades a A.Unidades
 		/// </summary>
 		/// <returns>La unidad que hace el mayor daño menor.</returns>
-		/// <param name="A">A.</param>
-		Stack MayorDaño(Armada A)
+		/// <param name="armada">A.</param>
+		Stack MayorDaño(Armada armada)
 		{
 			float maxDaño = 0;
 			float currDaño;
 			Stack ret = null;
 			foreach (var x in Unidades)
 			{
-				currDaño = x.DañoPropuesto(x.MenorDaño(A));
+				currDaño = x.DañoPropuesto(x.MenorDaño(armada));
 				if (currDaño >= maxDaño)
+				{
 					ret = x;
+					maxDaño = currDaño;
+				}
 			}
 			System.Diagnostics.Debug.Assert(ret != null);
 			return ret;
@@ -278,9 +282,7 @@ namespace Civ
 		{
 			get
 			{
-				if (Unidades.Count == 0)
-					return 0;
-				return Unidades.Min(x => x.RAW.Velocidad);
+				return Unidades.Count == 0 ? 0 : Unidades.Min(x => x.RAW.Velocidad);
 			}
 		}
 
@@ -318,7 +320,7 @@ namespace Civ
 		/// <returns>The dictionary.</returns>
 		public Dictionary <UnidadRAW, List<Stack>> ToDictionary()
 		{
-			Dictionary <UnidadRAW, List<Stack>> ret = new Dictionary<UnidadRAW, List<Stack>>();
+			var ret = new Dictionary<UnidadRAW, List<Stack>>();
 			foreach (var x in Unidades)
 			{
 				if (!ret.ContainsKey(x.RAW))
@@ -349,14 +351,15 @@ namespace Civ
 		/// Daña un stack
 		/// </summary>
 		/// <param name="unidad">Unidad.</param>
-		/// <param name="daltaHP">Daño o cura (negativo es daño)</param>
-		public void DañarStack(UnidadRAW unidad, Stack Atacante, float deltaHP)
+		/// <param name="deltaHP">Daño o cura (negativo es daño)</param>
+		/// <param name="atacante">Stack atacante </param>
+		public void DañarStack(UnidadRAW unidad, Stack atacante, float deltaHP)
 		{
 			Stack currStack = this[unidad];
-			currStack.Dañar(-deltaHP, Atacante.RAW.Dispersion);
+			currStack.Dañar(-deltaHP, atacante.RAW.Dispersion);
 			if (currStack.HP < 0)
 			{
-				this._Unidades.Remove(unidad);
+				_Unidades.Remove(unidad);
 			}
 		}
 
@@ -393,17 +396,16 @@ namespace Civ
 		{
 			if (Unidades.Count == 0)
 				throw new Exception("No se puede desechar una armada con unidades en ella.");
-			IDisposable destr = (IDisposable)_Posicion;
-			destr.Dispose();
-			if (this.CivDueño != null)
-				CivDueño.Armadas.Remove(this);
+			((IDisposable)_Posicion).Dispose();
+
+			CivDueño?.Armadas.Remove(this);
 		}
 
 		#endregion
 
 		#region IPosicionable implementation
 
-		Pseudoposicion IPosicionable.getPosicion()
+		Pseudoposicion IPosicionable.Posicion()
 		{
 			return Posicion;
 		}

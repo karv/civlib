@@ -1,5 +1,3 @@
-using System;
-
 namespace Civ
 {
 	/// <summary>
@@ -14,6 +12,6 @@ namespace Civ
 		/// <summary>
 		/// Devuelve o establece su una Civilización puede hacer diplomacia a voluntad con otra.
 		/// </summary>
-		public bool PuedeHacerDiplomacia = false;
+		public bool PuedeHacerDiplomacia;
 	}
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Civ
@@ -10,10 +9,6 @@ namespace Civ
 	[DataContract]
 	public class Propiedad : IRequerimiento<Ciudad>, CivLibrary.Debug.IPlainSerializable
 	{
-		public Propiedad()
-		{
-		}
-
 		/// <summary>
 		/// Nombre de la propiedad.
 		/// </summary>
@@ -30,20 +25,21 @@ namespace Civ
 			get { return _Salida; }
 		}
 		// IRequerimiento:
-		bool IRequerimiento<Ciudad>.LoSatisface(Ciudad C)
+		bool IRequerimiento<Ciudad>.LoSatisface(Ciudad ciudad)
 		{
-			return C.ExistePropiedad(this);
+			return ciudad.ExistePropiedad(this);
 		}
 
 		/// <summary>
 		/// El tick de este edificio sobre una ciudad.
 		/// </summary>
-		/// <param name="C"><see cref="Civ.Ciudad"/> donde hará un tick esta propiedad.</param>
-		public virtual void Tick(IAlmacenante C, float t = 1)
+		/// <param name="almacén"><see cref="Civ.ICiudad"/> donde hará un tick esta propiedad.</param>
+		/// <param name="t">longitud del tick</param>
+		public virtual void Tick(IAlmacenante almacén, float t)
 		{
 			foreach (Civ.TasaProd.TasaProd x in _Salida)
 			{
-				x.Tick(C, t);
+				x.Tick(almacén, t);
 			}
 		}
 
@@ -64,12 +60,8 @@ namespace Civ
 
 			// Revisar ecosistemas
 
-			foreach (var x in Global.g_.Data.Ecosistemas)
+			foreach (var x in Global.Juego.Data.Ecosistemas)
 			{
-				foreach (var item in tab)
-				{
-					
-				}
 				if (x.PropPropiedad.ContainsKey(this))
 					ret += tab += x.Nombre;
 			}

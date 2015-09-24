@@ -18,7 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using ListasExtra;
 using System.Collections.Generic;
 
@@ -26,9 +26,9 @@ namespace Civ
 {
 	public class AlmacenCiudad: ListaPeso<Recurso>, IAlmacén
 	{
-		public AlmacenCiudad(Ciudad C) : base()
+		public AlmacenCiudad(Ciudad ciudad)
 		{
-			CiudadDueño = C;
+			CiudadDueño = ciudad;
 		}
 
 		public readonly Ciudad CiudadDueño;
@@ -39,31 +39,31 @@ namespace Civ
 		/// 
 		/// O establece la cantidad de recursos de esta ciudad (o global, según el tipo de recurso).
 		/// </summary>
-		/// <param name="R">Recurso a contar</param>
-		new public float this [Recurso R]
+		/// <param name="recurso">Recurso a contar</param>
+		new public float this [Recurso recurso]
 		{
 			get
 			{
 				float r;
 
-				r = base[R]; // Devuelve lo almacenado en esta ciudad.
-				if (CiudadDueño.Terr.Eco.RecursoEcologico.ContainsKey(R))
-					r += CiudadDueño.Terr.Eco.RecursoEcologico[R].Cant;
+				r = base[recurso]; // Devuelve lo almacenado en esta ciudad.
+				if (CiudadDueño.Terr.Eco.RecursoEcologico.ContainsKey(recurso))
+					r += CiudadDueño.Terr.Eco.RecursoEcologico[recurso].Cant;
 
 				return r;
 			}
 			set
 			{
 				// System.Diagnostics.Debug.WriteLine("AlmacénCiudad[R].set es Obsoleto");
-				if (R.EsGlobal)
+				if (recurso.EsGlobal)
 				{
-					CiudadDueño.CivDueno.Almacen[R] = value;
+					CiudadDueño.CivDueno.Almacen[recurso] = value;
 				}
 				else
 				{
 					if (float.IsNaN(value))
 						System.Diagnostics.Debugger.Break();
-					base[R] = value;
+					base[recurso] = value;
 				}
 			}
 		}
@@ -82,13 +82,13 @@ namespace Civ
 		/// Revisa si el almacén posee al menos una lista de recursos.
 		/// </summary>
 		/// <param name="reqs">Lista de recursos para ver si posee</param>
-		/// <param name="Veces">Cuántas veces contiene estos requisitos</param>
+		/// <param name="veces">Cuántas veces contiene estos requisitos</param>
 		/// <returns>true sólo si posee tales recursos.</returns>
-		public bool PoseeRecursos(ListaPeso<Recurso> reqs, ulong Veces)
+		public bool PoseeRecursos(ListaPeso<Recurso> reqs, ulong veces)
 		{
 			foreach (var item in reqs)
 			{
-				if (this[item.Key] < item.Value * Veces)
+				if (this[item.Key] < item.Value * veces)
 					return false;
 			}
 			return true;
@@ -96,13 +96,13 @@ namespace Civ
 
 		#region IAlmacén implementation
 
-		public void changeRecurso(Recurso rec, float delta)
+		public void ChangeRecurso(Recurso rec, float delta)
 		{
 			this[rec] += delta;
 			//this.Add(rec, delta);
 		}
 
-		void IAlmacén.setRecurso(Recurso rec, float val)
+		void IAlmacén.SetRecurso(Recurso rec, float val)
 		{
 			this[rec] = val;
 		}
@@ -111,9 +111,9 @@ namespace Civ
 
 		#region IAlmacénRead implementation
 
-		float IAlmacénRead.recurso(Recurso R)
+		float IAlmacénRead.recurso(Recurso recurso)
 		{
-			return this[R];
+			return this[recurso];
 		}
 
 		IEnumerable<Recurso> IAlmacénRead.recursos

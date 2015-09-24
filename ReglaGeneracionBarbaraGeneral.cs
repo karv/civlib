@@ -1,5 +1,4 @@
-﻿using System;
-using Civ;
+﻿using Civ;
 using Global;
 using System.Collections.Generic;
 
@@ -15,15 +14,11 @@ namespace Civ.Barbaros
 		/// </summary>
 		public float CoefPuntuacion = 0.3f;
 
-		public ReglaGeneracionBarbaraGeneral()
-		{
-		}
+		GameState _estado;
 
-		g_State _estado;
-
-		public bool EsPosibleGenerar(g_State Estado)
+		public bool EsPosibleGenerar(GameState estado)
 		{
-			this._estado = Estado;
+			_estado = estado;
 			return true;
 		}
 
@@ -35,17 +30,17 @@ namespace Civ.Barbaros
 		{
 			float PuntRestante = CoefPuntuacion * _estado.SumaPuntuacion() / _estado.CivsVivas().Count;
 
-			List<UnidadRAW> Unidades = new List<UnidadRAW>(g_.Data.Unidades);
-			CivilizacionBarbara cb = new CivilizacionBarbara();
+			var Unidades = new List<UnidadRAW>(Juego.Data.Unidades);
+			var cb = new CivilizacionBarbara();
 
-			List<Pseudoposicion> ppos = new List<Pseudoposicion>(_estado.Topologia.Nodos);
-			Pseudoposicion pos = ppos[g_.r.Next(ppos.Count)];
+			var ppos = new List<Pseudoposicion>(_estado.Topologia.Nodos);
+			Pseudoposicion pos = ppos[Juego.Rnd.Next(ppos.Count)];
 
-			Armada ret = new Armada(cb, pos, false);
+			var ret = new Armada(cb, pos);
 
 			while (Unidades.Count > 0 || PuntRestante <= 0)
 			{
-				UnidadRAW unid = Unidades[g_.r.Next(Unidades.Count)];
+				UnidadRAW unid = Unidades[Juego.Rnd.Next(Unidades.Count)];
 				Unidades.Remove(unid);
 				ulong Cant = (ulong)(PuntRestante / ((IPuntuado)unid).Puntuacion);
 				ret.AgregaUnidad(unid, Cant);

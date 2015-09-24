@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Civ;
 
 namespace Civ
@@ -7,10 +6,6 @@ namespace Civ
 	public class CivilizacionBarbara: ICivilizacion
 	{
 		public IDiplomacia Diplomacia;
-
-		public CivilizacionBarbara()
-		{
-		}
 
 		public string Nombre
 		{
@@ -20,7 +15,7 @@ namespace Civ
 			}
 		}
 
-		public int CuentaEdificios(EdificioRAW Edif)
+		public int CuentaEdificios(EdificioRAW edif)
 		{
 			return 0;
 		}
@@ -59,7 +54,7 @@ namespace Civ
 			}
 		}
 
-		void ICivilizacion.AgregaMensaje(IU.Mensaje Mens)
+		void ICivilizacion.AgregaMensaje(IU.Mensaje mensaje)
 		{
 		}
 

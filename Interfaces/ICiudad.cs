@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Civ
 {
@@ -11,21 +10,21 @@ namespace Civ
 
 		string Nombre { get; set; }
 
-		int NumEdificios(EdificioRAW Edif);
+		int NumEdificios(EdificioRAW edif);
 
 		void IntentaConstruirAutoconstruibles();
 
-		bool ExisteEdificio(EdificioRAW Edif);
+		bool ExisteEdificio(EdificioRAW edif);
 
 		ICollection<TrabajoRAW> ObtenerTrabajosAbiertos();
 
-		Trabajo EncuentraInstanciaTrabajo(TrabajoRAW TRAW);
+		Trabajo EncuentraInstanciaTrabajo(TrabajoRAW raw);
 
 		List<Armada> ArmadasEnCiudad();
 
 		Armada Defensa { get; }
 
-		ICivilizacion CivDueño{ get; }
+		ICivilizacion CivDueño{ get; set; }
 
 		InfoPoblacion GetPoblacionInfo{ get; }
 
@@ -35,7 +34,7 @@ namespace Civ
 
 		Stack Reclutar(UnidadRAW uRAW, ulong cantidad = 1);
 
-		ulong getNumTrabajadores { get; }
+		ulong NumTrabajadores { get; }
 	}
 
 

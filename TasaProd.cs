@@ -18,7 +18,6 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 
 namespace Civ.TasaProd
 {
@@ -27,7 +26,7 @@ namespace Civ.TasaProd
 	/// </summary>
 	public abstract class TasaProd
 	{
-		public Civ.Recurso recurso;
+		public Recurso Recurso;
 
 		#region ITickable implementation
 
@@ -47,11 +46,11 @@ namespace Civ.TasaProd
 		/// <summary>
 		/// Máximo del recurso que puede ofrecer esta tasa de crecimiento
 		/// </summary>
-		public float max;
+		public float Max;
 		/// <summary>
 		/// Aumento de recurso por hora
 		/// </summary>
-		public float crec;
+		public float Crecimiento;
 
 
 		#region TasaProd
@@ -59,13 +58,13 @@ namespace Civ.TasaProd
 		public override void Tick(IAlmacenante alm, float t)
 		{
 			
-			if (alm.Almacen.recurso(recurso) < max)
-				alm.Almacen.changeRecurso(recurso, crec * t);
+			if (alm.Almacen.recurso(Recurso) < Max)
+				alm.Almacen.ChangeRecurso(Recurso, Crecimiento * t);
 		}
 
 		public override float DeltaEsperado(IAlmacenante alm)
 		{
-			return crec;
+			return Crecimiento;
 		}
 
 		#endregion
@@ -78,24 +77,24 @@ namespace Civ.TasaProd
 	/// </summary>
 	public class TasaProdExp:TasaProd
 	{
-		public float max;
-		public float baseCrec;
+		public float Max;
+		public float CrecimientoBase;
 
 
 		#region implemented abstract members of TasaProd
 
 		public override void Tick(IAlmacenante alm, float t)
 		{
-			if (alm.Almacen.recurso(recurso) < max)
+			if (alm.Almacen.recurso(Recurso) < Max)
 			{
-				float crec = alm.obtenerRecurso(recurso) * baseCrec * t;
-				alm.Almacen.changeRecurso(recurso, crec);
+				float crec = alm.ObtenerRecurso(Recurso) * CrecimientoBase * t;
+				alm.Almacen.ChangeRecurso(Recurso, crec);
 			}
 		}
 
 		public override float DeltaEsperado(IAlmacenante alm)
 		{
-			return alm.obtenerRecurso(recurso) * baseCrec;
+			return alm.ObtenerRecurso(Recurso) * CrecimientoBase;
 		}
 
 		#endregion

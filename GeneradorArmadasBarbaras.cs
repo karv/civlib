@@ -1,8 +1,6 @@
 ﻿using System;
 using Global;
-using CivLibrary.Debug;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace Civ.Barbaros
 {
@@ -27,10 +25,6 @@ namespace Civ.Barbaros
 			}
 		}
 
-		public GeneradorArmadasBarbaras()
-		{
-		}
-
 		/// <summary>
 		/// Devuelve si debe generar bárbaro
 		/// </summary>
@@ -44,19 +38,19 @@ namespace Civ.Barbaros
 			// Densidad:  F(x) = lambda * e ^(-lambda * x)
 			// Esperanza  E(X) = 1/lambda = c
 			double Probabilidad = 1 - Math.Exp(-lambda * t);
-			return g_.r.NextDouble() < Probabilidad;
+			return Juego.Rnd.NextDouble() < Probabilidad;
 		}
 
 		/// <summary>
 		/// Devuelve una armada bárbara
 		/// </summary>
 		/// <returns>The armada.</returns>
-		public Armada getArmada()
+		public Armada Armada()
 		{
 			System.Diagnostics.Debug.WriteLine("Generar bárbaro...");
 
 			// Escoger una regla
-			List<IReglaGeneracion> reglas = Reglas.FindAll(x => x.EsPosibleGenerar(g_.State));
+			List<IReglaGeneracion> reglas = Reglas.FindAll(x => x.EsPosibleGenerar(Juego.State));
 			if (reglas.Count == 0)
 			{
 				System.Diagnostics.Debug.WriteLine("No hay regla para este caso");
@@ -64,18 +58,20 @@ namespace Civ.Barbaros
 			}
 			
 
-			IReglaGeneracion usarRegla = reglas[g_.r.Next(reglas.Count)];
+			IReglaGeneracion usarRegla = reglas[Juego.Rnd.Next(reglas.Count)];
 			Armada ret = usarRegla.GenerarArmada();
 			System.Diagnostics.Debug.WriteLine(string.Format("Armada generada {0}", ret));
 			return ret;
 		}
 
-
+		#region ITickable
 
 		public void Tick(float t)
 		{
 			if (GenerarBarbaro(t))
-				getArmada();
+				Armada();
 		}
+
+		#endregion
 	}
 }

@@ -7,20 +7,20 @@
 	{
 		// Opciones cívicas
 		public long AlimentoInicial = 100;
-		public int poblacionInicial = 10;
+		public int PoblacionInicial = 10;
 
 		// Topología
-		public int numTerrenos = 40;
-		public int numCivs = 4;
+		public int NumTerrenos = 40;
+		public int NumCivs = 4;
 
 		/// <summary>
 		/// Probabilidad de que dos territorios sean vecinos.
 		/// </summary>
-		public float compacidad = 0.15f;
+		public float Compacidad = 0.15f;
 
 		// Mínima y máxima distancia entre nodos.
-		public float minDistNodos = 0.3f;
-		public float maxDistNodos = 2f;
+		public float MinDistNodos = 0.3f;
+		public float MaxDistNodos = 2f;
 
 	}
 }

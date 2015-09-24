@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Graficas.Continuo;
-using System.Collections;
 using Global;
 
 namespace Civ
@@ -10,17 +7,17 @@ namespace Civ
 	/// <summary>
 	/// Representa un lugar que no es terreno, más bien es un punto en una arista de la Topología del mundo.
 	/// </summary>
-	public class Pseudoposicion :Graficas.Continuo.Continuo<Terreno>.ContinuoPunto
+	public class Pseudoposicion : Continuo<Terreno>.ContinuoPunto
 	{
 		Continuo<Terreno> _grafica
 		{
 			get
 			{
-				return this._universo;
+				return _universo;
 			}
 		}
 
-		public Pseudoposicion() : base(Global.g_.State.Mapa)
+		public Pseudoposicion() : base(Juego.State.Mapa)
 		{
 		}
 
@@ -30,10 +27,10 @@ namespace Civ
 		/// <returns>The posición.</returns>
 		public ICollection<Armada> ArmadasMismaPos()
 		{
-			List<Armada> ret = new List<Armada>();
-			foreach (var x in g_.State.getArmadas())
+			var ret = new List<Armada>();
+			foreach (var x in Juego.State.ArmadasExistentes())
 			{
-				if (this.Equals((Continuo<Terreno>.ContinuoPunto)x.Posicion))
+				if (Equals(x.Posicion))
 					ret.Add(x);
 			}
 			return ret;
@@ -51,7 +48,7 @@ namespace Civ
 		/// Revisa si está posición es Origen
 		/// </summary>
 		/// <value><c>true</c> if en origen; otherwise, <c>false</c>.</value>
-		public bool enTerreno
+		public bool EnTerreno
 		{
 			get
 			{
@@ -64,14 +61,11 @@ namespace Civ
 		/// Si sólo tiene un extremo, devuelve este único.
 		/// </summary>
 		/// <param name="noExtremo">Extremo excluido.</param>
-		public Terreno getExtremoNo(Terreno noExtremo)
+		public Terreno ExtremoNo(Terreno noExtremo)
 		{
 			if (B == null)
 				return A;
-			if (A.Equals(noExtremo))
-				return B;
-			else
-				return A;
+			return  A.Equals(noExtremo) ? B : A;
 		}
 
 		#region IEquatable implementation
@@ -107,7 +101,7 @@ namespace Civ
 		/// </summary>
 		public Pseudoposicion Clonar()
 		{
-			Pseudoposicion ret = new Pseudoposicion();
+			var ret = new Pseudoposicion();
 			ret.A = A;
 			ret.B = B;
 			ret.loc = loc;
@@ -121,7 +115,7 @@ namespace Civ
 		/// </summary>
 		/// <returns>The orientacion.</returns>
 		/// <param name="other">Other.</param>
-		public int getOrientacion(Pseudoposicion other)
+		public int Orientacion(Pseudoposicion other)
 		{
 			return A == other.A && B == other.B && loc < other.loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
 		}

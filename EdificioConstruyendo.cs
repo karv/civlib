@@ -36,13 +36,13 @@ namespace Civ
 		public ListaPeso<Recurso> RecursosAcumulados = new ListaPeso<Recurso>();
 
 		/// <summary>
-		/// Devuelve la función de recursos faltantes.
+		/// Devuelve una copia de la función de recursos faltantes.
 		/// </summary>
 		public ListaPeso<Recurso> RecursosRestantes
 		{
 			get
 			{
-				ListaPeso<Recurso> ret = new ListaPeso<Recurso>();
+				var ret = new ListaPeso<Recurso>();
 				foreach (var x in RAW.ReqRecursos)
 				{
 					Recurso r = x.Key;
@@ -57,12 +57,12 @@ namespace Civ
 		/// <summary>
 		/// Crea una instancia.
 		/// </summary>
-		/// <param name="EdifRAW">El RAW de este edificio.</param>
-		/// <param name="C">Ciudad dueño.</param>
-		public EdificioConstruyendo(EdificioRAW EdifRAW, Ciudad C)
+		/// <param name="raw">El RAW de este edificio.</param>
+		/// <param name="ciudad">Ciudad dueño.</param>
+		public EdificioConstruyendo(EdificioRAW raw, Ciudad ciudad)
 		{
-			RAW = EdifRAW;
-			CiudadDueño = C;
+			RAW = raw;
+			CiudadDueño = ciudad;
 		}
 
 		/// <summary>

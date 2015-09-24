@@ -17,23 +17,17 @@ namespace Civ
 			return UnidadesConstruibles().Keys;
 		}
 
-		public string Nombre
-		{
-			get
-			{
-				return _nombre;
-			}
-			set
-			{
-				_nombre = value;
-			}
-		}
+		/// <summary>
+		/// Devuelve o establece el nombre de la ciudad.
+		/// </summary>
+		/// <value>The nombre.</value>
+		public string Nombre{ get; set; }
 
 		public InfoPoblacion GetPoblacionInfo
 		{ 
 			get
 			{
-				return new InfoPoblacion(getPoblacionPreProductiva, getPoblacionProductiva, getPoblacionPostProductiva);
+				return new InfoPoblacion(PoblacionPreProductiva, PoblacionProductiva, PoblacionPostProductiva);
 			}
 		}
 
@@ -43,11 +37,15 @@ namespace Civ
 			{
 				return _CivDueño;
 			}
+			set
+			{
+				CivDueno = value;
+			}
 		}
 
 		ICollection<TrabajoRAW> ICiudad.ObtenerTrabajosAbiertos()
 		{
-			return obtenerTrabajosAbiertos();
+			return TrabajosAbiertos();
 		}
 
 		Armada ICiudad.Defensa
@@ -85,7 +83,7 @@ namespace Civ
 
 		#region IPosicionable implementation
 
-		public Pseudoposicion getPosicion()
+		public Pseudoposicion Posicion()
 		{
 			return Terr;
 		}
@@ -97,16 +95,12 @@ namespace Civ
 			return Nombre;
 		}
 
-		/// <summary>
-		/// Nombre de la ciudad.
-		/// </summary>
-		public string _nombre;
 		ICivilizacion _CivDueño;
 
 		/// <summary>
 		/// Determina si se autoreclutan trabajadores, por prioridad, al aumentar la población.
 		/// </summary>
-		public bool AutoReclutar = false;
+		public bool AutoReclutar;
 
 		/// <summary>
 		/// Devuelve o establece la civilización a la cual pertecene esta ciudad.
@@ -129,38 +123,39 @@ namespace Civ
 		}
 
 		public Ciudad(ICivilizacion dueño, Terreno t, float inipop = 1)
-			: this(g_.getUniqueCityName(), dueño, t, inipop)
+			: this(Juego.NombreCiudadUnico(), dueño, t, inipop)
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Ciudad"/> class.
 		/// </summary>
-		/// <param name="Nom">Nombre de la ciudad.</param>
-		/// <param name="Dueño">Civ a la que pertenece esta ciudad.</param>
-		/// <param name="T">Terreno de contrucción de la ciudad.</param>
-		public Ciudad(string Nom, ICivilizacion Dueño, Terreno T, float iniPop = 1)
+		/// <param name="nombre">Nombre de la ciudad.</param>
+		/// <param name="dueño">Civ a la que pertenece esta ciudad.</param>
+		/// <param name="terreno">Terreno de contrucción de la ciudad.</param>
+		/// <param name="iniPop"> Población (de edad productiva) inicial </param>
+		public Ciudad(string nombre, ICivilizacion dueño, Terreno terreno, float iniPop = 1)
 		{
 			_PoblacionProductiva = iniPop;
-			Nombre = Nom;
+			Nombre = nombre;
 			Almacen = new AlmacenCiudad(this);
-			T.CiudadConstruida = this;
-			Terr = T;
+			terreno.CiudadConstruida = this;
+			Terr = terreno;
 
 			// Inicializar la armada
-			Defensa = new Armada(Dueño, this.Pos, true);
+			Defensa = new Armada(this, true);
 			Defensa.MaxPeso = float.PositiveInfinity;
-			Defensa.Posicion.FromGrafica(T);
+			Defensa.Posicion.FromGrafica(terreno);
 
 			// Importar desde T.
 
-			foreach (var x in T.Innatos)
+			foreach (var x in terreno.Innatos)
 			{
 				// Si r.next < (algo):
 				AgregaPropiedad(x);
 			}
 
-			CivDueno = Dueño;	//Éste debe ser último.
+			CivDueno = dueño;	//Éste debe ser último.
 
 			IntentaConstruirAutoconstruibles(); // Construir autoconstruibles
 		}
@@ -176,9 +171,9 @@ namespace Civ
 		/// <returns>The construibles.</returns>
 		public Dictionary<UnidadRAW, ulong> UnidadesConstruibles()
 		{
-			Dictionary <UnidadRAW, ulong> ret = new Dictionary<UnidadRAW, ulong>();
+			var ret = new Dictionary<UnidadRAW, ulong>();
 
-			foreach (var x in Global.g_.Data.Unidades)
+			foreach (var x in Juego.Data.Unidades)
 			{
 				if (x.ReqCiencia == null || CivDueno.Avances.Contains(x.ReqCiencia))
 				{
@@ -196,7 +191,7 @@ namespace Civ
 		/// <param name="unid">Unid.</param>
 		public ulong UnidadesConstruibles(UnidadRAW unid)
 		{
-			ulong max = (ulong)(getTrabajadoresDesocupados / unid.CostePoblacion);
+			ulong max = TrabajadoresDesocupados / unid.CostePoblacion;
 			if (unid.Reqs != null)
 				foreach (var y in unid.Reqs)
 				{
@@ -214,7 +209,7 @@ namespace Civ
 		{
 			get
 			{
-				return (IAlmacén)Almacen;
+				return Almacen;
 			}
 		}
 
@@ -227,18 +222,18 @@ namespace Civ
 		/// Calcula el cambio en el almacén de un recurso.
 		/// </summary>
 		/// <returns>The delta recurso.</returns>
-		/// <param name="Recurso">Recurso.</param>
-		public float CalculaDeltaRecurso(Recurso Recurso)
+		/// <param name="recurso">Recurso.</param>
+		public float CalculaDeltaRecurso(Recurso recurso)
 		{
 			float ret = 0;
 
 			// Trabajos
 			foreach (var x in ObtenerListaTrabajos())
 			{
-				if (x.RAW.EntradaBase.ContainsKey(Recurso))
-					ret -= x.Trabajadores * x.RAW.EntradaBase[Recurso];
-				if (x.RAW.SalidaBase.ContainsKey(Recurso))
-					ret -= x.Trabajadores * x.RAW.SalidaBase[Recurso];
+				if (x.RAW.EntradaBase.ContainsKey(recurso))
+					ret -= x.Trabajadores * x.RAW.EntradaBase[recurso];
+				if (x.RAW.SalidaBase.ContainsKey(recurso))
+					ret -= x.Trabajadores * x.RAW.SalidaBase[recurso];
 
 			}
 
@@ -247,7 +242,7 @@ namespace Civ
 			{
 				foreach (var y in x.Salida)
 				{
-					if (y.recurso == Recurso)
+					if (y.Recurso == recurso)
 					{
 						ret += y.DeltaEsperado(this);
 					}
@@ -255,8 +250,8 @@ namespace Civ
 			}
 
 			// Si es alimento, lo que se van a comer
-			if (Recurso == RecursoAlimento)
-				ret -= getPoblacion * ConsumoAlimentoPorCiudadanoBase;
+			if (recurso == RecursoAlimento)
+				ret -= Poblacion * ConsumoAlimentoPorCiudadanoBase;
 
 
 			return ret;
@@ -271,29 +266,27 @@ namespace Civ
 
 		public List<Armada> ArmadasEnCiudad()
 		{
-			//List<Armada> ret = CivDueno.Armadas.FindAll(x => x.Posicion.Equals(posCiudad));
-			List<Armada> rat = new List<Armada>();
+			var rat = new List<Armada>();
 			foreach (var x in CivDueno.Armadas)
 			{
-				if (!x.esDefensa && x.Posicion.Equals(Pos))
+				if (!x.EsDefensa && x.Posicion.Equals(Pos))
 					rat.Add(x);
 			}
 			return rat;
 		}
 
-		// Todo para crear unidades
 		/// <summary>
 		/// Entrena una cantidad de unidades de una clase fija.
 		/// Incluye la unidad en la armada de la ciudad.
 		/// </summary>
 		/// <param name="uRAW">Clase de unidades a entrenar</param>
-		/// <param name="Cantidad">Cantidad</param>
+		/// <param name="cantidad">Cantidad</param>
 		/// <returns>Devuelve un arreglo con las unidades que se pudieron entrenar.</returns>
 		public Stack Reclutar(UnidadRAW uRAW, ulong cantidad = 1)
 		{
 			//Stack ret = null;
-			if (uRAW.CostePoblacion * cantidad <= getTrabajadoresDesocupados &&
-			    Almacen.PoseeRecursos((ListasExtra.ListaPeso<Recurso>)uRAW.Reqs, cantidad))	//Si puede pagar
+			if (uRAW.CostePoblacion * cantidad <= TrabajadoresDesocupados &&
+			    Almacen.PoseeRecursos((ListaPeso<Recurso>)uRAW.Reqs, cantidad))	//Si puede pagar
 			{
 				_PoblacionProductiva -= uRAW.CostePoblacion * cantidad;	// Recluta desde la poblaci�n productiva.
 				foreach (var x in uRAW.Reqs.Keys)				// Quita los recursos que requiere.
@@ -341,7 +334,7 @@ namespace Civ
 		#region Edificios
 
 		//Edificios
-		System.Collections.Generic.List<Edificio> _Edif = new System.Collections.Generic.List<Edificio>();
+		List<Edificio> _Edif = new List<Edificio>();
 
 		/// <summary>
 		/// Devuelve la lista de instancias de edicio de la ciudad.
@@ -358,13 +351,13 @@ namespace Civ
 		/// <summary>
 		/// Revisa si existe una clase de edificio en esta ciudad.
 		/// </summary>
-		/// <param name="Edif">La clase de edificio buscada</param>
+		/// <param name="edif">La clase de edificio buscada</param>
 		/// <returns><c>true</c> si existe el edificio, <c>false</c> si no.</returns>
-		public bool ExisteEdificio(EdificioRAW Edif)
+		public bool ExisteEdificio(EdificioRAW edif)
 		{
 			foreach (var x in Edificios)
 			{
-				if (x.RAW == Edif)
+				if (x.RAW == edif)
 					return true;
 			}
 			return false;
@@ -373,13 +366,13 @@ namespace Civ
 		/// <summary>
 		/// Devuelve el edificio en la ciudad con un nombre específico.
 		/// </summary>
-		/// <param name="Ed">RAW del edificio.</param>
+		/// <param name="edif">RAW del edificio.</param>
 		/// <returns>La instancia de edificio en la ciudad; si no existe devuelve <c>null</c>.</returns>
-		public Edificio EncuentraInstanciaEdificio(EdificioRAW Ed)
+		public Edificio EncuentraInstanciaEdificio(EdificioRAW edif)
 		{
 			foreach (Edificio x in Edificios)
 			{
-				if (x.RAW == Ed)
+				if (x.RAW == edif)
 				{
 					return x;
 				}
@@ -391,12 +384,10 @@ namespace Civ
 		/// Agrega una instancia de edicifio a la ciudad.
 		/// </summary>
 		/// <returns>La instancia de edificio que se agregó.</returns>
-		/// <param name="Edif">RAW dek edificio a agregar.</param>
-		public Edificio AgregaEdificio(EdificioRAW Edif)
+		/// <param name="edif">RAW del edificio a agregar.</param>
+		public Edificio AgregaEdificio(EdificioRAW edif)
 		{
-			Edificio ret = new Edificio(Edif, this);
-
-			return ret;
+			return new Edificio(edif, this);
 		}
 
 		/// <summary>
@@ -405,8 +396,8 @@ namespace Civ
 		/// <returns></returns>
 		public List<EdificioRAW> Construibles()
 		{
-			List<EdificioRAW> ret = new List<EdificioRAW>();
-			foreach (EdificioRAW x in Global.g_.Data.Edificios)
+			var ret = new List<EdificioRAW>();
+			foreach (EdificioRAW x in Juego.Data.Edificios)
 			{
 				if (PuedeConstruir(x))
 					ret.Add(x);
@@ -418,17 +409,17 @@ namespace Civ
 		/// Devuelve <c>true</c> si un edificio se puede contruir en esta ciudad.
 		/// <c>false</c> en caso contrario.
 		/// </summary>
-		/// <param name="Edif">Clase de edificio</param>
+		/// <param name="edif">Clase de edificio</param>
 		/// <returns></returns>
-		public bool PuedeConstruir(EdificioRAW Edif)
+		public bool PuedeConstruir(EdificioRAW edif)
 		{
-			if (!SatisfaceReq(Edif.Reqs()))
+			if (!SatisfaceReq(edif.Reqs()))
 				return false;
-			if (ExisteEdificio(Edif))
+			if (ExisteEdificio(edif))
 				return false;	// Por ahora no se permite múltiples instancias del mismo edificio en una ciudad.
-			if (Edif.MaxPorCivilizacion > 0 && Edif.MaxPorCivilizacion <= CivDueno.CuentaEdificios(Edif))
+			if (edif.MaxPorCivilizacion > 0 && edif.MaxPorCivilizacion <= CivDueno.CuentaEdificios(edif))
 				return false;
-			if (Edif.MaxPorMundo > 0 && Edif.MaxPorCivilizacion <= Global.g_.State.CuentaEdificios(Edif))
+			if (edif.MaxPorMundo > 0 && edif.MaxPorCivilizacion <= Juego.State.CuentaEdificios(edif))
 				return false;
 			return true;
 		}
@@ -436,20 +427,21 @@ namespace Civ
 		/// <summary>
 		/// Devuelve el número de edificios de una clase que se encutrnan en la ciudad.
 		/// </summary>
-		/// <param name="Edif">Clase de edificio.</param>
+		/// <param name="edif">Clase de edificio.</param>
 		/// <returns></returns>
-		public int NumEdificios(EdificioRAW Edif)
+		public int NumEdificios(EdificioRAW edif)
 		{
 			int ret = 0;
 			foreach (var x in Edificios)
 			{
-				if (x.RAW == Edif)
+				if (x.RAW == edif)
 					ret++;
 			}
 			return ret;
 		}
-		// Propiedades	//TODO: Ponerlos en otro archivo.
-		System.Collections.Generic.List<Propiedad> _Prop = new System.Collections.Generic.List<Propiedad>();
+
+		// Propiedades
+		List<Propiedad> _Prop = new List<Propiedad>();
 
 		/// <summary>
 		/// Devuelve la lista de Propiedades de la ciudad.
@@ -467,12 +459,12 @@ namespace Civ
 		/// Revisa si existe una propiedad P en la ciudad.
 		/// </summary>
 		/// <returns><c>true</c>, si la propiedad existe, <c>false</c> en caso contrario.</returns>
-		/// <param name="P">La propiedad.</param>
-		public bool ExistePropiedad(Propiedad P)
+		/// <param name="prop">La propiedad.</param>
+		public bool ExistePropiedad(Propiedad prop)
 		{
 			foreach (var x in Propiedades)
 			{
-				if (x == P)
+				if (x == prop)
 					return true;
 			}
 			return false;
@@ -483,12 +475,12 @@ namespace Civ
 		/// <summary>
 		/// Agrega una instancia de <c>Propiedad</c> a la ciudad.
 		/// </summary>
-		/// <param name="Prop">Propiedad a agregar.</param>
-		public void AgregaPropiedad(Propiedad Prop)
+		/// <param name="prop">Propiedad a agregar.</param>
+		public void AgregaPropiedad(Propiedad prop)
 		{
-			if (!Propiedades.Contains(Prop))
+			if (!Propiedades.Contains(prop))
 			{
-				Propiedades.Add(Prop);
+				Propiedades.Add(prop);
 			}
 		}
 
@@ -506,7 +498,7 @@ namespace Civ
 		{
 			get
 			{
-				return Global.g_.Data.RecursoAlimento;
+				return Juego.Data.RecursoAlimento;
 			}
 		}
 
@@ -540,15 +532,17 @@ namespace Civ
 		public static float ConsumoAlimentoPorCiudadanoBase = 1f;
 		//Población
 		float _PoblacionProductiva = 10f;
-		float _PoblacionPreProductiva = 0;
-		float _PoblacionPostProductiva = 0;
+		float _PoblacionPreProductiva;
+		float _PoblacionPostProductiva;
+		// Analysis disable ConvertToConstant.Local
 		float _TasaMortalidadHambruna = 0.5f;
+		// Analysis restore ConvertToConstant.Local
 
 		/// <summary>
 		/// Devuelve la población real y total de la ciudad.
 		/// </summary>
 		/// <value>The get real población.</value>
-		public float getRealPoblacion
+		public float RealPoblacion
 		{
 			get
 			{
@@ -560,11 +554,11 @@ namespace Civ
 		/// Devuelve la población de la ciudad.
 		/// </summary>
 		/// <value>The get poplación.</value>
-		public ulong getPoblacion
+		public ulong Poblacion
 		{
 			get
 			{
-				return getPoblacionProductiva + getPoblacionPreProductiva + getPoblacionPostProductiva;
+				return PoblacionProductiva + PoblacionPreProductiva + PoblacionPostProductiva;
 			}
 		}
 
@@ -572,7 +566,7 @@ namespace Civ
 		/// Devuelve la población productiva.
 		/// </summary>
 		/// <value></value>
-		public ulong getPoblacionProductiva
+		public ulong PoblacionProductiva
 		{
 			get
 			{
@@ -588,7 +582,7 @@ namespace Civ
 		/// Devuelve la población pre productiva.
 		/// </summary>
 		/// <value></value>
-		public ulong getPoblacionPreProductiva
+		public ulong PoblacionPreProductiva
 		{
 			get
 			{
@@ -600,7 +594,7 @@ namespace Civ
 		/// Devuelve la población post productiva.
 		/// </summary>
 		/// <value></value>
-		public ulong getPoblacionPostProductiva
+		public ulong PoblacionPostProductiva
 		{
 			get
 			{
@@ -617,14 +611,14 @@ namespace Civ
 		/// Devuelve en número de trabajadores ocupados en algún edificio.
 		/// </summary>
 		/// <value>The get población ocupada.</value>
-		public ulong getNumTrabajadores
+		public ulong NumTrabajadores
 		{
 			get
 			{
 				ulong ret = 0;
 				foreach (var x in Edificios)
 				{
-					ret += x.getTrabajadores;
+					ret += x.Trabajadores;
 				}
 				return ret;
 			}
@@ -634,11 +628,11 @@ namespace Civ
 		/// Devuelve el número de trabajadores desocupados en la ciudad.
 		/// </summary>
 		/// <value>The get trabajadores desocupados.</value>
-		public ulong getTrabajadoresDesocupados
+		public ulong TrabajadoresDesocupados
 		{
 			get
 			{
-				return getPoblacionProductiva - getNumTrabajadores;
+				return PoblacionProductiva - NumTrabajadores;
 			}
 		}
 
@@ -649,10 +643,10 @@ namespace Civ
 		{
 			get
 			{
-				List<TrabajoRAW> ret = new List<TrabajoRAW>();
-				foreach (var x in Global.g_.Data.Trabajos)
+				var ret = new List<TrabajoRAW>();
+				foreach (var x in Juego.Data.Trabajos)
 				{
-					List<IRequerimiento<ICiudad>> Req = new List<IRequerimiento<ICiudad>>();
+					var Req = new List<IRequerimiento<ICiudad>>();
 					foreach (var y in x.Requiere.Requiere())
 					{
 						Req.Add(y);
@@ -672,7 +666,7 @@ namespace Civ
 		/// </summary>
 		public List<Trabajo> ObtenerListaTrabajos()
 		{
-			List<Trabajo> ret = new List<Trabajo>();
+			var ret = new List<Trabajo>();
 			foreach (var x in Edificios)
 			{
 				foreach (var y in x.Trabajos)
@@ -686,14 +680,13 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la instancia de trabajo en esta ciudad, si existe. Si no, la crea y la devuelve cuando <c>CrearInstancia</c>.
 		/// </summary>
-		/// <param name="TRAW"></param>
+		/// <param name="raw"></param>
 		/// TrabajoRAW que se busca
-		/// <param name="CrearInstancia">Si no existe tal instancia y <c>CrearInstancia</c>, la crea; si no, tira excepción.</param>
 		/// <returns>Devuelve el trabajo en la ciudad correspondiente a este TrabajoRAW.</returns>
-		public Trabajo EncuentraInstanciaTrabajo(TrabajoRAW TRAW)
+		public Trabajo EncuentraInstanciaTrabajo(TrabajoRAW raw)
 		{
-			System.Diagnostics.Debug.Assert(TRAW != null);
-			EdificioRAW Ed = TRAW.Edificio;   // La clase de edificio que puede contener este trabajo.
+			System.Diagnostics.Debug.Assert(raw != null);
+			EdificioRAW Ed = raw.Edificio;   // La clase de edificio que puede contener este trabajo.
 			Edificio Edif = EncuentraInstanciaEdificio(Ed); // La instancia del edificio en esta ciudad.
 
 			System.Diagnostics.Debug.Assert(Edif != null);
@@ -701,29 +694,22 @@ namespace Civ
 				return null;    // Devuelve nulo si no existe el edificio donde se trabaja.
 			foreach (Trabajo x in ObtenerListaTrabajos())
 			{
-				if (x.RAW == TRAW)
+				if (x.RAW == raw)
 					return x;
 			}
-			Trabajo ret = new Trabajo(TRAW, this);
-			// Agregar este trabajo al edificio. Sin trabajadores.
-			//Edif.Trabajos.Add(ret);
-			//throw new Exception("No existe el trabajo buscado.");
-			return ret;
+			return new Trabajo(raw, this);
 		}
 
 		/// <summary>
 		/// Devuelve la instancia de trabajo en esta ciudad, si existe. Si no, la crea y la devuelve cuando <c>CrearInstancia</c>.
 		/// </summary>
-		/// <param name="TRAW"></param>
+		/// <param name="raw"></param>
 		/// Nombre del trabajo que se busca.
-		/// <param name="CrearInstancia">Si no existe tal instancia y <c>CrearInstancia</c>, la crea; si no, tira excepción.</param>
 		/// <returns>Devuelve el trabajo en la ciudad con el nombre buscado.</returns>
-		public Trabajo EncuentraInstanciaTrabajo(string TRAW)
+		public Trabajo EncuentraInstanciaTrabajo(string raw)
 		{
-			TrabajoRAW Tr = Global.g_.Data.EncuentraTrabajo(TRAW);
-			if (Tr == null)
-				return null;
-			return EncuentraInstanciaTrabajo(Tr);
+			TrabajoRAW Tr = Juego.Data.EncuentraTrabajo(raw);
+			return Tr == null ? null : EncuentraInstanciaTrabajo(Tr);
 		}
 
 		/// <summary>
@@ -734,7 +720,7 @@ namespace Civ
 		{
 			List<Trabajo> L = ObtenerListaTrabajos();
 			L.Sort((x, y) => x.Prioridad < y.Prioridad ? -1 : 1); // Ordenar por prioridad.
-			while (L.Count > 0 && getTrabajadoresDesocupados < n && getTrabajadoresDesocupados != getPoblacion)
+			while (L.Count > 0 && TrabajadoresDesocupados < n && TrabajadoresDesocupados != Poblacion)
 			{
 				L[0].Trabajadores = 0;
 				L.RemoveAt(0);
@@ -746,12 +732,12 @@ namespace Civ
 		/// threadsafe.
 		/// </summary>
 		/// <returns>Devuelve una nueva lista.</returns>
-		public List<TrabajoRAW> obtenerTrabajosAbiertos()
+		public List<TrabajoRAW> TrabajosAbiertos()
 		{
-			List<TrabajoRAW> ret = new List<TrabajoRAW>();
-			foreach (var x in Global.g_.Data.Trabajos)
+			var ret = new List<TrabajoRAW>();
+			foreach (var x in Juego.Data.Trabajos)
 			{
-				if (SatisfaceReq(x.Reqs()) && this.ExisteEdificio(x.Edificio))
+				if (SatisfaceReq(x.Reqs()) && ExisteEdificio(x.Edificio))
 				{
 					ret.Add(x);
 				}
@@ -766,21 +752,21 @@ namespace Civ
 		/// <summary>
 		/// Revisa si esta ciudad satisface un Irequerimiento.
 		/// </summary>
-		/// <param name="Req">Un requerimiento</param>
+		/// <param name="reqs">Un requerimiento</param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface un Irequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq(IRequerimiento<ICiudad> Req)
+		public bool SatisfaceReq(IRequerimiento<ICiudad> reqs)
 		{
-			return  Req.LoSatisface(this);
+			return  reqs.LoSatisface(this);
 		}
 
 		/// <summary>
 		/// Revisa si esta ciudad satisface una lista de requerimientos.
 		/// </summary>
-		/// <param name="Req"></param>
+		/// <param name="reqs"></param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface todos los IRequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq(List<IRequerimiento<ICiudad>> Req)
+		public bool SatisfaceReq(List<IRequerimiento<ICiudad>> reqs)
 		{
-			return Req.TrueForAll(x => x.LoSatisface(this));
+			return reqs.TrueForAll(x => x.LoSatisface(this));
 		}
 
 		#endregion
@@ -799,7 +785,7 @@ namespace Civ
 				}
 
 				// Población
-				ret += getPoblacionPreProductiva * 2 + getPoblacionProductiva * 3 + getPoblacionPostProductiva;
+				ret += PoblacionPreProductiva * 2 + PoblacionProductiva * 3 + PoblacionPostProductiva;
 
 				return ret;
 			}
@@ -831,8 +817,8 @@ namespace Civ
 			// Se está suponiendo crecimiento constante entre ticks!!!
 
 			//Crecimiento prometido por sector de edad.
-			float[] Crecimiento = new float[3];
-			float Consumo = getPoblacion * ConsumoAlimentoPorCiudadanoBase * t;
+			var Crecimiento = new float[3];
+			float Consumo = Poblacion * ConsumoAlimentoPorCiudadanoBase * t;
 			if (float.IsInfinity(AlimentoAlmacen) || float.IsNaN(AlimentoAlmacen))
 			{
 				System.Diagnostics.Debugger.Break();
@@ -842,46 +828,46 @@ namespace Civ
 			//Si tienen qué comer
 			if (Consumo <= AlimentoAlmacen)
 			{
-				Almacen.changeRecurso(RecursoAlimento, -Consumo);
+				Almacen.ChangeRecurso(RecursoAlimento, -Consumo);
 
 			}
 			else
 			{
 				//El porcentage de muertes
-				float pctMuerte = (1 - (AlimentoAlmacen / (getPoblacion * ConsumoAlimentoPorCiudadanoBase))) * _TasaMortalidadHambruna;
+				float pctMuerte = (1 - (AlimentoAlmacen / (Poblacion * ConsumoAlimentoPorCiudadanoBase))) * _TasaMortalidadHambruna;
 				if (!(0 <= pctMuerte && pctMuerte <= 1))
 					System.Diagnostics.Debugger.Break();
 				System.Diagnostics.Debug.Assert(0 <= pctMuerte && pctMuerte <= 1, "wat?");
 				AlimentoAlmacen = 0;
 				//Promesas de muerte por sector.
-				Crecimiento[0] -= getPoblacionPreProductiva * pctMuerte;
-				Crecimiento[1] -= getPoblacionProductiva * pctMuerte;
-				Crecimiento[2] -= getPoblacionPostProductiva * pctMuerte;
+				Crecimiento[0] -= PoblacionPreProductiva * pctMuerte;
+				Crecimiento[1] -= PoblacionProductiva * pctMuerte;
+				Crecimiento[2] -= PoblacionPostProductiva * pctMuerte;
 			}
 
 			//Crecimiento poblacional
 			//Infantil a productivo.
-			float Desarrollo = TasaDesarrolloBase * getPoblacionPreProductiva * t;
+			float Desarrollo = TasaDesarrolloBase * PoblacionPreProductiva * t;
 			Crecimiento[0] -= Desarrollo;
 			Crecimiento[1] += Desarrollo;
 			//Productivo a viejo
-			float Envejecer = TasaVejezBase * getPoblacionProductiva * t;
+			float Envejecer = TasaVejezBase * PoblacionProductiva * t;
 			Crecimiento[1] -= Envejecer;
 			Crecimiento[2] += Envejecer;
 			//Nuevos infantes
-			float Natalidad = TasaNatalidadBase * getPoblacionProductiva * t;
+			float Natalidad = TasaNatalidadBase * PoblacionProductiva * t;
 			Crecimiento[0] += Natalidad;
 			//Mortalidad
-			Crecimiento[0] -= getPoblacionPreProductiva * TasaMortalidadInfantilBase * t;
-			Crecimiento[1] -= getPoblacionProductiva * TasaMortalidadProductivaBase * t;
-			Crecimiento[2] -= getPoblacionPostProductiva * TasaMortalidadVejezBase * t;
+			Crecimiento[0] -= PoblacionPreProductiva * TasaMortalidadInfantilBase * t;
+			Crecimiento[1] -= PoblacionProductiva * TasaMortalidadProductivaBase * t;
+			Crecimiento[2] -= PoblacionPostProductiva * TasaMortalidadVejezBase * t;
 
 			// Aplicar cambios.
 
-			if (Crecimiento[1] < -(long)getTrabajadoresDesocupados)
+			if (Crecimiento[1] < -(long)TrabajadoresDesocupados)
 			{
 				CivDueno.AgregaMensaje(new IU.Mensaje("La ciudad {0} ha perdido trabajadores productivos ocupados.", this));
-				LiberarTrabajadores(getPoblacionProductiva - (ulong)Crecimiento[1]);
+				LiberarTrabajadores(PoblacionProductiva - (ulong)Crecimiento[1]);
 
 			}
 
@@ -896,7 +882,7 @@ namespace Civ
 
 				Lst.Sort(((x, y) => x.Prioridad < y.Prioridad ? -1 : 1));
 
-				for (int i = 0; i < Lst.Count && getTrabajadoresDesocupados > 0; i++)
+				for (int i = 0; i < Lst.Count && TrabajadoresDesocupados > 0; i++)
 				{
 					Lst[i].Trabajadores = Lst[i].MaxTrabajadores;
 				}
@@ -935,7 +921,7 @@ namespace Civ
 		public void IntentaConstruirAutoconstruibles()
 		{
 			// Autocontruible
-			List<EdificioRAW> PosiblesEdif = Global.g_.Data.EdificiosAutoconstruibles().FindAll(x => !ExisteEdificio(x)); 	// Obtener lista de edificios autocontruibles no construidos.
+			List<EdificioRAW> PosiblesEdif = Juego.Data.EdificiosAutoconstruibles().FindAll(x => !ExisteEdificio(x)); 	// Obtener lista de edificios autocontruibles no construidos.
 			foreach (var x in PosiblesEdif)
 			{
 				if (PuedeConstruir(x))
@@ -952,7 +938,7 @@ namespace Civ
 		public void DestruirRecursosTemporales()
 		{
 			// Desaparecen algunos recursos
-			List<Recurso> Alm = new List<Recurso>(Almacen.Keys);
+			var Alm = new List<Recurso>(Almacen.Keys);
 			foreach (Recurso x in Alm)
 			{
 				if (x.Desaparece)
@@ -967,13 +953,13 @@ namespace Civ
 		/// Ejecuta ambos: Tick () y PopTick ().
 		/// En ese orden.
 		/// </summary>
-		public void Tick(float t = 1)
+		public void Tick(float t)
 		{
 			PopTick(t);
 			ResourceTick(t);
-			if (CivDueno != null && getPoblacion == 0)
+			if (CivDueno != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
-				CivDueno.removeCiudad(this);
+				CivDueno.RemoveCiudad(this);
 			}
 		}
 
