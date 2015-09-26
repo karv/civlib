@@ -4,6 +4,7 @@ using Global;
 using System.Diagnostics;
 using Civ.Barbaros;
 using System.Collections.Generic;
+using Civ.Orden;
 
 namespace Test
 {
@@ -21,7 +22,41 @@ namespace Test
 			MyCiv = Juego.State.Civs[0];
 			MyCiudad = MyCiv.Ciudades[0];
 
-			TestReclutar();
+			TestRecoger ();
+		}
+
+		static void TestRecoger ()
+		{
+			UnidadRAW u = Juego.Data.Unidades [0];
+			u.MaxCarga = 100; // Porque yo lo digo
+			var pos = new Pseudoposicion ();
+			Terreno terrA = MyCiudad.Posicion ().A;
+			Terreno terrB = Global.Juego.State.ObtenerListaTerrenos () [0];
+			Juego.State.Topologia [terrA, terrB] = 1;
+			pos.A = terrA;
+			pos.B = terrB;
+			pos.loc = 0.5f;
+			var drop = new DropStack (pos);
+			Juego.State.Drops.Add (drop);
+
+			Armada arm = new Armada (MyCiudad);
+			MyCiv.Armadas.Add (arm);
+
+			arm.AgregaUnidad (u, 10);
+			Debug.WriteLine ("Peso máximo: " + arm [u].Carga.MaxCarga.ToString ());
+
+			var ord = new OrdenRecoger (arm.Posicion, drop);
+			arm.Orden = ord;
+
+			ord.AlLlegar += delegate {
+				Debug.WriteLine ("Llegamos a " + ord.StackTarget.Posicion ());
+			};
+			ord.AlRegresar += delegate {
+				Debug.WriteLine ("Regresamos a " + ord.Origen);
+			};
+
+			Ciclo (30);
+
 		}
 
 		static void TestReclutar()
