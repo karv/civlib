@@ -25,7 +25,7 @@ namespace Civ
 		/// Devuelve la cantidad máxima de peso que puede cargar
 		/// </summary>
 		/// <value>The max peso.</value>
-		public float MaxPeso
+		public float MaxCarga
 		{
 			get
 			{
@@ -53,7 +53,7 @@ namespace Civ
 		{
 			get
 			{
-				return MaxPeso - CargaActual;
+				return MaxCarga - CargaActual;
 			}
 		}
 
