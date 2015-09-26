@@ -14,9 +14,11 @@ namespace Civ.Orden
 		/// Initializes a new instance of the <see cref="Civ.Orden.OrdenRecoger"/> class.
 		/// </summary>
 		/// <param name="origen">Origen de la orden. Al lugar donde va a regresar con los recursos</param>
-		public OrdenRecoger(Pseudoposicion origen)
+		/// <param name="target">El DropStack que recogerá </param>
+		public OrdenRecoger(Pseudoposicion origen, DropStack target)
 		{
 			Origen = origen;
+			StackTarget = target;
 			_actual = new OrdenIr(StackTarget.Posicion());
 		}
 
