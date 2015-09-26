@@ -17,6 +17,8 @@ namespace Civ
 		public readonly UnidadRAW RAW;
 		ulong _cantidad;
 
+		public AlmacénStack Carga{ get; }
+
 		public float Vitalidad
 		{
 			get
@@ -72,6 +74,7 @@ namespace Civ
 		/// <param name="cantidad">Cantidad de unidades que pertenecen al stack </param>
 		public Stack(UnidadRAW uRAW, ulong cantidad, Armada armada)
 		{
+			Carga = new AlmacénStack(this);
 			RAW = uRAW;
 			Nombre = uRAW.Nombre;
 			_HP = 1;
@@ -376,6 +379,29 @@ namespace Civ
 
 			return ret;
 
+		}
+
+		#endregion
+
+		#region Carga
+
+		public void RecogerTodo()
+		{
+			if (Carga.CargaRestante <= 0)
+				return;
+			foreach (var x in Juego.State.Drops)
+			{
+				if (x.Posicion().Equals(Posicion))
+				{
+					foreach (var r in x.Almacén.Keys)
+					{
+						if (Carga.CargaRestante <= 0)
+							return;
+						float Cargar = Math.Min(Carga.CargaRestante, x.Almacén[r]);
+						Carga[r] += Cargar;
+					}
+				}
+			}
 		}
 
 		#endregion

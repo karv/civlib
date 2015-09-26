@@ -146,6 +146,16 @@ namespace Civ
 		[DataMember]
 		public float Peso;
 
+		#region Posesión
+
+		/// <summary>
+		/// Cantidad de peso que puede cargar
+		/// </summary>
+		[DataMember]
+		public float MaxCarga;
+
+		#endregion
+
 		public override string ToString()
 		{
 			return Nombre;

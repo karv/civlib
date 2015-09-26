@@ -16,6 +16,7 @@ namespace Global
 
 		public Graficas.Continuo.Continuo<Terreno> Mapa;
 		List<ICivilizacion> _Civs = new List<ICivilizacion>();
+		List<DropStack> _Drops = new List<DropStack>();
 
 		public GameState()
 		{
@@ -45,6 +46,8 @@ namespace Global
 			}
 			return ret;
 		}
+
+		public List<DropStack> Drops { get { return _Drops; } }
 
 		/// <summary>
 		/// Obtiene la lista de <c>Terreno</c>s en el juego.
@@ -118,6 +121,7 @@ namespace Global
 			}
 			return ret;
 		}
+
 
 		#region Estad¨ªstico
 

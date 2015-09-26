@@ -59,18 +59,7 @@ namespace Civ.Orden
 				return true;
 			}
 
-			/*
-			if (PS.A == destino.A && PS.B == destino.B) // Esto debe pasar siempre, por ahora.
-			{
-				if (PS.loc >= destino.loc)
-				{
-					// Ya llegó.
-					armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", armada, destino, this));
-					return true;
-					// Orden = null;
-				}
-			} 
-*/
+
 			return false;
 
 		}

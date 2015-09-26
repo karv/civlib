@@ -17,7 +17,7 @@ namespace Civ
 
 		readonly Pseudoposicion _posicion = new Pseudoposicion();
 
-		Pseudoposicion IPosicionable.Posicion()
+		public Pseudoposicion Posicion()
 		{
 			return _posicion;
 		}
