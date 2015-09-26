@@ -1,4 +1,6 @@
-﻿namespace Civ.Orden
+﻿using System;
+
+namespace Civ.Orden
 {
 	public class OrdenRecoger: Orden
 	{
@@ -28,11 +30,14 @@
 
 			// Si ya llegó al origen, ya terminó toda la orden.
 			if (armada.Posicion.Equals(Origen))
+			{
+				AlRegresar.Invoke(this, null);
 				return true;
-
+			}
 			// Si llegó a dónde se encuentran los recursos
 			if (retOrdenPasada)
 			{
+				AlLlegar?.Invoke(this, null);
 				// Recoger todo lo que se encuentra allá
 				foreach (var s in armada.Unidades)
 				{
@@ -44,6 +49,19 @@
 			// Aún no acaba
 			return false;
 		}
-	
+
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre al llegar al DropStack
+		/// </summary>
+		public event EventHandler AlLlegar;
+
+		/// <summary>
+		/// Ocurre al regresar a casa
+		/// </summary>
+		public event EventHandler AlRegresar;
+
+		#endregion
 	}
 }
