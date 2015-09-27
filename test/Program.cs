@@ -5,13 +5,14 @@ using System.Diagnostics;
 using Civ.Barbaros;
 using System.Collections.Generic;
 using Civ.Orden;
+using IU;
 
 namespace Test
 {
 	class MainClass
 	{
-		static ICivilizacion MyCiv;
-		static ICiudad MyCiudad;
+		static Civilizacion MyCiv;
+		static Ciudad MyCiudad;
 
 		public static void Main()
 		{
@@ -19,8 +20,15 @@ namespace Test
 			Juego.InicializarJuego();
 
 
-			MyCiv = Juego.State.Civs[0];
-			MyCiudad = MyCiv.Ciudades[0];
+			MyCiv = Juego.State.Civs [0] as Civilizacion;
+			MyCiudad = MyCiv.Ciudades [0] as Ciudad;
+
+			MyCiv.OnNuevoMensaje += delegate {
+				while (MyCiv.ExisteMensaje) {
+					Mensaje m = MyCiv.SiguitenteMensaje ();
+					Debug.WriteLine (m.ToString ());
+				}
+			};
 
 			TestRecoger ();
 		}
@@ -31,7 +39,7 @@ namespace Test
 			u.MaxCarga = 100; // Porque yo lo digo
 			var pos = new Pseudoposicion ();
 			Terreno terrA = MyCiudad.Posicion ().A;
-			Terreno terrB = Global.Juego.State.ObtenerListaTerrenos () [0];
+			Terreno terrB = Juego.State.ObtenerListaTerrenos () [0];
 			Juego.State.Topologia [terrA, terrB] = 1;
 			pos.A = terrA;
 			pos.B = terrB;
@@ -39,13 +47,13 @@ namespace Test
 			var drop = new DropStack (pos);
 			Juego.State.Drops.Add (drop);
 
-			Armada arm = new Armada (MyCiudad);
+			var arm = new Armada (MyCiudad);
 			MyCiv.Armadas.Add (arm);
 
 			arm.AgregaUnidad (u, 10);
-			Debug.WriteLine ("Peso máximo: " + arm [u].Carga.MaxCarga.ToString ());
+			Debug.WriteLine ("Peso máximo: " + arm [u].Carga.MaxCarga);
 
-			var ord = new OrdenRecoger (arm.Posicion, drop);
+			var ord = new OrdenRecoger (arm.Posicion.Clonar (), drop);
 			arm.Orden = ord;
 
 			ord.AlLlegar += delegate {
@@ -55,7 +63,7 @@ namespace Test
 				Debug.WriteLine ("Regresamos a " + ord.Origen);
 			};
 
-			Ciclo (30);
+			Ciclo (1000);
 
 		}
 
@@ -115,7 +123,7 @@ namespace Test
 				}
 			};
 			
-			Ciclo(100, Entreturnos);
+			Ciclo (1000, Entreturnos);
 		}
 
 		static void TestGeneradorArmadas()
