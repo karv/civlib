@@ -38,6 +38,11 @@ namespace Civ.Orden
 			orientacion = PS.Orientacion(Destino);
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
+			// Si está Atrás, ejecutar PS.Invertir();
+			PS.Hacerconsistente(Destino);
+			if (PS.loc > Destino.loc)
+				t = -t;
+			
 			// Avanzar
 			PS.Avanzar((float)t.TotalHours * Armada.Velocidad);
 

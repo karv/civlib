@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Basic;
 using Global;
-using System.Diagnostics;
 
 namespace Civ
 {
@@ -148,14 +147,7 @@ namespace Civ
 		/// <returns><c>true</c>, if requerimientos recursos was satisfaced, <c>false</c> otherwise.</returns>
 		bool SatisfaceRequerimientosRecursos(Ciencia ciencia)
 		{
-			// Si ya se conoce la ciencia, entonces devuelve true.
-			if (Avances.Contains(ciencia))
-				return true;
-
-			Debug.Fail("No creo que sea posible llegar aquí");
-			throw new Exception();
-			//InvestigandoCiencia I = Investigando.EncuentraInstancia(ciencia);
-			//return I?.EstaCompletada() ?? false;
+			return Avances.Contains(ciencia);
 		}
 
 		#endregion
@@ -228,6 +220,7 @@ namespace Civ
 		public void AgregaMensaje(IU.Mensaje mensaje)
 		{
 			Mensajes.Enqueue(mensaje);
+			OnNuevoMensaje?.Invoke();
 		}
 
 		/// <summary>

@@ -30,15 +30,18 @@ namespace Civ.Orden
 		{
 			bool retOrdenPasada = _actual.Ejecutar(t, armada);
 
-			// Si ya llegó al origen, ya terminó toda la orden.
-			if (armada.Posicion.Equals(Origen))
-			{
-				AlRegresar.Invoke(this, null);
-				return true;
-			}
-			// Si llegó a dónde se encuentran los recursos
+
+
 			if (retOrdenPasada)
 			{
+				// Si ya llegó al origen, ya terminó toda la orden.
+				if (armada.Posicion.Equals(Origen))
+				{
+					AlRegresar.Invoke(this, null);
+					return true;
+				}
+
+				// Si llegó a dónde se encuentran los recursos
 				AlLlegar?.Invoke(this, null);
 				// Recoger todo lo que se encuentra allá
 				foreach (var s in armada.Unidades)
