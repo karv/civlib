@@ -97,6 +97,7 @@
     <Compile Include="RAW\TasaProd.cs" />
     <Compile Include="DropStack.cs" />
     <Compile Include="OrdenRecoger.cs" />
+    <Compile Include="Orden\OrdenIrALugar.cs" />
     <Compile Include="AlmacénStack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

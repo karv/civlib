@@ -10,7 +10,11 @@ namespace Civ.Orden
 	/// </summary>
 	public class OrdenSerie:Orden
 	{
-		Queue<Orden> ColaOrden { get; }
+		/// <summary>
+		/// La cola de órdenes
+		/// </summary>
+		/// <value>The cola orden.</value>
+		protected Queue<Orden> ColaOrden { get; }
 
 		/// <summary>
 		/// La orden actual
