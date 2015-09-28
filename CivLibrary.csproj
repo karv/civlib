@@ -44,55 +44,56 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ciencia.cs" />
-    <Compile Include="Recurso.cs" />
     <Compile Include="Interfaces\IRequerimiento.cs" />
     <Compile Include="Global\Estructura Data.cs" />
     <Compile Include="Global\Estructura State.cs" />
     <Compile Include="Global\Estáticos.cs" />
     <Compile Include="Global\Basic.cs" />
-    <Compile Include="Terreno.cs" />
     <Compile Include="Mensaje.cs" />
     <Compile Include="Debug.cs" />
-    <Compile Include="AlmacénCiudad.cs" />
-    <Compile Include="EdificioConstruyendo.cs" />
-    <Compile Include="Ciudad.cs" />
-    <Compile Include="AlmacénCiv.cs" />
-    <Compile Include="InvestigandoCiencia.cs" />
-    <Compile Include="ListaInvestigación.cs" />
-    <Compile Include="EstadoDiplomatico.cs" />
-    <Compile Include="Civilización.cs" />
-    <Compile Include="Propiedad.cs" />
-    <Compile Include="Edificio.cs" />
     <Compile Include="Interfaces\IAlmacén.cs" />
     <Compile Include="Interfaces\IAlmacenante.cs" />
     <Compile Include="Interfaces\ITickable.cs" />
     <Compile Include="RAW\EdificioRAW.cs" />
-    <Compile Include="Trabajo.cs" />
     <Compile Include="RAW\TrabajoRAW.cs" />
-    <Compile Include="Orden.cs" />
-    <Compile Include="OrdenEstacionado.cs" />
-    <Compile Include="PseudoPosicion.cs" />
-    <Compile Include="Armada.cs" />
     <Compile Include="RAW\UnidadRAW.cs" />
-    <Compile Include="Stack.cs" />
-    <Compile Include="TasaProd.cs" />
     <Compile Include="NewGameOptions.cs" />
-    <Compile Include="ControlDiplomacia.cs" />
-    <Compile Include="DiplomaciaNomada.cs" />
-    <Compile Include="GeneradorArmadasBarbaras.cs" />
-    <Compile Include="ReglaGeneracion.cs" />
-    <Compile Include="CivilizacionBarbara.cs" />
-    <Compile Include="ReglaGeneracionBarbaraGeneral.cs" />
-    <Compile Include="InfoPoblacion.cs" />
     <Compile Include="Interfaces\ICiudad.cs" />
     <Compile Include="Interfaces\ICivilizacion.cs" />
     <Compile Include="Interfaces\IDiplomacia.cs" />
     <Compile Include="Interfaces\IPosicionable.cs" />
     <Compile Include="Interfaces\IPuntuado.cs" />
     <Compile Include="Interfaces\IReglaGeneracion.cs" />
-    <Compile Include="OrdenSerie.cs" />
-    <Compile Include="OrdenIr.cs" />
+    <Compile Include="Almacén\AlmacénCiudad.cs" />
+    <Compile Include="Almacén\AlmacénCiv.cs" />
+    <Compile Include="Objetos de estado\Armada.cs" />
+    <Compile Include="Objetos de estado\Ciudad.cs" />
+    <Compile Include="Objetos de estado\Civilización.cs" />
+    <Compile Include="Objetos de estado\CivilizacionBarbara.cs" />
+    <Compile Include="Objetos de estado\ControlDiplomacia.cs" />
+    <Compile Include="Objetos de estado\DiplomaciaNomada.cs" />
+    <Compile Include="Objetos de estado\Edificio.cs" />
+    <Compile Include="Objetos de estado\EdificioConstruyendo.cs" />
+    <Compile Include="Objetos de estado\EstadoDiplomatico.cs" />
+    <Compile Include="RAW\GeneradorArmadasBarbaras.cs" />
+    <Compile Include="Objetos de estado\InfoPoblacion.cs" />
+    <Compile Include="Ciencia\Ciencia.cs" />
+    <Compile Include="Ciencia\InvestigandoCiencia.cs" />
+    <Compile Include="Ciencia\ListaInvestigación.cs" />
+    <Compile Include="Orden\Orden.cs" />
+    <Compile Include="Orden\OrdenEstacionado.cs" />
+    <Compile Include="Orden\OrdenIr.cs" />
+    <Compile Include="Orden\OrdenSerie.cs" />
+    <Compile Include="RAW\Propiedad.cs" />
+    <Compile Include="RAW\Recurso.cs" />
+    <Compile Include="Topología\PseudoPosicion.cs" />
+    <Compile Include="Topología\Terreno.cs" />
+    <Compile Include="Topología\Ecosistema.cs" />
+    <Compile Include="RAW\ReglaGeneracion.cs" />
+    <Compile Include="RAW\ReglaGeneracionBarbaraGeneral.cs" />
+    <Compile Include="Objetos de estado\Trabajo.cs" />
+    <Compile Include="Objetos de estado\Stack.cs" />
+    <Compile Include="RAW\TasaProd.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -119,6 +120,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="RAW\" />
+    <Folder Include="Almacén\" />
+    <Folder Include="Objetos de estado\" />
+    <Folder Include="Ciencia\" />
+    <Folder Include="Orden\" />
+    <Folder Include="Topología\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
