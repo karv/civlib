@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace Civ.Orden
 {
@@ -42,7 +43,7 @@ namespace Civ.Orden
 		/// </summary>
 		/// <param name="t">Tiempo</param>
 		/// <param name="armada">Armada</param>
-		public override bool Ejecutar(float t, Armada armada)
+		public override bool Ejecutar(TimeSpan t, Armada armada)
 		{
 			bool ret = Actual.Ejecutar(t, armada);
 			if (ret)

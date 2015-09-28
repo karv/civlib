@@ -18,11 +18,14 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
+
+
 namespace Civ.Orden
 {
 	public class OrdenEstacionado : Orden
 	{
-		public override bool Ejecutar(float t, Armada armada)
+		public override bool Ejecutar(TimeSpan t, Armada armada)
 		{
 			return false;
 		}

@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
 
 namespace Civ.TasaProd
 {
@@ -30,7 +31,7 @@ namespace Civ.TasaProd
 
 		#region ITickable implementation
 
-		public abstract void Tick(IAlmacenante alm, float t);
+		public abstract void Tick(IAlmacenante alm, TimeSpan t);
 
 		public abstract float DeltaEsperado(IAlmacenante alm);
 
@@ -55,11 +56,11 @@ namespace Civ.TasaProd
 
 		#region TasaProd
 
-		public override void Tick(IAlmacenante alm, float t)
+		public override void Tick(IAlmacenante alm, TimeSpan t)
 		{
 			
 			if (alm.Almacen.recurso(Recurso) < Max)
-				alm.Almacen.ChangeRecurso(Recurso, Crecimiento * t);
+				alm.Almacen.ChangeRecurso(Recurso, Crecimiento * (float)t.TotalHours);
 		}
 
 		public override float DeltaEsperado(IAlmacenante alm)
@@ -83,11 +84,11 @@ namespace Civ.TasaProd
 
 		#region implemented abstract members of TasaProd
 
-		public override void Tick(IAlmacenante alm, float t)
+		public override void Tick(IAlmacenante alm, TimeSpan t)
 		{
 			if (alm.Almacen.recurso(Recurso) < Max)
 			{
-				float crec = alm.ObtenerRecurso(Recurso) * CrecimientoBase * t;
+				float crec = alm.ObtenerRecurso(Recurso) * CrecimientoBase * (float)t.TotalHours;
 				alm.Almacen.ChangeRecurso(Recurso, crec);
 			}
 		}

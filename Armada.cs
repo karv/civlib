@@ -194,7 +194,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="armada">Armada</param>
 		/// <param name="t">tiempo de pelea</param>
-		public void Pelea(Armada armada, float t)
+		public void Pelea(Armada armada, TimeSpan t)
 		{
 			if (Unidades.Count == 0 || armada.Unidades.Count == 0)
 				return;
@@ -213,7 +213,7 @@ namespace Civ
 			{
 				Ata = Arms[i].MayorDaño(Arms[j]);
 				Def = Ata.MenorDaño(Arms[j]);
-				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, Ata, t);
+				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, Ata, (float)t.TotalHours);
 				if (Def.Muerto)
 					return;
 			}
@@ -224,7 +224,7 @@ namespace Civ
 			{
 				Ata = Arms[i].MayorDaño(Arms[j]);
 				Def = Ata.MenorDaño(Arms[j]);
-				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, Ata, t);
+				Ata.CausaDaño(Def.ArmadaPerteneciente, Def.RAW, Ata, (float)t.TotalHours);
 			}
 		}
 
@@ -295,7 +295,7 @@ namespace Civ
 		/// <summary>
 		/// Un Tick de la armada
 		/// </summary>
-		public void Tick(float t)
+		public void Tick(TimeSpan t)
 		{
 			if (Orden.Ejecutar(t, this))
 			{

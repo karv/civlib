@@ -300,7 +300,7 @@ namespace Civ
 		/// Básicamente hace todo lo necesario y suficiente que le corresponde entre turnos.
 		/// </summary>
 		/// <param name="t">Diración del tick</param>
-		public void Tick(float t)
+		public void Tick(TimeSpan t)
 		{
 			Random r = Juego.Rnd;
 			foreach (var x in Ciudades)

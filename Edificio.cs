@@ -61,12 +61,12 @@ namespace Civ
 		/// <summary>
 		/// Produce un tick productivo hereditario.
 		/// </summary>
-		public void Tick(float t)
+		public void Tick(TimeSpan t)
 		{
 			if (RAW.Salida != null)
 				foreach (var x in RAW.Salida)
 				{
-					CiudadDueño.Almacen[x.Key] += x.Value * t;
+					CiudadDueño.Almacen[x.Key] += x.Value * (float)t.TotalHours;
 				}
 
 			foreach (var x in Trabajos)

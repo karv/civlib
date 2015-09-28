@@ -108,7 +108,7 @@ namespace Civ
 		/// <summary>
 		/// Ejecuta un tick de tiempo
 		/// </summary>
-		public void Tick(float t)
+		public void Tick(TimeSpan t)
 		{
 			if (Trabajadores > 0)
 			{
@@ -118,14 +118,14 @@ namespace Civ
 				// Consumir recursos
 				foreach (var x in RAW.EntradaBase.Keys)
 				{
-					Almacen.ChangeRecurso(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * t);
+					Almacen.ChangeRecurso(x, -RAW.EntradaBase[x] * Trabajadores * PctProd * (float)t.TotalHours);
 				}
 
 
 				// Producir recursos
 				foreach (var x in RAW.SalidaBase.Keys)
 				{
-					Almacen.ChangeRecurso(x, RAW.SalidaBase[x] * Trabajadores * PctProd * t);
+					Almacen.ChangeRecurso(x, RAW.SalidaBase[x] * Trabajadores * PctProd * (float)t.TotalHours);
 				}
 			}
 		}
@@ -134,12 +134,12 @@ namespace Civ
 		/// Devuelve la eficiencia de este trabajo.
 		/// </summary>
 		/// <returns>The eficiencia.</returns>
-		public float GetEficiencia(float t = 1)
+		public float GetEficiencia(TimeSpan t)
 		{
 			float PctProd = 1;
 			foreach (var x in RAW.EntradaBase.Keys)
 			{
-				PctProd = Math.Min(PctProd, Almacen[x] / (RAW.EntradaBase[x] * Trabajadores * t));
+				PctProd = Math.Min(PctProd, Almacen[x] / (RAW.EntradaBase[x] * Trabajadores * (float)t.TotalHours));
 			}
 			return PctProd;
 		}

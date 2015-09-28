@@ -100,14 +100,14 @@ namespace Civ
 		/// Da un tick de longitud t al terreno.
 		/// </summary>
 		/// <param name="t">Longitud del tick</param>
-		public void Tick(float t)
+		public void Tick(TimeSpan t)
 		{
 			//Crecimiento automático de recursos ecológicos.
 			foreach (var x in Eco.RecursoEcologico.Keys)
 			{
 				var RE = new Ecologia.RecursoEstado();
 
-				RE.Cant = Eco.RecursoEcologico[x].Cant + Eco.RecursoEcologico[x].Crec * t;
+				RE.Cant = Eco.RecursoEcologico[x].Cant + Eco.RecursoEcologico[x].Crec * (float)t.TotalHours;
 				RE.Cant = Math.Min(Eco.RecursoEcologico[x].Cant, Eco.RecursoEcologico[x].Max);
 				RE.Crec = Eco.RecursoEcologico[x].Crec;
 				RE.Max = Eco.RecursoEcologico[x].Max;

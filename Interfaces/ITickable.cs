@@ -1,3 +1,5 @@
+using System;
+
 namespace Civ
 {
 	/// <summary>
@@ -5,7 +7,7 @@ namespace Civ
 	/// </summary>
 	public interface ITickable
 	{
-		void Tick(float t);
+		void Tick(TimeSpan t);
 	}
 }
 

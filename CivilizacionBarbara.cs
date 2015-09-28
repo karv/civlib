@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Civ;
+using System;
 
 namespace Civ
 {
@@ -58,7 +59,7 @@ namespace Civ
 		{
 		}
 
-		void ITickable.Tick(float t)
+		void ITickable.Tick(TimeSpan t)
 		{
 		}
 

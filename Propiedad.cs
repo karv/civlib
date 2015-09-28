@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System;
 
 namespace Civ
 {
@@ -35,7 +36,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="almacén"><see cref="Civ.ICiudad"/> donde hará un tick esta propiedad.</param>
 		/// <param name="t">longitud del tick</param>
-		public virtual void Tick(IAlmacenante almacén, float t)
+		public virtual void Tick(IAlmacenante almacén, TimeSpan t)
 		{
 			foreach (Civ.TasaProd.TasaProd x in _Salida)
 			{

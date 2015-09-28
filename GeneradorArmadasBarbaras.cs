@@ -30,14 +30,14 @@ namespace Civ.Barbaros
 		/// </summary>
 		/// <returns><c>true</c>, if barbaro should be generared, <c>false</c> otherwise.</returns>
 		/// <param name="t">Tiempo</param>
-		public bool GenerarBarbaro(float t)
+		public bool GenerarBarbaro(TimeSpan t)
 		{
 			// Genera bárbaros bajo una distribución exponencial con lambda = 1/c
 			// E = c = ProbBarbPotHora
 			// Acumulada: f(x) = 1-e^(-lambda * x)
 			// Densidad:  F(x) = lambda * e ^(-lambda * x)
 			// Esperanza  E(X) = 1/lambda = c
-			double Probabilidad = 1 - Math.Exp(-lambda * t);
+			double Probabilidad = 1 - Math.Exp(-lambda * (float)t.TotalHours);
 			return Juego.Rnd.NextDouble() < Probabilidad;
 		}
 
@@ -66,7 +66,7 @@ namespace Civ.Barbaros
 
 		#region ITickable
 
-		public void Tick(float t)
+		public void Tick(TimeSpan t)
 		{
 			if (GenerarBarbaro(t))
 				Armada();

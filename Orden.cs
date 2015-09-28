@@ -1,4 +1,6 @@
-﻿namespace Civ.Orden
+﻿using System;
+
+namespace Civ.Orden
 {
 	/// <summary>
 	/// Representa una orden de una armada
@@ -11,6 +13,6 @@
 		/// </summary>
 		/// <param name="t">T.</param>
 		/// <param name="armada">Armada.</param>
-		public abstract bool Ejecutar(float t, Armada armada);
+		public abstract bool Ejecutar(TimeSpan t, Armada armada);
 	}
 }

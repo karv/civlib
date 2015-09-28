@@ -813,13 +813,14 @@ namespace Civ
 		/// Da un tick poblacional
 		/// </summary>
 		/// <param name="t">Diración del tick</param>
-		public void PopTick(float t = 1)
+		public void PopTick(TimeSpan t)
 		{
 			// Se está suponiendo crecimiento constante entre ticks!!!
 
 			//Crecimiento prometido por sector de edad.
 			var Crecimiento = new float[3];
-			float Consumo = Poblacion * ConsumoAlimentoPorCiudadanoBase * t;
+			float Consumo = Poblacion * ConsumoAlimentoPorCiudadanoBase * (float)t.TotalHours;
+			;
 			if (float.IsInfinity(AlimentoAlmacen) || float.IsNaN(AlimentoAlmacen))
 			{
 				System.Diagnostics.Debugger.Break();
@@ -848,20 +849,20 @@ namespace Civ
 
 			//Crecimiento poblacional
 			//Infantil a productivo.
-			float Desarrollo = TasaDesarrolloBase * PoblacionPreProductiva * t;
+			float Desarrollo = TasaDesarrolloBase * PoblacionPreProductiva * (float)t.TotalHours;
 			Crecimiento[0] -= Desarrollo;
 			Crecimiento[1] += Desarrollo;
 			//Productivo a viejo
-			float Envejecer = TasaVejezBase * PoblacionProductiva * t;
+			float Envejecer = TasaVejezBase * PoblacionProductiva * (float)t.TotalHours;
 			Crecimiento[1] -= Envejecer;
 			Crecimiento[2] += Envejecer;
 			//Nuevos infantes
-			float Natalidad = TasaNatalidadBase * PoblacionProductiva * t;
+			float Natalidad = TasaNatalidadBase * PoblacionProductiva * (float)t.TotalHours;
 			Crecimiento[0] += Natalidad;
 			//Mortalidad
-			Crecimiento[0] -= PoblacionPreProductiva * TasaMortalidadInfantilBase * t;
-			Crecimiento[1] -= PoblacionProductiva * TasaMortalidadProductivaBase * t;
-			Crecimiento[2] -= PoblacionPostProductiva * TasaMortalidadVejezBase * t;
+			Crecimiento[0] -= PoblacionPreProductiva * TasaMortalidadInfantilBase * (float)t.TotalHours;
+			Crecimiento[1] -= PoblacionProductiva * TasaMortalidadProductivaBase * (float)t.TotalHours;
+			Crecimiento[2] -= PoblacionPostProductiva * TasaMortalidadVejezBase * (float)t.TotalHours;
 
 			// Aplicar cambios.
 
@@ -893,7 +894,7 @@ namespace Civ
 		/// <summary>
 		/// Da un tick hereditario.
 		/// </summary>
-		public void ResourceTick(float t = 1)
+		public void ResourceTick(TimeSpan t)
 		{
 			foreach (ITickable x in Edificios)
 			{
@@ -954,7 +955,7 @@ namespace Civ
 		/// Ejecuta ambos: Tick () y PopTick ().
 		/// En ese orden.
 		/// </summary>
-		public void Tick(float t)
+		public void Tick(TimeSpan t)
 		{
 			PopTick(t);
 			ResourceTick(t);

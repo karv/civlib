@@ -23,7 +23,7 @@ namespace Global
 			BarbGen.Reglas.Add(new ReglaGeneracionBarbaraGeneral());
 		}
 
-		public static void Tick(float t = 1)
+		public static void Tick(TimeSpan t)
 		{
 			foreach (ITickable Civ in State.Civs)
 			{

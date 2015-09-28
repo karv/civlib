@@ -1,4 +1,6 @@
-﻿namespace Civ.Orden
+﻿using System;
+
+namespace Civ.Orden
 {
 	public class OrdenIr : Orden
 	{
@@ -13,7 +15,7 @@
 			Destino = destino;
 		}
 
-		public override bool Ejecutar(float t, Armada armada)
+		public override bool Ejecutar(TimeSpan t, Armada armada)
 		{
 			Pseudoposicion PS = armada.Posicion;
 			int orientacion; // Orientación de esta posición con respecto a PS
@@ -30,7 +32,7 @@
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
 			// Avanzar
-			PS.Avanzar(t * armada.Velocidad);
+			PS.Avanzar((float)t.TotalHours * armada.Velocidad);
 
 			// Si cambia de orientación, significa que llegó
 			if (orientacion != PS.Orientacion(Destino))
