@@ -1,9 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Threading;
-using System.Collections.Generic;
-using Graficas.Rutas;
-using System.Linq;
+﻿using Graficas.Rutas;
 
 namespace Civ.Orden
 {
@@ -11,35 +6,18 @@ namespace Civ.Orden
 	{
 		public OrdenIrALugar(Armada armada, Pseudoposicion destino) : base(armada)
 		{
-			var LongDict = new Dictionary<IRuta<Terreno>, float>();
 			var origen = armada.Posicion;
 
 			var RutaAA = Global.Juego.State.Topologia.CaminoÓptimo(origen.A, destino.A);
-			var RutaAB = Global.Juego.State.Topologia.CaminoÓptimo(origen.A, destino.B);
-			var RutaBA = Global.Juego.State.Topologia.CaminoÓptimo(origen.B, destino.A);
-			var RutaBB = Global.Juego.State.Topologia.CaminoÓptimo(origen.B, destino.B);
-			float LongAA = origen.loc + RutaAA.Longitud + destino.loc;
-			float LongAB = origen.loc + RutaAB.Longitud + destino.aloc;
-			float LongBA = origen.loc + RutaBA.Longitud + destino.loc;
-			float LongBB = origen.aloc + RutaBB.Longitud + destino.aloc;
-			LongDict.Add(RutaAA, LongAA);
-			LongDict.Add(RutaAB, LongAB);
-			LongDict.Add(RutaBA, LongBA);
-			LongDict.Add(RutaBB, LongBB);
 
-			// Biscar mínimo
-			var min = new KeyValuePair<IRuta<Terreno>, float>(null, float.PositiveInfinity);
-			foreach (var x in LongDict)
+			ColaOrden.Enqueue(new OrdenIr(armada, origen.A));
+
+			foreach (var x in RutaAA.Pasos)
 			{
-				if (x.Value < min.Value)
-					min = x;
+				ColaOrden.Enqueue(new OrdenIr(armada, x.Destino));
 			}
 
-			//min es el mínimo
-
-
-
-		
+			ColaOrden.Enqueue(new OrdenIr(armada, destino));
 
 		}
 	}

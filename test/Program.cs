@@ -64,7 +64,24 @@ namespace Test
 			};
 
 			Ciclo (1000);
+		}
 
+		static void TestBigIrA ()
+		{
+			var u = new UnidadRAW ();
+			u.Nombre = "Velociraptor";
+			u.Velocidad = 10;
+			u.Fuerza = 1;
+			Terreno destino = Juego.State.ObtenerListaTerrenos () [0];
+
+			var arm = new Armada (MyCiudad);
+
+			arm.AgregaUnidad (u, 5);
+			arm.Orden = new OrdenIrALugar (arm, destino);
+
+
+
+			Ciclo (100);
 		}
 
 		static void TestReclutar ()
