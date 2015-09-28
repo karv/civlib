@@ -91,6 +91,8 @@
     <Compile Include="Interfaces\IPosicionable.cs" />
     <Compile Include="Interfaces\IPuntuado.cs" />
     <Compile Include="Interfaces\IReglaGeneracion.cs" />
+    <Compile Include="OrdenSerie.cs" />
+    <Compile Include="OrdenIr.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
