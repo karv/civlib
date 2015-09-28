@@ -31,11 +31,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Grafos">
-      <HintPath>..\..\Grafo\bin\Release\Grafos.dll</HintPath>
-    </Reference>
     <Reference Include="ListaExtras">
-      <HintPath>..\..\ListaExtras\bin\Release\ListaExtras.dll</HintPath>
+      <HintPath>..\packages\ListaExtras.0.2\lib\ListaExtras.dll</HintPath>
+    </Reference>
+    <Reference Include="Grafos">
+      <HintPath>..\packages\Grafos.0.1.1\lib\Grafos.dll</HintPath>
+    </Reference>
+    <Reference Include="Store">
+      <HintPath>..\packages\Store.0.1\lib\Store.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -44,13 +47,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Store\Store\Store.csproj">
-      <Project>{B5651422-0901-4E7F-976A-A4F7893267CA}</Project>
-      <Name>Store</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CivLibrary.csproj">
       <Project>{D0DA2F97-634B-4693-A73B-0C2241BA0C4C}</Project>
       <Name>CivLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
