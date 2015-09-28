@@ -9,19 +9,26 @@ namespace Civ.Orden
 		/// </summary>
 		public Pseudoposicion Destino;
 
+		OrdenIr(Armada armada)
+		{			
+			this.Armada = armada;
+		}
+
 		/// <param name="destino">Destino.</param>
-		public OrdenIr(Pseudoposicion destino)
+		/// <param name="armada">Armada</param>
+		public OrdenIr(Armada armada, Pseudoposicion destino) : this(armada)
 		{
 			Destino = destino;
 		}
 
-		public override bool Ejecutar(TimeSpan t, Armada armada)
+
+		public override bool Ejecutar(TimeSpan t)
 		{
-			Pseudoposicion PS = armada.Posicion;
+			Pseudoposicion PS = Armada.Posicion;
 			int orientacion; // Orientación de esta posición con respecto a PS
-			if (armada.EnTerreno)
+			if (Armada.EnTerreno)
 			{
-				armada.Posicion.B = Destino.ExtremoNo(armada.Posicion.A);  //Asigna la posición de la armada en el intervalo correcto.
+				Armada.Posicion.B = Destino.ExtremoNo(Armada.Posicion.A);  //Asigna la posición de la armada en el intervalo correcto.
 
 				//				PS.Destino = Destino;
 				//				PS.Origen = armada.Posicion.Origen;
@@ -32,12 +39,12 @@ namespace Civ.Orden
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
 			// Avanzar
-			PS.Avanzar((float)t.TotalHours * armada.Velocidad);
+			PS.Avanzar((float)t.TotalHours * Armada.Velocidad);
 
 			// Si cambia de orientación, significa que llegó
 			if (orientacion != PS.Orientacion(Destino))
 			{
-				AlLlegar(armada);
+				AlLlegar(Armada);
 				return true;
 			}
 
@@ -45,10 +52,10 @@ namespace Civ.Orden
 			//Revisar si están en el mismo Terreno-intervalo
 			if (Destino.Equals(PS))
 			{
-				armada.Posicion.A = Destino.A;
-				armada.Posicion.B = Destino.B;
-				armada.Posicion.loc = Destino.loc;
-				AlLlegar(armada);
+				Armada.Posicion.A = Destino.A;
+				Armada.Posicion.B = Destino.B;
+				Armada.Posicion.loc = Destino.loc;
+				AlLlegar(Armada);
 				return true;
 			}
 

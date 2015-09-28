@@ -29,11 +29,14 @@ namespace Civ.Orden
 		/// <param name="orden">Orden.</param>
 		public void Encolar(Orden orden)
 		{
+			if (orden.Armada != Armada)
+				throw new Exception("Encolar órdenes debe ser de la misma armada.");
 			ColaOrden.Enqueue(orden);
 		}
 
-		public OrdenSerie()
+		public OrdenSerie(Armada armada)
 		{
+			Armada = armada;
 			ColaOrden = new Queue<Orden>();
 		}
 
@@ -43,9 +46,9 @@ namespace Civ.Orden
 		/// </summary>
 		/// <param name="t">Tiempo</param>
 		/// <param name="armada">Armada</param>
-		public override bool Ejecutar(TimeSpan t, Armada armada)
+		public override bool Ejecutar(TimeSpan t)
 		{
-			bool ret = Actual.Ejecutar(t, armada);
+			bool ret = Actual.Ejecutar(t);
 			if (ret)
 			{
 				if (ColaOrden.Count > 0)

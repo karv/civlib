@@ -297,7 +297,7 @@ namespace Civ
 		/// </summary>
 		public void Tick(TimeSpan t)
 		{
-			if (Orden.Ejecutar(t, this))
+			if (Orden.Ejecutar(t))
 			{
 				Orden = new Civ.Orden.OrdenEstacionado();
 				CivDueño.AgregaMensaje(new IU.Mensaje("{0} llegó a {1}", this, Posicion));

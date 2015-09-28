@@ -25,7 +25,7 @@ namespace Civ.Orden
 {
 	public class OrdenEstacionado : Orden
 	{
-		public override bool Ejecutar(TimeSpan t, Armada armada)
+		public override bool Ejecutar(TimeSpan t)
 		{
 			return false;
 		}
