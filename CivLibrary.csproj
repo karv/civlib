@@ -98,7 +98,7 @@
     <Compile Include="DropStack.cs" />
     <Compile Include="OrdenRecoger.cs" />
     <Compile Include="Orden\OrdenIrALugar.cs" />
-    <Compile Include="AlmacénStack.cs" />
+    <Compile Include="Almacén\AlmacénStack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -116,11 +116,11 @@
       <LogicalName>Data.xml</LogicalName>
       <DeployService-Deploy>True</DeployService-Deploy>
     </EmbeddedResource>
-    <EmbeddedResource Include="NombresCiv.txt">
-      <LogicalName>NombresCiv.txt</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NombresCiudad.txt">
+    <EmbeddedResource Include="Nombres\NombresCiudad.txt">
       <LogicalName>NombresCiudad.txt</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nombres\NombresCiv.txt">
+      <LogicalName>NombresCiv.txt</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +130,7 @@
     <Folder Include="Ciencia\" />
     <Folder Include="Orden\" />
     <Folder Include="Topología\" />
+    <Folder Include="Nombres\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
