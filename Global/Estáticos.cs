@@ -106,11 +106,10 @@ namespace Global
 		/// </summary>
 		public static void InicializarJuego()
 		{
-			State = new GameState();
+			//State = new GameState();
 
 			// Hacer la topología
 			var Terrenos = new List<Terreno>();
-			State.Topologia = new Graficas.Grafica<Terreno>();
 			State.Mapa = new Graficas.Continuo.Continuo<Terreno>(State.Topologia);
 
 			Terreno T;
