@@ -6,7 +6,7 @@ namespace Civ.Orden
 	{
 		public DropStack StackTarget{ get; set; }
 
-		public readonly Pseudoposicion Origen;
+		public Pseudoposicion Origen { get; }
 		// Meta órdenes
 		Orden _actual;
 
@@ -15,40 +15,39 @@ namespace Civ.Orden
 		/// </summary>
 		/// <param name="origen">Origen de la orden. Al lugar donde va a regresar con los recursos</param>
 		/// <param name="target">El DropStack que recogerá </param>
-		public OrdenRecoger(Pseudoposicion origen, DropStack target)
+		public OrdenRecoger(Armada armada, DropStack target)
 		{
-			Origen = origen;
+			Armada = armada;
+			Origen = Armada.Posicion.Clonar();
+
 			StackTarget = target;
-			_actual = new OrdenIr(StackTarget.Posicion());
+			_actual = new OrdenIr(Armada, StackTarget.Posicion());
 		}
 
 		/// <summary>
 		/// Ejecutar the specified t and armada.
 		/// Devuelve true si la orden ha sido terminada.
 		/// </summary>
-		public override bool Ejecutar(float t, Armada armada)
+		public override bool Ejecutar(TimeSpan t)
 		{
-			bool retOrdenPasada = _actual.Ejecutar(t, armada);
+			bool retOrdenPasada = _actual.Ejecutar(t);
 
-
-
+			// Si ya llegó al origen, ya terminó toda la orden.
+			if (Armada.Posicion.Equals(Origen))
+			{
+				AlRegresar.Invoke(this, null);
+				return true;
+			}
+			// Si llegó a dónde se encuentran los recursos
 			if (retOrdenPasada)
 			{
-				// Si ya llegó al origen, ya terminó toda la orden.
-				if (armada.Posicion.Equals(Origen))
-				{
-					AlRegresar.Invoke(this, null);
-					return true;
-				}
-
-				// Si llegó a dónde se encuentran los recursos
 				AlLlegar?.Invoke(this, null);
 				// Recoger todo lo que se encuentra allá
-				foreach (var s in armada.Unidades)
+				foreach (var s in Armada.Unidades)
 				{
 					s.RecogerTodo();
 				}
-				_actual = new OrdenIr(Origen);
+				_actual = new OrdenIr(Armada, Origen);
 			}
 
 			// Aún no acaba
