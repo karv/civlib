@@ -27,7 +27,7 @@ namespace Global
 		/// <summary>
 		/// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
 		/// </summary>        
-		public List<ICivilizacion> Civs      // Las vivas bien las podría obtener accesando la topología.
+		public List<ICivilizacion> Civs
 		{
 			get { return _Civs; }
 		}

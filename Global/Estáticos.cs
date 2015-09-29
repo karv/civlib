@@ -106,11 +106,10 @@ namespace Global
 		/// </summary>
 		public static void InicializarJuego()
 		{
-			State = new GameState();
+			//State = new GameState();
 
 			// Hacer la topología
 			var Terrenos = new List<Terreno>();
-			State.Topologia = new Graficas.Grafica<Terreno>();
 			State.Mapa = new Graficas.Continuo.Continuo<Terreno>(State.Topologia);
 
 			Terreno T;
@@ -128,7 +127,7 @@ namespace Global
 
 			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
 			ConstruirTopologia(Terrenos);
-
+			/*
 			// Vaciar la topología en cada Terreno
 			foreach (var x in State.Topologia.Nodos)
 			{
@@ -137,14 +136,14 @@ namespace Global
 				a.Vecinos[b] = State.Topologia[a, b];
 				b.Vecinos[a] = State.Topologia[b, a];
 			}
-
+			*/
 			// Asignar una ciudad de cada civilización en terrenos vacíos y distintos lugares.
+			List<Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 			for (int i = 0; i < PrefsJuegoNuevo.NumCivs; i++)
 			{
 				C = new Civilizacion();
-				// C.Nombre = DateTime.Now.Millisecond.ToString();
-				List<Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 				T = Terrs[Rnd.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
+				Terrs.Remove(T);
 
 				Cd = new Ciudad(C, T, PrefsJuegoNuevo.PoblacionInicial);
 				C.AddCiudad(Cd);
@@ -167,8 +166,8 @@ namespace Global
 				{
 					if (Rnd.NextDouble() < PrefsJuegoNuevo.Compacidad)
 					{
-						State.Topologia.AgregaVertice(x, y, 
-							PrefsJuegoNuevo.MinDistNodos + (float)Rnd.NextDouble() * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos));
+						State.Topologia[x, y] =
+							PrefsJuegoNuevo.MinDistNodos + (float)Rnd.NextDouble() * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos);
 					}
 				}
 			}

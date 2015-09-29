@@ -38,7 +38,7 @@ namespace Civ.Barbaros
 
 			var ret = new Armada(cb, pos);
 
-			while (Unidades.Count > 0 || PuntRestante <= 0)
+			while (Unidades.Count > 0 && PuntRestante >= 0)
 			{
 				UnidadRAW unid = Unidades[Juego.Rnd.Next(Unidades.Count)];
 				Unidades.Remove(unid);

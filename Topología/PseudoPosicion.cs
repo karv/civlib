@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Graficas.Continuo;
 using Global;
+using System.Diagnostics;
 
 namespace Civ
 {
@@ -41,21 +42,30 @@ namespace Civ
 		/// </summary>
 		public void Avanzar(float dist)
 		{
+			if (B == null)
+				return;
 			loc += dist;
+			if (float.IsNaN(loc))
+			{
+				Debug.Assert(!float.IsNaN(loc));
+			}
 		}
 
 		public void Invertir()
 		{
-			Terreno tmp = A;
-			float dist = aloc;
-			A = B;
-			B = tmp;
-			loc = dist;
+			if (!EnTerreno)
+			{
+				Terreno tmp = A;
+				float dist = aloc;
+				A = B;
+				B = tmp;
+				loc = dist;
+			}
 		}
 
 		public void Hacerconsistente(Pseudoposicion x)
 		{
-			if (B.Equals(x.A) && A.Equals(x.B))
+			if (B.Equals(x.A) && A.Equals(x.B ?? A))
 				Invertir();
 		}
 

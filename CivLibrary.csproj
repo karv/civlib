@@ -33,14 +33,14 @@
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
-    <Reference Include="Grafos">
-      <HintPath>packages\Grafos.0.1.1\lib\Grafos.dll</HintPath>
-    </Reference>
     <Reference Include="Store">
       <HintPath>packages\Store.0.1\lib\Store.dll</HintPath>
     </Reference>
     <Reference Include="ListaExtras">
       <HintPath>packages\ListaExtras.0.2\lib\ListaExtras.dll</HintPath>
+    </Reference>
+    <Reference Include="Grafos">
+      <HintPath>packages\Grafos.0.1.1.1\lib\Grafos.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +97,7 @@
     <Compile Include="RAW\TasaProd.cs" />
     <Compile Include="DropStack.cs" />
     <Compile Include="OrdenRecoger.cs" />
+    <Compile Include="Orden\OrdenIrALugar.cs" />
     <Compile Include="AlmacénStack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

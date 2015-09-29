@@ -30,7 +30,7 @@ namespace Test
 				}
 			};
 
-			TestRecoger ();
+			TestBigIrA ();
 		}
 
 		static void TestRecoger ()
@@ -64,7 +64,30 @@ namespace Test
 			};
 
 			Ciclo (1000);
+		}
 
+		static void TestBigIrA ()
+		{
+			var u = new UnidadRAW ();
+			u.Nombre = "Velociraptor";
+			u.Velocidad = 10;
+			u.Fuerza = 1;
+			Terreno destino = Juego.State.ObtenerListaTerrenos () [0];
+
+			var arm = new Armada (MyCiudad);
+
+			arm.AgregaUnidad (u, 5);
+			var ord = new OrdenIrALugar (arm, destino);
+			ord.AlAcabarUnaOrden += delegate {
+				Debug.WriteLine ("Armada está en " + arm.Posicion);
+			};
+			ord.AlTerminar += delegate {
+				Debug.WriteLine ("Armada llegó a " + arm.Posicion);
+				Debug.WriteLine ("Ahora está at ease; orden: " + arm.Orden);
+			};
+			arm.Orden = ord;
+
+			Ciclo (500);
 		}
 
 		static void TestReclutar ()
@@ -91,8 +114,9 @@ namespace Test
 		static void Ciclo (float multiplicadorVelocidad, Action entreCiclos = null)
 		{
 			DateTime timer = DateTime.Now;
-			while (true) {
+			while (true) {				
 				TimeSpan Tiempo = DateTime.Now - timer;
+				timer = DateTime.Now;
 				Tiempo = new TimeSpan ((long)(Tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);
