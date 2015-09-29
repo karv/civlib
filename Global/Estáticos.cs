@@ -167,8 +167,8 @@ namespace Global
 				{
 					if (Rnd.NextDouble() < PrefsJuegoNuevo.Compacidad)
 					{
-						State.Topologia.AgregaVertice(x, y, 
-							PrefsJuegoNuevo.MinDistNodos + (float)Rnd.NextDouble() * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos));
+						State.Topologia[x, y] =
+							PrefsJuegoNuevo.MinDistNodos + (float)Rnd.NextDouble() * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos);
 					}
 				}
 			}
