@@ -172,7 +172,6 @@ namespace Global
 					}
 				}
 			}
-			State.Topologia.EsSimetrico = true;
 		}
 
 		#region Unicidad de nombres
