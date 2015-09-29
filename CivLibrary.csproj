@@ -95,6 +95,9 @@
     <Compile Include="Objetos de estado\Trabajo.cs" />
     <Compile Include="Objetos de estado\Stack.cs" />
     <Compile Include="RAW\TasaProd.cs" />
+    <Compile Include="DropStack.cs" />
+    <Compile Include="OrdenRecoger.cs" />
+    <Compile Include="AlmacénStack.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

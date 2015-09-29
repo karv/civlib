@@ -8,19 +8,35 @@ namespace Civ
 	/// </summary>
 	public interface IAlmacénRead
 	{
+		/// <summary>
+		/// Devuelve la lista de recursos implicados
+		/// </summary>
+		/// <value>The recursos.</value>
 		IEnumerable<Recurso> recursos { get; }
 
+		/// <summary>
+		/// Devuelve la cantidad existente de un recurso dado.
+		/// </summary>
+		/// <param name="recurso">Recurso.</param>
 		float recurso(Recurso recurso);
 	}
 
 	public interface IAlmacén : IAlmacénRead
 	{
+		/// <summary>
+		/// Establece la cantidad de recursos
+		/// </summary>
+		/// <param name="rec">Rec.</param>
+		/// <param name="val">Value.</param>
 		[ObsoleteAttribute]
 		void SetRecurso(Recurso rec, float val);
 
+		/// <summary>
+		/// Cambia la cantidad de recursos por una cantidad dada.
+		/// </summary>
+		/// <param name="rec">Rec.</param>
+		/// <param name="delta">Delta.</param>
 		void ChangeRecurso(Recurso rec, float delta);
-
-
 	}
 
 	public static class ExtIAlmacén

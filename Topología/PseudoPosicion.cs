@@ -44,6 +44,21 @@ namespace Civ
 			loc += dist;
 		}
 
+		public void Invertir()
+		{
+			Terreno tmp = A;
+			float dist = aloc;
+			A = B;
+			B = tmp;
+			loc = dist;
+		}
+
+		public void Hacerconsistente(Pseudoposicion x)
+		{
+			if (B.Equals(x.A) && A.Equals(x.B))
+				Invertir();
+		}
+
 		/// <summary>
 		/// Revisa si está posición es Origen
 		/// </summary>

@@ -38,6 +38,11 @@ namespace Civ.Orden
 			orientacion = PS.Orientacion(Destino);
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
+			// Si está Atrás, ejecutar PS.Invertir();
+			PS.Hacerconsistente(Destino);
+			if (PS.loc > Destino.loc)
+				t = -t;
+			
 			// Avanzar
 			PS.Avanzar((float)t.TotalHours * Armada.Velocidad);
 
@@ -59,18 +64,7 @@ namespace Civ.Orden
 				return true;
 			}
 
-			/*
-			if (PS.A == destino.A && PS.B == destino.B) // Esto debe pasar siempre, por ahora.
-			{
-				if (PS.loc >= destino.loc)
-				{
-					// Ya llegó.
-					armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", armada, destino, this));
-					return true;
-					// Orden = null;
-				}
-			} 
-*/
+
 			return false;
 
 		}

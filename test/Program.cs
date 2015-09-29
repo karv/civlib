@@ -4,40 +4,83 @@ using Global;
 using System.Diagnostics;
 using Civ.Barbaros;
 using System.Collections.Generic;
+using Civ.Orden;
+using IU;
 
 namespace Test
 {
 	class MainClass
 	{
-		static ICivilizacion MyCiv;
-		static ICiudad MyCiudad;
+		static Civilizacion MyCiv;
+		static Ciudad MyCiudad;
 
-		public static void Main()
+		public static void Main ()
 		{
-			Juego.CargaData();
-			Juego.InicializarJuego();
+			Juego.CargaData ();
+			Juego.InicializarJuego ();
 
 
-			MyCiv = Juego.State.Civs[0];
-			MyCiudad = MyCiv.Ciudades[0];
+			MyCiv = Juego.State.Civs [0] as Civilizacion;
+			MyCiudad = MyCiv.Ciudades [0] as Ciudad;
 
-			TestReclutar();
+			MyCiv.OnNuevoMensaje += delegate {
+				while (MyCiv.ExisteMensaje) {
+					Mensaje m = MyCiv.SiguitenteMensaje ();
+					Debug.WriteLine (m.ToString ());
+				}
+			};
+
+			TestRecoger ();
 		}
 
-		static void TestReclutar()
+		static void TestRecoger ()
 		{
-			UnidadRAW u = Juego.Data.Unidades[0];
-			MyCiudad.Reclutar(u, 3);
+			UnidadRAW u = Juego.Data.Unidades [0];
+			u.MaxCarga = 100; // Porque yo lo digo
+			var pos = new Pseudoposicion ();
+			Terreno terrA = MyCiudad.Posicion ().A;
+			Terreno terrB = Juego.State.ObtenerListaTerrenos () [0];
+			Juego.State.Topologia [terrA, terrB] = 1;
+			pos.A = terrA;
+			pos.B = terrB;
+			pos.loc = 0.5f;
+			var drop = new DropStack (pos);
+			Juego.State.Drops.Add (drop);
+
+			var arm = new Armada (MyCiudad);
+			MyCiv.Armadas.Add (arm);
+
+			arm.AgregaUnidad (u, 10);
+			Debug.WriteLine ("Peso máximo: " + arm [u].Carga.MaxCarga);
+
+			var ord = new OrdenRecoger (arm, drop);
+			arm.Orden = ord;
+
+			ord.AlLlegar += delegate {
+				Debug.WriteLine ("Llegamos a " + ord.StackTarget.Posicion ());
+			};
+			ord.AlRegresar += delegate {
+				Debug.WriteLine ("Regresamos a " + ord.Origen);
+			};
+
+			Ciclo (1000);
+
 		}
 
-		static void TestArmadaDesaparecen()
+		static void TestReclutar ()
 		{
-			var arm = new Armada(MyCiudad);
+			UnidadRAW u = Juego.Data.Unidades [0];
+			MyCiudad.Reclutar (u, 3);
+		}
 
-			Debug.WriteLine(arm.CivDueño.Armadas);
+		static void TestArmadaDesaparecen ()
+		{
+			var arm = new Armada (MyCiudad);
 
-			Juego.Tick(TimeSpan.FromHours(1));
-			Debug.WriteLine(arm.CivDueño.Armadas);
+			Debug.WriteLine (arm.CivDueño.Armadas);
+
+			Juego.Tick (TimeSpan.FromHours (1));
+			Debug.WriteLine (arm.CivDueño.Armadas);
 		}
 
 		/// <summary>
@@ -45,99 +88,95 @@ namespace Test
 		/// </summary>
 		/// <param name="multiplicadorVelocidad">Multiplicador velocidad.</param>
 		/// <param name="entreCiclos">Entre ciclos.</param>
-		static void Ciclo(float multiplicadorVelocidad, Action entreCiclos = null)
+		static void Ciclo (float multiplicadorVelocidad, Action entreCiclos = null)
 		{
 			DateTime timer = DateTime.Now;
-			while (true)
-			{
+			while (true) {
 				TimeSpan Tiempo = DateTime.Now - timer;
-				Tiempo = new TimeSpan((long)(Tiempo.Ticks * multiplicadorVelocidad));
+				Tiempo = new TimeSpan ((long)(Tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);
-				Juego.Tick(Tiempo);
+				Juego.Tick (Tiempo);
 
-				entreCiclos?.Invoke();
+				entreCiclos?.Invoke ();
 				if (Juego.State.Civs.Count == 0)
-					throw new Exception("Ya se acabó el juego :3");
+					throw new Exception ("Ya se acabó el juego :3");
 			}
 
 		}
 
-		static void TestCiudad()
+		static void TestCiudad ()
 		{
-			ICiudad cd = Juego.State.CiudadesExistentes()[0];
-			Action Entreturnos = delegate
-			{
-				if (Juego.Rnd.NextDouble() < 0.001f)
-				{
-					foreach (var x in cd.Almacen.recursos)
-					{
-						Debug.WriteLine(
-							string.Format("{0}: {1}({2})", x, cd.Almacen.recurso(x), cd.CalculaDeltaRecurso(x))
+			ICiudad cd = Juego.State.CiudadesExistentes () [0];
+			Action Entreturnos = delegate {
+				if (Juego.Rnd.NextDouble () < 0.001f) {
+					foreach (var x in cd.Almacen.recursos) {
+						Debug.WriteLine (
+							string.Format ("{0}: {1}({2})", x, cd.Almacen.recurso (x), cd.CalculaDeltaRecurso (x))
 						);
 					}
 
 				}
 			};
 			
-			Ciclo(100, Entreturnos);
+			Ciclo (1000, Entreturnos);
 		}
 
-		static void TestGeneradorArmadas()
+		static void TestGeneradorArmadas ()
 		{
-			var u = new UnidadRAW();
+			var u = new UnidadRAW ();
 			u.Fuerza = 1;
 			u.Nombre = "Gordo";
-			var reg = new ReglaGeneracionPuntuacion();
-			reg.ClaseArmada = new List<Tuple<UnidadRAW, ulong>>();
-			reg.ClaseArmada.Add(new Tuple<UnidadRAW, ulong>(u, 100));
+			var reg = new ReglaGeneracionPuntuacion ();
+			reg.ClaseArmada = new List<Tuple<UnidadRAW, ulong>> ();
+			reg.ClaseArmada.Add (new Tuple<UnidadRAW, ulong> (u, 100));
 			reg.MaxPuntuacion = float.PositiveInfinity;
 			reg.MinPuntuacion = 0;
 			//g_.BarbGen.Reglas.Add(reg);
 
-			Ciclo(1000);
+			Ciclo (1000);
 
 		}
 
-		static void TestPeleaArmadas()
+		static void TestPeleaArmadas ()
 		{
-			var c1 = (Civilizacion)Juego.State.Civs[0];
-			var c2 = (Civilizacion)Juego.State.Civs[1];
-			var diplomaciaGuerra = new EstadoDiplomatico();
+			var c1 = (Civilizacion)Juego.State.Civs [0];
+			var c2 = (Civilizacion)Juego.State.Civs [1];
+			var diplomaciaGuerra = new EstadoDiplomatico ();
 			diplomaciaGuerra.PermiteAtacar = true;
-			c1.Diplomacia.Add(c2, diplomaciaGuerra);
-			c2.Diplomacia.Add(c1, diplomaciaGuerra);
-			Juego.State.Civs.Add(c1);
-			Juego.State.Civs.Add(c2);
+			c1.Diplomacia.Add (c2, diplomaciaGuerra);
+			c2.Diplomacia.Add (c1, diplomaciaGuerra);
+			Juego.State.Civs.Add (c1);
+			Juego.State.Civs.Add (c2);
 
-			var p = new Pseudoposicion();
-			p.A = Juego.State.ObtenerListaTerrenos()[0];
+			var p = new Pseudoposicion ();
+			p.A = Juego.State.ObtenerListaTerrenos () [0];
 			p.loc = 0;
 
-			var u = new UnidadRAW();
+			var u = new UnidadRAW ();
 			u.Fuerza = 1;
 			u.Nombre = "Guerrero";
-			u.Flags.Add("A pie");
+			u.Flags.Add ("A pie");
 
-			var uGordo = new UnidadRAW();
+			var uGordo = new UnidadRAW ();
 			uGordo.Fuerza = 150;
 			uGordo.Nombre = "Hulk";
-			uGordo.Flags.Add("A pie");
-			uGordo.Mods.Add("A pie", 1f);
+			uGordo.Flags.Add ("A pie");
+			uGordo.Mods.Add ("A pie", 1f);
 			uGordo.Dispersion = 0.1f;
 
-			var ac1 = new Armada(c1, p);
-			ac1.AgregaUnidad(u, 150);
-			ac1[u].Entrenamiento = 1;
+			var ac1 = new Armada (c1, p);
+			ac1.AgregaUnidad (u, 150);
+			ac1 [u].Entrenamiento = 1;
 			//ac1.AgregaUnidad(uGordo, 1);
-			var ac2 = new Armada(c2, p);
-			ac2.AgregaUnidad(u, 150);
+			var ac2 = new Armada (c2, p);
+			ac2.AgregaUnidad (u, 150);
 
 
 			// Listos para matarse
-			Ciclo(50);
+			Ciclo (50);
 
-			Debug.WriteLine("Ganador: " + (ac1.Unidades.Count > 0 ? "1" : "2"));
+			Debug.WriteLine ("Ganador: " + (ac1.Unidades.Count > 0 ? "1" : "2"));
 
 		}
 	}

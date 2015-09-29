@@ -47,8 +47,6 @@ namespace Civ.Barbaros
 		/// <returns>The armada.</returns>
 		public Armada Armada()
 		{
-			System.Diagnostics.Debug.WriteLine("Generar bárbaro...");
-
 			// Escoger una regla
 			List<IReglaGeneracion> reglas = Reglas.FindAll(x => x.EsPosibleGenerar(Juego.State));
 			if (reglas.Count == 0)
@@ -60,7 +58,6 @@ namespace Civ.Barbaros
 
 			IReglaGeneracion usarRegla = reglas[Juego.Rnd.Next(reglas.Count)];
 			Armada ret = usarRegla.GenerarArmada();
-			System.Diagnostics.Debug.WriteLine(string.Format("Armada generada {0}", ret));
 			return ret;
 		}
 
