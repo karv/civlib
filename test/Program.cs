@@ -30,7 +30,7 @@ namespace Test
 				}
 			};
 
-			TestRecoger ();
+			TestBigIrA ();
 		}
 
 		static void TestRecoger ()
@@ -77,11 +77,17 @@ namespace Test
 			var arm = new Armada (MyCiudad);
 
 			arm.AgregaUnidad (u, 5);
-			arm.Orden = new OrdenIrALugar (arm, destino);
+			var ord = new OrdenIrALugar (arm, destino);
+			ord.AlAcabarUnaOrden += delegate {
+				Debug.WriteLine ("Armada está en " + arm.Posicion);
+			};
+			ord.AlTerminar += delegate {
+				Debug.WriteLine ("Armada llegó a " + arm.Posicion);
+				Debug.WriteLine ("Ahora está at ease; orden: " + arm.Orden);
+			};
+			arm.Orden = ord;
 
-
-
-			Ciclo (100);
+			Ciclo (500);
 		}
 
 		static void TestReclutar ()
@@ -108,8 +114,9 @@ namespace Test
 		static void Ciclo (float multiplicadorVelocidad, Action entreCiclos = null)
 		{
 			DateTime timer = DateTime.Now;
-			while (true) {
+			while (true) {				
 				TimeSpan Tiempo = DateTime.Now - timer;
+				timer = DateTime.Now;
 				Tiempo = new TimeSpan ((long)(Tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);

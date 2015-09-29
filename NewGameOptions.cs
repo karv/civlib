@@ -10,7 +10,7 @@
 		public int PoblacionInicial = 10;
 
 		// Topología
-		public int NumTerrenos = 40;
+		public int NumTerrenos = 10;
 		public int NumCivs = 4;
 
 		/// <summary>
@@ -24,4 +24,3 @@
 
 	}
 }
-

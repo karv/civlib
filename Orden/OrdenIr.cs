@@ -25,6 +25,12 @@ namespace Civ.Orden
 		public override bool Ejecutar(TimeSpan t)
 		{
 			Pseudoposicion PS = Armada.Posicion;
+			if (PS.Equals(Destino))
+			{
+				OnLlegar();
+				return true;
+
+			}
 			int orientacion; // Orientación de esta posición con respecto a PS
 			if (Armada.EnTerreno)
 			{
@@ -49,7 +55,7 @@ namespace Civ.Orden
 			// Si cambia de orientación, significa que llegó
 			if (orientacion != PS.Orientacion(Destino))
 			{
-				AlLlegar(Armada);
+				OnLlegar();
 				return true;
 			}
 
@@ -60,7 +66,7 @@ namespace Civ.Orden
 				Armada.Posicion.A = Destino.A;
 				Armada.Posicion.B = Destino.B;
 				Armada.Posicion.loc = Destino.loc;
-				AlLlegar(Armada);
+				OnLlegar();
 				return true;
 			}
 
@@ -69,11 +75,14 @@ namespace Civ.Orden
 
 		}
 
-		protected virtual void AlLlegar(Armada armada)
+		protected virtual void OnLlegar()
 		{
-			armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", armada, Destino, this));
+			Armada.CivDueño.AgregaMensaje(new IU.Mensaje("Armada {0} LLegó a su destino en {1} : Orden {2}", Armada, Destino, this));
+			AlLlegar?.Invoke(this, null);
 			return;
 		}
+
+		public event EventHandler AlLlegar;
 	}
 }
 
