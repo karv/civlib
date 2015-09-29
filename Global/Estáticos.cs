@@ -128,7 +128,7 @@ namespace Global
 
 			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
 			ConstruirTopologia(Terrenos);
-
+			/*
 			// Vaciar la topología en cada Terreno
 			foreach (var x in State.Topologia.Nodos)
 			{
@@ -137,14 +137,14 @@ namespace Global
 				a.Vecinos[b] = State.Topologia[a, b];
 				b.Vecinos[a] = State.Topologia[b, a];
 			}
-
+			*/
 			// Asignar una ciudad de cada civilización en terrenos vacíos y distintos lugares.
+			List<Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 			for (int i = 0; i < PrefsJuegoNuevo.NumCivs; i++)
 			{
 				C = new Civilizacion();
-				// C.Nombre = DateTime.Now.Millisecond.ToString();
-				List<Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 				T = Terrs[Rnd.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
+				Terrs.Remove(T);
 
 				Cd = new Ciudad(C, T, PrefsJuegoNuevo.PoblacionInicial);
 				C.AddCiudad(Cd);
@@ -172,6 +172,7 @@ namespace Global
 					}
 				}
 			}
+			State.Topologia.EsSimetrico = true;
 		}
 
 		#region Unicidad de nombres
