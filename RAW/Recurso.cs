@@ -90,20 +90,6 @@ namespace Civ
 				}
 			}
 
-			//TODO PlainSerialize Recursos
-			/*
-			foreach (var x in Global.g_.Data.Propiedades)
-			{
-				foreach (var y in x.Salida)
-				{
-					if (y.Rec == this)
-					{
-						CivLibrary.Debug.IPlainSerializable Ser = (CivLibrary.Debug.IPlainSerializable)x;
-						ret += Ser.PlainSerialize(tabs + 1);
-					}
-				}
-			} */
-
 			return ret;
 		}
 	}

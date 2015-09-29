@@ -27,7 +27,7 @@ namespace CivLibrary.Debug
 		public static void CrearArchivoLeible(string f)
 		{
 			GameData glob = Juego.Data; //Dandole nuevo nombre al archivo.
-			StreamWriter sw = new StreamWriter(f, false);
+			var sw = new StreamWriter(f, false);
 			// System.IO.FileStream stream = new FileStream(f, FileMode.Create); // Sobreescribe.
 
 
@@ -65,39 +65,39 @@ namespace CivLibrary.Debug
 
 		}
 
-		public static void CrearArchivoObjetosAbiertos(string f, object Obj)
+		public static void CrearArchivoObjetosAbiertos(string f, object obj)
 		{
 			GameData glob = Juego.Data; //Dandole nuevo nombre al archivo.
-			StreamWriter sw = new StreamWriter(f, false);
+			var sw = new StreamWriter(f, false);
 
 			foreach (var x in glob.Ciencias)
 			{
-				if (Obj is Ciencia && x.Reqs.Ciencias.Contains((Ciencia)Obj))
+				if (obj is Ciencia && x.Reqs.Ciencias.Contains((Ciencia)obj))
 					sw.WriteLine("(Ciencia)" + x);
-				if (Obj is Recurso && x.Reqs.Recursos.ContainsKey((Recurso)Obj))
+				if (obj is Recurso && x.Reqs.Recursos.ContainsKey((Recurso)obj))
 					sw.WriteLine("(Ciencia)" + x);
 			}
 
 			foreach (var x in glob.Edificios)
 			{
-				if (Obj is Recurso && x.ReqRecursos.ContainsKey((Recurso)Obj))
+				if (obj is Recurso && x.ReqRecursos.ContainsKey((Recurso)obj))
 					sw.WriteLine("(Edificio)" + x);
-				if (Obj is IRequerimiento<ICiudad> && x.Requiere.Requiere().Contains((IRequerimiento<ICiudad>)Obj))
+				if (obj is IRequerimiento<ICiudad> && x.Requiere.Requiere().Contains((IRequerimiento<ICiudad>)obj))
 					sw.WriteLine("(Edificio)" + x);
 			}
 
 			foreach (var x in glob.Trabajos)
 			{
-				if (x.Edificio == Obj)
+				if (x.Edificio == obj)
 					sw.WriteLine("(Trabajo)" + x);
-				if (Obj is IRequerimiento<ICiudad> && x.Reqs().Contains((IRequerimiento<ICiudad>)Obj))
+				if (obj is IRequerimiento<ICiudad> && x.Reqs().Contains((IRequerimiento<ICiudad>)obj))
 					sw.WriteLine("(Trabajo)" + x);
 			}
 			foreach (var x in glob.Unidades)
 			{
-				if (x.ReqCiencia == Obj)
+				if (x.ReqCiencia == obj)
 					sw.WriteLine("(Unidad)" + x);
-				if (Obj is Recurso && x.Reqs.ContainsKey((Recurso)Obj))
+				if (obj is Recurso && x.Reqs.ContainsKey((Recurso)obj))
 					sw.WriteLine("(Unidad)" + x);
 			}
 
@@ -114,37 +114,37 @@ namespace CivLibrary.Debug
 					Directory.CreateDirectory(x);
 			}
 
-			foreach (var x in Global.Juego.Data.Ciencias)
+			foreach (var x in Juego.Data.Ciencias)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Ciencias/" + x.Nombre + ".Ciencia.txt", x);
 			}
 
-			foreach (var x in Global.Juego.Data.Ecosistemas)
+			foreach (var x in Juego.Data.Ecosistemas)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Ecosistemas/" + x.Nombre + ".Ecosistema.txt", x);
 			}
 			
-			foreach (var x in Global.Juego.Data.Edificios)
+			foreach (var x in Juego.Data.Edificios)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Edificios/" + x.Nombre + ".Edificio.txt", x);
 			}
 			
-			foreach (var x in Global.Juego.Data.Propiedades)
+			foreach (var x in Juego.Data.Propiedades)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Propiedades/" + x.Nombre + ".Propiedad.txt", x);
 			}
 			
-			foreach (var x in Global.Juego.Data.Recursos)
+			foreach (var x in Juego.Data.Recursos)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Recursos/" + x.Nombre + ".Recurso.txt", x);
 			}
 			
-			foreach (var x in Global.Juego.Data.Trabajos)
+			foreach (var x in Juego.Data.Trabajos)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Trabajos/" + x.Nombre + ".Trabajo.txt", x);
 			}
 			
-			foreach (var x in Global.Juego.Data.Unidades)
+			foreach (var x in Juego.Data.Unidades)
 			{
 				CrearArchivoObjetosAbiertos("Doc/Unidades/" + x.Nombre + ".Unidad.txt", x);
 			}

@@ -11,7 +11,7 @@ namespace Civ.Orden
 
 		OrdenIr(Armada armada)
 		{			
-			this.Armada = armada;
+			Armada = armada;
 		}
 
 		/// <param name="destino">Destino.</param>

@@ -3,8 +3,6 @@ using System;
 
 namespace Civ.Orden
 {
-	// TODO Probar
-
 	/// <summary>
 	/// Representa una serie de órdenes
 	/// </summary>
@@ -49,7 +47,6 @@ namespace Civ.Orden
 		/// Devuelve true si la orden ha sido terminada.
 		/// </summary>
 		/// <param name="t">Tiempo</param>
-		/// <param name="armada">Armada</param>
 		public override bool Ejecutar(TimeSpan t)
 		{
 			bool ret = Actual.Ejecutar(t);

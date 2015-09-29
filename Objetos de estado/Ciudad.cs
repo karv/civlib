@@ -322,7 +322,6 @@ namespace Civ
 			}
 			set
 			{
-				// TODO: ¿Qué hacer con los recursos del edificio anterior? ¿Se pierden? (por ahora sí :3)
 				if (value == null || PuedeConstruir(value))
 					EdifConstruyendo = new EdificioConstruyendo(value, this);
 				else
@@ -820,7 +819,7 @@ namespace Civ
 			//Crecimiento prometido por sector de edad.
 			var Crecimiento = new float[3];
 			float Consumo = Poblacion * ConsumoAlimentoPorCiudadanoBase * (float)t.TotalHours;
-			;
+
 			if (float.IsInfinity(AlimentoAlmacen) || float.IsNaN(AlimentoAlmacen))
 			{
 				System.Diagnostics.Debugger.Break();
