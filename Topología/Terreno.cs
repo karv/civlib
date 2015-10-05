@@ -16,7 +16,6 @@ namespace Civ
 		/// <param name="ecosistema">Ecología a usar para crear el terreno.</param>
 		public Terreno(Ecosistema ecosistema)
 		{
-			Vecinos.Nulo = float.PositiveInfinity;
 			A = this;
 			Loc = 0;
 			Random r = Juego.Rnd;
@@ -58,7 +57,14 @@ namespace Civ
 		/// <summary>
 		/// Terrenos vecinos.
 		/// </summary>
-		public readonly ListaPeso<Terreno> Vecinos = new ListaPeso<Terreno>();
+		public ICollection<Terreno> Vecinos
+		{
+			get
+			{
+				return base.Universo.GráficaBase.Vecinos(this);
+			}
+		}
+
 		public string Nombre;
 		/// <summary>
 		/// Propiedades que se contruyen al construir una ciudad aquí.

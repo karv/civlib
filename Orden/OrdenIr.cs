@@ -31,7 +31,7 @@ namespace Civ.Orden
 				return true;
 
 			}
-			int orientacion; // Orientación de esta posición con respecto a PS
+			// int orientacion; // Orientación de esta posición con respecto a PS
 			if (Armada.EnTerreno)
 			{
 				Armada.Posicion.B = Destino.ExtremoNo(Armada.Posicion.A);  //Asigna la posición de la armada en el intervalo correcto.
@@ -41,20 +41,17 @@ namespace Civ.Orden
 
 			}
 
-			orientacion = PS.Orientacion(Destino);
+			//orientacion = PS.Orientacion(Destino);
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
 			// Avanzar
 			var Avance = (float)t.TotalHours * Armada.Velocidad;
-			PS.AvanzarHacia(Destino, ref Avance);
-
-			// Si cambia de orientación, significa que llegó
-			if (orientacion != PS.Orientacion(Destino))
+			if (PS.AvanzarHacia(Destino, ref Avance))
 			{
 				OnLlegar();
 				return true;
-			}
 
+			}
 
 			//Revisar si están en el mismo Terreno-intervalo
 			if (Destino.Equals(PS))
