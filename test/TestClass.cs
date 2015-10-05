@@ -88,7 +88,8 @@ namespace Test
 			u.Velocidad = 10;
 			u.Fuerza = 1;
 			Terreno destino = Juego.State.ObtenerListaTerrenos()[0];
-
+			Assert.NotNull(destino); //Por alguna razón estaba pasando mucho esto
+			Assert.AreNotEqual(destino.Vecinos, 0);
 			var arm = new Armada(MyCiudad);
 
 			arm.AgregaUnidad(u, 5);
@@ -103,7 +104,7 @@ namespace Test
 				Debug.WriteLine("Ahora está at ease; orden: " + arm.Orden);
 			};
 			arm.Orden = ord;
-
+			Console.WriteLine("Entrando al ciclo");
 			Ciclo(500);
 		}
 
