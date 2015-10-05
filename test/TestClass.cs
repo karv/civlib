@@ -6,15 +6,23 @@ using Civ.Barbaros;
 using System.Collections.Generic;
 using Civ.Orden;
 using IU;
+using NUnit.Framework;
 
 namespace Test
 {
-	class MainClass
+	[TestFixture]
+	public class TestClass
 	{
-		static Civilizacion MyCiv;
-		static Ciudad MyCiudad;
+		Civilizacion MyCiv;
+		Ciudad MyCiudad;
 
-		public static void Main()
+		public void Main()
+		{
+
+			TestBigIrA();
+		}
+
+		void Init()
 		{
 			Juego.CargaData();
 			Juego.InicializarJuego();
@@ -32,11 +40,12 @@ namespace Test
 				}
 			};
 
-			TestBigIrA();
 		}
 
-		static void TestRecoger()
+		[Test]
+		public void TestRecoger()
 		{
+			Init();
 			UnidadRAW u = Juego.Data.Unidades[0];
 			u.MaxCarga = 100; // Porque yo lo digo
 			var pos = new Pseudoposicion();
@@ -70,8 +79,10 @@ namespace Test
 			Ciclo(1000);
 		}
 
-		static void TestBigIrA()
+		[Test]
+		public void TestBigIrA()
 		{
+			Init();
 			var u = new UnidadRAW();
 			u.Nombre = "Velociraptor";
 			u.Velocidad = 10;
@@ -96,14 +107,18 @@ namespace Test
 			Ciclo(500);
 		}
 
-		static void TestReclutar()
+		[Test]
+		public void TestReclutar()
 		{
+			Init();
 			UnidadRAW u = Juego.Data.Unidades[0];
 			MyCiudad.Reclutar(u, 3);
 		}
 
-		static void TestArmadaDesaparecen()
+		[Test]
+		public void TestArmadaDesaparecen()
 		{
+			Init();
 			var arm = new Armada(MyCiudad);
 
 			Debug.WriteLine(arm.CivDueño.Armadas);
@@ -112,18 +127,25 @@ namespace Test
 			Debug.WriteLine(arm.CivDueño.Armadas);
 		}
 
+		static void Ciclo(float multiplicadorVelocidad, Action entreCiclos = null)
+		{
+			Ciclo(multiplicadorVelocidad, TimeSpan.FromSeconds(10), entreCiclos);
+		}
+
 		/// <summary>
 		/// Ejecuta el ciclo del juego
 		/// </summary>
 		/// <param name="multiplicadorVelocidad">Multiplicador velocidad.</param>
 		/// <param name="entreCiclos">Entre ciclos.</param>
-		static void Ciclo(float multiplicadorVelocidad, Action entreCiclos = null)
+		/// <param name="Duración">Duración de la prueba </param>
+		static void Ciclo(float multiplicadorVelocidad, TimeSpan Duración, Action entreCiclos = null)
 		{
 			DateTime timer = DateTime.Now;
-			while (true)
+			while (Duración.Ticks > 0)
 			{				
 				TimeSpan Tiempo = DateTime.Now - timer;
 				timer = DateTime.Now;
+				Duración -= Tiempo;
 				Tiempo = new TimeSpan((long)(Tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);
@@ -136,8 +158,10 @@ namespace Test
 
 		}
 
-		static void TestCiudad()
+		[Test]
+		public void TestCiudad()
 		{
+			Init();
 			ICiudad cd = Juego.State.CiudadesExistentes()[0];
 			Action Entreturnos = delegate
 			{
@@ -156,8 +180,10 @@ namespace Test
 			Ciclo(1000, Entreturnos);
 		}
 
-		static void TestGeneradorArmadas()
+		[Test]
+		public void TestGeneradorArmadas()
 		{
+			Init();
 			var u = new UnidadRAW();
 			u.Fuerza = 1;
 			u.Nombre = "Gordo";
@@ -172,7 +198,8 @@ namespace Test
 
 		}
 
-		static void TestPeleaArmadas()
+		[Test]
+		public static void TestPeleaArmadas()
 		{
 			var c1 = (Civilizacion)Juego.State.Civs[0];
 			var c2 = (Civilizacion)Juego.State.Civs[1];
