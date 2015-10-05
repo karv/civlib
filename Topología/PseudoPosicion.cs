@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Graficas.Continuo;
 using Global;
+using System;
 using System.Diagnostics;
 
 namespace Civ
@@ -14,7 +15,7 @@ namespace Civ
 		{
 			get
 			{
-				return _universo;
+				return Universo;
 			}
 		}
 
@@ -40,33 +41,10 @@ namespace Civ
 		/// <summary>
 		/// Avanza la posición Dist de distancia hacia Destino.
 		/// </summary>
+		[Obsolete]
 		public void Avanzar(float dist)
 		{
-			if (B == null)
-				return;
-			loc += dist;
-			if (float.IsNaN(loc))
-			{
-				Debug.Assert(!float.IsNaN(loc));
-			}
-		}
-
-		public void Invertir()
-		{
-			if (!EnTerreno)
-			{
-				Terreno tmp = A;
-				float dist = aloc;
-				A = B;
-				B = tmp;
-				loc = dist;
-			}
-		}
-
-		public void Hacerconsistente(Pseudoposicion x)
-		{
-			if (B.Equals(x.A) && A.Equals(x.B ?? A))
-				Invertir();
+			Loc += dist;
 		}
 
 		/// <summary>
@@ -77,7 +55,7 @@ namespace Civ
 		{
 			get
 			{
-				return enOrigen();
+				return EnOrigen;
 			}
 		}
 
@@ -129,7 +107,7 @@ namespace Civ
 			var ret = new Pseudoposicion();
 			ret.A = A;
 			ret.B = B;
-			ret.loc = loc;
+			ret.Loc = Loc;
 			return ret;
 		}
 
@@ -142,7 +120,7 @@ namespace Civ
 		/// <param name="other">Other.</param>
 		public int Orientacion(Pseudoposicion other)
 		{
-			return A == other.A && B == other.B && loc < other.loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
+			return A == other.A && B == other.B && Loc < other.Loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
 		}
 	}
 }

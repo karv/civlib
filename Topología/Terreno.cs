@@ -18,7 +18,7 @@ namespace Civ
 		{
 			Vecinos.Nulo = float.PositiveInfinity;
 			A = this;
-			loc = 0;
+			Loc = 0;
 			Random r = Juego.Rnd;
 
 			Nombre = ecosistema.Nombres[r.Next(ecosistema.Nombres.Count)];

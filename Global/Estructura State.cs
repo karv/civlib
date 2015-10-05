@@ -12,7 +12,7 @@ namespace Global
 		/// <summary>
 		/// La topología del mundo.
 		/// </summary>
-		public Grafica<Terreno> Topologia;
+		public Grafo<Terreno> Topologia;
 
 		public Graficas.Continuo.Continuo<Terreno> Mapa;
 		List<ICivilizacion> _Civs = new List<ICivilizacion>();
@@ -20,7 +20,7 @@ namespace Global
 
 		public GameState()
 		{
-			Topologia = new Grafica<Terreno>();
+			Topologia = new Grafo<Terreno>();
 			Topologia.EsSimetrico = true;
 		}
 

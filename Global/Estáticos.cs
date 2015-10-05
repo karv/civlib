@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Civ;
 using Civ.Options;
 using Civ.Barbaros;
+using Graficas;
 
 namespace Global
 {
@@ -65,7 +66,7 @@ namespace Global
 			// Matar Civs sin ciudades.
 			State.Civs.RemoveAll(x => (x.Ciudades.Count == 0));
 
-			// Generar b¨¢rbaros
+			// Generar bï¿½ï¿½rbaros
 			BarbGen.Tick(t);
 		}
 
@@ -108,8 +109,9 @@ namespace Global
 		{
 			//State = new GameState();
 
-			// Hacer la topología
+			// Hacer la topologï¿½a
 			var Terrenos = new List<Terreno>();
+			State.Topologia = new Grafo<Terreno>();
 			State.Mapa = new Graficas.Continuo.Continuo<Terreno>(State.Topologia);
 
 			Terreno T;
@@ -128,7 +130,7 @@ namespace Global
 			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
 			ConstruirTopologia(Terrenos);
 			/*
-			// Vaciar la topología en cada Terreno
+			// Vaciar la topologï¿½a en cada Terreno
 			foreach (var x in State.Topologia.Nodos)
 			{
 				Terreno a = x;
@@ -137,12 +139,12 @@ namespace Global
 				b.Vecinos[a] = State.Topologia[b, a];
 			}
 			*/
-			// Asignar una ciudad de cada civilización en terrenos vacíos y distintos lugares.
+			// Asignar una ciudad de cada civilizaciï¿½n en terrenos vacï¿½os y distintos lugares.
 			List<Terreno> Terrs = State.ObtenerListaTerrenosLibres();
 			for (int i = 0; i < PrefsJuegoNuevo.NumCivs; i++)
 			{
 				C = new Civilizacion();
-				T = Terrs[Rnd.Next(Terrs.Count)];         // Éste es un elemento aleatorio de un Terreno libre.
+				T = Terrs[Rnd.Next(Terrs.Count)];         // ï¿½ste es un elemento aleatorio de un Terreno libre.
 				Terrs.Remove(T);
 
 				Cd = new Ciudad(C, T, PrefsJuegoNuevo.PoblacionInicial);
@@ -162,7 +164,7 @@ namespace Global
 		{
 			foreach (var x in lista)
 			{
-				foreach (var y in new List<Terreno> (lista)) // Evitar m¨²ltiples enumeraciones de lista
+				foreach (var y in new List<Terreno> (lista)) // Evitar mï¿½ï¿½ltiples enumeraciones de lista
 				{
 					if (Rnd.NextDouble() < PrefsJuegoNuevo.Compacidad)
 					{
@@ -177,7 +179,7 @@ namespace Global
 		#region Unicidad de nombres
 
 		/// <summary>
-		/// Devuelve un nombre de civilizaci¨®n ¨²nico
+		/// Devuelve un nombre de civilizaciï¿½ï¿½n ï¿½ï¿½nico
 		/// </summary>
 		/// <returns>The unique civ name.</returns>
 		public static string NombreCivUnico()
@@ -200,7 +202,7 @@ namespace Global
 		}
 
 		/// <summary>
-		/// Devuelve un nombre de civilizaci¨®n ¨²nico
+		/// Devuelve un nombre de civilizaciï¿½ï¿½n ï¿½ï¿½nico
 		/// </summary>
 		/// <returns>The unique civ name.</returns>
 		public static string NombreCiudadUnico()
@@ -225,12 +227,12 @@ namespace Global
 
 		/// <summary>
 		/// Devuelve un string que se genera al agregar un entero al final 
-		/// de tal forma que el nombre no est¨¦ en una lista determinada.
+		/// de tal forma que el nombre no estï¿½ï¿½ en una lista determinada.
 		/// </summary>
 		/// <returns>The unico.</returns>
 		/// <param name="str">String base</param>
 		/// <param name="universo">Lista de strings que debe evitar devolver</param>
-		/// <param name="enumInicial">N¨²mero entero con el que se empieza la enumeraci¨®n en caso de repetici¨®n</param>
+		/// <param name="enumInicial">Nï¿½ï¿½mero entero con el que se empieza la enumeraciï¿½ï¿½n en caso de repeticiï¿½ï¿½n</param>
 		static string HacerUnico(string str, ICollection<string> universo, int enumInicial = 0)
 		{
 			if (!universo.Contains(str))

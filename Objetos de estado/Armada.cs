@@ -57,7 +57,7 @@ namespace Civ
 			EsDefensa = false;
 			Posicion.A = posición.A;
 			Posicion.B = posición.B;
-			Posicion.loc = posición.loc;
+			Posicion.Loc = posición.Loc;
 			civilizacion.Armadas.Add(this);
 		}
 
@@ -290,7 +290,7 @@ namespace Civ
 		/// Devuelve <c>true</c> sólo si esta armada se encuentra en terreno
 		/// </summary>
 		/// <value><c>true</c> if en terreno; otherwise, <c>false</c>.</value>
-		public bool EnTerreno{ get { return Posicion.enOrigen(); } }
+		public bool EnTerreno{ get { return Posicion.EnOrigen; } }
 
 		/// <summary>
 		/// Un Tick de la armada

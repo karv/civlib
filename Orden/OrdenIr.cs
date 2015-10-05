@@ -44,13 +44,9 @@ namespace Civ.Orden
 			orientacion = PS.Orientacion(Destino);
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
-			// Si está Atrás, ejecutar PS.Invertir();
-			PS.Hacerconsistente(Destino);
-			if (PS.loc > Destino.loc)
-				t = -t;
-			
 			// Avanzar
-			PS.Avanzar((float)t.TotalHours * Armada.Velocidad);
+			var Avance = (float)t.TotalHours * Armada.Velocidad;
+			PS.AvanzarHacia(Destino, ref Avance);
 
 			// Si cambia de orientación, significa que llegó
 			if (orientacion != PS.Orientacion(Destino))
@@ -65,8 +61,8 @@ namespace Civ.Orden
 			{
 				Armada.Posicion.A = Destino.A;
 				Armada.Posicion.B = Destino.B;
-				Armada.Posicion.loc = Destino.loc;
-				OnLlegar();
+				Armada.Posicion.Loc = Destino.Loc;
+				AlLlegar?.Invoke(Armada, null);
 				return true;
 			}
 
