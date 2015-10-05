@@ -199,8 +199,9 @@ namespace Test
 		}
 
 		[Test]
-		public static void TestPeleaArmadas()
+		public void TestPeleaArmadas()
 		{
+			Init();
 			var c1 = (Civilizacion)Juego.State.Civs[0];
 			var c2 = (Civilizacion)Juego.State.Civs[1];
 			var diplomaciaGuerra = new EstadoDiplomatico();
@@ -237,7 +238,7 @@ namespace Test
 			// Listos para matarse
 			Ciclo(50);
 
-			Debug.WriteLine("Ganador: " + (ac1.Unidades.Count > 0 ? "1" : "2"));
+			Console.WriteLine("Ganador: " + (ac1.Unidades.Count > 0 ? "1" : "2"));
 
 		}
 	}
