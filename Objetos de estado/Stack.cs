@@ -52,7 +52,7 @@ namespace Civ
 				if (_cantidad == 0)
 				{
 					AbandonaArmada();
-					AlMorir.Invoke(this, null);
+					AlMorir?.Invoke(this, null);
 				}
 			}
 		}
