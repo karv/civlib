@@ -10,9 +10,10 @@ namespace Global
 	public class GameState
 	{
 		/// <summary>
-		/// La topología del mundo.
+		/// La topologÃ­a del mundo.
 		/// </summary>
-		public Grafo<Terreno> Topologia;
+		public Grafo<Terreno> TopologÃ­a;
+		public ConjuntoRutasÃ“ptimas<Terreno> Rutas;
 
 		public Graficas.Continuo.Continuo<Terreno> Mapa;
 		List<ICivilizacion> _Civs = new List<ICivilizacion>();
@@ -20,8 +21,8 @@ namespace Global
 
 		public GameState()
 		{
-			Topologia = new Grafo<Terreno>();
-			Topologia.EsSimetrico = true;
+			TopologÃ­a = new Grafo<Terreno>();
+			TopologÃ­a.EsSimetrico = true;
 		}
 
 		/// <summary>
@@ -38,7 +39,7 @@ namespace Global
 		public List<ICivilizacion> CivsVivas()
 		{
 			var ret = new List<ICivilizacion>();
-			foreach (var x in Topologia.Nodos)
+			foreach (var x in TopologÃ­a.Nodos)
 			{
 				ICivilizacion C = x.CiudadConstruida?.CivDueno;
 				if (C != null && !ret.Contains(C))
@@ -57,7 +58,7 @@ namespace Global
 		{
 			var ret = new List<Terreno>();
 
-			foreach (var x in Topologia.Nodos)
+			foreach (var x in TopologÃ­a.Nodos)
 			{
 				ret.Add(x);
 			}
@@ -75,7 +76,7 @@ namespace Global
 		}
 
 		/// <summary>
-		/// Devuelve el número de edificios de un tipo determinado en el mundo
+		/// Devuelve el n?ero de edificios de un tipo determinado en el mundo
 		/// </summary>
 		/// <param name="edif">Una clase de edificio.</param>
 		/// <returns></returns>
@@ -123,10 +124,10 @@ namespace Global
 		}
 
 
-		#region Estad¨ªstico
+		#region Estadé—Šæ¦¯ico
 
 		/// <summary>
-		/// Devuelve la puntuaci¨®n total del juego
+		/// Devuelve la puntuaciæ¥‚å—Štotal del juego
 		/// </summary>
 		/// <returns>The puntuacion.</returns>
 		public float SumaPuntuacion()

@@ -42,7 +42,7 @@ namespace Test
 			var pos = new Pseudoposicion();
 			Terreno terrA = MyCiudad.Posicion().A;
 			Terreno terrB = Juego.State.ObtenerListaTerrenos()[0];
-			Juego.State.Topologia[terrA, terrB] = 1;
+			Juego.State.Topología[terrA, terrB] = 1;
 			pos.A = terrA;
 			pos.B = terrB;
 			pos.Loc = 0.5f;

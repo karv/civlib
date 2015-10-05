@@ -33,7 +33,7 @@ namespace Civ.Barbaros
 			var Unidades = new List<UnidadRAW>(Juego.Data.Unidades);
 			var cb = new CivilizacionBarbara();
 
-			var ppos = new List<Pseudoposicion>(_estado.Topologia.Nodos);
+			var ppos = new List<Pseudoposicion>(_estado.Topología.Nodos);
 			Pseudoposicion pos = ppos[Juego.Rnd.Next(ppos.Count)];
 
 			var ret = new Armada(cb, pos);

@@ -8,7 +8,7 @@ namespace Civ.Orden
 		{
 			var origen = armada.Posicion;
 
-			var RutaAA = Global.Juego.State.Topologia.CaminoÓptimo(origen.A, destino.A);
+			var RutaAA = Global.Juego.State.Topología.CaminoÓptimo(origen.A, destino.A);
 
 			ColaOrden.Enqueue(new OrdenIr(armada, origen.A));
 
