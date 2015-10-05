@@ -5,6 +5,7 @@ using Civ;
 using Civ.Options;
 using Civ.Barbaros;
 using Graficas;
+using System.IO;
 
 namespace Global
 {
@@ -32,7 +33,7 @@ namespace Global
 			}
 
 			// Ticks de terreno
-			foreach (var x in State.Topologia.Nodos)
+			foreach (var x in State.Topología.Nodos)
 			{
 				x.Tick(t);
 			}
@@ -111,8 +112,8 @@ namespace Global
 
 			// Hacer la topolog�a
 			var Terrenos = new List<Terreno>();
-			State.Topologia = new Grafo<Terreno>();
-			State.Mapa = new Graficas.Continuo.Continuo<Terreno>(State.Topologia);
+			State.Topología = new Grafo<Terreno>();
+			State.Mapa = new Graficas.Continuo.Continuo<Terreno>(State.Topología);
 
 			Terreno T;
 			Ecosistema Eco;
@@ -153,6 +154,9 @@ namespace Global
 				State.Civs.Add(C);
 			}
 
+			// Construir las rutas óptimas
+			State.Rutas = new ConjuntoRutasÓptimas<Terreno>(State.Topología);
+
 			// Incluir el alimento inicial en cada ciudad
 			foreach (var c in State.CiudadesExistentes())
 			{
@@ -168,58 +172,58 @@ namespace Global
 				{
 					if (Rnd.NextDouble() < PrefsJuegoNuevo.Compacidad)
 					{
-						State.Topologia[x, y] =
+						State.Topología[x, y] =
 							PrefsJuegoNuevo.MinDistNodos + (float)Rnd.NextDouble() * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos);
 					}
 				}
 			}
-			State.Topologia.EsSimetrico = true;
+			State.Topología.EsSimetrico = true;
 		}
 
 		#region Unicidad de nombres
 
 		/// <summary>
-		/// Devuelve un nombre de civilizaci��n ��nico
+		/// Devuelve un nombre de civilización único
 		/// </summary>
 		/// <returns>The unique civ name.</returns>
 		public static string NombreCivUnico()
 		{
-			// Copiar el contenido en una lista
-			System.IO.Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("NombresCiv.txt");
-			var read = new System.IO.StreamReader(stream);
-			var nombres = new List<string>();
-			while (!read.EndOfStream)
-			{
-				nombres.Add(read.ReadLine());
-			}
-			stream.Dispose();
-			read.Dispose();
-
-			string baseNombre = nombres[Rnd.Next(nombres.Count)];
+			string baseNombre = ReadRandomLine("NombresCiv.txt");
 			string unique = HacerUnico(baseNombre, State.Civs.ConvertAll(c => c.Nombre));
 
 			return unique;
 		}
 
-		/// <summary>
-		/// Devuelve un nombre de civilizaci��n ��nico
-		/// </summary>
-		/// <returns>The unique civ name.</returns>
-		public static string NombreCiudadUnico()
+		static string ReadRandomLine(string ResourseName)
 		{
-			// Copiar el contenido en una lista
-			System.IO.Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("NombresCiudad.txt");
-			var read = new System.IO.StreamReader(stream);
+			Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(ResourseName);
+			string ret = ReadRandomLine(stream);
+			stream.Dispose();
+			return ret;
+		}
+
+		static string ReadRandomLine(Stream stream)
+		{
+			var read = new StreamReader(stream);
 			var nombres = new List<string>();
 			while (!read.EndOfStream)
 			{
 				nombres.Add(read.ReadLine());
 			}
-			stream.Dispose();
 			read.Dispose();
 
 			string baseNombre = nombres[Rnd.Next(nombres.Count)];
-			string unique = HacerUnico(baseNombre, new List<ICiudad>(State.CiudadesExistentes()).ConvertAll(c => c.Nombre));
+			return baseNombre;
+		}
+
+		/// <summary>
+		/// Devuelve un nombre de civilizaciónn único
+		/// </summary>
+		/// <returns>The unique civ name.</returns>
+		public static string NombreCiudadUnico()
+		{
+			string baseNombre = ReadRandomLine("NombresCiudad.txt");
+			string unique = HacerUnico(baseNombre, State.Civs.ConvertAll(c => c.Nombre));
 
 			return unique;
 		}
@@ -227,12 +231,12 @@ namespace Global
 
 		/// <summary>
 		/// Devuelve un string que se genera al agregar un entero al final 
-		/// de tal forma que el nombre no est�� en una lista determinada.
+		/// de tal forma que el nombre no esté en una lista determinada.
 		/// </summary>
 		/// <returns>The unico.</returns>
 		/// <param name="str">String base</param>
 		/// <param name="universo">Lista de strings que debe evitar devolver</param>
-		/// <param name="enumInicial">N��mero entero con el que se empieza la enumeraci��n en caso de repetici��n</param>
+		/// <param name="enumInicial">Número entero con el que se empieza la enumeración en caso de repetición</param>
 		static string HacerUnico(string str, ICollection<string> universo, int enumInicial = 0)
 		{
 			if (!universo.Contains(str))
