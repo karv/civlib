@@ -29,7 +29,7 @@ namespace Civ
 		public static float ObtenerRecurso (this IAlmacenante almacén,
 		                                    Recurso recurso)
 		{
-			return almacén.Almacen.recurso (recurso);
+			return almacén.Almacen [recurso];
 		}
 	}
 }

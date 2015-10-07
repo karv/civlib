@@ -18,12 +18,20 @@ namespace Civ
 		/// Devuelve la cantidad existente de un recurso dado.
 		/// </summary>
 		/// <param name="recurso">Recurso.</param>
+		[Obsolete]
 		float recurso (Recurso recurso);
+
+		/// <summary>
+		/// Devuelve la cantidad existente de un recurso dado.
+	
+
+		/// <summary>
+		/// Almacén de lectura y escritura
+		/// </summary>
+		/// <param name="recurso">Recurso.</param>
+		float this [Recurso recurso]{ get; }
 	}
 
-	/// <summary>
-	/// Almacén de lectura y escritura
-	/// </summary>
 	public interface IAlmacén : IAlmacénRead
 	{
 		/// <summary>
@@ -31,7 +39,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="rec">Rec.</param>
 		/// <param name="val">Value.</param>
-		[ObsoleteAttribute]
+		[Obsolete]
 		void SetRecurso (Recurso rec, float val);
 
 		/// <summary>
@@ -39,7 +47,14 @@ namespace Civ
 		/// </summary>
 		/// <param name="rec">Rec.</param>
 		/// <param name="delta">Delta.</param>
+		[Obsolete]
 		void ChangeRecurso (Recurso rec, float delta);
+
+		/// <summary>
+		/// Devuelve la cantidad existente de un recurso dado.
+		/// </summary>
+		/// <param name="recurso">Recurso.</param>
+		new float this [Recurso recurso]{ get; set; }
 	}
 
 	public static class ExtIAlmacén
@@ -53,7 +68,7 @@ namespace Civ
 			var ret = new Dictionary<Recurso, float> ();
 			foreach (var x in alm.recursos)
 			{
-				ret.Add (x, alm.recurso (x));
+				ret [x] = alm [x];
 			}
 			return ret;
 		}
