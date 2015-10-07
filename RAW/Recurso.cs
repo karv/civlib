@@ -38,6 +38,12 @@ namespace Civ.Data
 		/// De ser true, cada ciudad puede tomar de un almacén global.
 		/// </summary>
 		public bool EsGlobal;
+		/// <summary>
+		/// El valor del recurso,
+		/// útil para la IA
+		/// </summary>
+		[DataMember]
+		public float Valor;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Data.Recurso"/>class.
@@ -135,6 +141,14 @@ namespace Civ.Data
 			}
 
 			return ret;
+		}
+
+		public float Puntuación
+		{
+			get
+			{
+				return Valor;
+			}
 		}
 	}
 }
