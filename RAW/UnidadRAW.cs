@@ -7,7 +7,7 @@ namespace Civ
 	/// <summary>
 	/// Representa una clase de unidad
 	/// </summary>
-	[DataContract(Name = "Unidad", IsReference = true)]
+	[DataContract (Name = "Unidad", IsReference = true)]
 	public class UnidadRAW : CivLibrary.Debug.IPlainSerializable, IPuntuado
 	{
 		public class Modificadores : ListaPeso<string>
@@ -25,11 +25,11 @@ namespace Civ
 			/// <summary>
 			/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
 			/// </summary>
-			[DataMember(Name = "Población")]
+			[DataMember (Name = "Población")]
 			public float PoblacionACiudad;
 
-			[DataMember(Name = "Edificios")]
-			EdificioRAW[] _edificiosIniciales;
+			[DataMember (Name = "Edificios")]
+			EdificioRAW [] _edificiosIniciales;
 
 			/// <summary>
 			/// Edificios con los que inicia la nueva ciudad.
@@ -47,7 +47,7 @@ namespace Civ
 			}
 		}
 
-		[DataMember(Name = "Colonizar")]
+		[DataMember (Name = "Colonizar")]
 		public ColonizarOpciones? Colonización;
 
 		public bool PuedeColonizar
@@ -62,7 +62,7 @@ namespace Civ
 
 		#region IPuntuado
 
-		float IPuntuado.Puntuacion
+		float IPuntuado.Puntuación
 		{
 			get
 			{
@@ -77,16 +77,12 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public string Nombre;
-		[DataMember(Name = "Modificadores")]
-		Modificadores _Mods = new Modificadores();
 
 		/// <summary>
 		/// Lista de modificadores de combate de la unidad.
 		/// </summary>        
-		public Modificadores Mods
-		{
-			get { return _Mods; }
-		}
+		[DataMember (Name = "Modificadores")]
+		public Modificadores Mods { get; }
 
 		/// <summary>
 		/// Fuerza de la unidad.
@@ -107,38 +103,29 @@ namespace Civ
 		[DataMember]
 		public float Velocidad;
 
-		[DataMember(Name = "Flags")]
-		List<string> _Flags = new List<string>();
-
 		/// <summary>
 		/// Flags.
 		/// </summary>
-		public List<string> Flags
-		{
-			get { return _Flags; }
-		}
-		// Reqs
-		[DataMember(Name = "Requerimientos")]
-		Requerimientos _Reqs = new Requerimientos();
+		[DataMember (Name = "Flags")]
+		public List<string> Flags { get; }
 
+		// Reqs
 		/// <summary>
 		/// Requerimientos para crearse.
 		/// </summary>
-		public Requerimientos Reqs
-		{
-			get { return _Reqs; }
-		}
+		[DataMember (Name = "Requerimientos")]
+		public Requerimientos Reqs { get; }
 
 		/// <summary>
 		/// Devuelve la ciencia requerida para entrenar a la unidad.
 		/// </summary>
-		[DataMember(Name = "Ciencia")]
+		[DataMember (Name = "Ciencia")]
 		public Ciencia ReqCiencia { get; set; }
 
 		/// <summary>
 		/// Población productiva que requiere para entrenar.
 		/// </summary>
-		[DataMember(Name = "CostePoblación")]
+		[DataMember (Name = "CostePoblación")]
 		public ulong CostePoblacion;
 		/// <summary>
 		/// Representa el coste de espacio de esta unidad en una armada.
@@ -156,12 +143,12 @@ namespace Civ
 
 		#endregion
 
-		public override string ToString()
+		public override string ToString ()
 		{
 			return Nombre;
 		}
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -173,7 +160,7 @@ namespace Civ
 
 			foreach (var x in Reqs.Keys)
 			{
-				ret += ((CivLibrary.Debug.IPlainSerializable)x).PlainSerialize(tabs + 1);
+				ret += ((CivLibrary.Debug.IPlainSerializable)x).PlainSerialize (tabs + 1);
 			}
 			return ret;
 		}

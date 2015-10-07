@@ -7,7 +7,11 @@ namespace Civ
 	/// </summary>
 	public interface ITickable
 	{
-		void Tick(TimeSpan t);
+		/// <summary>
+		/// Ejecuta un tick
+		/// </summary>
+		/// <param name="t">Lapso del tick</param>
+		void Tick (TimeSpan t);
 	}
 }
 

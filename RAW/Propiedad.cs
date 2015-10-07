@@ -15,20 +15,16 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public string Nombre;
-		[DataMember(Name = "Salida")]
-		List<Civ.TasaProd.TasaProd> _Salida = new List<Civ.TasaProd.TasaProd>();
 
 		/// <summary>
 		/// Recursos que produce esta propiedad por turno.
 		/// </summary>
-		public List<Civ.TasaProd.TasaProd> Salida
-		{
-			get { return _Salida; }
-		}
+		[DataMember (Name = "Salida")]
+		public List<TasaProd.TasaProd> Salida { get; }
 		// IRequerimiento:
-		bool IRequerimiento<Ciudad>.LoSatisface(Ciudad ciudad)
+		bool IRequerimiento<Ciudad>.LoSatisface (Ciudad ciudad)
 		{
-			return ciudad.ExistePropiedad(this);
+			return ciudad.ExistePropiedad (this);
 		}
 
 		/// <summary>
@@ -36,20 +32,20 @@ namespace Civ
 		/// </summary>
 		/// <param name="almacén"><see cref="Civ.ICiudad"/> donde hará un tick esta propiedad.</param>
 		/// <param name="t">longitud del tick</param>
-		public virtual void Tick(IAlmacenante almacén, TimeSpan t)
+		public virtual void Tick (IAlmacenante almacén, TimeSpan t)
 		{
-			foreach (Civ.TasaProd.TasaProd x in _Salida)
+			foreach (Civ.TasaProd.TasaProd x in Salida)
 			{
-				x.Tick(almacén, t);
+				x.Tick (almacén, t);
 			}
 		}
 
-		public override string ToString()
+		public override string ToString ()
 		{
 			return Nombre;
 		}
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -63,7 +59,7 @@ namespace Civ
 
 			foreach (var x in Global.Juego.Data.Ecosistemas)
 			{
-				if (x.PropPropiedad.ContainsKey(this))
+				if (x.PropPropiedad.ContainsKey (this))
 					ret += tab += x.Nombre;
 			}
 

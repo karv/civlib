@@ -25,28 +25,26 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public string Nombre;
-		[DataMember(Name = "Propiedades")]
-		EcosistemaPropiedades _PropPropiedad = new EcosistemaPropiedades();
 
 		/// <summary>
 		/// Es la lista de probabilidades de que una <c>Propiedad</c> <c>Innata</c> aparezca en un terreno con esta ecología.
 		/// </summary>
 		/// <value><c>ListaPeso</c> de asignación de <c>Propiedades</c> con sus probabilidades.</value>
-		public EcosistemaPropiedades PropPropiedad
-		{
-			get
-			{
-				return _PropPropiedad;
-			}
-		}
+		[DataMember (Name = "Propiedades")]
+		public EcosistemaPropiedades PropPropiedad { get; }
 
-		[DataMember(Name = "Nombres")]
-		public List<string> Nombres;
+		/// <summary>
+		/// Lista de nombres para terrenos
+		/// </summary>
+		[DataMember (Name = "Nombres")]
+		public List<string> Nombres { get; }
 
-		public Terreno CrearTerreno()
+		/// <summary>
+		/// Crea un terreno aleatoriamente a partir de este ecosistema
+		/// </summary>
+		public Terreno CrearTerreno ()
 		{
-			return new Terreno(this);
+			return new Terreno (this);
 		}
 	}
 }
-

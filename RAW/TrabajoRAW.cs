@@ -7,14 +7,9 @@ namespace Civ
 	/// <summary>
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
-	[DataContract(IsReference = true, Name = "Trabajo")]
+	[DataContract (IsReference = true, Name = "Trabajo")]
 	public class TrabajoRAW: CivLibrary.Debug.IPlainSerializable
 	{
-		//[DataContract(IsReference = false)]
-		public class DiferenciaRecursos : ListaPeso<Recurso>
-		{
-		}
-
 		/// <summary>
 		/// Nombre
 		/// </summary>
@@ -25,58 +20,40 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public EdificioRAW Edificio;
-		[DataMember(Name = "Salida")]
-		DiferenciaRecursos _SalidaBase = new DiferenciaRecursos();
 
 		/// <summary>
 		/// Recursos producidos por trabajador*turno (Base)
 		/// </summary>
-		public DiferenciaRecursos SalidaBase
-		{
-			get
-			{
-				return _SalidaBase;
-			}
-		}
+		[DataMember (Name = "Salida")]
+		public ListaPeso<Recurso> SalidaBase { get; }
 
 		/// <summary>
 		/// Recursos consumidos por trabajador*turno (Base)
 		/// </summary>
-		[DataMember(Name = "Entrada")]
-		DiferenciaRecursos _EntradaBase = new DiferenciaRecursos();
+		[DataMember (Name = "Entrada")]
+		public ListaPeso<Recurso> EntradaBase { get; }
 
-		/// <summary>
-		/// Recursos consumidos por trabajador*turno (Base)
-		/// </summary>		
-		public DiferenciaRecursos EntradaBase
+		public override string ToString ()
 		{
-			get
-			{
-				return _EntradaBase;
-			}
-		}
-
-		public override string ToString()
-		{
-			return string.Format("{0} @ {1}", Nombre, Edificio);
+			return string.Format ("{0} @ {1}", Nombre, Edificio);
 		}
 		// Requiere
 		/// <summary>
 		/// Lista de requerimientos.
 		/// </summary>
 		[DataMember]
-		public Requerimiento Requiere = new Requerimiento();
+		public Requerimiento Requiere = new Requerimiento ();
 
 		/// <summary>
 		/// Devuelve la lista de requerimientos.
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public List<IRequerimiento<ICiudad>> Reqs()
+		public List<IRequerimiento<ICiudad>> Reqs ()
 		{
-			return Requiere.Requiere();
+			return Requiere.Requiere ();
 		}
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -89,12 +66,10 @@ namespace Civ
 			ret = tab + "(Trabajo)" + Nombre + "\n";
 
 			Ser = Edificio;
-			ret += Ser.PlainSerialize(tabs + 1);
+			ret += Ser.PlainSerialize (tabs + 1);
 
 			Ser = Requiere;
-			ret += Ser.PlainSerialize(tabs + 1);
-
-
+			ret += Ser.PlainSerialize (tabs + 1);
 
 			return ret;
 

@@ -60,7 +60,6 @@
     <Compile Include="RAW\UnidadRAW.cs" />
     <Compile Include="NewGameOptions.cs" />
     <Compile Include="Interfaces\ICiudad.cs" />
-    <Compile Include="Interfaces\ICivilizacion.cs" />
     <Compile Include="Interfaces\IDiplomacia.cs" />
     <Compile Include="Interfaces\IPosicionable.cs" />
     <Compile Include="Interfaces\IPuntuado.cs" />
@@ -72,7 +71,6 @@
     <Compile Include="Objetos de estado\Civilización.cs" />
     <Compile Include="Objetos de estado\CivilizacionBarbara.cs" />
     <Compile Include="Objetos de estado\ControlDiplomacia.cs" />
-    <Compile Include="Objetos de estado\DiplomaciaNomada.cs" />
     <Compile Include="Objetos de estado\Edificio.cs" />
     <Compile Include="Objetos de estado\EdificioConstruyendo.cs" />
     <Compile Include="Objetos de estado\EstadoDiplomatico.cs" />
@@ -81,7 +79,6 @@
     <Compile Include="Ciencia\Ciencia.cs" />
     <Compile Include="Ciencia\InvestigandoCiencia.cs" />
     <Compile Include="Ciencia\ListaInvestigación.cs" />
-    <Compile Include="Orden\Orden.cs" />
     <Compile Include="Orden\OrdenEstacionado.cs" />
     <Compile Include="Orden\OrdenIr.cs" />
     <Compile Include="Orden\OrdenSerie.cs" />
@@ -96,9 +93,14 @@
     <Compile Include="Objetos de estado\Stack.cs" />
     <Compile Include="RAW\TasaProd.cs" />
     <Compile Include="DropStack.cs" />
-    <Compile Include="OrdenRecoger.cs" />
     <Compile Include="Orden\OrdenIrALugar.cs" />
     <Compile Include="Almacén\AlmacénStack.cs" />
+    <Compile Include="RequiereCiencia.cs" />
+    <Compile Include="Interfaces\ICivilización.cs" />
+    <Compile Include="Ecología.cs" />
+    <Compile Include="Objetos de estado\DiplomaciaNómada.cs" />
+    <Compile Include="Orden\IOrden.cs" />
+    <Compile Include="Orden\OrdenRecoger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

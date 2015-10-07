@@ -6,22 +6,16 @@ namespace Civ.Orden
 	/// <summary>
 	/// Representa una serie de órdenes
 	/// </summary>
-	public class OrdenSerie:Orden
+	public class OrdenSerie:Queue<IOrden>, IOrden
 	{
-		/// <summary>
-		/// La cola de órdenes
-		/// </summary>
-		/// <value>The cola orden.</value>
-		protected Queue<Orden> ColaOrden { get; }
-
 		/// <summary>
 		/// La orden actual
 		/// </summary>
-		public Orden Actual
+		public IOrden Actual
 		{
 			get
 			{
-				return ColaOrden.Peek();
+				return Peek ();
 			}
 		}
 
@@ -29,17 +23,17 @@ namespace Civ.Orden
 		/// Agrega una orden a la lista.
 		/// </summary>
 		/// <param name="orden">Orden.</param>
-		public void Encolar(Orden orden)
+		public void Encolar (IOrden orden)
 		{
 			if (orden.Armada != Armada)
-				throw new Exception("Encolar órdenes debe ser de la misma armada.");
-			ColaOrden.Enqueue(orden);
+				throw new Exception ("Encolar órdenes debe ser de la misma armada.");
+			Enqueue (orden);
 		}
 
-		public OrdenSerie(Armada armada)
+		public OrdenSerie (Armada armada)
+			: base ()
 		{
-			Armada = armada;
-			ColaOrden = new Queue<Orden>();
+			this.Armada = armada;
 		}
 
 		/// <summary>
@@ -47,26 +41,43 @@ namespace Civ.Orden
 		/// Devuelve true si la orden ha sido terminada.
 		/// </summary>
 		/// <param name="t">Tiempo</param>
-		public override bool Ejecutar(TimeSpan t)
+		public bool Ejecutar (TimeSpan t)
 		{
-			bool ret = Actual.Ejecutar(t);
+			bool ret = Actual.Ejecutar (t);
 			if (ret)
 			{
-				AlAcabarUnaOrden?.Invoke(this, null);
-				if (ColaOrden.Count > 1)
+				AlAcabarUnaOrden?.Invoke ();
+				if (Count > 1)
 				{
-					ColaOrden.Dequeue();
+					Dequeue ();
 				}
 				else
 				{
-					AlTerminar?.Invoke(this, null);
+					AlTerminar?.Invoke ();
 					return true;
 				}
 			}
 			return false;
 		}
 
-		public event EventHandler AlAcabarUnaOrden;
-		public event EventHandler AlTerminar;
+		#region IOrden
+
+		/// <summary>
+		/// Devuelve la armada de esta orden
+		/// </summary>
+		/// <value>The armada.</value>
+		public Armada Armada { get; }
+
+		#endregion
+
+		/// <summary>
+		/// Ocurre al acabar una orden de la cola
+		/// </summary>
+		public event Action AlAcabarUnaOrden;
+
+		/// <summary>
+		/// Ocurre al terminar toda la cola.
+		/// </summary>
+		public event Action AlTerminar;
 	}
 }

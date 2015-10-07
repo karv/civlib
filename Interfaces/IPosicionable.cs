@@ -29,7 +29,7 @@ namespace Civ
 		/// Obtener la posicion del objeto.
 		/// </summary>
 		/// <returns>The posicion.</returns>
-		Pseudoposicion Posicion();
+		Pseudoposicion Posición ();
 	}
 }
 

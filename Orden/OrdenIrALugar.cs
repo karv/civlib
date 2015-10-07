@@ -4,20 +4,21 @@ namespace Civ.Orden
 {
 	public class OrdenIrALugar:OrdenSerie
 	{
-		public OrdenIrALugar(Armada armada, Pseudoposicion destino) : base(armada)
+		public OrdenIrALugar (Armada armada, Pseudoposicion destino)
+			: base (armada)
 		{
-			var origen = armada.Posicion;
+			var origen = armada.Posición;
 
-			var RutaAA = Global.Juego.State.Topología.CaminoÓptimo(origen.A, destino.A);
+			var RutaAA = Global.Juego.State.Topología.CaminoÓptimo (origen.A, destino.A);
 
-			ColaOrden.Enqueue(new OrdenIr(armada, origen.A));
+			Enqueue (new OrdenIr (armada, origen.A));
 
 			foreach (var x in RutaAA.Pasos)
 			{
-				ColaOrden.Enqueue(new OrdenIr(armada, x.Destino));
+				Enqueue (new OrdenIr (armada, x.Destino));
 			}
 
-			ColaOrden.Enqueue(new OrdenIr(armada, destino));
+			Enqueue (new OrdenIr (armada, destino));
 
 		}
 	}

@@ -29,26 +29,26 @@ namespace Civ
 	/// </summary>
 	public class AlmacénCiv:ListaPeso<Recurso>, IAlmacén
 	{
-		public readonly ICivilizacion Civil;
+		public readonly ICivilización Civil;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.AlmacénCiv"/> class.
 		/// </summary>
 		/// <param name="civilizacion">civilizacion vinculada a este almacén</param>
-		public AlmacénCiv(ICivilizacion civilizacion)
+		public AlmacénCiv (ICivilización civilizacion)
 		{
 			Civil = civilizacion;
 		}
 
 		/// <summary>
-		/// Elimina los recursos con la flaf "Desaparece"
+		/// Elimina los recursos con la flag "Desaparece"
 		/// </summary>
-		public void RemoverRecursosDesaparece()
+		public void RemoverRecursosDesaparece ()
 		{
 			foreach (var x in Entradas)
 			{
 				if (x.Desaparece)
-					this[x] = 0;
+					this [x] = 0;
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace Civ
 		{
 			get
 			{
-				return Keys.ToArray<Recurso>();
+				return Keys.ToArray<Recurso> ();
 			}
 		}
 
@@ -77,14 +77,14 @@ namespace Civ
 			{
 				if (recurso.EsGlobal)
 				{
-					return base[recurso];
+					return base [recurso];
 				}
 				else
 				{
 					float ret = 0;
 					foreach (var x in Civil.Ciudades)
 					{
-						ret += x.Almacen.recurso(recurso);
+						ret += x.Almacen.recurso (recurso);
 					}
 					return ret;
 				}
@@ -92,19 +92,21 @@ namespace Civ
 			set
 			{
 				if (recurso.EsGlobal)
-					base[recurso] = value;
+					base [recurso] = value;
 				else
 				{
-					throw new Exception(string.Format("Sólo se pueden almacenar recursos globales en AlmacenCiv.\n{0} no es global.", recurso));
+					throw new Exception (string.Format (
+						"Sólo se pueden almacenar recursos globales en AlmacenCiv.\n{0} no es global.",
+						recurso));
 				}
 			}
 		}
 
 		#region IAlmacénRead implementation
 
-		float IAlmacénRead.recurso(Recurso recurso)
+		float IAlmacénRead.recurso (Recurso recurso)
 		{
-			return this[recurso];
+			return this [recurso];
 		}
 
 		System.Collections.Generic.IEnumerable<Recurso> IAlmacénRead.recursos
@@ -119,15 +121,15 @@ namespace Civ
 
 		#region IAlmacén implementation
 
-		public void ChangeRecurso(Recurso rec, float delta)
+		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
 		{
-			Add(rec, delta);
+			Add (rec, delta);
 		}
 
 		[Obsolete]
-		void IAlmacén.SetRecurso(Recurso rec, float val)
+		void IAlmacén.SetRecurso (Recurso rec, float val)
 		{
-			this[rec] = val;
+			this [rec] = val;
 		}
 
 		#endregion

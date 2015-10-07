@@ -23,11 +23,19 @@ using System;
 
 namespace Civ.Orden
 {
-	public class OrdenEstacionado : Orden
+	public class OrdenEstacionado : IOrden
 	{
-		public override bool Ejecutar(TimeSpan t)
+		public bool Ejecutar (TimeSpan t)
 		{
 			return false;
+		}
+
+		public Armada Armada
+		{
+			get
+			{
+				return null;
+			}
 		}
 	}
 }

@@ -7,6 +7,9 @@ namespace Civ
 	/// </summary>
 	public interface IDiplomacia
 	{
-		bool PermiteAtacar(Armada arm);
+		/// <summary>
+		/// Si se le permite atacar a cierta armada.
+		/// </summary>
+		bool PermiteAtacar (Armada arm);
 	}
 }

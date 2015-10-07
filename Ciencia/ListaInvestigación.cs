@@ -33,13 +33,13 @@ namespace Civ
 		/// <param name="ciencia">Ciencia investigando.</param>
 		/// <param name="recurso">Recurso del que se agrega.</param>
 		/// <param name="cantidad">Cantidad de tal recurso.</param>
-		public void Invertir(Ciencia ciencia, Recurso recurso, float cantidad)
+		public void Invertir (Ciencia ciencia, Recurso recurso, float cantidad)
 		{
-			if (!Exists(x => x.Ciencia == ciencia)) // Si no existe la ciencia C en la lista, se agrega
-				Add(new InvestigandoCiencia(ciencia));
+			if (!Exists (x => x.Ciencia == ciencia)) // Si no existe la ciencia C en la lista, se agrega
+				Add (new InvestigandoCiencia (ciencia));
 
-			InvestigandoCiencia IC = Find(x => x.Ciencia == ciencia); //IC es la correspondiente a la ciencia C.
-			IC[recurso] += cantidad;
+			InvestigandoCiencia IC = Find (x => x.Ciencia == ciencia); //IC es la correspondiente a la ciencia C.
+			IC [recurso] += cantidad;
 		}
 
 		/// <summary>
@@ -47,9 +47,9 @@ namespace Civ
 		/// </summary>
 		/// <returns>The instancia.</returns>
 		/// <param name="ciencia">Ciencia a buscar</param>
-		public InvestigandoCiencia EncuentraInstancia(Ciencia ciencia)
+		public InvestigandoCiencia EncuentraInstancia (Ciencia ciencia)
 		{
-			return Find(x => x.Ciencia == ciencia);
+			return Find (x => x.Ciencia == ciencia);
 		}
 	}
 }

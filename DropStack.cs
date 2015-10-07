@@ -6,9 +6,9 @@ namespace Civ
 {
 	public class DropStack: IPosicionable, IAlmacén
 	{
-		public DropStack(Pseudoposicion pos)
+		public DropStack (Pseudoposicion pos)
 		{
-			Almacén = new ListaPeso<Recurso>();
+			Almacén = new ListaPeso<Recurso> ();
 			_posicion = pos;
 		}
 
@@ -18,7 +18,7 @@ namespace Civ
 
 		readonly Pseudoposicion _posicion;
 
-		public Pseudoposicion Posicion()
+		public Pseudoposicion Posición ()
 		{
 			return _posicion;
 		}
@@ -35,20 +35,20 @@ namespace Civ
 			}
 		}
 
-		float IAlmacénRead.recurso(Recurso recurso)
+		float IAlmacénRead.recurso (Recurso recurso)
 		{
-			return Almacén[recurso];
+			return Almacén [recurso];
 		}
 
 		[ObsoleteAttribute]
-		void IAlmacén.SetRecurso(Recurso rec, float val)
+		void IAlmacén.SetRecurso (Recurso rec, float val)
 		{
-			Almacén[rec] = val;
+			Almacén [rec] = val;
 		}
 
-		void IAlmacén.ChangeRecurso(Recurso rec, float delta)
+		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
 		{
-			Almacén[rec] += delta;
+			Almacén [rec] += delta;
 		}
 
 		#endregion

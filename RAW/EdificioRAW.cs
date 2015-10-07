@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using ListasExtra;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
-	[DataContract(IsReference = true, Name = "Edificio")]
+	[DataContract (IsReference = true, Name = "Edificio")]
 	public class EdificioRAW : IRequerimiento<ICiudad>, CivLibrary.Debug.IPlainSerializable
 	{
 		[DataMember]
@@ -30,74 +31,54 @@ namespace Civ
 		/// </summary>
 		[DataMember]
 		public int MaxPorMundo;
-		[DataMember(Name = "Producción")]
-		TrabajoRAW.DiferenciaRecursos _salida = new TrabajoRAW.DiferenciaRecursos();
 
 		/// <summary>
 		/// Devuelve los recursos y su cantidad que genera, incluso si no existe trabajador.
 		/// </summary>
-		public TrabajoRAW.DiferenciaRecursos Salida
-		{
-			get { return _salida; }
-		}
+		[DataMember (Name = "Producción")]
+		public ListaPeso<Recurso> Salida { get; }
 
-		public override string ToString()
+		public override string ToString ()
 		{
 			return Nombre;
 		}
 
 		// IRequerieminto
-		bool IRequerimiento<ICiudad>.LoSatisface(ICiudad ciudad)
+		bool IRequerimiento<ICiudad>.LoSatisface (ICiudad ciudad)
 		{
-			return ciudad.ExisteEdificio(this);
+			return ciudad.ExisteEdificio (this);
 		}
+
 		// Requiere
-		/*  //TODO: Borrar si es que funciona
-
-		public System.Collections.Generic.List<IRequerimiento> Requiere()
-		{
-			List<IRequerimiento> ret = new List<IRequerimiento>();
-			foreach (Ciencia x in _ReqCiencia)      { ret.Add(x); }
-			foreach (EdificioRAW x in _ReqEdificio) { ret.Add(x); }
-
-			return ret;
-		}
-
-		[DataMember (Name="ReqCiencias")]
-		public List<Ciencia> _ReqCiencia = new List<Ciencia>();
-
-		[DataMember(Name = "ReqEdificios")]
-		public List<EdificioRAW> _ReqEdificio = new List<EdificioRAW>();
-		*/
 		/// <summary>
 		/// IRequerimientos necesarios para construir.
 		/// </summary>        
 		[DataMember]
-		public Requerimiento Requiere = new Requerimiento();
+		public Requerimiento Requiere = new Requerimiento ();
 		// Construcción
 		/// <summary>
 		/// Lista de los recursos requeridos.
 		/// </summary>
-		[DataMember(Name = "Construcción")]
-		public Dictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float>();
+		[DataMember (Name = "Construcción")]
+		public Dictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float> ();
 		//public List<Basic.Par<Recurso, float>> ReqRecursos = new List<Basic.Par<Recurso, float>>();
 		/// <summary>
 		/// Devuelve la lista de requerimientos
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public List<IRequerimiento<ICiudad>> Reqs()
+		public List<IRequerimiento<ICiudad>> Reqs ()
 		{
 			//List<IRequerimiento> ret = Basic.Covertidor<string, IRequerimiento>.ConvertirLista(Requiere, x => Global.g_.Data.EncuentraRequerimiento(x));
-			return Requiere.Requiere();
+			return Requiere.Requiere ();
 		}
 
 		/// <summary>
 		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
 		/// </summary>
-		[DataMember(Name = "EsAutoConstruíble")]
+		[DataMember (Name = "EsAutoConstruíble")]
 		public bool EsAutoConstruible;
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -109,10 +90,10 @@ namespace Civ
 			ret = tab + "(Edificio)" + Nombre + "\n";
 			foreach (CivLibrary.Debug.IPlainSerializable x in ReqRecursos.Keys)
 			{
-				ret += x.PlainSerialize(tabs + 1);
+				ret += x.PlainSerialize (tabs + 1);
 			}
 
-			ret += ((CivLibrary.Debug.IPlainSerializable)Requiere).PlainSerialize(tabs + 1);
+			ret += ((CivLibrary.Debug.IPlainSerializable)Requiere).PlainSerialize (tabs + 1);
 
 
 			return ret;
@@ -122,12 +103,12 @@ namespace Civ
 		#region Defaults
 
 		[OnDeserializing]
-		void OnDeserializing(StreamingContext context)
+		void OnDeserializing (StreamingContext context)
 		{
-			SetDefaults();
+			SetDefaults ();
 		}
 
-		void SetDefaults()
+		void SetDefaults ()
 		{
 			MaxPorCiudad = 1;
 			MaxPorCivilizacion = 0;

@@ -5,7 +5,10 @@
 	/// </summary>
 	public interface IPuntuado
 	{
-		float Puntuacion { get; }
+		/// <summary>
+		/// La puntuación del objeto
+		/// </summary>
+		float Puntuación { get; }
 	}
 }
 

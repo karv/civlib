@@ -21,7 +21,7 @@ namespace Civ
 			}
 		}
 
-		public override string ToString()
+		public override string ToString ()
 		{
 			return CiudadDueño.Nombre + " - " + RAW.Nombre;
 		}
@@ -29,51 +29,48 @@ namespace Civ
 		/// <summary>
 		/// El RAW del edificio.
 		/// </summary>
-		public readonly EdificioRAW RAW;
-		Ciudad _Ciudad;
+		public EdificioRAW RAW { get; }
 
-		public Edificio(EdificioRAW nRAW)
+		public Edificio (EdificioRAW nRAW)
 		{
 			RAW = nRAW;
+			Trabajos = new List<Trabajo> ();
 		}
 
-		public Edificio(EdificioRAW nRAW, Ciudad nCiudad)
-			: this(nRAW)
+		public Edificio (EdificioRAW nRAW, Ciudad nCiudad)
+			: this (nRAW)
 		{
-			if (nCiudad.ExisteEdificio(nRAW))
-				throw new Exception(string.Format("Error. En la ciudad {1} se quiere construir un edificio {0}, pero ya existe tal edificio.", nRAW, nCiudad));
-			_Ciudad = nCiudad;
-			_Ciudad.Edificios.Add(this);
+			if (nCiudad.ExisteEdificio (nRAW))
+				throw new Exception (string.Format (
+					"Error. En la ciudad {1} se quiere construir un edificio {0}, pero ya existe tal edificio.",
+					nRAW,
+					nCiudad));
+			CiudadDueño = nCiudad;
+			CiudadDueño.Edificios.Add (this);
 		}
 
 		/// <summary>
 		/// Devuelve o establece la ciudad a la que pertenece este edificio.
 		/// </summary>
 		/// <value></value>
-		public Ciudad CiudadDueño
-		{
-			get
-			{
-				return _Ciudad;
-			}
-		}
+		public Ciudad CiudadDueño { get; }
 
 		/// <summary>
 		/// Produce un tick productivo hereditario.
 		/// </summary>
-		public void Tick(TimeSpan t)
+		public void Tick (TimeSpan t)
 		{
 			if (RAW.Salida != null)
 				foreach (var x in RAW.Salida)
 				{
-					CiudadDueño.Almacen[x.Key] += x.Value * (float)t.TotalHours;
+					CiudadDueño.Almacen [x.Key] += x.Value * (float)t.TotalHours;
 				}
 
 			foreach (var x in Trabajos)
 			{
-				x.Tick(t);
-				if (float.IsNaN(CiudadDueño.AlimentoAlmacen))
-					throw new Exception();
+				x.Tick (t);
+				if (float.IsNaN (CiudadDueño.AlimentoAlmacen))
+					throw new Exception ();
 			}
 
 		}
@@ -82,19 +79,11 @@ namespace Civ
 
 		#region Trabajo
 
-		readonly List<Trabajo> _Trabajo = new List<Trabajo>();
-
 		/// <summary>
 		/// Devuelve la lista de instancias de trabajo de este edificio
 		/// </summary>
 		/// <value>The _ trabajo.</value>
-		public List<Trabajo> Trabajos
-		{
-			get
-			{
-				return _Trabajo;
-			}
-		}
+		public List<Trabajo> Trabajos { get; }
 
 		/// <summary>
 		/// Devuelve el número de trabajadores ocupados en este edificio.
@@ -105,7 +94,7 @@ namespace Civ
 			get
 			{
 				ulong ret = 0;
-				foreach (var x in _Trabajo)
+				foreach (var x in Trabajos)
 				{
 					ret += x.Trabajadores;
 				}
@@ -135,7 +124,7 @@ namespace Civ
 		{
 			get
 			{
-				return Math.Min(EspaciosTrabajadores, CiudadDueño.TrabajadoresDesocupados);
+				return Math.Min (EspaciosTrabajadores, CiudadDueño.TrabajadoresDesocupados);
 			}
 		}
 		// Trabajos
@@ -147,11 +136,11 @@ namespace Civ
 		{
 			get
 			{
-				return Trabajos.Contains(trabajo) ? trabajo.Trabajadores : 0;
+				return Trabajos.Contains (trabajo) ? trabajo.Trabajadores : 0;
 			}
 			set
 			{
-				if (Trabajos.Contains(trabajo))
+				if (Trabajos.Contains (trabajo))
 				{
 					trabajo.Trabajadores = value;
 				}
@@ -167,7 +156,7 @@ namespace Civ
 		{
 			get
 			{
-				return InstanciaTrabajo(trabajo);
+				return InstanciaTrabajo (trabajo);
 			}
 		}
 
@@ -177,14 +166,14 @@ namespace Civ
 		/// </summary>
 		/// <returns>The instancia trabajo.</returns>
 		/// <param name="trabajo">El RAW de trabajo.</param>
-		public Trabajo InstanciaTrabajo(TrabajoRAW trabajo)
+		public Trabajo InstanciaTrabajo (TrabajoRAW trabajo)
 		{
 			foreach (var x in Trabajos)
 			{
 				if (x.RAW == trabajo)
 					return x;
 			}
-			return new Trabajo(trabajo, this);
+			return new Trabajo (trabajo, this);
 		}
 
 		#endregion

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Graficas.Continuo;
 using Global;
 using System;
-using System.Diagnostics;
 
 namespace Civ
 {
@@ -11,15 +10,8 @@ namespace Civ
 	/// </summary>
 	public class Pseudoposicion : Continuo<Terreno>.ContinuoPunto
 	{
-		Continuo<Terreno> _grafica
-		{
-			get
-			{
-				return Universo;
-			}
-		}
-
-		public Pseudoposicion() : base(Juego.State.Mapa)
+		public Pseudoposicion ()
+			: base (Juego.State.Mapa)
 		{
 		}
 
@@ -27,13 +19,13 @@ namespace Civ
 		/// Devuelve una colección con las armadas que existen en esta misma poisición
 		/// </summary>
 		/// <returns>The posición.</returns>
-		public ICollection<Armada> ArmadasMismaPos()
+		public ICollection<Armada> ArmadasMismaPos ()
 		{
-			var ret = new List<Armada>();
+			var ret = new List<Armada> ();
 			foreach (var x in Juego.State.ArmadasExistentes())
 			{
-				if (Equals(x.Posicion))
-					ret.Add(x);
+				if (Equals (x.Posición))
+					ret.Add (x);
 			}
 			return ret;
 		}
@@ -42,7 +34,7 @@ namespace Civ
 		/// Avanza la posición Dist de distancia hacia Destino.
 		/// </summary>
 		[Obsolete]
-		public void Avanzar(float dist)
+		public void Avanzar (float dist)
 		{
 			Loc += dist;
 		}
@@ -64,11 +56,11 @@ namespace Civ
 		/// Si sólo tiene un extremo, devuelve este único.
 		/// </summary>
 		/// <param name="noExtremo">Extremo excluido.</param>
-		public Terreno ExtremoNo(Terreno noExtremo)
+		public Terreno ExtremoNo (Terreno noExtremo)
 		{
 			if (B == null)
 				return A;
-			return  A.Equals(noExtremo) ? B : A;
+			return  A.Equals (noExtremo) ? B : A;
 		}
 
 		#region IEquatable implementation
@@ -102,9 +94,9 @@ namespace Civ
 		/// <summary>
 		/// Devuelve una nueva pseudoposición equivalente a ésta.
 		/// </summary>
-		public Pseudoposicion Clonar()
+		public Pseudoposicion Clonar ()
 		{
-			var ret = new Pseudoposicion();
+			var ret = new Pseudoposicion ();
 			ret.A = A;
 			ret.B = B;
 			ret.Loc = Loc;
@@ -118,7 +110,7 @@ namespace Civ
 		/// </summary>
 		/// <returns>The orientacion.</returns>
 		/// <param name="other">Other.</param>
-		public int Orientacion(Pseudoposicion other)
+		public int Orientacion (Pseudoposicion other)
 		{
 			return A == other.A && B == other.B && Loc < other.Loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
 		}

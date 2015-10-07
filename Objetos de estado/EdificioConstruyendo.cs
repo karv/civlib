@@ -23,17 +23,17 @@ using ListasExtra;
 
 namespace Civ
 {
-	// Edificio en construcción.
 	/// <summary>
 	/// Representa un edificio en construcción.
 	/// </summary>
 	public class EdificioConstruyendo
 	{
 		public EdificioRAW RAW;
+
 		/// <summary>
 		/// Recursos ya usados en el edificio.
 		/// </summary>
-		public ListaPeso<Recurso> RecursosAcumulados = new ListaPeso<Recurso>();
+		public ListaPeso<Recurso> RecursosAcumulados { get; }
 
 		/// <summary>
 		/// Devuelve una copia de la función de recursos faltantes.
@@ -42,25 +42,26 @@ namespace Civ
 		{
 			get
 			{
-				var ret = new ListaPeso<Recurso>();
+				var ret = new ListaPeso<Recurso> ();
 				foreach (var x in RAW.ReqRecursos)
 				{
 					Recurso r = x.Key;
-					ret[r] = x.Value - RecursosAcumulados[r];
+					ret [r] = x.Value - RecursosAcumulados [r];
 				}
 				return ret;
 			}
 		}
 
-		public Ciudad CiudadDueño;
+		public Ciudad CiudadDueño { get; }
 
 		/// <summary>
 		/// Crea una instancia.
 		/// </summary>
 		/// <param name="raw">El RAW de este edificio.</param>
 		/// <param name="ciudad">Ciudad dueño.</param>
-		public EdificioConstruyendo(EdificioRAW raw, Ciudad ciudad)
+		public EdificioConstruyendo (EdificioRAW raw, Ciudad ciudad)
 		{
+			RecursosAcumulados = new ListaPeso<Recurso> ();
 			RAW = raw;
 			CiudadDueño = ciudad;
 		}
@@ -68,13 +69,13 @@ namespace Civ
 		/// <summary>
 		/// Absorbe los recursos de la ciudad para su construcción.
 		/// </summary>
-		public void AbsorbeRecursos()
+		public void AbsorbeRecursos ()
 		{
 			foreach (Recurso x in RecursosRestantes.Keys)
 			{
-				float abs = Math.Min(RecursosRestantes[x], CiudadDueño.Almacen[x]);
-				RecursosAcumulados[x] += abs;
-				CiudadDueño.Almacen[x] -= abs;
+				float abs = Math.Min (RecursosRestantes [x], CiudadDueño.Almacen [x]);
+				RecursosAcumulados [x] += abs;
+				CiudadDueño.Almacen [x] -= abs;
 			}
 		}
 
@@ -82,7 +83,7 @@ namespace Civ
 		/// Revisa si este edificio está completado.
 		/// </summary>
 		/// <returns><c>true</c> si ya no quedan recursos restantes; <c>false</c> en caso contrario.</returns>
-		public bool EstaCompletado()
+		public bool EstaCompletado ()
 		{
 			return RecursosRestantes.Keys.Count == 0;
 		}
@@ -91,27 +92,26 @@ namespace Civ
 		/// Contruye una instancia de su RAW en la ciudad dueño.
 		/// </summary>
 		/// <returns>Devuelve su edificio completado.</returns>
-		public Edificio Completar()
+		public Edificio Completar ()
 		{
-			return CiudadDueño.AgregaEdificio(RAW);
+			return CiudadDueño.AgregaEdificio (RAW);
 		}
 
 		/// <summary>
 		/// Devuelve el procentage construido. Número en [0,1]
 		/// </summary>
 		/// <returns>float entre 0 y 1.</returns>
-		public float Porcentageconstruccion()
+		public float PorcentageConstruccion ()
 		{
 			float Max = 0;
-			float Act = RecursosAcumulados.SumaTotal();
+			float Act = RecursosAcumulados.SumaTotal ();
 
 			foreach (var x in RAW.ReqRecursos.Keys)
 			{
-				Max += RAW.ReqRecursos[x];
+				Max += RAW.ReqRecursos [x];
 			}
 
 			return Act / Max;
 		}
 	}
 }
-

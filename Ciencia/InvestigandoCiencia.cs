@@ -36,7 +36,7 @@ namespace Civ
 		/// Initializes a new instance of the <see cref="Civ.InvestigandoCiencia"/> class.
 		/// </summary>
 		/// <param name="ciencia">Ciencia</param>
-		public InvestigandoCiencia(Ciencia ciencia)
+		public InvestigandoCiencia (Ciencia ciencia)
 		{
 			Ciencia = ciencia;
 		}
@@ -46,41 +46,36 @@ namespace Civ
 		/// Considerando que cada recurso vale lo mismo
 		/// </summary>
 		/// <returns>The pct.</returns>
-		public float ObtPct()
+		public float ObtPct ()
 		{
 			float Max = 0; // Ciencia.Reqs.Recursos.SumaTotal();
 			float Curr = 0; //SumaTotal();
 
 			foreach (var x in Ciencia.Reqs.Recursos.Keys)
 			{
-				Max += Ciencia.Reqs.Recursos[x];
+				Max += Ciencia.Reqs.Recursos [x];
 			}
 
 			foreach (var x in Keys)
 			{
-				Curr += this[x];
+				Curr += this [x];
 			}
 
 			return Curr / Max;
 		}
 
-		public override string ToString()
+		public override string ToString ()
 		{
-			return string.Format("{0}: {1}", Ciencia.Nombre, ObtPct());
+			return string.Format ("{0}: {1}", Ciencia.Nombre, ObtPct ());
 		}
 
 		/// <summary>
 		/// Devuelve true si está completada.
 		/// </summary>
 		/// <returns><c>true</c>, if completada was estaed, <c>false</c> otherwise.</returns>
-		public bool EstaCompletada()
+		public bool EstaCompletada ()
 		{
-			foreach (var x in Ciencia.Reqs.Recursos.Keys)
-			{
-				if (this[x] < Ciencia.Reqs.Recursos[x])
-					return false;
-			}
-			return true;
+			return this >= Ciencia.Reqs.Recursos;
 		}
 	}
 

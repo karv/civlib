@@ -3,9 +3,9 @@
 	/// <summary>
 	/// Clase de diplomacia para civilizaciones nómadas
 	/// </summary>
-	public class DiplomaciaNomada:IDiplomacia
+	public class DiplomaciaNómada:IDiplomacia
 	{
-		public bool PermiteAtacar(Armada arm)
+		public bool PermiteAtacar (Armada arm)
 		{
 			return true;
 		}

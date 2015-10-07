@@ -2,38 +2,84 @@
 
 namespace Civ
 {
+	/// <summary>
+	/// Una ciudad
+	/// </summary>
 	public interface ICiudad: IAlmacenante, ITickable, IPuntuado, IPosicionable
 	{
-		ICollection<Ciencia> Avances { get; }
-
-		float AlimentoAlmacen { get; set; }
-
+		/// <summary>
+		/// Nombre de la ciudad
+		/// </summary>
 		string Nombre { get; set; }
 
-		int NumEdificios(EdificioRAW edif);
+		/// <summary>
+		/// Número de edificios que existen de cierta clase.
+		/// </summary>
+		int NumEdificios (EdificioRAW edif);
 
-		void IntentaConstruirAutoconstruibles();
+		/// <summary>
+		/// Contruye las propiedades autocontruíbles
+		/// </summary>
+		void IntentaConstruirAutoconstruibles ();
 
-		bool ExisteEdificio(EdificioRAW edif);
+		/// <summary>
+		/// Revisa si existe un edificio de cierta clase
+		/// </summary>
+		bool ExisteEdificio (EdificioRAW edif);
 
-		ICollection<TrabajoRAW> ObtenerTrabajosAbiertos();
+		/// <summary>
+		/// Devuelve una colección de los trabajos que puede realizar esta ciudad
+		/// </summary>
+		ICollection<TrabajoRAW> ObtenerTrabajosAbiertos ();
 
-		Trabajo EncuentraInstanciaTrabajo(TrabajoRAW raw);
+		/// <summary>
+		/// Devuelve el trabajo correspondiente a un RAW en la ciudad. 
+		/// Si no existe debe crearlo. 
+		/// Si no puede crearlo debe tirar error.
+		/// </summary>
+		Trabajo EncuentraInstanciaTrabajo (TrabajoRAW raw);
 
-		List<Armada> ArmadasEnCiudad();
+		/// <summary>
+		/// Devuelve una colección con las armadas estacionadas en la ciudad.
+		/// </summary>
+		/// <returns>The en ciudad.</returns>
+		ICollection<Armada> ArmadasEnCiudad ();
 
+		/// <summary>
+		/// Devuelve la armada inmovil que representa la defensa de la ciudad.
+		/// </summary>
 		Armada Defensa { get; }
 
-		ICivilizacion CivDueño{ get; set; }
+		/// <summary>
+		/// Devuelve o establece la civilización que posee a esta ciudad.
+		/// </summary>
+		ICivilización CivDueño { get; set; }
 
-		InfoPoblacion GetPoblacionInfo{ get; }
+		/// <summary>
+		/// Devuelve la información de distribución de poblaciones
+		/// </summary>
+		InfoPoblacion GetPoblacionInfo { get; }
 
-		ulong UnidadesConstruibles(UnidadRAW unidad);
+		/// <summary>
+		/// Devuelve la cantidad máxima de unidades contruíbles de cierto tipo.
+		/// </summary>
+		ulong UnidadesConstruibles (UnidadRAW unidad);
 
-		ICollection<UnidadRAW> UnidadesConstruibles();
+		/// <summary>
+		/// Devuelve una colección de las unidades que podrían ser contruidas en esta ciudad
+		/// </summary>
+		ICollection<UnidadRAW> UnidadesConstruibles ();
 
-		Stack Reclutar(UnidadRAW uRAW, ulong cantidad = 1);
+		/// <summary>
+		/// Recluta unidades directamente a la armada Defensa
+		/// </summary>
+		/// <param name="uRAW">Tipo de unidad</param>
+		/// <param name="cantidad">Cantidad.</param>
+		Stack Reclutar (UnidadRAW uRAW, ulong cantidad = 1);
 
+		/// <summary>
+		/// Devuelve el número de trabajadores.
+		/// </summary>
 		ulong NumTrabajadores { get; }
 	}
 

@@ -5,9 +5,9 @@
 	/// </summary>
 	public struct InfoPoblacion
 	{
-		public ulong PreProductiva;
-		public ulong Productiva;
-		public ulong PostProductiva;
+		public readonly ulong PreProductiva;
+		public readonly ulong Productiva;
+		public readonly ulong PostProductiva;
 
 		public ulong Total
 		{
@@ -17,7 +17,7 @@
 			}
 		}
 
-		public InfoPoblacion(ulong pre, ulong prod, ulong post)
+		public InfoPoblacion (ulong pre, ulong prod, ulong post)
 		{
 			PreProductiva = pre;
 			Productiva = prod;
@@ -25,4 +25,3 @@
 		}
 	}
 }
-

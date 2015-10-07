@@ -31,9 +31,9 @@ namespace Civ.TasaProd
 
 		#region ITickable implementation
 
-		public abstract void Tick(IAlmacenante alm, TimeSpan t);
+		public abstract void Tick (IAlmacenante alm, TimeSpan t);
 
-		public abstract float DeltaEsperado(IAlmacenante alm);
+		public abstract float DeltaEsperado (IAlmacenante alm);
 
 		#endregion
 	}
@@ -56,14 +56,14 @@ namespace Civ.TasaProd
 
 		#region TasaProd
 
-		public override void Tick(IAlmacenante alm, TimeSpan t)
+		public override void Tick (IAlmacenante alm, TimeSpan t)
 		{
 			
-			if (alm.Almacen.recurso(Recurso) < Max)
-				alm.Almacen.ChangeRecurso(Recurso, Crecimiento * (float)t.TotalHours);
+			if (alm.Almacen.recurso (Recurso) < Max)
+				alm.Almacen.ChangeRecurso (Recurso, Crecimiento * (float)t.TotalHours);
 		}
 
-		public override float DeltaEsperado(IAlmacenante alm)
+		public override float DeltaEsperado (IAlmacenante alm)
 		{
 			return Crecimiento;
 		}
@@ -84,21 +84,20 @@ namespace Civ.TasaProd
 
 		#region implemented abstract members of TasaProd
 
-		public override void Tick(IAlmacenante alm, TimeSpan t)
+		public override void Tick (IAlmacenante alm, TimeSpan t)
 		{
-			if (alm.Almacen.recurso(Recurso) < Max)
+			if (alm.Almacen.recurso (Recurso) < Max)
 			{
-				float crec = alm.ObtenerRecurso(Recurso) * CrecimientoBase * (float)t.TotalHours;
-				alm.Almacen.ChangeRecurso(Recurso, crec);
+				float crec = alm.ObtenerRecurso (Recurso) * CrecimientoBase * (float)t.TotalHours;
+				alm.Almacen.ChangeRecurso (Recurso, crec);
 			}
 		}
 
-		public override float DeltaEsperado(IAlmacenante alm)
+		public override float DeltaEsperado (IAlmacenante alm)
 		{
-			return alm.ObtenerRecurso(Recurso) * CrecimientoBase;
+			return alm.ObtenerRecurso (Recurso) * CrecimientoBase;
 		}
 
 		#endregion
 	}
 }
-

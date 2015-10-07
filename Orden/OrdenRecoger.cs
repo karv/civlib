@@ -2,52 +2,66 @@
 
 namespace Civ.Orden
 {
-	public class OrdenRecoger: Orden
+	public class OrdenRecoger: IOrden
 	{
-		public DropStack StackTarget{ get; set; }
+		/// <summary>
+		/// Devuelve la armada de esta orden
+		/// </summary>
+		/// <value>The armada.</value>
+		public Armada Armada { get; }
 
+		/// <summary>
+		/// Devuelve o establece el stack que quere tomar.
+		/// </summary>
+		public DropStack StackTarget { get; set; }
+
+		/// <summary>
+		/// Devuelve la posición de donde va a dejar el stack
+		/// </summary>
+		/// <value>The origen.</value>
 		public Pseudoposicion Origen { get; }
+
 		// Meta órdenes
-		Orden _actual;
+		IOrden _actual;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Orden.OrdenRecoger"/> class.
 		/// </summary>
-		/// <param name="origen">Origen de la orden. Al lugar donde va a regresar con los recursos</param>
+		/// <param name="armada">Armada asociada a esta orden</param>
 		/// <param name="target">El DropStack que recogerá </param>
-		public OrdenRecoger(Armada armada, DropStack target)
+		public OrdenRecoger (Armada armada, DropStack target)
 		{
-			Armada = armada;
-			Origen = Armada.Posicion.Clonar();
+			this.Armada = armada;
+			Origen = Armada.Posición.Clonar ();
 
 			StackTarget = target;
-			_actual = new OrdenIr(Armada, StackTarget.Posicion());
+			_actual = new OrdenIr (Armada, StackTarget.Posición ());
 		}
 
 		/// <summary>
 		/// Ejecutar the specified t and armada.
 		/// Devuelve true si la orden ha sido terminada.
 		/// </summary>
-		public override bool Ejecutar(TimeSpan t)
+		public bool Ejecutar (TimeSpan t)
 		{
-			bool retOrdenPasada = _actual.Ejecutar(t);
+			bool retOrdenPasada = _actual.Ejecutar (t);
 
 			// Si ya llegó al origen, ya terminó toda la orden.
-			if (Armada.Posicion.Equals(Origen))
+			if (Armada.Posición.Equals (Origen))
 			{
-				AlRegresar.Invoke(this, null);
+				AlRegresar.Invoke (this, null);
 				return true;
 			}
 			// Si llegó a dónde se encuentran los recursos
 			if (retOrdenPasada)
 			{
-				AlLlegar?.Invoke(this, null);
+				AlLlegar?.Invoke (this, null);
 				// Recoger todo lo que se encuentra allá
 				foreach (var s in Armada.Unidades)
 				{
-					s.RecogerTodo();
+					s.RecogerTodo ();
 				}
-				_actual = new OrdenIr(Armada, Origen);
+				_actual = new OrdenIr (Armada, Origen);
 			}
 
 			// Aún no acaba

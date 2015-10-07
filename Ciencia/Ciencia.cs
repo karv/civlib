@@ -3,24 +3,17 @@ using System.Runtime.Serialization;
 
 namespace Civ
 {
-	public class RequiereCiencia: ListasExtra.ListaPeso<Recurso>
-	{
-		public RequiereCiencia() : base(new System.Collections.Generic.Dictionary<Recurso, float>())
-		{
-		}
-	}
-
 	/// <summary>
 	/// Representa un adelanto científico.
 	/// </summary>
-	[DataContract(IsReference = true)]
+	[DataContract (IsReference = true)]
 	public class Ciencia : IRequerimiento<ICiudad>, CivLibrary.Debug.IPlainSerializable
 	{
-		[DataContract(IsReference = false)]
+		[DataContract (IsReference = false)]
 		public class Requerimiento
 		{
-			[DataMember(Name = "Recurso")]
-			readonly RequiereCiencia _Recursos = new RequiereCiencia();
+			[DataMember (Name = "Recurso")]
+			readonly RequiereCiencia _Recursos = new RequiereCiencia ();
 
 			/// <summary>
 			/// Devuelve la lista de recursos que se necesita para investigar
@@ -37,17 +30,17 @@ namespace Civ
 			/// <summary>
 			/// Lista de requisitos científicos.
 			/// </summary>
-			[DataMember(Name = "Ciencias")]
-			public System.Collections.Generic.List<Ciencia> Ciencias = new System.Collections.Generic.List<Ciencia>();
+			[DataMember (Name = "Ciencias")]
+			public System.Collections.Generic.List<Ciencia> Ciencias = new System.Collections.Generic.List<Ciencia> ();
 		}
 
 		/// <summary>
 		/// Nombre de la ciencia;
 		/// </summary>
-		[DataMember(Name = "Nombre")]
+		[DataMember (Name = "Nombre")]
 		public String Nombre;
 
-		public override string ToString()
+		public override string ToString ()
 		{
 			return Nombre;
 		}
@@ -55,22 +48,22 @@ namespace Civ
 		/// <summary>
 		/// Requerimientos para poder aprender este avance.
 		/// </summary>
-		[DataMember(Name = "Requiere")]
-		public Requerimiento Reqs = new Requerimiento();
+		[DataMember (Name = "Requiere")]
+		public Requerimiento Reqs = new Requerimiento ();
 
 
 		#region IRequerimiento
 
-		bool IRequerimiento<ICiudad>.LoSatisface(ICiudad ciudad)
+		bool IRequerimiento<ICiudad>.LoSatisface (ICiudad ciudad)
 		{
-			return ciudad.Avances.Contains(this);
+			return ciudad.CivDueño.Avances.Contains (this);
 		}
 
 		#endregion
 
 		#region PlainSerializable
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -83,13 +76,13 @@ namespace Civ
 			foreach (Ciencia x in Reqs.Ciencias)
 			{
 				CivLibrary.Debug.IPlainSerializable Ser = x;
-				ret += Ser.PlainSerialize(tabs + 1);
+				ret += Ser.PlainSerialize (tabs + 1);
 			}
 
 			foreach (var x in Reqs.Recursos.Keys)
 			{
 				CivLibrary.Debug.IPlainSerializable Ser = x;
-				ret += Ser.PlainSerialize(tabs + 1);
+				ret += Ser.PlainSerialize (tabs + 1);
 			}
 			return ret;
 		}

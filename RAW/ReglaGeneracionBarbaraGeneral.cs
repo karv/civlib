@@ -16,7 +16,7 @@ namespace Civ.Barbaros
 
 		GameState _estado;
 
-		public bool EsPosibleGenerar(GameState estado)
+		public bool EsPosibleGenerar (GameState estado)
 		{
 			_estado = estado;
 			return true;
@@ -26,29 +26,28 @@ namespace Civ.Barbaros
 		/// Genera una armada
 		/// </summary>
 		/// <returns>The armada.</returns>
-		public Armada GenerarArmada()
+		public Armada GenerarArmada ()
 		{
-			float PuntRestante = CoefPuntuacion * _estado.SumaPuntuacion() / _estado.CivsVivas().Count;
+			float PuntRestante = CoefPuntuacion * _estado.SumaPuntuacion () / _estado.CivsVivas ().Count;
 
-			var Unidades = new List<UnidadRAW>(Juego.Data.Unidades);
-			var cb = new CivilizacionBarbara();
+			var Unidades = new List<UnidadRAW> (Juego.Data.Unidades);
+			var cb = new CivilizacionBarbara ();
 
-			var ppos = new List<Pseudoposicion>(_estado.Topología.Nodos);
-			Pseudoposicion pos = ppos[Juego.Rnd.Next(ppos.Count)];
+			var ppos = new List<Pseudoposicion> (_estado.Topología.Nodos);
+			Pseudoposicion pos = ppos [Juego.Rnd.Next (ppos.Count)];
 
-			var ret = new Armada(cb, pos);
+			var ret = new Armada (cb, pos);
 
 			while (Unidades.Count > 0 && PuntRestante >= 0)
 			{
-				UnidadRAW unid = Unidades[Juego.Rnd.Next(Unidades.Count)];
-				Unidades.Remove(unid);
-				ulong Cant = (ulong)(PuntRestante / ((IPuntuado)unid).Puntuacion);
-				ret.AgregaUnidad(unid, Cant);
-				PuntRestante -= Cant * ((IPuntuado)unid).Puntuacion;
+				UnidadRAW unid = Unidades [Juego.Rnd.Next (Unidades.Count)];
+				Unidades.Remove (unid);
+				ulong Cant = (ulong)(PuntRestante / ((IPuntuado)unid).Puntuación);
+				ret.AgregaUnidad (unid, Cant);
+				PuntRestante -= Cant * ((IPuntuado)unid).Puntuación;
 			}
 
 			return ret;
 		}
 	}
 }
-

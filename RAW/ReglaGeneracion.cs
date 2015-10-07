@@ -32,24 +32,24 @@ namespace Civ.Barbaros
 		/// <param name="estado">Estado del juego.</param>
 		/// <returns><c>true</c>, if posible generar was esed, <c>false</c> otherwise.</returns>
 		/// <param name="estado">Estado.</param>
-		public bool EsPosibleGenerar(GameState estado)
+		public bool EsPosibleGenerar (GameState estado)
 		{
-			float Puntuacion = estado.SumaPuntuacion();
+			float Puntuacion = estado.SumaPuntuacion ();
 			_estado = estado;
 			return Puntuacion < MaxPuntuacion && Puntuacion > MinPuntuacion;
 		}
 
-		public Armada GenerarArmada()
+		public Armada GenerarArmada ()
 		{
-			var cb = new CivilizacionBarbara();
+			var cb = new CivilizacionBarbara ();
 
-			var ppos = new List<Pseudoposicion>(_estado.Topología.Nodos);
-			Pseudoposicion pos = ppos[Juego.Rnd.Next(ppos.Count)];
+			var ppos = new List<Pseudoposicion> (_estado.Topología.Nodos);
+			Pseudoposicion pos = ppos [Juego.Rnd.Next (ppos.Count)];
 
-			var ret = new Armada(cb, pos);
+			var ret = new Armada (cb, pos);
 			foreach (var x in ClaseArmada)
 			{
-				ret.AgregaUnidad(x.Item1, x.Item2);
+				ret.AgregaUnidad (x.Item1, x.Item2);
 			}
 
 			return ret;
@@ -58,4 +58,3 @@ namespace Civ.Barbaros
 		#endregion
 	}
 }
-

@@ -41,7 +41,7 @@ namespace Civ
 		{
 			get
 			{
-				return SumaTotal();
+				return SumaTotal ();
 			}
 		}
 
@@ -61,7 +61,7 @@ namespace Civ
 
 		#region ctor
 
-		public AlmacénStack(Stack stack)
+		public AlmacénStack (Stack stack)
 		{
 			Stack = stack;
 		}
@@ -72,23 +72,22 @@ namespace Civ
 
 		IEnumerable<Recurso> IAlmacénRead.recursos { get { return Keys; } }
 
-		float IAlmacénRead.recurso(Recurso recurso)
+		float IAlmacénRead.recurso (Recurso recurso)
 		{
-			return base[recurso];
+			return base [recurso];
 		}
 
-		void IAlmacén.SetRecurso(Recurso rec, float val)
+		void IAlmacén.SetRecurso (Recurso rec, float val)
 		{
-			Debug.Assert(val >= 0);
-			base[rec] = Math.Min(val, base[rec] + CargaRestante);
+			Debug.Assert (val >= 0);
+			base [rec] = Math.Min (val, base [rec] + CargaRestante);
 		}
 
-		void IAlmacén.ChangeRecurso(Recurso rec, float delta)
+		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
 		{
-			throw new NotImplementedException();
+			throw new NotImplementedException ();
 		}
 
 		#endregion
 	}
 }
-
