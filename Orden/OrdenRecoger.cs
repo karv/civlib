@@ -31,7 +31,7 @@ namespace Civ.Orden
 		/// <param name="target">El DropStack que recogerá </param>
 		public OrdenRecoger (Armada armada, DropStack target)
 		{
-			ArmadaEjecutante = armada;
+			this.ArmadaEjecutante = armada;
 			Origen = ArmadaEjecutante.Posición.Clonar ();
 
 			StackTarget = target;
