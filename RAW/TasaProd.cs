@@ -104,7 +104,7 @@ namespace Civ.Data.TasaProd
 		}
 
 		#endregion
-		
+
 	}
 
 	/// <summary>

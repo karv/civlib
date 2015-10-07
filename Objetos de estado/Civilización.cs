@@ -357,7 +357,6 @@ namespace Civ
 				var CienciaInvertibleRec = CienciasAbiertas ().Filter (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
 				                           (!Investigando.Exists (w => w.Ciencia == z) ||
 				                           Investigando.EncuentraInstancia (z) [Rec] < z.Reqs.Recursos [Rec])); // Y que aún le falte de tal recurso.
-				// Analysis disable PossibleMultipleEnumeration
 				var Count = CienciaInvertibleRec.Count ();
 				float [] sep = r.Separadores (Count, Almacén [Rec]);
 
@@ -367,7 +366,6 @@ namespace Civ
 					// En este momento, se está investigando "y" con el recurso "Rec".
 					Investigando.Invertir (y, Rec, sep [i++]);
 				}
-				// Analysis restore PossibleMultipleEnumeration
 			}
 
 			// Revisar cuáles ciencias se investigaron

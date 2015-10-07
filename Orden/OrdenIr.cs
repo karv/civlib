@@ -12,7 +12,7 @@ namespace Civ.Orden
 		public Armada ArmadaEjecutante { get; }
 
 		OrdenIr (Armada armada)
-		{			
+		{
 			ArmadaEjecutante = armada;
 		}
 
