@@ -110,6 +110,21 @@ namespace Civ
 				Eco.RecursoEcologico.Remove (x);
 				Eco.RecursoEcologico.Add (x, RE);
 			}
+			AlTickDespués?.Invoke (t);
 		}
+
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickAntes;
+
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickDespués;
+
+		#endregion
 	}
 }

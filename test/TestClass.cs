@@ -140,17 +140,17 @@ namespace Test
 		/// </summary>
 		/// <param name="multiplicadorVelocidad">Multiplicador velocidad.</param>
 		/// <param name="entreCiclos">Entre ciclos.</param>
-		/// <param name="Duración">Duración de la prueba </param>
+		/// <param name="duración">Duración de la prueba </param>
 		static void Ciclo (float multiplicadorVelocidad,
-		                   TimeSpan Duración,
+		                   TimeSpan duración,
 		                   Action entreCiclos = null)
 		{
 			DateTime timer = DateTime.Now;
-			while (Duración.Ticks > 0)
+			while (duración.Ticks > 0)
 			{				
 				TimeSpan Tiempo = DateTime.Now - timer;
 				timer = DateTime.Now;
-				Duración -= Tiempo;
+				duración -= Tiempo;
 				Tiempo = new TimeSpan ((long)(Tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);
@@ -178,7 +178,7 @@ namespace Test
 							string.Format (
 								"{0}: {1}({2})",
 								x,
-								cd.Almacen.recurso (x),
+								cd.Almacen [x],
 								cd.CalculaDeltaRecurso (x))
 						);
 					}

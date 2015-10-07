@@ -194,7 +194,7 @@ namespace Civ
 		/// Agrega un mensaje de usuario a la cola.
 		/// </summary>
 		/// <param name="mensaje">Mensaje</param>
-		public void AgregaMensaje (IU.Mensaje mensaje)
+		public void AgregaMensaje (Mensaje mensaje)
 		{
 			Mensajes.Enqueue (mensaje);
 			OnNuevoMensaje?.Invoke ();
@@ -207,7 +207,7 @@ namespace Civ
 		/// <param name="referencia">Referencias u orígenes del mensaje.</param>
 		public void AgregaMensaje (string str, params object [] referencia)
 		{
-			AgregaMensaje (new IU.Mensaje (str, referencia));
+			AgregaMensaje (new Mensaje (str, referencia));
 		}
 
 		/// <summary>
@@ -277,6 +277,15 @@ namespace Civ
 
 		#region Tick
 
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickAntes;
+
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickDespués;
 		// Ticks
 		/// <summary>
 		/// Realiza un FullTick en cada ciudad, además revisa ciencias aprendidas.
@@ -285,6 +294,7 @@ namespace Civ
 		/// <param name="t">Diración del tick</param>
 		public void Tick (TimeSpan t)
 		{
+			AlTickAntes?.Invoke (t);
 			Random r = Juego.Rnd;
 			foreach (var x in Ciudades)
 			{
@@ -338,6 +348,7 @@ namespace Civ
 				if (x.Unidades.Count > 0)
 					x.Tick (t);
 			}
+			AlTickDespués?.Invoke (t);
 		}
 
 		/// <summary>

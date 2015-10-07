@@ -70,6 +70,16 @@ namespace Civ.Barbaros
 			return ret;
 		}
 
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickAntes;
+
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickDespués;
+
 		#region ITickable
 
 		/// <summary>
@@ -78,8 +88,10 @@ namespace Civ.Barbaros
 		/// <param name="t">Lapso del tick</param>
 		public void Tick (TimeSpan t)
 		{
+			AlTickAntes?.Invoke (t);
 			if (GenerarBarbaro (t))
 				Armada ();
+			AlTickDespués?.Invoke (t);
 		}
 
 		#endregion

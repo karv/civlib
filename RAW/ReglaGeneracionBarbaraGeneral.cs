@@ -32,7 +32,7 @@ namespace Civ.Barbaros
 			float PuntRestante = CoefPuntuacion * _estado.SumaPuntuacion () / _estado.CivsVivas ().Count;
 
 			var Unidades = new List<UnidadRAW> (Juego.Data.Unidades);
-			var cb = new CivilizacionBarbara ();
+			var cb = new CivilizacionBárbara ();
 
 			var ppos = new List<Pseudoposicion> (_estado.Topología.Nodos);
 			Pseudoposicion pos = ppos [Juego.Rnd.Next (ppos.Count)];

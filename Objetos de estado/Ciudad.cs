@@ -422,6 +422,7 @@ namespace Civ
 		}
 
 		// Propiedades
+
 		/// <summary>
 		/// Devuelve la lista de Propiedades de la ciudad.
 		/// </summary>
@@ -819,7 +820,6 @@ namespace Civ
 			if (Consumo <= AlimentoAlmacen)
 			{
 				Almacen [RecursoAlimento] -= Consumo;
-
 			}
 			else
 			{
@@ -941,13 +941,25 @@ namespace Civ
 		/// </summary>
 		public void Tick (TimeSpan t)
 		{
+			AlTickAntes?.Invoke (t);
 			PopTick (t);
 			ResourceTick (t);
 			if (CivDueno != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				CivDueno.RemoveCiudad (this);
 			}
+			AlTickDespués?.Invoke (t);
 		}
+
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickAntes;
+
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickDespués;
 
 		#endregion
 	}
