@@ -28,14 +28,6 @@ namespace Civ
 
 		#region Almacén
 
-		public override int GetHashCode ()
-		{
-			unchecked
-			{
-				return (_posicion != null ? _posicion.GetHashCode () : 0);
-			}
-		}
-
 		IEnumerable<Recurso> IAlmacénRead.recursos
 		{
 			get
@@ -49,7 +41,7 @@ namespace Civ
 			return Almacén [recurso];
 		}
 
-		[ObsoleteAttribute]
+		[Obsolete]
 		void IAlmacén.SetRecurso (Recurso rec, float val)
 		{
 			Almacén [rec] = val;
