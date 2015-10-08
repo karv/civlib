@@ -94,13 +94,13 @@
     <Compile Include="DropStack.cs" />
     <Compile Include="Orden\OrdenIrALugar.cs" />
     <Compile Include="Almacén\AlmacénStack.cs" />
-    <Compile Include="RequiereCiencia.cs" />
     <Compile Include="Interfaces\ICivilización.cs" />
     <Compile Include="Ecología.cs" />
     <Compile Include="Objetos de estado\DiplomaciaNómada.cs" />
     <Compile Include="Orden\IOrden.cs" />
     <Compile Include="Orden\OrdenRecoger.cs" />
     <Compile Include="Objetos de estado\CivilizacionBárbara.cs" />
+    <Compile Include="Ciencia\RequiereCiencia.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
