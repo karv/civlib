@@ -15,6 +15,22 @@ namespace Civ
 
 		public ListaPeso<Recurso> Almacén { get; }
 
+		/// <summary>
+		/// Ocurre cuando cambia el almacén de un recurso
+		/// Recurso, valor viejo, valor nuevo
+		/// </summary>
+		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
+		{
+			add
+			{
+				Almacén.AlCambiarValor += value;
+			}
+			remove
+			{
+				Almacén.AlCambiarValor -= value;
+			}
+		}
+
 		#region Posición
 
 		readonly Pseudoposicion _posicion;
@@ -27,14 +43,6 @@ namespace Civ
 		#endregion
 
 		#region Almacén
-
-		public override int GetHashCode ()
-		{
-			unchecked
-			{
-				return (_posicion != null ? _posicion.GetHashCode () : 0);
-			}
-		}
 
 		IEnumerable<Recurso> IAlmacénRead.recursos
 		{
@@ -49,12 +57,13 @@ namespace Civ
 			return Almacén [recurso];
 		}
 
-		[ObsoleteAttribute]
+		[Obsolete]
 		void IAlmacén.SetRecurso (Recurso rec, float val)
 		{
 			Almacén [rec] = val;
 		}
 
+		[Obsolete]
 		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
 		{
 			Almacén [rec] += delta;

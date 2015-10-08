@@ -113,6 +113,7 @@ namespace Civ
 		{
 			if (Trabajadores > 0)
 			{
+				AlTickAntes?.Invoke (t);
 				// Obtener eficiencia (generada por la disponibilidad de recursos)
 				float PctProd = GetEficiencia (t);
 
@@ -129,6 +130,7 @@ namespace Civ
 					Almacén [x] += RAW.SalidaBase [x] * Trabajadores * PctProd * (float)t.TotalHours;
 				}
 			}
+			AlTickDespués?.Invoke (t);
 		}
 
 		/// <summary>
@@ -169,6 +171,7 @@ namespace Civ
 				_trabajadores = 0;
 				ulong realValue = Math.Min (value, EdificioBase.EspaciosTrabajadoresCiudad);
 				_trabajadores = realValue;
+				AlCambiarTrabajadores?.Invoke ();
 			}
 		}
 
@@ -185,5 +188,22 @@ namespace Civ
 		}
 
 		#endregion
+
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickAntes;
+
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickDespués;
+
+		public event Action AlCambiarTrabajadores;
+
+		#endregion
+
 	}
 }

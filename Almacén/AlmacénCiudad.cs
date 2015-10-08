@@ -21,6 +21,7 @@
 using ListasExtra;
 using System.Collections.Generic;
 using Civ.Data;
+using System;
 
 namespace Civ
 {
@@ -80,6 +81,22 @@ namespace Civ
 		public bool PoseeRecursos (ListaPeso<Recurso> reqs, ulong veces = 1)
 		{
 			return this >= reqs * veces;
+		}
+
+		/// <summary>
+		/// Ocurre cuando cambia el almacén de un recurso
+		/// Recurso, valor viejo, valor nuevo
+		/// </summary>
+		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
+		{
+			add
+			{
+				AlCambiarValor += value;
+			}
+			remove
+			{
+				AlCambiarValor -= value;
+			}
 		}
 
 		#region IAlmacén implementation

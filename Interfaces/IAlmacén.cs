@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Civ.Data;
+using ListasExtra;
 
 namespace Civ
 {
@@ -31,6 +32,12 @@ namespace Civ
 		/// </summary>
 		/// <param name="recurso">Recurso.</param>
 		float this [Recurso recurso]{ get; }
+
+		/// <summary>
+		/// Ocurre cuando cambia el almacén de un recurso
+		/// Recurso, valor viejo, valor nuevo
+		/// </summary>
+		event EventHandler<CambioElementoEventArgs<Recurso, float>> AlCambiar;
 	}
 
 	public interface IAlmacén : IAlmacénRead

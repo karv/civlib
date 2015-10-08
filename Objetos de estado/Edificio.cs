@@ -61,6 +61,7 @@ namespace Civ
 		/// </summary>
 		public void Tick (TimeSpan t)
 		{
+			AlTickAntes?.Invoke (t);
 			if (RAW.Salida != null)
 				foreach (var x in RAW.Salida)
 				{
@@ -73,7 +74,7 @@ namespace Civ
 				if (float.IsNaN (CiudadDueño.AlimentoAlmacen))
 					throw new Exception ();
 			}
-
+			AlTickDespués?.Invoke (t);
 		}
 
 		#endregion
@@ -178,5 +179,9 @@ namespace Civ
 		}
 
 		#endregion
+
+		public event Action<TimeSpan> AlTickAntes;
+
+		public event Action<TimeSpan> AlTickDespués;
 	}
 }

@@ -4,9 +4,9 @@ using System;
 
 namespace Civ
 {
-	public class CivilizacionBarbara: ICivilización
+	public class CivilizacionBárbara: ICivilización
 	{
-		public CivilizacionBarbara ()
+		public CivilizacionBárbara ()
 		{
 			Diplomacia = new DiplomaciaNómada ();
 		}
@@ -70,6 +70,8 @@ namespace Civ
 
 		void ITickable.Tick (TimeSpan t)
 		{
+			AlTickAntes?.Invoke (t);
+			AlTickDespués?.Invoke (t);
 		}
 
 		float IPuntuado.Puntuación
@@ -87,5 +89,15 @@ namespace Civ
 				return null;
 			}
 		}
+
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickAntes;
+
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickDespués;
 	}
 }

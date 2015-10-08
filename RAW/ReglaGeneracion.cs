@@ -42,7 +42,7 @@ namespace Civ.Barbaros
 
 		public Armada GenerarArmada ()
 		{
-			var cb = new CivilizacionBarbara ();
+			var cb = new CivilizacionBárbara ();
 
 			var ppos = new List<Pseudoposicion> (_estado.Topología.Nodos);
 			Pseudoposicion pos = ppos [Juego.Rnd.Next (ppos.Count)];
