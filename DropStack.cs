@@ -15,6 +15,22 @@ namespace Civ
 
 		public ListaPeso<Recurso> Almacén { get; }
 
+		/// <summary>
+		/// Ocurre cuando cambia el almacén de un recurso
+		/// Recurso, valor viejo, valor nuevo
+		/// </summary>
+		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
+		{
+			add
+			{
+				Almacén.AlCambiarValor += value;
+			}
+			remove
+			{
+				Almacén.AlCambiarValor -= value;
+			}
+		}
+
 		#region Posición
 
 		readonly Pseudoposicion _posicion;

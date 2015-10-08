@@ -175,9 +175,7 @@ namespace Global
 			// Incluir el alimento inicial en cada ciudad
 			foreach (var c in State.CiudadesExistentes())
 			{
-				c.Almacen.ChangeRecurso (
-					Juego.Data.RecursoAlimento,
-					PrefsJuegoNuevo.AlimentoInicial);
+				c.Almacen [Juego.Data.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
 			}
 		}
 
@@ -199,9 +197,9 @@ namespace Global
 
 		#region Unicidad de nombres
 
-		static string ReadRandomLine (string ResourseName)
+		static string ReadRandomLine (string resourseName)
 		{
-			Stream stream = System.Reflection.Assembly.GetExecutingAssembly ().GetManifestResourceStream (ResourseName);
+			Stream stream = System.Reflection.Assembly.GetExecutingAssembly ().GetManifestResourceStream (resourseName);
 			string ret = ReadRandomLine (stream);
 			stream.Dispose ();
 			return ret;

@@ -95,6 +95,7 @@ namespace Civ
 		/// <param name="t">Longitud del tick</param>
 		public void Tick (TimeSpan t)
 		{
+			AlTickAntes?.Invoke (t);
 			//TODO ¿No debería Propiedad hacer esto?
 			//Crecimiento automático de recursos ecológicos.
 			foreach (var x in Eco.RecursoEcologico.Keys)

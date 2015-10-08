@@ -70,6 +70,23 @@ namespace Civ
 
 		#region Almacén
 
+		/// <summary>
+		/// Ocurre cuando cambia el almacén de un recurso
+		/// Recurso, valor viejo, valor nuevo
+		/// </summary>
+		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
+		{
+			add
+			{
+				AlCambiarValor += value;
+			}
+			remove
+			{
+				AlCambiarValor -= value;
+			}
+		}
+
+
 		IEnumerable<Recurso> IAlmacénRead.recursos { get { return Keys; } }
 
 		float IAlmacénRead.recurso (Recurso recurso)
@@ -88,6 +105,27 @@ namespace Civ
 			throw new NotImplementedException ();
 		}
 
+		float IAlmacén.this [Recurso recurso]
+		{
+			get
+			{
+				return base [recurso];
+			}
+			set
+			{
+				base [recurso] = value;
+			}
+		}
+
+		float IAlmacénRead.this [Recurso recurso]
+		{
+			get
+			{
+				return base [recurso];
+			}
+		}
+
 		#endregion
+
 	}
 }

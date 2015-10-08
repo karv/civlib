@@ -89,7 +89,6 @@ namespace Civ
 					}
 					return ret;
 				}
-					
 			}
 			set
 			{
@@ -103,6 +102,24 @@ namespace Civ
 				}
 			}
 		}
+
+		/// <summary>
+		/// Ocurre cuando cambia el almacén de un recurso
+		/// Recurso, valor viejo, valor nuevo
+		/// </summary>
+		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
+		{
+			add
+			{
+				AlCambiarValor += value;
+			}
+			remove
+			{
+				AlCambiarValor -= value;
+			}
+		}
+
+
 
 		#region IAlmacénRead implementation
 
@@ -123,6 +140,7 @@ namespace Civ
 
 		#region IAlmacén implementation
 
+		[Obsolete]
 		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
 		{
 			Add (rec, delta);
