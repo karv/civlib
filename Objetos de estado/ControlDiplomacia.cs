@@ -12,5 +12,7 @@ namespace Civ
 			return dip?.PermiteAtacar ?? false;
 			// Analysis restore ConstantNullCoalescingCondition
 		}
+
+		public event System.EventHandler AlCambiarDiplomacia;
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Civ;
+using System;
 
 namespace Civ
 {
@@ -11,5 +12,7 @@ namespace Civ
 		/// Si se le permite atacar a cierta armada.
 		/// </summary>
 		bool PermiteAtacar (Armada arm);
+
+		event EventHandler AlCambiarDiplomacia;
 	}
 }
