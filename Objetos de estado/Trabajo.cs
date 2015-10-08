@@ -171,6 +171,7 @@ namespace Civ
 				_trabajadores = 0;
 				ulong realValue = Math.Min (value, EdificioBase.EspaciosTrabajadoresCiudad);
 				_trabajadores = realValue;
+				AlCambiarTrabajadores?.Invoke ();
 			}
 		}
 
@@ -199,6 +200,8 @@ namespace Civ
 		/// Ocurre después del tick
 		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
+
+		public event Action AlCambiarTrabajadores;
 
 		#endregion
 
