@@ -1,6 +1,6 @@
 ﻿using System;
 using Global;
-using System.Diagnostics;
+using Civ.Data;
 
 namespace Civ
 {
@@ -282,7 +282,7 @@ namespace Civ
 					minDaño = currDaño;
 				}
 			}
-			Debug.Assert (ret != null);
+			System.Diagnostics.Debug.Assert (ret != null);
 			return ret;
 		}
 

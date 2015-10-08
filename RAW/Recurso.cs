@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Civ
+namespace Civ.Data
 {
 	[DataContract (IsReference = true)]
-	public class Recurso : CivLibrary.Debug.IPlainSerializable, IEquatable<Recurso>
+	public class Recurso : Civ.Debug.IPlainSerializable, IEquatable<Recurso>
 	{
 		public override string ToString ()
 		{
@@ -58,7 +58,7 @@ namespace Civ
 		[DataMember (Name = "Imagen")]
 		public string Img;
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -85,7 +85,7 @@ namespace Civ
 				// Si este trabajo produce Robj
 				if (Agregar)
 				{
-					CivLibrary.Debug.IPlainSerializable Ser = x;
+					Civ.Debug.IPlainSerializable Ser = x;
 					ret += Ser.PlainSerialize (tabs + 1);
 				}
 			}

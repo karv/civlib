@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using ListasExtra;
 using System.Runtime.Serialization;
 
-namespace Civ
+namespace Civ.Data
 {
 	/// <summary>
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
 	[DataContract (IsReference = true, Name = "Trabajo")]
-	public class TrabajoRAW: CivLibrary.Debug.IPlainSerializable
+	public class TrabajoRAW: Civ.Debug.IPlainSerializable
 	{
 		/// <summary>
 		/// Nombre
@@ -53,11 +53,11 @@ namespace Civ
 			return Requiere.Requiere ();
 		}
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
-			CivLibrary.Debug.IPlainSerializable Ser;
+			Civ.Debug.IPlainSerializable Ser;
 			for (int i = 0; i < tabs; i++)
 			{
 				tab += "\t";

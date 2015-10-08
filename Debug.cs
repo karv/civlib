@@ -1,9 +1,10 @@
 using System;
 using Global;
 using System.IO;
+using Civ.Data;
 using Civ;
 
-namespace CivLibrary.Debug
+namespace Civ.Debug
 {
 	public interface IPlainSerializable
 	{
@@ -107,16 +108,16 @@ namespace CivLibrary.Debug
 		public static void CrearArchivoObjetosAbiertos ()
 		{
 			string [] Dirs =
-			{
-				"Doc",
-				"Doc/Ciencias",
-				"Doc/Ecosistemas",
-				"Doc/Edificios",
-				"Doc/Propiedades",
-				"Doc/Recursos",
-				"Doc/Trabajos",
-				"Doc/Unidades"
-			};
+				{
+					"Doc",
+					"Doc/Ciencias",
+					"Doc/Ecosistemas",
+					"Doc/Edificios",
+					"Doc/Propiedades",
+					"Doc/Recursos",
+					"Doc/Trabajos",
+					"Doc/Unidades"
+				};
 
 			foreach (var x in Dirs)
 			{
@@ -126,7 +127,9 @@ namespace CivLibrary.Debug
 
 			foreach (var x in Juego.Data.Ciencias)
 			{
-				CrearArchivoObjetosAbiertos ("Doc/Ciencias/" + x.Nombre + ".Ciencia.txt", x);
+				CrearArchivoObjetosAbiertos (
+					"Doc/Ciencias/" + x.Nombre + ".Ciencia.txt",
+					x);
 			}
 
 			foreach (var x in Juego.Data.Ecosistemas)
@@ -152,12 +155,16 @@ namespace CivLibrary.Debug
 			
 			foreach (var x in Juego.Data.Recursos)
 			{
-				CrearArchivoObjetosAbiertos ("Doc/Recursos/" + x.Nombre + ".Recurso.txt", x);
+				CrearArchivoObjetosAbiertos (
+					"Doc/Recursos/" + x.Nombre + ".Recurso.txt",
+					x);
 			}
 			
 			foreach (var x in Juego.Data.Trabajos)
 			{
-				CrearArchivoObjetosAbiertos ("Doc/Trabajos/" + x.Nombre + ".Trabajo.txt", x);
+				CrearArchivoObjetosAbiertos (
+					"Doc/Trabajos/" + x.Nombre + ".Trabajo.txt",
+					x);
 			}
 			
 			foreach (var x in Juego.Data.Unidades)

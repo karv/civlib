@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Global;
+using Civ.Data;
 
 namespace Civ.Barbaros
 {

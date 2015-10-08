@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Basic;
 using Global;
-using System.Threading;
+using Civ.Data;
 using IU;
 
 namespace Civ

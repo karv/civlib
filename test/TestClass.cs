@@ -8,6 +8,7 @@ using Civ.Orden;
 using IU;
 using NUnit.Framework;
 using Basic;
+using Civ.Data;
 
 namespace Test
 {

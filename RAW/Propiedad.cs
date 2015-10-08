@@ -2,13 +2,13 @@
 using System.Runtime.Serialization;
 using System;
 
-namespace Civ
+namespace Civ.Data
 {
 	/// <summary>
 	/// Representa una propiedad innata de un edificio.
 	/// </summary>
 	[DataContract]
-	public class Propiedad : IRequerimiento<Ciudad>, CivLibrary.Debug.IPlainSerializable
+	public class Propiedad : IRequerimiento<Ciudad>, Civ.Debug.IPlainSerializable
 	{
 		/// <summary>
 		/// Nombre de la propiedad.
@@ -34,7 +34,7 @@ namespace Civ
 		/// <param name="t">longitud del tick</param>
 		public virtual void Tick (IAlmacenante almacén, TimeSpan t)
 		{
-			foreach (Civ.TasaProd.TasaProd x in Salida)
+			foreach (Civ.Data.TasaProd.TasaProd x in Salida)
 			{
 				x.Tick (almacén, t);
 			}
@@ -45,7 +45,7 @@ namespace Civ
 			return Nombre;
 		}
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;

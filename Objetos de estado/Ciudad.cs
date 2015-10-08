@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Global;
-using System.Threading;
+using Civ.Data;
 
 namespace Civ
 {

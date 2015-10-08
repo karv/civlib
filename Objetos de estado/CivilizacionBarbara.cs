@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Civ;
+using Civ.Data;
 using System;
 
 namespace Civ

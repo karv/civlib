@@ -1,4 +1,4 @@
-﻿namespace Civ
+﻿namespace Civ.Data
 {
 	public class RequiereCiencia: ListasExtra.ListaPeso<Recurso>
 	{

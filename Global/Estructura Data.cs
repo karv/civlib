@@ -1,33 +1,37 @@
 using Civ;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Civ.Data;
 
 namespace Global
 {
 	/// <summary>
 	/// Representa las opciones del juego.
 	/// </summary>
-	[DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/Civ", Name = "Data")]
+	[DataContract (
+		IsReference = true,
+		Namespace = "http://schemas.datacontract.org/2004/07/Civ",
+		Name = "Data")]
 	public class GameData
 	{
-		[DataMember(Name = "Ciencias", Order = 3)]
-		public List<Ciencia> Ciencias = new List<Ciencia>();
-		[DataMember(Name = "Edificios", Order = 4)]
-		public List<EdificioRAW> Edificios = new List<EdificioRAW>();
-		[DataMember(Name = "Recursos", Order = 0)]
-		public List<Recurso> Recursos = new List<Recurso>();
-		[DataMember(Name = "Trabajos", Order = 5)]
-		public List<TrabajoRAW> Trabajos = new List<TrabajoRAW>();
-		[DataMember(Name = "Unidades", Order = 6)]
-		public List<UnidadRAW> Unidades = new List<UnidadRAW>();
-		[DataMember(Name = "Propiedades", Order = 1)]
-		public List<Propiedad> Propiedades = new List<Propiedad>();
-		[DataMember(Name = "Ecosistemas", Order = 2)]
-		public List<Ecosistema> Ecosistemas = new List<Ecosistema>();
+		[DataMember (Name = "Ciencias", Order = 3)]
+		public List<Ciencia> Ciencias = new List<Ciencia> ();
+		[DataMember (Name = "Edificios", Order = 4)]
+		public List<EdificioRAW> Edificios = new List<EdificioRAW> ();
+		[DataMember (Name = "Recursos", Order = 0)]
+		public List<Recurso> Recursos = new List<Recurso> ();
+		[DataMember (Name = "Trabajos", Order = 5)]
+		public List<TrabajoRAW> Trabajos = new List<TrabajoRAW> ();
+		[DataMember (Name = "Unidades", Order = 6)]
+		public List<UnidadRAW> Unidades = new List<UnidadRAW> ();
+		[DataMember (Name = "Propiedades", Order = 1)]
+		public List<Propiedad> Propiedades = new List<Propiedad> ();
+		[DataMember (Name = "Ecosistemas", Order = 2)]
+		public List<Ecosistema> Ecosistemas = new List<Ecosistema> ();
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
 		/// </summary>
-		[DataMember(Name = "Alimento", Order = 7)]
+		[DataMember (Name = "Alimento", Order = 7)]
 		public Recurso RecursoAlimento;
 
 		/// <summary>
@@ -35,7 +39,7 @@ namespace Global
 		/// </summary>
 		/// <returns><c>true</c>, si existe un edificio con ese nombre, <c>false</c> otherwise.</returns>
 		/// <param name="nombreEdificio">Nombre del eidficio.</param>
-		public bool ExisteEdificio(string nombreEdificio)
+		public bool ExisteEdificio (string nombreEdificio)
 		{
 			foreach (var x in Edificios)
 			{
@@ -45,7 +49,7 @@ namespace Global
 			return false;
 		}
 
-		public bool ExisteEdificio(EdificioRAW edificio)
+		public bool ExisteEdificio (EdificioRAW edificio)
 		{
 			foreach (EdificioRAW x in Edificios)
 			{
@@ -62,7 +66,7 @@ namespace Global
 		/// </summary>
 		/// <returns><c>true</c>, si existe una ciencia con ese nombre, <c>false</c> otherwise.</returns>
 		/// <param name="nombreRecurso">Nombre del recurso.</param>
-		public bool ExisteRecurso(string nombreRecurso)
+		public bool ExisteRecurso (string nombreRecurso)
 		{
 			foreach (var x in Recursos)
 			{
@@ -77,7 +81,7 @@ namespace Global
 		/// </summary>
 		/// <returns><c>true</c>, si existe una ciencia con ese nombre, <c>false</c> otherwise.</returns>
 		/// <param name="nombreCiencia">Nombre ciencia.</param>
-		public bool ExisteCiencia(string nombreCiencia)
+		public bool ExisteCiencia (string nombreCiencia)
 		{
 			foreach (var x in Ciencias)
 			{
@@ -92,7 +96,7 @@ namespace Global
 		/// </summary>
 		/// <returns>The recurso.</returns>
 		/// <param name="nombre">Nombre del edificio a buscar.</param>
-		public EdificioRAW EncuentraEdificio(string nombre)
+		public EdificioRAW EncuentraEdificio (string nombre)
 		{
 			foreach (var x in Edificios)
 			{
@@ -109,7 +113,7 @@ namespace Global
 		/// </summary>
 		/// <returns>The recurso.</returns>
 		/// <param name="nombre">Nombre del edificio a buscar.</param>
-		public Propiedad EncuentraPropiedad(string nombre)
+		public Propiedad EncuentraPropiedad (string nombre)
 		{
 			foreach (var x in Propiedades)
 			{
@@ -126,27 +130,27 @@ namespace Global
 		/// </summary>
 		/// <returns>TrabajoRAW.</returns>
 		/// <param name="nombre">Nombre del Trabajo a buscar.</param>
-		public TrabajoRAW EncuentraTrabajo(string nombre)
+		public TrabajoRAW EncuentraTrabajo (string nombre)
 		{
-			return Trabajos.Find(x => x.Nombre == nombre);
+			return Trabajos.Find (x => x.Nombre == nombre);
 		}
 
 		/// <summary>
 		/// Devuelve un arreglo de recursos que son científicos
 		/// </summary>
 		/// <returns>The lista recursos científicos.</returns>
-		public Recurso[] ObtenerRecursosCientificos()
+		public Recurso[] ObtenerRecursosCientificos ()
 		{
-			return Recursos.FindAll(y => y.EsCientifico).ToArray();
+			return Recursos.FindAll (y => y.EsCientifico).ToArray ();
 		}
 
 		/// <summary>
 		/// Devuelve la lista de edificios autocontruibles.
 		/// </summary>
 		/// <returns>The autoconstruibles.</returns>
-		public List<EdificioRAW> EdificiosAutoconstruibles()
+		public List<EdificioRAW> EdificiosAutoconstruibles ()
 		{
-			return Edificios.FindAll(x => x.EsAutoConstruible);
+			return Edificios.FindAll (x => x.EsAutoConstruible);
 		}
 
 		/// <summary>
@@ -157,14 +161,14 @@ namespace Global
 		{
 			get
 			{
-				var ret = new List<IRequerimiento<ICiudad>>();
+				var ret = new List<IRequerimiento<ICiudad>> ();
 				foreach (IRequerimiento<ICiudad> x in Edificios)
 				{
-					ret.Add(x);
+					ret.Add (x);
 				}
 				foreach (IRequerimiento<ICiudad> x in Ciencias)
 				{
-					ret.Add(x);
+					ret.Add (x);
 				}
 				return ret;
 			}

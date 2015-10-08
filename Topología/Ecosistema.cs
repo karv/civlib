@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using ListasExtra;
 using System.Collections.Generic;
+using Civ.Data;
 
 namespace Civ
 {

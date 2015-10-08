@@ -1,5 +1,6 @@
 using System.Runtime.Serialization;
 using System.Collections.Generic;
+using Civ.Data;
 
 namespace Civ
 {
@@ -10,39 +11,39 @@ namespace Civ
 		/// </summary>
 		/// <returns><c>true</c>, Si la ciudad <c>C</c> lo satisface , <c>false</c> si no.</returns>
 		/// <param name="objeto">El objeto que intenta satisfacer este requerimiento.</param>
-		bool LoSatisface(T objeto);
+		bool LoSatisface (T objeto);
 	}
 
-	[DataContract(Name = "Requerimiento")]
-	public class Requerimiento : CivLibrary.Debug.IPlainSerializable
+	[DataContract (Name = "Requerimiento")]
+	public class Requerimiento : Civ.Debug.IPlainSerializable
 	{
 		[DataMember]
-		public List<Ciencia> Ciencias = new List<Ciencia>();
+		public List<Ciencia> Ciencias = new List<Ciencia> ();
 		[DataMember]
-		public List<EdificioRAW> Edificios = new List<EdificioRAW>();
+		public List<EdificioRAW> Edificios = new List<EdificioRAW> ();
 		[DataMember]
-		public List<Propiedad> Propiedades = new List<Propiedad>();
+		public List<Propiedad> Propiedades = new List<Propiedad> ();
 
 		/// <summary>
 		/// Junta todos los requeriemintos en una lista de IRequerimientos.
 		/// </summary>
 		/// <returns></returns>
-		public List<IRequerimiento<ICiudad>> Requiere()
+		public List<IRequerimiento<ICiudad>> Requiere ()
 		{
-			var ret = new List<IRequerimiento<ICiudad>>();
+			var ret = new List<IRequerimiento<ICiudad>> ();
 			foreach (Ciencia x in Ciencias)
 			{
-				ret.Add(x);
+				ret.Add (x);
 			}
 			foreach (EdificioRAW x in Edificios)
 			{
-				ret.Add(x);
+				ret.Add (x);
 			}
 
 			return ret;
 		}
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize(int tabs)
+		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret = "";
@@ -51,9 +52,9 @@ namespace Civ
 				tab += "\t";
 			}
 
-			foreach (CivLibrary.Debug.IPlainSerializable x in Requiere())
+			foreach (Civ.Debug.IPlainSerializable x in Requiere())
 			{
-				ret += x.PlainSerialize(tabs);
+				ret += x.PlainSerialize (tabs);
 			}
 
 			return ret;

@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ListasExtra;
 
-namespace Civ
+namespace Civ.Data
 {
 	/// <summary>
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
 	[DataContract (IsReference = true, Name = "Edificio")]
-	public class EdificioRAW : IRequerimiento<ICiudad>, CivLibrary.Debug.IPlainSerializable
+	public class EdificioRAW : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable
 	{
 		[DataMember]
 		public string Nombre;
@@ -78,7 +78,7 @@ namespace Civ
 		[DataMember (Name = "EsAutoConstruíble")]
 		public bool EsAutoConstruible;
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -88,12 +88,12 @@ namespace Civ
 			}
 
 			ret = tab + "(Edificio)" + Nombre + "\n";
-			foreach (CivLibrary.Debug.IPlainSerializable x in ReqRecursos.Keys)
+			foreach (Civ.Debug.IPlainSerializable x in ReqRecursos.Keys)
 			{
 				ret += x.PlainSerialize (tabs + 1);
 			}
 
-			ret += ((CivLibrary.Debug.IPlainSerializable)Requiere).PlainSerialize (tabs + 1);
+			ret += ((Civ.Debug.IPlainSerializable)Requiere).PlainSerialize (tabs + 1);
 
 
 			return ret;

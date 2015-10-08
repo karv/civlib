@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Civ;
 using Graficas;
+using Civ.Data;
 
 namespace Global
 {

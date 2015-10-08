@@ -1,7 +1,7 @@
 ﻿using System;
 using ListasExtra;
 using System.Collections.Generic;
-using System.Diagnostics;
+using Civ.Data;
 
 namespace Civ
 {
@@ -79,7 +79,7 @@ namespace Civ
 
 		void IAlmacén.SetRecurso (Recurso rec, float val)
 		{
-			Debug.Assert (val >= 0);
+			System.Diagnostics.Debug.Assert (val >= 0);
 			base [rec] = Math.Min (val, base [rec] + CargaRestante);
 		}
 

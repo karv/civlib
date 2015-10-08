@@ -1,13 +1,13 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Civ
+namespace Civ.Data
 {
 	/// <summary>
 	/// Representa un adelanto científico.
 	/// </summary>
 	[DataContract (IsReference = true)]
-	public class Ciencia : IRequerimiento<ICiudad>, CivLibrary.Debug.IPlainSerializable
+	public class Ciencia : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable
 	{
 		[DataContract (IsReference = false)]
 		public class Requerimiento
@@ -63,7 +63,7 @@ namespace Civ
 
 		#region PlainSerializable
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -75,13 +75,13 @@ namespace Civ
 
 			foreach (Ciencia x in Reqs.Ciencias)
 			{
-				CivLibrary.Debug.IPlainSerializable Ser = x;
+				Civ.Debug.IPlainSerializable Ser = x;
 				ret += Ser.PlainSerialize (tabs + 1);
 			}
 
 			foreach (var x in Reqs.Recursos.Keys)
 			{
-				CivLibrary.Debug.IPlainSerializable Ser = x;
+				Civ.Debug.IPlainSerializable Ser = x;
 				ret += Ser.PlainSerialize (tabs + 1);
 			}
 			return ret;

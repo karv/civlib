@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ListasExtra;
+using Civ;
 
-namespace Civ
+namespace Civ.Data
 {
 	/// <summary>
 	/// Representa una clase de unidad
 	/// </summary>
 	[DataContract (Name = "Unidad", IsReference = true)]
-	public class UnidadRAW : CivLibrary.Debug.IPlainSerializable, IPuntuado
+	public class UnidadRAW : Civ.Debug.IPlainSerializable, IPuntuado
 	{
 		public class Modificadores : ListaPeso<string>
 		{
@@ -148,7 +149,7 @@ namespace Civ
 			return Nombre;
 		}
 
-		string CivLibrary.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -160,7 +161,7 @@ namespace Civ
 
 			foreach (var x in Reqs.Keys)
 			{
-				ret += ((CivLibrary.Debug.IPlainSerializable)x).PlainSerialize (tabs + 1);
+				ret += ((Civ.Debug.IPlainSerializable)x).PlainSerialize (tabs + 1);
 			}
 			return ret;
 		}
