@@ -33,7 +33,7 @@ namespace Test
 			MyCiv = Juego.State.Civs [0] as Civilización;
 			MyCiudad = MyCiv.Ciudades [0] as Ciudad;
 
-			MyCiv.OnNuevoMensaje += delegate
+			MyCiv.AlNuevoMensaje += delegate
 			{
 				while (MyCiv.ExisteMensaje)
 				{

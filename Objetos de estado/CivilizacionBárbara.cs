@@ -100,5 +100,10 @@ namespace Civ
 		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
 
+		/// <summary>
+		/// Ocurre cuando se cambia el nombre
+		/// </summary>
+		public event Action AlCambiarNombre;
+
 	}
 }

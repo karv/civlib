@@ -78,7 +78,7 @@ namespace Civ
 		/// </summary>
 		/// <returns>Devuelve la suma de la cantidad que existe de algún recurso sobre cada ciudad.</returns>
 		/// <param name="recurso">Recurso que se quiere contar</param>
-		[Obsolete ("Use AlmacenCiv[R]")]
+		[Obsolete ("Usar AlmacenCiv[R]")]
 		public float ObtenerGlobalRecurso (Recurso recurso)
 		{
 			float ret = 0;
@@ -150,10 +150,13 @@ namespace Civ
 		/// Quita una ciudad de la civilización, haciendo que quede sin <c>CivDueño</c>.
 		/// </summary>
 		/// <param name="ciudad">Ciudad a quitar.</param>
-		public void RemoveCiudad (Ciudad ciudad)
+		public void RemoveCiudad (ICiudad ciudad)
 		{
-			if (ciudad.CivDueno == this)
-				ciudad.CivDueno = null;
+			if (ciudad.CivDueño == this)
+			{
+				ciudad.CivDueño = null;
+				AlPerderCiudad?.Invoke (ciudad);
+			}
 		}
 
 		/// <summary>
@@ -164,7 +167,9 @@ namespace Civ
 		/// <param name="terreno">Terreno donde se construye la ciudad</param>
 		public Ciudad AddCiudad (string nombre, Terreno terreno)
 		{
-			return new Ciudad (nombre, this, terreno);
+			var ret = new Ciudad (nombre, this, terreno);
+			AlGanarCiudad?.Invoke (ret);
+			return ret;
 		}
 
 		/// <summary>
@@ -183,6 +188,45 @@ namespace Civ
 
 		#endregion
 
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre cuando se cambia el nombre
+		/// </summary>
+		public event Action AlCambiarNombre;
+
+		/// <summary>
+		/// Ocurre cuando una ciudad se une a esta civilización
+		/// </summary>
+		public event Action<ICiudad> AlGanarCiudad;
+
+		/// <summary>
+		/// Ocurre cuando una ciudad se retira de esta civilización
+		/// </summary>
+		public event Action<ICiudad> AlPerderCiudad;
+
+		/// <summary>
+		/// Ocurre cuando se recibe un nuevo menaje
+		/// </summary>
+		public event Action AlNuevoMensaje;
+
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickAntes;
+
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
+		public event Action<TimeSpan> AlTickDespués;
+
+		/// <summary>
+		/// Ocurre cuando la civilización recibe un nuevo avance
+		/// </summary>
+		public event Action<Ciencia> AlDescubrirAvance;
+
+		#endregion
+
 		#region Mensajes
 
 		/// <summary>
@@ -197,7 +241,7 @@ namespace Civ
 		public void AgregaMensaje (Mensaje mensaje)
 		{
 			Mensajes.Enqueue (mensaje);
-			OnNuevoMensaje?.Invoke ();
+			AlNuevoMensaje?.Invoke ();
 		}
 
 		/// <summary>
@@ -244,10 +288,6 @@ namespace Civ
 			return ret;
 		}
 
-		/// <summary>
-		/// Ocurre cuando se recibe un nuevo menaje
-		/// </summary>
-		public event Action OnNuevoMensaje;
 
 
 		#endregion
@@ -277,16 +317,6 @@ namespace Civ
 
 		#region Tick
 
-		/// <summary>
-		/// Ocurre antes del tick
-		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
-
-		/// <summary>
-		/// Ocurre después del tick
-		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
-		// Ticks
 		/// <summary>
 		/// Realiza un FullTick en cada ciudad, además revisa ciencias aprendidas.
 		/// Básicamente hace todo lo necesario y suficiente que le corresponde entre turnos.
@@ -334,7 +364,7 @@ namespace Civ
 			{
 				Avances.Add (Avan);
 				Investigando.RemoveAll (x => x.Ciencia == Avan);
-				AlDescubrir (Avan);
+				OnDescubrir (Avan);
 				AgregaMensaje ("Investigación terminada: {0}", Avan);
 			}
 
@@ -355,12 +385,13 @@ namespace Civ
 		/// Se ejecuta al descubrir una ciencia
 		/// </summary>
 		/// <param name="c">Ciencia descubierta</param>
-		protected virtual void AlDescubrir (Ciencia c)
+		protected virtual void OnDescubrir (Ciencia c)
 		{
 			foreach (var ciudad in Ciudades)
 			{
 				ciudad.IntentaConstruirAutoconstruibles ();
 			}
+			AlDescubrirAvance?.Invoke (c);
 		}
 
 		#endregion

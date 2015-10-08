@@ -9,5 +9,7 @@
 		{
 			return true;
 		}
+
+		public event System.EventHandler AlCambiarDiplomacia;
 	}
 }
