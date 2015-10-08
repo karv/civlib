@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace Civ
 {
@@ -7,12 +8,18 @@ namespace Civ
 		public bool PermiteAtacar (Armada arm)
 		{
 			EstadoDiplomatico dip;
-			TryGetValue (arm.CivDueño, out dip);
-			// Analysis disable ConstantNullCoalescingCondition
-			return dip?.PermiteAtacar ?? false;
-			// Analysis restore ConstantNullCoalescingCondition
+			return TryGetValue (arm.CivDueño, out dip) && dip.PermiteAtacar;
 		}
 
-		public event System.EventHandler AlCambiarDiplomacia;
+		//TODO Por ahora no se puede ya que Dicionary no tiene métodos para monitorear cambios
+		event EventHandler IDiplomacia.AlCambiarDiplomacia
+		{
+			add
+			{
+			}
+			remove
+			{
+			}
+		}
 	}
 }

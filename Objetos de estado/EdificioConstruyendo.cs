@@ -95,7 +95,9 @@ namespace Civ
 		/// <returns>Devuelve su edificio completado.</returns>
 		public Edificio Completar ()
 		{
-			return CiudadDueño.AgregaEdificio (RAW);
+			var ret = CiudadDueño.AgregaEdificio (RAW);
+			AlCompletar?.Invoke (ret);
+			return ret;
 		}
 
 		/// <summary>
@@ -114,5 +116,11 @@ namespace Civ
 
 			return Act / Max;
 		}
+
+		/// <summary>
+		/// Ocurre al completar el edificio, 
+		/// justo después de crear la instancia en la ciudad.
+		/// </summary>
+		public event Action<Edificio> AlCompletar;
 	}
 }

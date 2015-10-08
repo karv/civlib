@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Civ;
 using Civ.Data;
-using System;
 
 namespace Civ
 {
@@ -51,11 +50,6 @@ namespace Civ
 		/// </summary>
 		/// <param name="mensaje">Mensaje.</param>
 		void AgregaMensaje (IU.Mensaje mensaje);
-
-		/// <summary>
-		/// Ocurre cuando se cambia el nombre
-		/// </summary>
-		event Action AlCambiarNombre;
 	}
 
 	public static class CivExt

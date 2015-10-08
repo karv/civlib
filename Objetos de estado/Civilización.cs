@@ -19,10 +19,24 @@ namespace Civ
 			}
 		}
 
+		string _nombre;
+
 		/// <summary>
 		/// Nombre de la civilización
 		/// </summary>
-		public string Nombre { get; set; }
+		public string Nombre
+		{
+			get
+			{
+				return _nombre;
+			}
+			set
+			{
+				_nombre = value;
+				AlCambiarNombre?.Invoke ();
+			}
+		}
+
 
 		/// <summary>
 		/// Devuelve una lista con las ciudades de la civilización

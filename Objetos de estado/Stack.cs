@@ -59,6 +59,7 @@ namespace Civ
 			set
 			{
 				_cantidad = Math.Max (0, value);
+				AlCambiarCantidad?.Invoke ();
 				if (_cantidad == 0)
 				{
 					AbandonaArmada ();
@@ -89,7 +90,7 @@ namespace Civ
 			Nombre = uRAW.Nombre;
 			_HP = 1;
 			_cantidad = cantidad;
-			_ArmadaPerteneciente = armada;
+			_armadaPerteneciente = armada;
 		}
 
 		/// <summary>
@@ -161,6 +162,7 @@ namespace Civ
 
 			DañarDisperso (DañoDisperso);
 			DañarDirecto (DañoDirecto);
+			AlSerAtacado?.Invoke ();
 		}
 
 		void DañarDisperso (float daño)
@@ -188,9 +190,7 @@ namespace Civ
 		{
 			get
 			{
-				// Analysis disable CompareOfFloatsByEqualityOperator
-				return HP == 0 || Cantidad == 0;
-				// Analysis restore CompareOfFloatsByEqualityOperator
+				return Vitalidad == 0;
 			}
 		}
 
@@ -211,7 +211,7 @@ namespace Civ
 
 		#region Armada
 
-		Armada _ArmadaPerteneciente;
+		Armada _armadaPerteneciente;
 
 		/// <summary>
 		/// Devuelve la armada a la que pertenece esta unidad.
@@ -222,14 +222,14 @@ namespace Civ
 		{
 			get
 			{
-				return _ArmadaPerteneciente;
+				return _armadaPerteneciente;
 			}
 			set
 			{
 				if (ArmadaPerteneciente != value)
 				{
 					AbandonaArmada ();
-					_ArmadaPerteneciente = value;
+					_armadaPerteneciente = value;
 				}
 			}
 		}
@@ -392,6 +392,7 @@ namespace Civ
 				ret.Terr));
 			// Deshacer el stack
 			AbandonaArmada ();
+			AlColonizar?.Invoke (ret);
 
 			return ret;
 
@@ -431,7 +432,22 @@ namespace Civ
 
 		#region Eventos
 
+		/// <summary>
+		/// Ocurre cuando todo el stack se pierde
+		/// </summary>
 		public event Action AlMorir;
+
+		/// <summary>
+		/// Ocurre cuando una armada ataca este Stack
+		/// </summary>
+		public event Action AlSerAtacado;
+
+		/// <summary>
+		/// Ocurre cuando hay un cambio en la cantidad
+		/// </summary>
+		public event Action AlCambiarCantidad;
+
+		public event Action<ICiudad> AlColonizar;
 
 		#endregion
 	}
