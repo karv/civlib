@@ -63,6 +63,7 @@ namespace Civ
 			Almacén [rec] = val;
 		}
 
+		[Obsolete]
 		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
 		{
 			Almacén [rec] += delta;

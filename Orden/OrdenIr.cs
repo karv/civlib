@@ -76,7 +76,6 @@ namespace Civ.Orden
 				Destino,
 				this));
 			AlLlegar?.Invoke ();
-			return;
 		}
 
 		public event Action AlLlegar;
