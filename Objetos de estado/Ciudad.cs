@@ -17,11 +17,24 @@ namespace Civ
 			return UnidadesConstruibles ().Keys;
 		}
 
+		string _nombre;
+
 		/// <summary>
 		/// Devuelve o establece el nombre de la ciudad.
 		/// </summary>
 		/// <value>The nombre.</value>
-		public string Nombre { get; set; }
+		public string Nombre
+		{ 
+			get
+			{
+				return _nombre;
+			}
+			set
+			{
+				_nombre = value;
+				AlCambiarNombre?.Invoke ();
+			}
+		}
 
 		public InfoPoblacion GetPoblacionInfo
 		{ 
@@ -92,6 +105,7 @@ namespace Civ
 				_CivDueño = value;
 				if (_CivDueño != null)
 					_CivDueño.Ciudades.Add (this);
+				AlCambiarDueño?.Invoke ();
 			}
 		}
 
@@ -282,8 +296,7 @@ namespace Civ
 				}
 
 				Defensa.AgregaUnidad (uRAW, cantidad);
-				//ret = new Stack(uRAW, cantidad, this);
-				//Defensa.AgregaUnidad(ret);						// Agregar la unidad a la defensa de la ciudad.
+				AlReclutar?.Invoke (uRAW, cantidad);
 			}
 			return Defensa.UnidadesAgrupadas (uRAW);											// Devuelve la unidad creada.
 		}
@@ -293,7 +306,7 @@ namespace Civ
 		#region Construcción
 
 		/// <summary>
-		/// Devuelve o establece El edificio que se está contruyendo, y su progreso.
+		/// Devuelve o establece el edificio que se está contruyendo, y su progreso.
 		/// </summary>
 		public EdificioConstruyendo EdifConstruyendo;
 
@@ -309,7 +322,10 @@ namespace Civ
 			set
 			{
 				if (value == null || PuedeConstruir (value))
+				{
 					EdifConstruyendo = new EdificioConstruyendo (value, this);
+					AlCambiarConstrucción?.Invoke ();
+				}
 				else
 					throw new Exception (string.Format (
 						"No se puede construir {0} en {1}.",
@@ -321,7 +337,6 @@ namespace Civ
 		#endregion
 
 		#region Edificios
-
 
 		/// <summary>
 		/// Devuelve la lista de instancias de edicio de la ciudad.
@@ -368,7 +383,9 @@ namespace Civ
 		/// <param name="edif">RAW del edificio a agregar.</param>
 		public Edificio AgregaEdificio (EdificioRAW edif)
 		{
-			return new Edificio (edif, this);
+			var ret = new Edificio (edif, this);
+			AlObtenerNuevoEdificio (ret);
+			return ret;
 		}
 
 		/// <summary>
@@ -593,8 +610,7 @@ namespace Civ
 				Lst [i].Trabajadores = Lst [i].MaxTrabajadores;
 			}
 		}
-			
-		// Trabajadores
+
 		/// <summary>
 		/// Devuelve en número de trabajadores ocupados en algún edificio.
 		/// </summary>
@@ -781,6 +797,40 @@ namespace Civ
 
 		#endregion
 
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre cuando el nombre de la ciudad es cambiado
+		/// </summary>
+		public event Action AlCambiarNombre;
+
+		/// <summary>
+		/// Ocurre cuando esta ciudad cambia de dueño
+		/// </summary>
+		public event Action AlCambiarDueño;
+
+		/// <summary>
+		/// Ocurre cuando se recluta unidades en esta ciudad
+		/// </summary>
+		public event Action<UnidadRAW, ulong> AlReclutar;
+
+		/// <summary>
+		/// Ocurre cuando se cambia un proyecto de construcción
+		/// </summary>
+		public event Action AlCambiarConstrucción;
+
+		/// <summary>
+		/// Ocurre cuando hay un edificio nuevo en la ciudad
+		/// </summary>
+		public event Action<Edificio> AlObtenerNuevoEdificio;
+
+		/// <summary>
+		/// Ocurre cuando la ciudad se convierte en ruinas
+		/// </summary>
+		public event Action AlConvertirseRuinas;
+
+		#endregion
+
 		public float AlimentoAlmacen
 		{ 
 			get
@@ -946,7 +996,10 @@ namespace Civ
 			ResourceTick (t);
 			if (CivDueno != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
-				CivDueno.RemoveCiudad (this);
+				{
+					AlConvertirseRuinas?.Invoke ();
+					CivDueno.RemoveCiudad (this);
+				}
 			}
 			AlTickDespués?.Invoke (t);
 		}

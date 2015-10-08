@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Civ.Data;
+using System;
 
 namespace Civ
 {
@@ -82,6 +83,21 @@ namespace Civ
 		/// Devuelve el número de trabajadores.
 		/// </summary>
 		ulong NumTrabajadores { get; }
+
+		/// <summary>
+		/// Ocurre cuando el nombre de la ciudad es cambiado
+		/// </summary>
+		event Action AlCambiarNombre;
+
+		/// <summary>
+		/// Ocurre cuando esta ciudad cambia de dueño
+		/// </summary>
+		event Action AlCambiarDueño;
+
+		/// <summary>
+		/// Ocurre cuando se recluta unidades en esta ciudad
+		/// </summary>
+		event Action<UnidadRAW, ulong> AlReclutar;
 	}
 
 
