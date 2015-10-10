@@ -161,7 +161,7 @@ namespace Civ
 		/// <summary>
 		/// Terreno donde se contruye la ciudad.
 		/// </summary>
-		public Terreno Terr;
+		public Terreno Terr { get; set; }
 
 		/// <summary>
 		/// Devuelve un nuevo diccionario cuyas entradas son el número de unidades que puede construir la ciudad, por cada unidad.
