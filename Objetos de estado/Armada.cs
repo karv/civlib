@@ -33,7 +33,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
 		/// </summary>
-		public readonly bool EsDefensa;
+		public bool EsDefensa { get; }
 
 		/// <summary>
 		/// Devuelve la lista de unidades en la armada.
