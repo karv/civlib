@@ -377,7 +377,7 @@ namespace Civ
 			foreach (Ciencia Avan in Investigado)
 			{
 				Avances.Add (Avan);
-				Investigando.RemoveAll (x => x.Ciencia == Avan);
+				Investigando.Remove (Avan);
 				OnDescubrir (Avan);
 				AgregaMensaje ("Investigación terminada: {0}", Avan);
 			}
