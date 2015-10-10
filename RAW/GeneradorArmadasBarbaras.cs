@@ -2,7 +2,7 @@
 using Global;
 using System.Collections.Generic;
 
-namespace Civ.Barbaros
+namespace Civ.Bárbaros
 {
 	/// <summary>
 	/// Un generador de armadas bárbaras

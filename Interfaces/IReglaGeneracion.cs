@@ -1,6 +1,6 @@
 ﻿using Global;
 
-namespace Civ.Barbaros
+namespace Civ.Bárbaros
 {
 	/// <summary>
 	/// Dice cuándo y qué tipo de armadas generar
@@ -11,12 +11,12 @@ namespace Civ.Barbaros
 		/// Revisa si se debe generar esta clase de armada
 		/// </summary>
 		/// <param name="estado">Estado del juego.</param>
-		bool EsPosibleGenerar(GameState estado);
+		bool EsPosibleGenerar (GameState estado);
 
 		/// <summary>
 		/// Genera una armada
 		/// </summary>
-		Armada GenerarArmada();
+		Armada GenerarArmada ();
 	}
 }
 

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Civ;
 using Civ.Options;
-using Civ.Barbaros;
+using Civ.Bárbaros;
 using Graficas;
 using System.IO;
 using Basic;

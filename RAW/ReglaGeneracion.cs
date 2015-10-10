@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Global;
 using Civ.Data;
 
-namespace Civ.Barbaros
+namespace Civ.Bárbaros
 {
 	/// <summary>
 	/// Representa una regla de generación de bárbaros

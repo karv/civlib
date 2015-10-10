@@ -3,7 +3,7 @@ using Global;
 using System.Collections.Generic;
 using Civ.Data;
 
-namespace Civ.Barbaros
+namespace Civ.Bárbaros
 {
 	public class ReglaGeneracionBarbaraGeneral:IReglaGeneracion
 	{

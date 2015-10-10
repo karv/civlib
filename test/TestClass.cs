@@ -2,7 +2,7 @@
 using Civ;
 using Global;
 using System.Diagnostics;
-using Civ.Barbaros;
+using Civ.Bárbaros;
 using System.Collections.Generic;
 using Civ.Orden;
 using IU;
