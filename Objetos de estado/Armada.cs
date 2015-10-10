@@ -26,6 +26,9 @@ namespace Civ
 		}
 
 
+		/// <summary>
+		/// Diccionario privado UnidadRAW-Stack
+		/// </summary>
 		readonly ListaPeso<UnidadRAW, Stack> _unidades = new ListaPeso<UnidadRAW, Stack> (
 			                                                 Stack.Merge,
 			                                                 null);
