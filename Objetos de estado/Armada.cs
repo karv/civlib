@@ -60,6 +60,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="raw">Tipo de unidades.</param>
 		/// <returns></returns>
+		[Obsolete ("Usar this[]")]
 		public Stack UnidadesAgrupadas (UnidadRAW raw)
 		{
 			return _unidades [raw];
@@ -359,7 +360,7 @@ namespace Civ
 		{
 			get
 			{
-				return UnidadesAgrupadas (uRAW);
+				return this [uRAW];
 			}
 		}
 

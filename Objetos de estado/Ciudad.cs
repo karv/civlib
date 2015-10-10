@@ -298,7 +298,7 @@ namespace Civ
 				Defensa.AgregaUnidad (uRAW, cantidad);
 				AlReclutar?.Invoke (uRAW, cantidad);
 			}
-			return Defensa.UnidadesAgrupadas (uRAW);											// Devuelve la unidad creada.
+			return Defensa [uRAW];
 		}
 
 		#endregion
