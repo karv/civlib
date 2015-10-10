@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using C5;
 
 namespace Civ.Data
 {
@@ -31,19 +32,21 @@ namespace Civ.Data
 			/// Lista de requisitos científicos.
 			/// </summary>
 			[DataMember (Name = "Ciencias")]
-			public System.Collections.Generic.List<Ciencia> Ciencias = new System.Collections.Generic.List<Ciencia> ();
+			public ICollection< Ciencia> Ciencias = new HashSet<Ciencia> ();
+			// Se debe convertir en GuardedCollection cuando se lea.
 		}
 
 		/// <summary>
 		/// Nombre de la ciencia;
 		/// </summary>
 		[DataMember (Name = "Nombre")]
-		public String Nombre;
+		public String Nombre { get; set; }
 
 		public override string ToString ()
 		{
 			return Nombre;
 		}
+
 		// Sobre los requerimientos.
 		/// <summary>
 		/// Requerimientos para poder aprender este avance.

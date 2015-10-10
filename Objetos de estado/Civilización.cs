@@ -135,7 +135,7 @@ namespace Civ
 		/// <returns><c>true</c> si la ciencia se puede investigar; <c>false</c> si no.</returns>
 		bool EsCienciaAbierta (Ciencia ciencia)
 		{
-			return !Avances.Contains (ciencia) && ciencia.Reqs.Ciencias.TrueForAll (Avances.Contains);
+			return !Avances.Contains (ciencia) && ciencia.Reqs.Ciencias.All (Avances.Contains);
 		}
 
 		/// <summary>
