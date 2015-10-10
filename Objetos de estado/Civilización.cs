@@ -4,6 +4,7 @@ using Basic;
 using Global;
 using Civ.Data;
 using IU;
+using System.Linq;
 
 namespace Civ
 {
@@ -115,9 +116,9 @@ namespace Civ
 		/// <summary>
 		/// Devuelve las ciencias que no han sido investigadas y que comple todos los requesitos para investigarlas.
 		/// </summary>
-		public List<Ciencia> CienciasAbiertas ()
+		public C5.ICollection<Ciencia> CienciasAbiertas ()
 		{
-			var ret = new List<Ciencia> ();
+			var ret = new C5.ArrayList<Ciencia> ();
 			foreach (Ciencia x in Juego.Data.Ciencias)
 			{
 				if (EsCienciaAbierta (x))
@@ -353,10 +354,12 @@ namespace Civ
 			foreach (Recurso Rec in Juego.Data.ObtenerRecursosCientificos())
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
-				List<Ciencia> CienciaInvertibleRec = CienciasAbiertas ().FindAll (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
-				                                     (!Investigando.Exists (w => w.Ciencia == z) ||
-				                                     Investigando.EncuentraInstancia (z) [Rec] < z.Reqs.Recursos [Rec])); // Y que aún le falte de tal recurso.
-				float [] sep = r.Separadores (CienciaInvertibleRec.Count, Almacén [Rec]);
+				var CienciaInvertibleRec = CienciasAbiertas ().Filter (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
+				                           (!Investigando.Exists (w => w.Ciencia == z) ||
+				                           Investigando.EncuentraInstancia (z) [Rec] < z.Reqs.Recursos [Rec])); // Y que aún le falte de tal recurso.
+				// Analysis disable PossibleMultipleEnumeration
+				var Count = CienciaInvertibleRec.Count ();
+				float [] sep = r.Separadores (Count, Almacén [Rec]);
 
 				int i = 0;
 				foreach (var y in CienciaInvertibleRec)
@@ -364,6 +367,7 @@ namespace Civ
 					// En este momento, se está investigando "y" con el recurso "Rec".
 					Investigando.Invertir (y, Rec, sep [i++]);
 				}
+				// Analysis restore PossibleMultipleEnumeration
 			}
 
 			// Revisar cuáles ciencias se investigaron
