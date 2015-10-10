@@ -426,7 +426,7 @@ namespace Civ
 			return 0;
 		}
 
-		IAlmacén IAlmacenante.Almacen { get { return Carga; } }
+		IAlmacén IAlmacenante.Almacén { get { return Carga; } }
 
 		#endregion
 

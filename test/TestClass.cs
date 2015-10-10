@@ -172,13 +172,13 @@ namespace Test
 			{
 				if (Juego.Rnd.NextDouble () < 0.001f)
 				{
-					foreach (var x in cd.Almacen.recursos)
+					foreach (var x in cd.Almacén.recursos)
 					{
 						Debug.WriteLine (
 							string.Format (
 								"{0}: {1}({2})",
 								x,
-								cd.Almacen [x],
+								cd.Almacén [x],
 								cd.CalculaDeltaRecurso (x))
 						);
 					}

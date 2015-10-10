@@ -85,7 +85,7 @@ namespace Civ
 					float ret = 0;
 					foreach (var x in Civil.Ciudades)
 					{
-						ret += x.Almacen [recurso];
+						ret += x.Almacén [recurso];
 					}
 					return ret;
 				}

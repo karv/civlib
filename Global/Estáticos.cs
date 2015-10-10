@@ -175,7 +175,7 @@ namespace Global
 			// Incluir el alimento inicial en cada ciudad
 			foreach (var c in State.CiudadesExistentes())
 			{
-				c.Almacen [Juego.Data.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
+				c.Almacén [Juego.Data.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
 			}
 		}
 

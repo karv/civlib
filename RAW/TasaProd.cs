@@ -60,8 +60,8 @@ namespace Civ.Data.TasaProd
 		public override void Tick (IAlmacenante alm, TimeSpan t)
 		{
 			
-			if (alm.Almacen [Recurso] < Max)
-				alm.Almacen [Recurso] += Crecimiento * (float)t.TotalHours;
+			if (alm.Almacén [Recurso] < Max)
+				alm.Almacén [Recurso] += Crecimiento * (float)t.TotalHours;
 		}
 
 		public override float DeltaEsperado (IAlmacenante alm)
@@ -87,8 +87,8 @@ namespace Civ.Data.TasaProd
 
 		public override void Tick (IAlmacenante alm, TimeSpan t)
 		{
-			if (alm.Almacen [Recurso] < Max)
-				alm.Almacen [Recurso] += CrecimientoBase * (float)t.TotalHours;
+			if (alm.Almacén [Recurso] < Max)
+				alm.Almacén [Recurso] += CrecimientoBase * (float)t.TotalHours;
 			
 		}
 

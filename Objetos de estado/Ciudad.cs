@@ -203,7 +203,7 @@ namespace Civ
 
 		#region Almacén
 
-		IAlmacén IAlmacenante.Almacen
+		IAlmacén IAlmacenante.Almacén
 		{
 			get
 			{
