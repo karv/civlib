@@ -44,7 +44,7 @@ namespace Basic
 	/// <summary>
 	/// Convierte una lista de objetos S en la equivalente lista de objetos T, mediante un Convertidos
 	/// </summary>
-	public static class Covertidor
+	public static class Convertidor
 	{
 		/// <summary>
 		/// Convierte una lista de objetos S en la equivalente lista de objetos T, mediante un Convertidos
