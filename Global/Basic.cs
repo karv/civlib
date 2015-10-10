@@ -52,10 +52,10 @@ namespace Basic
 		/// <param name="entrada"></param>
 		/// <param name="convertidor"></param>
 		/// <returns></returns>
-		public static IEnumerable<TDest> ConvertirLista<TOri, TDest> (this IEnumerable<TOri> entrada,
-		                                                              Func<TOri, TDest> convertidor)
+		public static C5.IList<TDest> ConvertirLista<TOri, TDest> (this IEnumerable<TOri> entrada,
+		                                                           Func<TOri, TDest> convertidor)
 		{
-			var ret = new List<TDest> ();
+			var ret = new C5.ArrayList<TDest> ();
 
 			foreach (TOri x in entrada)
 			{
@@ -64,24 +64,6 @@ namespace Basic
 			return ret;
 		}
 
-		/// <summary>
-		/// Convierte una lista de objetos S en la equivalente lista de objetos T, mediante un Convertidos
-		/// </summary>
-		/// <param name="entrada"></param>
-		/// <param name="convertidor"></param>
-		/// <returns></returns>
-		public static ICollection<TDest> ConvertirLista<TOri, TDest> (this ICollection<TOri> entrada,
-		                                                              Func<TOri, TDest> convertidor)
-		{
-			var ret = new List<TDest> ();
-
-			foreach (TOri x in entrada)
-			{
-				ret.Add (convertidor (x));
-			}
-			return ret;
-		}
-	
 	}
 
 	public static class ExtRandom
