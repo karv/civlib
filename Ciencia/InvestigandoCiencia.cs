@@ -69,7 +69,7 @@ namespace Civ
 		/// Devuelve true si está completada.
 		/// </summary>
 		/// <returns><c>true</c>, if completada was estaed, <c>false</c> otherwise.</returns>
-		public bool EstaCompletada ()
+		public bool EstássCompletada ()
 		{
 			return this >= Ciencia.Reqs.Recursos;
 		}
