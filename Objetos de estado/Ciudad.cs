@@ -117,7 +117,7 @@ namespace Civ
 		/// <param name="t">T.</param>
 		/// <param name="inipop">Inipop.</param>
 		public Ciudad (ICivilización dueño, Terreno t, float inipop = 1)
-			: this (Juego.NombreCiudadUnico (), dueño, t, inipop)
+			: this (Juego.NombreCiudadÚnico (), dueño, t, inipop)
 		{
 		}
 

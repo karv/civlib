@@ -143,7 +143,7 @@ namespace Global
 			}
 
 			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
-			ConstruirTopologia (Terrenos);
+			ConstruirTopología (Terrenos);
 			/*
 			// Vaciar la topolog�a en cada Terreno
 			foreach (var x in State.Topologia.Nodos)
@@ -179,7 +179,7 @@ namespace Global
 			}
 		}
 
-		public static void ConstruirTopologia (IEnumerable<Terreno> lista)
+		public static void ConstruirTopología (IEnumerable<Terreno> lista)
 		{
 			foreach (var x in lista)
 			{
@@ -223,10 +223,10 @@ namespace Global
 		/// Devuelve un nombre de civilizaciónn único
 		/// </summary>
 		/// <returns>The unique civ name.</returns>
-		public static string NombreCiudadUnico ()
+		public static string NombreCiudadÚnico ()
 		{
 			string baseNombre = ReadRandomLine ("NombresCiudad.txt");
-			string unique = HacerUnico (
+			string unique = HacerÚnico (
 				                baseNombre,
 				                State.CiudadesExistentes ().ConvertirLista (x => x.Nombre));
 			return unique;
@@ -239,7 +239,7 @@ namespace Global
 		public static string NombreCivÚnico ()
 		{
 			string baseNombre = ReadRandomLine ("NombresCiv.txt");
-			string unique = HacerUnico (
+			string unique = HacerÚnico (
 				                baseNombre,
 				                State.Civs.ConvertirLista (x => x.Nombre));
 
@@ -254,7 +254,7 @@ namespace Global
 		/// <param name="str">String base</param>
 		/// <param name="universo">Lista de strings que debe evitar devolver</param>
 		/// <param name="enumInicial">Número entero con el que se empieza la enumeración en caso de repetición</param>
-		static string HacerUnico (string str,
+		static string HacerÚnico (string str,
 		                          ICollection<string> universo,
 		                          int enumInicial = 0)
 		{
