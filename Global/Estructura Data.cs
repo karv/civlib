@@ -2,6 +2,7 @@ using Civ;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Civ.Data;
+using C5;
 
 namespace Global
 {
@@ -15,19 +16,19 @@ namespace Global
 	public class GameData
 	{
 		[DataMember (Name = "Ciencias", Order = 3)]
-		public List<Ciencia> Ciencias = new List<Ciencia> ();
+		public C5.HashSet<Ciencia> Ciencias = new C5.HashSet<Ciencia> ();
 		[DataMember (Name = "Edificios", Order = 4)]
-		public List<EdificioRAW> Edificios = new List<EdificioRAW> ();
+		public C5.HashSet<EdificioRAW> Edificios = new C5.HashSet<EdificioRAW> ();
 		[DataMember (Name = "Recursos", Order = 0)]
-		public List<Recurso> Recursos = new List<Recurso> ();
+		public C5.HashSet<Recurso> Recursos = new C5.HashSet<Recurso> ();
 		[DataMember (Name = "Trabajos", Order = 5)]
-		public List<TrabajoRAW> Trabajos = new List<TrabajoRAW> ();
+		public C5.HashSet<TrabajoRAW> Trabajos = new C5.HashSet<TrabajoRAW> ();
 		[DataMember (Name = "Unidades", Order = 6)]
-		public List<UnidadRAW> Unidades = new List<UnidadRAW> ();
+		public C5.HashSet<UnidadRAW> Unidades = new C5.HashSet<UnidadRAW> ();
 		[DataMember (Name = "Propiedades", Order = 1)]
-		public List<Propiedad> Propiedades = new List<Propiedad> ();
+		public C5.HashSet<Propiedad> Propiedades = new C5.HashSet<Propiedad> ();
 		[DataMember (Name = "Ecosistemas", Order = 2)]
-		public List<Ecosistema> Ecosistemas = new List<Ecosistema> ();
+		public C5.HashSet<Ecosistema> Ecosistemas = new C5.HashSet<Ecosistema> ();
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
 		/// </summary>
@@ -132,32 +133,33 @@ namespace Global
 		/// <param name="nombre">Nombre del Trabajo a buscar.</param>
 		public TrabajoRAW EncuentraTrabajo (string nombre)
 		{
-			return Trabajos.Find (x => x.Nombre == nombre);
+			TrabajoRAW ret;
+			return Trabajos.Find (x => x.Nombre == nombre, out ret) ? ret : null;
 		}
 
 		/// <summary>
 		/// Devuelve un arreglo de recursos que son científicos
 		/// </summary>
 		/// <returns>The lista recursos científicos.</returns>
-		public Recurso[] ObtenerRecursosCientificos ()
+		public IEnumerable<Recurso> ObtenerRecursosCientificos ()
 		{
-			return Recursos.FindAll (y => y.EsCientifico).ToArray ();
+			return Recursos.Filter (x => x.EsCientifico);
 		}
 
 		/// <summary>
 		/// Devuelve la lista de edificios autocontruibles.
 		/// </summary>
 		/// <returns>The autoconstruibles.</returns>
-		public List<EdificioRAW> EdificiosAutoconstruibles ()
+		public IEnumerable<EdificioRAW> EdificiosAutoconstruibles ()
 		{
-			return Edificios.FindAll (x => x.EsAutoConstruible);
+			return Edificios.Filter (x => x.EsAutoConstruible);
 		}
 
 		/// <summary>
 		/// Devuelve todos los IRequerimientos.
 		/// </summary>
 		[System.Xml.Serialization.XmlIgnore]
-		public List<IRequerimiento<ICiudad>> Reqs
+		public System.Collections.Generic.ICollection<IRequerimiento<ICiudad>> Reqs
 		{
 			get
 			{

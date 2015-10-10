@@ -137,7 +137,7 @@ namespace Global
 
 			for (int i = 0; i < PrefsJuegoNuevo.NumTerrenos; i++)
 			{
-				Eco = Data.Ecosistemas [Rnd.Next (Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
+				Eco = Data.Ecosistemas.Elegir ();
 				T = new Terreno (Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add (T);
 				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());

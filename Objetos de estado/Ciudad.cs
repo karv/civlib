@@ -957,7 +957,12 @@ namespace Civ
 		{
 			// Autocontruible
 			// Obtener lista de edificios autocontruibles no construidos.
-			List<EdificioRAW> PosiblesEdif = Juego.Data.EdificiosAutoconstruibles ().FindAll (x => !ExisteEdificio (x));
+			var PosiblesEdif = new C5.HashSet<EdificioRAW> (); 
+			foreach (var x in Juego.Data.EdificiosAutoconstruibles())
+			{
+				if (!ExisteEdificio (x))
+					PosiblesEdif.Add (x);
+			}
 			foreach (var x in PosiblesEdif)
 			{
 				if (PuedeConstruir (x))

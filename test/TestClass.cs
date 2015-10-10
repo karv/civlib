@@ -48,7 +48,7 @@ namespace Test
 		public void TestRecoger ()
 		{
 			Init ();
-			UnidadRAW u = Juego.Data.Unidades [0];
+			UnidadRAW u = Juego.Data.Unidades.Elegir ();
 			u.MaxCarga = 100; // Porque yo lo digo
 			var pos = new Pseudoposicion ();
 			Terreno terrA = MyCiudad.Posición ().A;
@@ -114,7 +114,7 @@ namespace Test
 		public void TestReclutar ()
 		{
 			Init ();
-			UnidadRAW u = Juego.Data.Unidades [0];
+			UnidadRAW u = Juego.Data.Unidades.Elegir ();
 			MyCiudad.Reclutar (u, 3);
 		}
 
