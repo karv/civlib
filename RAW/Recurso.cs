@@ -43,7 +43,7 @@ namespace Civ.Data
 		public bool EsGlobal;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Recurso"/> class.
+		/// Initializes a new instance of the <see cref="Civ.Data.Recurso"/>class.
 		/// </summary>
 		/// <param name="nombre">Nombre del recurso.</param>
 		public Recurso (string nombre)
