@@ -11,7 +11,12 @@ namespace test
 		public void RecursoImport ()
 		{
 			IImportable imp = new Recurso ();
-			imp.Importar ("rAlimento.txt");
+		}
+
+		[Test]
+		public void ImportAllTest ()
+		{
+			ImportMachine.Importar ();
 		}
 
 	}

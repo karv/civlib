@@ -62,12 +62,12 @@ namespace Civ.Data
 
 		#region Importable
 
-		void IImportable.Importar (string file)
+		void IImportable.Importar (StreamReader reader)
 		{
-			StreamReader stream = new StreamReader (file);
-			while (!stream.EndOfStream)
+			
+			while (!reader.EndOfStream)
 			{
-				string line = stream.ReadLine ();
+				string line = reader.ReadLine ();
 				line.ToLower ();
 				var spl = line.Split ('=');
 				spl [0] = spl [0].Trim ();
