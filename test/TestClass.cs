@@ -71,7 +71,7 @@ namespace Test
 
 			ord.AlLlegar += delegate
 			{
-				Debug.WriteLine ("Llegamos a " + ord.StackTarget.Posición ());
+				Debug.WriteLine ("Llegamos a " + ord.StackTarget.Posición);
 			};
 			ord.AlRegresar += delegate
 			{

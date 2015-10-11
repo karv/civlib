@@ -10,7 +10,7 @@ namespace Civ
 		public DropStack (Pseudoposicion pos)
 		{
 			Almacén = new ListaPeso<Recurso> ();
-			_posicion = pos;
+			Posición = pos;
 		}
 
 		public ListaPeso<Recurso> Almacén { get; }
@@ -33,11 +33,11 @@ namespace Civ
 
 		#region Posición
 
-		readonly Pseudoposicion _posicion;
+		public Pseudoposicion Posición { get; }
 
-		public Pseudoposicion Posición ()
+		Pseudoposicion IPosicionable.Posición ()
 		{
-			return _posicion;
+			return Posición;
 		}
 
 		#endregion
