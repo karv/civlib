@@ -7,7 +7,7 @@ namespace Civ.Orden
 		/// <summary>
 		/// Destino de la orden
 		/// </summary>
-		public Pseudoposicion Destino;
+		public Pseudoposición Destino;
 
 		public Armada Armada { get; }
 
@@ -18,7 +18,7 @@ namespace Civ.Orden
 
 		/// <param name="destino">Destino.</param>
 		/// <param name="armada">Armada</param>
-		public OrdenIr (Armada armada, Pseudoposicion destino)
+		public OrdenIr (Armada armada, Pseudoposición destino)
 			: this (armada)
 		{
 			Destino = destino;
@@ -32,7 +32,7 @@ namespace Civ.Orden
 		/// <param name="t">T.</param>
 		public bool Ejecutar (TimeSpan t)
 		{
-			Pseudoposicion PS = Armada.Posición;
+			Pseudoposición PS = Armada.Posición;
 			if (PS.Equals (Destino))
 			{
 				OnLlegar ();

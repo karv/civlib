@@ -50,7 +50,7 @@ namespace Test
 			Init ();
 			UnidadRAW u = Juego.Data.Unidades [0];
 			u.MaxCarga = 100; // Porque yo lo digo
-			var pos = new Pseudoposicion ();
+			var pos = new Pseudoposición ();
 			Terreno terrA = MyCiudad.Posición ().A;
 			Terreno terrB = Juego.State.Terrenos ().Elegir ();
 			Juego.State.Topología [terrA, terrB] = 1;
@@ -220,7 +220,7 @@ namespace Test
 			Juego.State.Civs.Add (c1);
 			Juego.State.Civs.Add (c2);
 
-			var p = new Pseudoposicion ();
+			var p = new Pseudoposición ();
 			p.A = Juego.State.Terrenos ().Elegir ();
 			p.Loc = 0;
 

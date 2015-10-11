@@ -19,7 +19,7 @@ namespace Civ.Orden
 		/// Devuelve la posición de donde va a dejar el stack
 		/// </summary>
 		/// <value>The origen.</value>
-		public Pseudoposicion Origen { get; }
+		public Pseudoposición Origen { get; }
 
 		// Meta órdenes
 		IOrden _actual;

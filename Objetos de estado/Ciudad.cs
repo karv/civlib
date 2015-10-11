@@ -60,7 +60,7 @@ namespace Civ
 
 		#region IPosicionable implementation
 
-		public Pseudoposicion Posición ()
+		public Pseudoposición Posición ()
 		{
 			return Terr;
 		}
@@ -73,7 +73,7 @@ namespace Civ
 		/// Posición de la ciudad.
 		/// </summary>
 		/// <value>The position.</value>
-		public Pseudoposicion Pos
+		public Pseudoposición Pos
 		{
 			get
 			{

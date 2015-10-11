@@ -7,7 +7,7 @@ namespace Civ
 {
 	public class DropStack: IPosicionable, IAlmacén
 	{
-		public DropStack (Pseudoposicion pos)
+		public DropStack (Pseudoposición pos)
 		{
 			Almacén = new ListaPeso<Recurso> ();
 			_posicion = pos;
@@ -33,9 +33,9 @@ namespace Civ
 
 		#region Posición
 
-		readonly Pseudoposicion _posicion;
+		readonly Pseudoposición _posicion;
 
-		public Pseudoposicion Posición ()
+		public Pseudoposición Posición ()
 		{
 			return _posicion;
 		}

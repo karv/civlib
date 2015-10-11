@@ -4,7 +4,7 @@ namespace Civ.Orden
 {
 	public class OrdenIrALugar:OrdenSerie
 	{
-		public OrdenIrALugar (Armada armada, Pseudoposicion destino)
+		public OrdenIrALugar (Armada armada, Pseudoposición destino)
 			: base (armada)
 		{
 			var origen = armada.Posición;

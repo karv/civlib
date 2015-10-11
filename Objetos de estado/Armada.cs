@@ -71,7 +71,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="civilizacion">Civilización</param>
 		/// <param name="posición">Posición de la armada (se clona) </param>
-		public Armada (ICivilización civilizacion, Pseudoposicion posición)
+		public Armada (ICivilización civilizacion, Pseudoposición posición)
 		{
 			CivDueño = civilizacion;
 			EsDefensa = false;
@@ -143,7 +143,7 @@ namespace Civ
 		/// Devuelve o establece el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		public Pseudoposicion Posición { get; }
+		public Pseudoposición Posición { get; }
 
 		/// <summary>
 		/// Agrega, mueve o junta unidad(es) a esta armada.
@@ -405,7 +405,7 @@ namespace Civ
 
 		#region IPosicionable implementation
 
-		Pseudoposicion IPosicionable.Posición ()
+		Pseudoposición IPosicionable.Posición ()
 		{
 			return Posición;
 		}
