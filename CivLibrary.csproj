@@ -104,6 +104,7 @@
     <Compile Include="Orden\OrdenRecoger.cs" />
     <Compile Include="Objetos de estado\CivilizacionBárbara.cs" />
     <Compile Include="Ciencia\RequiereCiencia.cs" />
+    <Compile Include="IImportable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
