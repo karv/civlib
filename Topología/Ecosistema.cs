@@ -38,7 +38,7 @@ namespace Civ
 		/// Lista de nombres para terrenos
 		/// </summary>
 		[DataMember (Name = "Nombres")]
-		public List<string> Nombres { get; }
+		public ICollection<string> Nombres { get; }
 
 		/// <summary>
 		/// Crea un terreno aleatoriamente a partir de este ecosistema

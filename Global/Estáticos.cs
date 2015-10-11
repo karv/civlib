@@ -8,6 +8,7 @@ using Graficas;
 using System.IO;
 using Basic;
 using ListasExtra.Extensiones;
+using C5;
 
 namespace Global
 {
@@ -125,7 +126,7 @@ namespace Global
 			//State = new GameState();
 
 			// Hacer la topolog�a
-			var Terrenos = new List<Terreno> ();
+			var Terrenos = new ArrayList<Terreno> ();
 			State.Topología = new Grafo<Terreno> ();
 			State.Mapa = new Graficas.Continuo.Continuo<Terreno> (State.Topología);
 
@@ -136,7 +137,7 @@ namespace Global
 
 			for (int i = 0; i < PrefsJuegoNuevo.NumTerrenos; i++)
 			{
-				Eco = Data.Ecosistemas [Rnd.Next (Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
+				Eco = Data.Ecosistemas.Elegir ();
 				T = new Terreno (Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add (T);
 				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());
@@ -255,7 +256,7 @@ namespace Global
 		/// <param name="universo">Lista de strings que debe evitar devolver</param>
 		/// <param name="enumInicial">Número entero con el que se empieza la enumeración en caso de repetición</param>
 		static string HacerÚnico (string str,
-		                          ICollection<string> universo,
+		                          System.Collections.Generic.ICollection<string> universo,
 		                          int enumInicial = 0)
 		{
 			if (!universo.Contains (str))

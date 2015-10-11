@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Civ.Data;
+using C5;
 
 namespace Civ
 {
@@ -35,7 +36,7 @@ namespace Civ
 		public Edificio (EdificioRAW nRAW)
 		{
 			RAW = nRAW;
-			Trabajos = new List<Trabajo> ();
+			Trabajos = new ArrayList<Trabajo> ();
 		}
 
 		public Edificio (EdificioRAW nRAW, Ciudad nCiudad)
@@ -85,7 +86,7 @@ namespace Civ
 		/// Devuelve la lista de instancias de trabajo de este edificio
 		/// </summary>
 		/// <value>The _ trabajo.</value>
-		public List<Trabajo> Trabajos { get; }
+		public C5.IList<Trabajo> Trabajos { get; }
 
 		/// <summary>
 		/// Devuelve el número de trabajadores ocupados en este edificio.

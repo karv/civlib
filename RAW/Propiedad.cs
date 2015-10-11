@@ -20,7 +20,7 @@ namespace Civ.Data
 		/// Recursos que produce esta propiedad por turno.
 		/// </summary>
 		[DataMember (Name = "Salida")]
-		public List<TasaProd.TasaProd> Salida { get; }
+		public ICollection<TasaProd.TasaProd> Salida { get; }
 		// IRequerimiento:
 		bool IRequerimiento<Ciudad>.LoSatisface (Ciudad ciudad)
 		{

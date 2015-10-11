@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Global;
 using Civ.Data;
+using Basic;
 
 namespace Civ
 {
@@ -16,11 +17,12 @@ namespace Civ
 		/// <param name="ecosistema">Ecología a usar para crear el terreno.</param>
 		public Terreno (Ecosistema ecosistema)
 		{
+			
 			A = this;
 			Loc = 0;
 			Random r = Juego.Rnd;
 
-			Nombre = ecosistema.Nombres [r.Next (ecosistema.Nombres.Count)];
+			Nombre = ecosistema.Nombres.Elegir ();
 
 			foreach (var x in ecosistema.PropPropiedad.Keys)
 			{

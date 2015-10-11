@@ -35,7 +35,7 @@ namespace Civ.Orden
 			Origen = Armada.Posición.Clonar ();
 
 			StackTarget = target;
-			_actual = new OrdenIr (Armada, StackTarget.Posición ());
+			_actual = new OrdenIr (Armada, StackTarget.Posición);
 		}
 
 		/// <summary>

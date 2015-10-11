@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
 
 namespace Civ.Orden
 {
 	/// <summary>
 	/// Representa una serie de órdenes
 	/// </summary>
-	public class OrdenSerie:Queue<IOrden>, IOrden
+	public class OrdenSerie:C5.ArrayList<IOrden>, IOrden
 	{
 		/// <summary>
 		/// La orden actual
@@ -15,7 +14,7 @@ namespace Civ.Orden
 		{
 			get
 			{
-				return Peek ();
+				return this [0];
 			}
 		}
 

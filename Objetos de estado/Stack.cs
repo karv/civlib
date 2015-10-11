@@ -408,7 +408,7 @@ namespace Civ
 				return;
 			foreach (var x in Juego.State.Drops)
 			{
-				if (x.Posición ().Equals (Posición))
+				if (x.Posición.Equals (Posición))
 				{
 					foreach (var r in x.Almacén.Keys)
 					{

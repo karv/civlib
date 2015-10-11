@@ -18,17 +18,17 @@ namespace Civ
 	public class Requerimiento : Civ.Debug.IPlainSerializable
 	{
 		[DataMember]
-		public List<Ciencia> Ciencias = new List<Ciencia> ();
+		public ICollection<Ciencia> Ciencias = new C5.HashSet<Ciencia> ();
 		[DataMember]
-		public List<EdificioRAW> Edificios = new List<EdificioRAW> ();
+		public ICollection<EdificioRAW> Edificios = new C5.HashSet<EdificioRAW> ();
 		[DataMember]
-		public List<Propiedad> Propiedades = new List<Propiedad> ();
+		public ICollection<Propiedad> Propiedades = new C5.HashSet<Propiedad> ();
 
 		/// <summary>
 		/// Junta todos los requeriemintos en una lista de IRequerimientos.
 		/// </summary>
 		/// <returns></returns>
-		public List<IRequerimiento<ICiudad>> Requiere ()
+		public IList<IRequerimiento<ICiudad>> Requiere ()
 		{
 			var ret = new List<IRequerimiento<ICiudad>> ();
 			foreach (Ciencia x in Ciencias)

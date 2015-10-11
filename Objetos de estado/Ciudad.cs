@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Global;
 using Civ.Data;
+using C5;
 
 namespace Civ
 {
@@ -12,7 +13,7 @@ namespace Civ
 	{
 		#region ICiudad
 
-		ICollection<UnidadRAW> ICiudad.UnidadesConstruibles ()
+		System.Collections.Generic.ICollection<UnidadRAW> ICiudad.UnidadesConstruibles ()
 		{
 			return UnidadesConstruibles ().Keys;
 		}
@@ -49,7 +50,7 @@ namespace Civ
 
 		public ICivilización CivDueño { get; set; }
 
-		ICollection<TrabajoRAW> ICiudad.ObtenerTrabajosAbiertos ()
+		System.Collections.Generic.ICollection<TrabajoRAW> ICiudad.ObtenerTrabajosAbiertos ()
 		{
 			return TrabajosAbiertos ();
 		}
@@ -134,8 +135,8 @@ namespace Civ
 		               float iniPop = 1)
 		{
 			RealPoblaciónProductiva = iniPop;
-			Edificios = new List<Edificio> ();
-			Propiedades = new List<Propiedad> ();
+			Edificios = new C5.HashSet<Edificio> ();
+			Propiedades = new C5.HashSet<Propiedad> ();
 			CivDueno = dueño;
 			Nombre = nombre;
 			Almacen = new AlmacenCiudad (this);
@@ -265,7 +266,7 @@ namespace Civ
 		/// No cuenta la Defensa inmovil
 		/// </summary>
 		/// <returns>The en ciudad.</returns>
-		public ICollection<Armada> ArmadasEnCiudad ()
+		public System.Collections.Generic.ICollection<Armada> ArmadasEnCiudad ()
 		{
 			var rat = new List<Armada> ();
 			foreach (var x in CivDueno.Armadas)
@@ -342,7 +343,7 @@ namespace Civ
 		/// Devuelve la lista de instancias de edicio de la ciudad.
 		/// </summary>
 		/// <value></value>
-		public IList<Edificio> Edificios { get; }
+		public System.Collections.Generic.ICollection<Edificio> Edificios { get; }
 
 		/// <summary>
 		/// Revisa si existe una clase de edificio en esta ciudad.
@@ -392,7 +393,7 @@ namespace Civ
 		/// Devuelve la lista de edificios contruibles por esta ciudad; los que se pueden hacer y no están hechos.
 		/// </summary>
 		/// <returns></returns>
-		public List<EdificioRAW> Construibles ()
+		public System.Collections.Generic.ICollection<EdificioRAW> Construibles ()
 		{
 			var ret = new List<EdificioRAW> ();
 			foreach (EdificioRAW x in Juego.Data.Edificios)
@@ -444,7 +445,7 @@ namespace Civ
 		/// Devuelve la lista de Propiedades de la ciudad.
 		/// </summary>
 		/// <value>The propiedades.</value>
-		public IList<Propiedad> Propiedades { get; }
+		public System.Collections.Generic.ICollection<Propiedad> Propiedades { get; }
 
 		/// <summary>
 		/// Revisa si existe una propiedad P en la ciudad.
@@ -595,15 +596,22 @@ namespace Civ
 
 		#region Trabajadores
 
+		class PriorityComparer : IComparer<Trabajo>
+		{
+			public int Compare (Trabajo x, Trabajo y)
+			{
+				return x.Prioridad < y.Prioridad ? -1 : 1;
+			}
+		}
+
 		/// <summary>
 		/// Recluta a trabajadores desocupados a los trabajos de mayos prioridad.
 		/// </summary>
 		public void AutoReclutarTrabajadores ()
 		{
 			// Autoacomodar trabajadores desocupados
-			List<Trabajo> Lst = ObtenerListaTrabajos ();
-
-			Lst.Sort (((x, y) => x.Prioridad < y.Prioridad ? -1 : 1));
+			var Lst = new SortedArray<Trabajo> (new PriorityComparer ());
+			Lst.AddAll (ObtenerListaTrabajos ());
 
 			for (int i = 0; i < Lst.Count && TrabajadoresDesocupados > 0; i++)
 			{
@@ -643,7 +651,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la lista de trabajos que se pueden realizar en una ciudad.
 		/// </summary>
-		public IList<TrabajoRAW> ObtenerListaTrabajosRAW
+		public System.Collections.Generic.IList<TrabajoRAW> ObtenerListaTrabajosRAW
 		{
 			get
 			{
@@ -668,7 +676,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la lista de trabajos actuales en esta  <see cref="Civ.Ciudad"/>. 
 		/// </summary>
-		public List<Trabajo> ObtenerListaTrabajos ()
+		public System.Collections.Generic.ICollection<Trabajo> ObtenerListaTrabajos ()
 		{
 			var ret = new List<Trabajo> ();
 			foreach (var x in Edificios)
@@ -722,12 +730,12 @@ namespace Civ
 		/// <param name="n">Número de trabajadores a forzar que sean libres.</param>
 		public void LiberarTrabajadores (ulong n)
 		{
-			var L = ObtenerListaTrabajos ();
-			L.Sort ((x, y) => x.Prioridad < y.Prioridad ? -1 : 1); // Ordenar por prioridad.
+			var L = new SortedArray<Trabajo> (new PriorityComparer ());
+			L.AddAll (ObtenerListaTrabajos ());
+
 			while (L.Count > 0 && TrabajadoresDesocupados < n && TrabajadoresDesocupados != Poblacion)
 			{
-				L [0].Trabajadores = 0;
-				L.RemoveAt (0);
+				L.DeleteMin ();
 			}
 		}
 
@@ -736,7 +744,7 @@ namespace Civ
 		/// threadsafe.
 		/// </summary>
 		/// <returns>Devuelve una nueva lista.</returns>
-		public ICollection<TrabajoRAW> TrabajosAbiertos ()
+		public System.Collections.Generic.ICollection<TrabajoRAW> TrabajosAbiertos ()
 		{
 			var ret = new List<TrabajoRAW> ();
 			foreach (var x in Juego.Data.Trabajos)
@@ -768,9 +776,14 @@ namespace Civ
 		/// </summary>
 		/// <param name="reqs"></param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface todos los IRequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq (List<IRequerimiento<ICiudad>> reqs)
+		public bool SatisfaceReq (System.Collections.Generic.ICollection<IRequerimiento<ICiudad>> reqs)
 		{
-			return reqs.TrueForAll (x => x.LoSatisface (this));
+			foreach (var x in reqs)
+			{
+				if (!x.LoSatisface (this))
+					return false;
+			}
+			return true;
 		}
 
 		#endregion
@@ -957,7 +970,12 @@ namespace Civ
 		{
 			// Autocontruible
 			// Obtener lista de edificios autocontruibles no construidos.
-			List<EdificioRAW> PosiblesEdif = Juego.Data.EdificiosAutoconstruibles ().FindAll (x => !ExisteEdificio (x));
+			var PosiblesEdif = new C5.HashSet<EdificioRAW> (); 
+			foreach (var x in Juego.Data.EdificiosAutoconstruibles())
+			{
+				if (!ExisteEdificio (x))
+					PosiblesEdif.Add (x);
+			}
 			foreach (var x in PosiblesEdif)
 			{
 				if (PuedeConstruir (x))

@@ -18,15 +18,15 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System.Collections.Generic;
 using Civ.Data;
+using System;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa la lista de ciencias que se están investigando.
 	/// </summary>
-	public class ListaInvestigación:List<InvestigandoCiencia>
+	public class ListaInvestigación:C5.HashSet<InvestigandoCiencia>
 	{
 		/// <summary>
 		/// Agrega cierta cantidad de recursos, a la investigación de una ciencia.
@@ -39,8 +39,13 @@ namespace Civ
 			if (!Exists (x => x.Ciencia == ciencia)) // Si no existe la ciencia C en la lista, se agrega
 				Add (new InvestigandoCiencia (ciencia));
 
-			InvestigandoCiencia IC = Find (x => x.Ciencia == ciencia); //IC es la correspondiente a la ciencia C.
+			InvestigandoCiencia IC;
+			if (Find (x => x.Ciencia == ciencia, out IC)) //IC es la correspondiente a la ciencia C.
 			IC [recurso] += cantidad;
+			else
+			{
+				throw new Exception ("Se intentó invertir en una ciencia cerrada.");
+			}
 		}
 
 		/// <summary>
@@ -50,7 +55,19 @@ namespace Civ
 		/// <param name="ciencia">Ciencia a buscar</param>
 		public InvestigandoCiencia EncuentraInstancia (Ciencia ciencia)
 		{
-			return Find (x => x.Ciencia == ciencia);
+			InvestigandoCiencia ret;
+			return Find (x => x.Ciencia == ciencia, out ret) ? ret : null;
+		}
+
+		/// <Docs>The item to remove from the current collection.</Docs>
+		/// <para>Removes the first occurrence of an item from the current collection.</para>
+		/// <summary>
+		/// Elimina una ciencia de esta lista
+		/// </summary>
+		/// <param name="ciencia">Ciencia a eliminar</param>
+		public bool Remove (Ciencia ciencia)
+		{
+			return Remove (EncuentraInstancia (ciencia)?.Ciencia);
 		}
 	}
 }
