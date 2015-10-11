@@ -48,7 +48,7 @@ namespace Civ.Data
 		/// Devuelve la lista de requerimientos.
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public List<IRequerimiento<ICiudad>> Reqs ()
+		public ICollection<IRequerimiento<ICiudad>> Reqs ()
 		{
 			return Requiere.Requiere ();
 		}

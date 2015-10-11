@@ -28,7 +28,7 @@ namespace Civ
 		/// Junta todos los requeriemintos en una lista de IRequerimientos.
 		/// </summary>
 		/// <returns></returns>
-		public List<IRequerimiento<ICiudad>> Requiere ()
+		public IList<IRequerimiento<ICiudad>> Requiere ()
 		{
 			var ret = new List<IRequerimiento<ICiudad>> ();
 			foreach (Ciencia x in Ciencias)

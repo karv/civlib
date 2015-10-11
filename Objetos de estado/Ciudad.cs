@@ -776,9 +776,14 @@ namespace Civ
 		/// </summary>
 		/// <param name="reqs"></param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface todos los IRequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq (List<IRequerimiento<ICiudad>> reqs)
+		public bool SatisfaceReq (System.Collections.Generic.ICollection<IRequerimiento<ICiudad>> reqs)
 		{
-			return reqs.TrueForAll (x => x.LoSatisface (this));
+			foreach (var x in reqs)
+			{
+				if (!x.LoSatisface (this))
+					return false;
+			}
+			return true;
 		}
 
 		#endregion

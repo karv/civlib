@@ -60,13 +60,13 @@ namespace Civ.Data
 		/// Lista de los recursos requeridos.
 		/// </summary>
 		[DataMember (Name = "Construcción")]
-		public Dictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float> ();
+		public IDictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float> ();
 		//public List<Basic.Par<Recurso, float>> ReqRecursos = new List<Basic.Par<Recurso, float>>();
 		/// <summary>
 		/// Devuelve la lista de requerimientos
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public List<IRequerimiento<ICiudad>> Reqs ()
+		public ICollection<IRequerimiento<ICiudad>> Reqs ()
 		{
 			//List<IRequerimiento> ret = Basic.Covertidor<string, IRequerimiento>.ConvertirLista(Requiere, x => Global.g_.Data.EncuentraRequerimiento(x));
 			return Requiere.Requiere ();
