@@ -108,7 +108,7 @@ namespace Civ.Data
 		/// Flags.
 		/// </summary>
 		[DataMember (Name = "Flags")]
-		public List<string> Flags { get; }
+		public ICollection<string> Flags { get; }
 
 		// Reqs
 		/// <summary>
