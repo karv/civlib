@@ -24,7 +24,7 @@ namespace Civ.Orden
 		/// <param name="orden">Orden.</param>
 		public void Encolar (IOrden orden)
 		{
-			if (orden.Armada != Armada)
+			if (orden.ArmadaEjecutante != ArmadaEjecutante)
 				throw new Exception ("Encolar órdenes debe ser de la misma armada.");
 			Enqueue (orden);
 		}
@@ -32,7 +32,7 @@ namespace Civ.Orden
 		public OrdenSerie (Armada armada)
 			: base ()
 		{
-			this.Armada = armada;
+			ArmadaEjecutante = armada;
 		}
 
 		/// <summary>
@@ -65,7 +65,7 @@ namespace Civ.Orden
 		/// Devuelve la armada de esta orden
 		/// </summary>
 		/// <value>The armada.</value>
-		public Armada Armada { get; }
+		public Armada ArmadaEjecutante { get; }
 
 		#endregion
 

@@ -30,7 +30,7 @@ namespace Civ.Orden
 			return false;
 		}
 
-		public Armada Armada
+		public Armada ArmadaEjecutante
 		{
 			get
 			{

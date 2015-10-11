@@ -9,11 +9,11 @@ namespace Civ.Orden
 		/// </summary>
 		public Pseudoposición Destino;
 
-		public Armada Armada { get; }
+		public Armada ArmadaEjecutante { get; }
 
 		OrdenIr (Armada armada)
 		{			
-			this.Armada = armada;
+			ArmadaEjecutante = armada;
 		}
 
 		/// <param name="destino">Destino.</param>
@@ -32,7 +32,7 @@ namespace Civ.Orden
 		/// <param name="t">T.</param>
 		public bool Ejecutar (TimeSpan t)
 		{
-			Pseudoposición PS = Armada.Posición;
+			Pseudoposición PS = ArmadaEjecutante.Posición;
 			if (PS.Equals (Destino))
 			{
 				OnLlegar ();
@@ -40,16 +40,16 @@ namespace Civ.Orden
 
 			}
 			// int orientacion; // Orientación de esta posición con respecto a PS
-			if (Armada.EnTerreno)
+			if (ArmadaEjecutante.EnTerreno)
 			{
-				Armada.Posición.B = Destino.ExtremoNo (Armada.Posición.A);  // Asigna la posición de la armada en el intervalo correcto.
+				ArmadaEjecutante.Posición.B = Destino.ExtremoNo (ArmadaEjecutante.Posición.A);  // Asigna la posición de la armada en el intervalo correcto.
 			}
 
 			// orientacion = PS.Orientacion(Destino);
 			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
 			// Avanzar
-			var Avance = (float)t.TotalHours * Armada.Velocidad;
+			var Avance = (float)t.TotalHours * ArmadaEjecutante.Velocidad;
 			if (PS.AvanzarHacia (Destino, ref Avance))
 			{
 				OnLlegar ();
@@ -59,9 +59,9 @@ namespace Civ.Orden
 			//Revisar si están en el mismo Terreno-intervalo
 			if (Destino.Equals (PS))
 			{
-				Armada.Posición.A = Destino.A;
-				Armada.Posición.B = Destino.B;
-				Armada.Posición.Loc = Destino.Loc;
+				ArmadaEjecutante.Posición.A = Destino.A;
+				ArmadaEjecutante.Posición.B = Destino.B;
+				ArmadaEjecutante.Posición.Loc = Destino.Loc;
 				AlLlegar?.Invoke ();
 				return true;
 			}
@@ -70,9 +70,9 @@ namespace Civ.Orden
 
 		protected virtual void OnLlegar ()
 		{
-			Armada.CivDueño.AgregaMensaje (new IU.Mensaje (
+			ArmadaEjecutante.CivDueño.AgregaMensaje (new IU.Mensaje (
 				"Armada {0} LLegó a su destino en {1} : Orden {2}",
-				Armada,
+				ArmadaEjecutante,
 				Destino,
 				this));
 			AlLlegar?.Invoke ();

@@ -11,7 +11,7 @@ namespace Civ.Orden
 		/// Devuelve la armada de esta orden
 		/// </summary>
 		/// <value>The armada.</value>
-		Armada Armada { get; }
+		Armada ArmadaEjecutante { get; }
 
 		/// <summary>
 		/// Ejecuta la orden

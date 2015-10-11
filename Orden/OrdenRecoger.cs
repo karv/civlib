@@ -8,7 +8,7 @@ namespace Civ.Orden
 		/// Devuelve la armada de esta orden
 		/// </summary>
 		/// <value>The armada.</value>
-		public Armada Armada { get; }
+		public Armada ArmadaEjecutante { get; }
 
 		/// <summary>
 		/// Devuelve o establece el stack que quere tomar.
@@ -31,11 +31,11 @@ namespace Civ.Orden
 		/// <param name="target">El DropStack que recogerá </param>
 		public OrdenRecoger (Armada armada, DropStack target)
 		{
-			this.Armada = armada;
-			Origen = Armada.Posición.Clonar ();
+			ArmadaEjecutante = armada;
+			Origen = ArmadaEjecutante.Posición.Clonar ();
 
 			StackTarget = target;
-			_actual = new OrdenIr (Armada, StackTarget.Posición);
+			_actual = new OrdenIr (ArmadaEjecutante, StackTarget.Posición);
 		}
 
 		/// <summary>
@@ -47,7 +47,7 @@ namespace Civ.Orden
 			bool retOrdenPasada = _actual.Ejecutar (t);
 
 			// Si ya llegó al origen, ya terminó toda la orden.
-			if (Armada.Posición.Equals (Origen))
+			if (ArmadaEjecutante.Posición.Equals (Origen))
 			{
 				AlRegresar.Invoke (this, null);
 				return true;
@@ -57,11 +57,11 @@ namespace Civ.Orden
 			{
 				AlLlegar?.Invoke (this, null);
 				// Recoger todo lo que se encuentra allá
-				foreach (var s in Armada.Unidades)
+				foreach (var s in ArmadaEjecutante.Unidades)
 				{
 					s.RecogerTodo ();
 				}
-				_actual = new OrdenIr (Armada, Origen);
+				_actual = new OrdenIr (ArmadaEjecutante, Origen);
 			}
 
 			// Aún no acaba
