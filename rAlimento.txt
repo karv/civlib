@@ -1,0 +1,4 @@
+﻿nombre=  Alimento
+desaparece = 0
+científico=1  
+global=1
