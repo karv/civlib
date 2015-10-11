@@ -26,13 +26,13 @@ using System;
 
 namespace Civ
 {
-	public class AlmacenCiudad: ListaPeso<Recurso>, IAlmacén
+	public class AlmacénCiudad: ListaPeso<Recurso>, IAlmacén
 	{
 		/// <summary>
 		/// Initializes a new instance
 		/// </summary>
 		/// <param name="ciudad">Ciudad de este almacén</param>
-		public AlmacenCiudad (Ciudad ciudad)
+		public AlmacénCiudad (Ciudad ciudad)
 		{
 			CiudadDueño = ciudad;
 		}
