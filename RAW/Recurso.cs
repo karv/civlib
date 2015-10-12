@@ -63,13 +63,12 @@ namespace Civ.Data
 		#region Importable
 
 		void IImportable.Importar (StreamReader reader)
-		{
-			
+		{			
 			while (!reader.EndOfStream)
 			{
 				string line = reader.ReadLine ();
 				line.ToLower ();
-				var spl = line.Split ('=');
+				var spl = line.Split (':');
 				spl [0] = spl [0].Trim ();
 				spl [1] = spl [1].Trim ();
 				switch (spl [0])
@@ -86,21 +85,12 @@ namespace Civ.Data
 					case "global":
 						EsGlobal = spl [1] != "0";
 						break;
-					case "id":
-						_id = spl [1];
-						break;
 				}
 			}
 		}
 
-		string _id;
-
-		string IImportable.Id
+		void IImportable.Vincular ()
 		{
-			get
-			{
-				return _id;
-			}
 		}
 
 		#endregion

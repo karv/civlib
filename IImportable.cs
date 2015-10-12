@@ -10,13 +10,14 @@ namespace Civ.Data.Import
 		/// <summary>
 		/// Construye este objeto a partir d un archivo de textoe 
 		/// </summary>
-		/// <param name="file">Archivo de data</param>
+		/// <param name="reader">Stream de la información</param>
 		void Importar (StreamReader reader);
 
 		/// <summary>
-		/// Devuelve el identificador del objeto, para hacer referecias cruzadas
+		/// Crea las referencias.
+		/// Se ejecuta al terminar de importar
 		/// </summary>
-		string Id { get; }
+		void Vincular ();
 	}
 }
 

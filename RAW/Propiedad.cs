@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System;
+using Civ.Data.Import;
+using Civ.Data.TasaProd;
+using System.Threading;
 
 namespace Civ.Data
 {
@@ -8,7 +11,7 @@ namespace Civ.Data
 	/// Representa una propiedad innata de un edificio.
 	/// </summary>
 	[DataContract]
-	public class Propiedad : IRequerimiento<Ciudad>, Civ.Debug.IPlainSerializable
+	public class Propiedad : IRequerimiento<Ciudad>, IImportable
 	{
 		/// <summary>
 		/// Nombre de la propiedad.
@@ -20,7 +23,7 @@ namespace Civ.Data
 		/// Recursos que produce esta propiedad por turno.
 		/// </summary>
 		[DataMember (Name = "Salida")]
-		public ICollection<TasaProd.TasaProd> Salida { get; }
+		public ICollection<TasaProd.TasaProd> Salida { get; private set; }
 		// IRequerimiento:
 		bool IRequerimiento<Ciudad>.LoSatisface (Ciudad ciudad)
 		{
@@ -45,25 +48,44 @@ namespace Civ.Data
 			return Nombre;
 		}
 
-		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		#region apuntadores
+
+		List<string> ref_Salida = new List<string> ();
+
+		#endregion
+
+		public void Importar (System.IO.StreamReader reader)
 		{
-			string tab = "";
-			string ret;
-			for (int i = 0; i < tabs; i++)
+			while (!reader.EndOfStream)
 			{
-				tab += "\t";
+				string line = reader.ReadLine ();
+				line.ToLower ();
+				var spl = line.Split (':');
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+				switch (spl [0])
+				{
+					case "nombre":
+						Nombre = spl [1];
+						break;
+					case "salida":
+						ref_Salida.Add (spl [1]);
+						break;
+				}
 			}
-			ret = tab + "(Propiedad)" + Nombre + "\n";
+		}
 
-			// Revisar ecosistemas
-
-			foreach (var x in Global.Juego.Data.Ecosistemas)
+		void IImportable.Vincular ()
+		{
+			Salida = new C5.HashSet<TasaProd.TasaProd> ();
+			foreach (var x in ref_Salida)
 			{
-				if (x.PropPropiedad.ContainsKey (this))
-					ret += tab += x.Nombre;
+				var a = ImportMachine.Valor (x) as TasaProd.TasaProd;
+				Salida.Add (a);
 			}
-
-			return ret;
+			ref_Salida = null;
 		}
 	}
 }
