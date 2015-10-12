@@ -1,6 +1,7 @@
 ﻿using System;
 using C5;
 using System.IO;
+using System.Threading;
 
 namespace Civ.Data.Import
 {
@@ -67,6 +68,9 @@ namespace Civ.Data.Import
 							break;
 						case ".ecosistema":
 							current = new Ecosistema ();
+							break;
+						case ".ciencia":
+							current = new Ciencia ();
 							break;
 						default:
 							throw new Exception (string.Format (
