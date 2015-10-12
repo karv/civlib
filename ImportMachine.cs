@@ -14,7 +14,7 @@ namespace Civ.Data.Import
 		#if DEBUG
 		public static  string Directorio = AppDomain.CurrentDomain.BaseDirectory + "Data/";
 		#else
-		public static  string Directorio = AppDomain.CurrentDomain.BaseDirectory + "Content/Data/";
+		public static  string Directorio = AppDomain.CurrentDomain.BaseDirectory + "Content/CivObjects/";
 		#endif
 		readonly static IDictionary<string, IImportable> refs = new TreeDictionary<string, IImportable> ();
 
@@ -71,6 +71,9 @@ namespace Civ.Data.Import
 							break;
 						case ".ciencia":
 							current = new Ciencia ();
+							break;
+						case ".edificio":
+							current = new EdificioRAW ();
 							break;
 						default:
 							throw new Exception (string.Format (

@@ -2,8 +2,6 @@ using System;
 using System.Runtime.Serialization;
 using C5;
 using Civ.Data.Import;
-using System.Xml;
-using System.Runtime.InteropServices;
 
 namespace Civ.Data
 {
@@ -79,8 +77,11 @@ namespace Civ.Data
 				string line = reader.ReadLine ();
 				line.ToLower ();
 				var spl = line.Split (':');
-				spl [0] = spl [0].Trim ();
-				spl [1] = spl [1].Trim ();
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+
 				switch (spl [0])
 				{
 					case "nombre":

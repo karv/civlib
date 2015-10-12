@@ -1,6 +1,7 @@
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Civ.Data;
+using System;
 
 namespace Civ
 {
@@ -41,6 +42,18 @@ namespace Civ
 			}
 
 			return ret;
+		}
+
+		public void Add (object x)
+		{
+			if (x.GetType ().IsAssignableFrom (typeof (Ciencia)))
+				Ciencias.Add (x as Ciencia);
+			else if (x.GetType ().IsAssignableFrom (typeof (EdificioRAW)))
+				Edificios.Add (x as EdificioRAW);
+			else if (x.GetType ().IsAssignableFrom (typeof (Propiedad)))
+				Propiedades.Add (x as Propiedad);
+			else
+				throw new Exception ();
 		}
 
 		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
