@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Civ.Data.Import;
 
-namespace test
+namespace Test
 {
 	[TestFixture]
 	public class ImportTests

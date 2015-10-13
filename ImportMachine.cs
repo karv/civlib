@@ -1,7 +1,6 @@
 ﻿using System;
 using C5;
 using System.IO;
-using System.Threading;
 
 namespace Civ.Data.Import
 {
@@ -10,7 +9,7 @@ namespace Civ.Data.Import
 	/// </summary>
 	public static class ImportMachine
 	{
-		public static Global.GameData data = Global.Juego.Data;
+		public static Global.GameData Data = Global.Juego.Data;
 		#if DEBUG
 		public static  string Directorio = AppDomain.CurrentDomain.BaseDirectory + "Data/";
 		#else
@@ -28,8 +27,8 @@ namespace Civ.Data.Import
 				return null;
 			if (refs.Contains (id))
 				return refs [id];
-			else
-				throw new Exception (id + " nunca se definió.");
+			
+			throw new Exception (id + " nunca se definió.");
 		}
 
 		/// <summary>
@@ -107,6 +106,58 @@ namespace Civ.Data.Import
 			foreach (var x in refs)
 			{
 				x.Value.Vincular ();
+			}
+				
+			// Agregar a Data
+			foreach (var x in refs)
+			{
+				var recurso = x.Value as Recurso;
+				if (recurso != null)
+				{
+					Data.Recursos.Add (recurso);
+				}
+
+				var prp = x.Value as Propiedad;
+				if (prp != null)
+				{
+					Data.Propiedades.Add (prp);
+					continue;
+				}
+
+				var eco = x.Value as Ecosistema;
+				if (eco != null)
+				{
+					Data.Ecosistemas.Add (eco);
+					continue;
+				}
+
+				var cie = x.Value as Ciencia;
+				if (cie != null)
+				{
+					Data.Ciencias.Add (cie);
+					continue;
+				}
+
+				var edf = x.Value as EdificioRAW;
+				if (edf != null)
+				{
+					Data.Edificios.Add (edf);
+					continue;
+				}
+
+				var tbj = x.Value as TrabajoRAW;
+				if (tbj != null)
+				{
+					Data.Trabajos.Add (tbj);
+					continue;
+				}
+
+				var uni = x.Value as IUnidadRAW;
+				if (uni != null)
+				{
+					Data.Unidades.Add (uni);
+					continue;
+				}
 			}
 		}
 	}
