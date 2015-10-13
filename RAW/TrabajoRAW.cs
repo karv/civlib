@@ -1,6 +1,7 @@
-using System.Collections.Generic;
 using ListasExtra;
 using System.Runtime.Serialization;
+using C5;
+using Civ.Data.Import;
 
 namespace Civ.Data
 {
@@ -8,8 +9,14 @@ namespace Civ.Data
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
 	[DataContract (IsReference = true, Name = "Trabajo")]
-	public class TrabajoRAW: Civ.Debug.IPlainSerializable
+	public class TrabajoRAW: Civ.Debug.IPlainSerializable, IImportable
 	{
+		public TrabajoRAW ()
+		{
+			EntradaBase = new ListaPeso<Recurso> ();
+			SalidaBase = new ListaPeso<Recurso> ();
+		}
+
 		/// <summary>
 		/// Nombre
 		/// </summary>
@@ -48,7 +55,7 @@ namespace Civ.Data
 		/// Devuelve la lista de requerimientos.
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public ICollection<IRequerimiento<ICiudad>> Reqs ()
+		public System.Collections.Generic.ICollection<IRequerimiento<ICiudad>> Reqs ()
 		{
 			return Requiere.Requiere ();
 		}
@@ -74,5 +81,83 @@ namespace Civ.Data
 			return ret;
 
 		}
+
+		#region IImportable
+
+		ArrayList <string []> _entrada_id = new ArrayList<string []> ();
+		ArrayList <string []> _salida_id = new ArrayList<string []> ();
+		ArrayList <string> _req_id = new ArrayList<string> ();
+		string _edif_id;
+
+		void IImportable.Importar (System.IO.StreamReader reader)
+		{
+			while (!reader.EndOfStream)
+			{
+				string line = reader.ReadLine ();
+				line.ToLower ();
+				var spl = line.Split (':');
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+
+				switch (spl [0])
+				{
+					case "nombre":
+						Nombre = spl [1];
+						break;
+					case "edificio":
+						_edif_id = spl [1];
+						break;
+					case "entrada":
+						var a = new string[2];
+						a [0] = spl [1];
+						a [1] = spl [2];
+						_entrada_id.Add (a);
+						break;
+					case "salida":
+						a = new string[2];
+						a [0] = spl [1];
+						a [1] = spl [2];
+						_salida_id.Add (a);
+						break;
+					case "requiere":
+						_req_id.Add (spl [1]);
+						break;
+				}
+			}
+		}
+
+		void IImportable.Vincular ()
+		{
+			// Entrada y salida
+			foreach (var x in _entrada_id)
+			{
+				EntradaBase.Add (
+					ImportMachine.Valor (x [0]) as Recurso,
+					float.Parse (x [1]));
+			}
+			foreach (var x in _salida_id)
+			{
+				SalidaBase.Add (
+					ImportMachine.Valor (x [0]) as Recurso,
+					float.Parse (x [1]));
+			}
+			// Req de ciudad
+			foreach (var x in _req_id)
+			{
+				Requiere.Add (ImportMachine.Valor (x));
+			}
+
+			Edificio = ImportMachine.Valor (_edif_id) as EdificioRAW;
+
+			// limpiar
+			_entrada_id = null;
+			_salida_id = null;
+			_req_id = null;
+			_edif_id = null;
+		}
+
+		#endregion
 	}
 }

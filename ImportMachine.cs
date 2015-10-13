@@ -75,6 +75,9 @@ namespace Civ.Data.Import
 						case ".edificio":
 							current = new EdificioRAW ();
 							break;
+						case ".trabajo":
+							current = new TrabajoRAW ();
+							break;
 						default:
 							throw new Exception (string.Format (
 								"No se encuentra clase {0}.",
