@@ -13,6 +13,11 @@ namespace Civ.Data
 		{
 		}
 
+		public UnidadRAWCombate ()
+		{
+			Mods = new Modificadores ();
+		}
+
 		#region IPuntuado
 
 		float IPuntuado.Puntuación

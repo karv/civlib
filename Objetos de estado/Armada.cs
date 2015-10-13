@@ -357,7 +357,7 @@ namespace Civ
 		{
 			get
 			{
-				return this [uRAW];
+				return _unidades [uRAW];
 			}
 		}
 
