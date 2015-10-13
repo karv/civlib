@@ -232,7 +232,7 @@ namespace Test
 			uGordo.Nombre = "Hulk";
 			uGordo.Flags.Add ("A pie");
 			uGordo.Mods.Add ("A pie", 1f);
-			uGordo.Dispersion = 0.1f;
+			uGordo.Dispersión = 0.1f;
 
 			var ac1 = new Armada (c1, p);
 			ac1.AgregaUnidad (u, 150);

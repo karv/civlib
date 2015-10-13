@@ -22,7 +22,7 @@ namespace Civ
 		/// Dispersión del daño
 		/// </summary>
 		/// <value>The dispersion.</value>
-		float Dispersion { get; }
+		float Dispersión { get; }
 
 		/// <summary>
 		/// Fuerza de combate

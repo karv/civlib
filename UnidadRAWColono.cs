@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Civ.Orden;
+using ListasExtra;
+using C5;
+using Civ.Data.Import;
 
 namespace Civ.Data
 {
 	public class UnidadRAWColono : UnidadRAW, IUnidadRAWColoniza
 	{
-		[DataMember (Name = "RecursosIniciales")]
-		public AlmacenCiudad RecursosPorUnidad;
+		public UnidadRAWColono ()
+		{
+			RecursosPorUnidad = new ListaPeso<Recurso> ();
+		}
 
-		[DataMember (Name = "Edificios")]
-		EdificioRAW [] _edificiosIniciales;
+		[DataMember (Name = "RecursosIniciales")]
+		public ListaPeso<Recurso> RecursosPorUnidad { get; }
 
 		/// <summary>
 		/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
@@ -29,17 +34,7 @@ namespace Civ.Data
 		/// <summary>
 		/// Edificios con los que inicia la nueva ciudad.
 		/// </summary>
-		public EdificioRAW[] EdificiosIniciales
-		{
-			get
-			{
-				return _edificiosIniciales ?? new EdificioRAW[0];
-			}
-			set
-			{
-				_edificiosIniciales = value;
-			}
-		}
+		public ArrayList<EdificioRAW> EdificiosIniciales { get; set; }
 
 		/// <summary>
 		/// Coloniza aquí
@@ -53,7 +48,7 @@ namespace Civ.Data
 				          PoblacionACiudad * stack.Cantidad);
 
 			// Hacer los primeros edificios
-			foreach (var x in _edificiosIniciales)
+			foreach (var x in EdificiosIniciales)
 			{
 				ret.AgregaEdificio (x);
 			}
@@ -80,6 +75,48 @@ namespace Civ.Data
 		/// Ocurre cuando esta unidad coloniza
 		/// </summary>
 		public event Action<ICiudad> AlColonizar;
+
+		#region IImportable
+
+		ListaPeso<string> _rec_ini_id = new ListaPeso<string> ();
+		ArrayList<string> _edif_ini_id = new ArrayList<string> ();
+
+		protected override void LeerLínea (string [] spl)
+		{
+			base.LeerLínea (spl);
+			switch (spl [0])
+			{
+				case "recurso inicial":
+					_rec_ini_id [spl [1]] = float.Parse (spl [2]);
+					return;
+				case "edificio":
+					_edif_ini_id.Add (spl [1]);
+					return;
+				case "población a ciudad":
+					PoblacionACiudad = float.Parse (spl [1]);
+					return;
+				case "mínimo colonizar":
+					MinCantidadColonizar = ulong.Parse (spl [1]);
+					return;
+			}
+		}
+
+		protected override void Vincular ()
+		{
+			base.Vincular ();
+			foreach (var x in _edif_ini_id)
+			{
+				EdificiosIniciales.Add (ImportMachine.Valor (x) as EdificioRAW);
+			}
+			foreach (var x in _rec_ini_id)
+			{
+				RecursosPorUnidad.Add (ImportMachine.Valor (x.Key) as Recurso, x.Value);
+			}
+
+			_edif_ini_id = null;
+			_rec_ini_id = null;
+		}
+
+		#endregion
 	}
 }
-

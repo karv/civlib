@@ -1,0 +1,13 @@
+﻿nombre:Colono
+población:1
+flag:a pie
+flag:humano
+flag:primitivo
+flag:colono
+carga:0
+peso:0.2
+requiere:alimento.recurso:30
+velocidad:0.8
+recurso inicial:alimento.recurso:20
+población a ciudad:1
+mínimo colonizar:3

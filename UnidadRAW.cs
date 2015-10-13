@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ListasExtra;
 using Civ.Comandos;
-using System.Xml.Serialization;
-using System.Xml.Schema;
-using System.Xml;
 using Civ.Data.Import;
+using C5;
 
 namespace Civ.Data
 {
@@ -14,10 +12,18 @@ namespace Civ.Data
 	public class UnidadRAW : IUnidadRAW
 	{
 
+		public UnidadRAW ()
+		{
+			Flags = new ArrayList<string> ();
+		}
+
 		[DataMember (Name = "Requerimientos")]
 		readonly ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso> ();
 
-		List<string> Flags { get; set; }
+		/// <summary>
+		/// Flags.
+		/// </summary>
+		public ArrayList<string> Flags { get; }
 
 
 		/// <summary>
@@ -50,7 +56,7 @@ namespace Civ.Data
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad
 		/// </summary>
-		public IList<IComandoEspecial> Comandos { get; }
+		public C5.IList<IComandoEspecial> Comandos { get; }
 
 		/// <summary>
 		/// Peso de cada unidad de este tipo
@@ -208,7 +214,7 @@ namespace Civ.Data
 			}
 		}
 
-		void IImportable.Vincular ()
+		protected virtual void Vincular ()
 		{
 			ReqCiencia = ImportMachine.Valor (_req_ciencia_id) as Ciencia;
 			foreach (var x in _reqs_id)
@@ -219,6 +225,12 @@ namespace Civ.Data
 			// Limpiar
 			_req_ciencia_id = null;
 			_reqs_id = null;
+
+		}
+
+		void IImportable.Vincular ()
+		{
+			Vincular ();
 		}
 
 		#endregion

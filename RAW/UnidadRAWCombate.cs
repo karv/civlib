@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using ListasExtra;
 using Civ;
+using System.Globalization;
 
 namespace Civ.Data
 {
@@ -14,53 +15,6 @@ namespace Civ.Data
 		public class Modificadores : ListaPeso<string>
 		{
 		}
-
-		public class Requerimientos : ListaPeso<Recurso>
-		{
-		}
-
-
-		#region Settler
-
-		public struct ColonizarOpciones
-		{
-			/// <summary>
-			/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
-			/// </summary>
-			[DataMember (Name = "Población")]
-			public float PoblacionACiudad;
-
-			[DataMember (Name = "Edificios")]
-			EdificioRAW [] _edificiosIniciales;
-
-			/// <summary>
-			/// Edificios con los que inicia la nueva ciudad.
-			/// </summary>
-			public EdificioRAW[] EdificiosIniciales
-			{
-				get
-				{
-					return _edificiosIniciales ?? new EdificioRAW[0];
-				}
-				set
-				{
-					_edificiosIniciales = value;
-				}
-			}
-		}
-
-		[DataMember (Name = "Colonizar")]
-		public ColonizarOpciones? Colonización;
-
-		public bool PuedeColonizar
-		{
-			get
-			{
-				return Colonización != null;
-			}
-		}
-
-		#endregion
 
 		#region IPuntuado
 
@@ -98,17 +52,27 @@ namespace Civ.Data
 		/// Qué tanto se dispersa el daño entre el stack enemigo.
 		/// </summary>
 		[DataMember]
-		public float Dispersion { get; set; }
+		public float Dispersión { get; set; }
 
-		/// <summary>
-		/// Flags.
-		/// </summary>
-		[DataMember (Name = "Flags")]
-		public ICollection<string> Flags { get; }
+		#region IImportable
 
-		public override string ToString ()
+		protected override void LeerLínea (string [] spl)
 		{
-			return Nombre;
+			base.LeerLínea (spl);
+			switch (spl [0])
+			{
+				case "dispersión":
+					Dispersión = float.Parse (spl [1]);
+					return;
+				case "fuerza":
+					Fuerza = float.Parse (spl [1]);
+					return;
+				case "modificador":
+					Mods [spl [1]] = float.Parse (spl [2]);
+					return;
+			}
 		}
+
+		#endregion
 	}
 }

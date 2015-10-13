@@ -377,7 +377,7 @@ namespace Civ
 		{
 			Stack currStack = this [unidad];
 			var atacanteRAW = atacante.RAW as IUnidadRAWCombate;
-			currStack.Dañar (-deltaHP, atacanteRAW.Dispersion);
+			currStack.Dañar (-deltaHP, atacanteRAW.Dispersión);
 			if (currStack.HP < 0)
 			{
 				_unidades.Remove (unidad);
