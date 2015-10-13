@@ -83,6 +83,14 @@ namespace Civ.Data
 					case "reqrecurso":
 						var a = new string[2];
 						a [0] = spl [1];
+						if (spl.Length < 2)
+						{
+							Console.WriteLine ("Hhuehue");
+						}
+						Console.WriteLine (string.Format (
+							"Leyendo {0} para el objeto Ciencia::{1}",
+							line,
+							Nombre));
 						a [1] = spl [2];
 						_reqRecurso_id.Add (a);
 						break;
@@ -106,6 +114,10 @@ namespace Civ.Data
 			// Vincular ciencias
 			foreach (var x in _reqCiencia_id)
 			{
+				Console.WriteLine (string.Format (
+					"Vinculando requerimiento {0} a {1}",
+					x,
+					Nombre));
 				Reqs.Ciencias.Add (ImportMachine.Valor (x) as Ciencia);
 			}
 

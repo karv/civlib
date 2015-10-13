@@ -1,0 +1,4 @@
+﻿nombre:Interactuar con el entorno
+edificio:palacio.edificio
+salida:entorno ciencia.recurso:1
+requiere:vida nómada.ciencia

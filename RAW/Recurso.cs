@@ -42,7 +42,6 @@ namespace Civ.Data
 		/// El valor del recurso,
 		/// útil para la IA
 		/// </summary>
-		[DataMember]
 		public float Valor;
 
 		/// <summary>

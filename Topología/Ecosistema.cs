@@ -88,6 +88,9 @@ namespace Civ
 		{
 			foreach (var x in _prop_ids)
 			{
+				System.Console.WriteLine (string.Format (
+					"Intentando pedir variable temporal {0} para el ecosistema {1}",
+					x [0], Nombre));
 				var a = ImportMachine.Valor (x [0]) as Propiedad;
 				PropPropiedad.Add (a, float.Parse (x [1]));
 			}
