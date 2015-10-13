@@ -96,7 +96,6 @@ namespace Civ
 
 		void IAlmacén.SetRecurso (Recurso rec, float val)
 		{
-			System.Diagnostics.Debug.Assert (val >= 0);
 			base [rec] = Math.Min (val, base [rec] + CargaRestante);
 		}
 

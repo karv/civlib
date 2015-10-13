@@ -778,7 +778,7 @@ namespace Civ
 				// Recursos
 				foreach (var x in Almacen)
 				{
-					ret += x.Value;
+					ret += x.Key.Valor * x.Value;
 				}
 
 				// Población
