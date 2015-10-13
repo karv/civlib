@@ -6,80 +6,19 @@ using Civ.Comandos;
 using System.Xml.Serialization;
 using System.Xml.Schema;
 using System.Xml;
+using Civ.Data.Import;
 
 namespace Civ.Data
 {
 	//[DataContract(Name = "Unidad", IsReference = true)]
-	public class UnidadRAW : IUnidadRAW, IXmlSerializable
+	public class UnidadRAW : IUnidadRAW
 	{
-		
-		#region XmlSerial
-
-		XmlSchema IXmlSerializable.GetSchema ()
-		{
-			return(null);
-		}
-
-		public void WriteXml (XmlWriter writer)
-		{
-
-			writer.WriteElementString ("Nombre", Nombre);
-			writer.WriteElementString ("Peso", Peso.ToString ());
-			writer.WriteElementString ("Población", CostePoblacional.ToString ());
-			writer.WriteElementString ("Valor", Puntuacion.ToString ());
-			new XmlSerializer (typeof (Ciencia)).Serialize (writer, ReqCiencia);
-			new XmlSerializer (typeof (ListaPeso<Recurso>)).Serialize (writer, Reqs);
-			//writer.WriteElementString("Ciencia", cien);
-			//new XmlSerializer(typeof(float)).Serialize(writer, Peso);
-			//new XmlSerializer(typeof(ulong)).Serialize(writer, CostePoblacional);
-			//new XmlSerializer(typeof(float)).Serialize(writer, Puntuacion);
-
-			//new XmlSerializer(typeof(ListasExtra.ListaPeso<Recurso>)).Serialize(writer, Reqs);
-
-
-
-
-
-			//			serializer.Serialize(writer, CostePoblacional);
-		}
-
-		public void ReadXml (XmlReader reader)
-		{			
-			//reader.ReadStartElement("Unidades");
-			while (!reader.EOF)
-			{
-				reader.Read ();
-				switch (reader.Name)
-				{
-					case "Nombre":
-						Nombre = reader.ReadElementString ();
-						break;
-					case "Peso":
-						Peso = reader.ReadElementContentAsFloat ();
-						break;
-					case "Población":
-						CostePoblacional = (ulong)reader.ReadElementContentAsLong ();
-						break;
-					case "Valor":
-						Puntuacion = reader.ReadElementContentAsFloat ();
-						break;
-				}
-			}
-
-		}
-
-		#endregion
 
 		[DataMember (Name = "Requerimientos")]
 		readonly ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso> ();
 
 		List<string> Flags { get; set; }
 
-		/// <summary>
-		/// Coste poblacional por cada unidad
-		/// </summary>
-		[DataMember (Name = "CostePoblación")]
-		public ulong CostePoblacional;
 
 		/// <summary>
 		/// Devuelve la ciencia requerida para entrenar a la unidad.
@@ -108,14 +47,6 @@ namespace Civ.Data
 			}
 		}
 
-		public float Puntuación
-		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
-		}
-
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad
 		/// </summary>
@@ -132,12 +63,6 @@ namespace Civ.Data
 		/// </summary>
 		[DataMember]
 		public string Nombre { get; set; }
-
-		/// <summary>
-		/// Gets or sets the position.
-		/// </summary>
-		/// <value>The position.</value>
-		public Pseudoposición Pos { get; set; }
 
 		/// <summary>
 		/// Velocidad de desplazamiento (unidades por hora)
@@ -173,7 +98,7 @@ namespace Civ.Data
 
 		public ulong MaxReclutables (ICiudad ciudad)
 		{
-			ulong MaxPorPoblacion = ciudad.TrabajadoresDesocupados / CostePoblacional;
+			ulong MaxPorPoblacion = ciudad.TrabajadoresDesocupados / CostePoblación;
 
 			ulong MaxPorRecursos = ulong.MaxValue;
 			foreach (var x in _Reqs)
@@ -206,7 +131,7 @@ namespace Civ.Data
 
 
 		[DataMember]
-		public float Puntuacion { get; set; }
+		public float Puntuación { get; set; }
 
 		public bool EstaDisponible (ICivilización civil)
 		{
@@ -228,6 +153,75 @@ namespace Civ.Data
 			get { return _Reqs; }
 		}
 
+		#region IImportable
+
+		string _req_ciencia_id;
+		ListaPeso<string> _reqs_id = new ListaPeso<string> ();
+
+		void IImportable.Importar (System.IO.StreamReader reader)
+		{
+			while (!reader.EndOfStream)
+			{
+				string line = reader.ReadLine ();
+				line.ToLower ();
+				var spl = line.Split (':');
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+				LeerLínea (spl);
+			}
+		}
+
+		/// <summary>
+		/// Importa una línea dada para configurarme.
+		/// </summary>
+		/// <param name="spl">Una línea, separada por sus sustantivos.</param>
+		protected virtual void LeerLínea (string [] spl)
+		{
+			switch (spl [0])
+			{
+				case "nombre":
+					Nombre = spl [1];
+					return;
+				case "población":
+					CostePoblación = ulong.Parse (spl [1]);
+					return;
+				case "flag":
+					Flags.Add (spl [1]);
+					return;
+				case "carga":
+					MaxCarga = float.Parse (spl [1]);
+					return;
+				case "peso":
+					Peso = float.Parse (spl [1]);
+					return;
+				case "avance":
+					_req_ciencia_id = spl [1];
+					return;
+				case "requiere":
+					_reqs_id.Add (spl [1], float.Parse (spl [2]));
+					return;
+				case "velocidad":
+					Velocidad = float.Parse (spl [1]);
+					return;
+			}
+		}
+
+		void IImportable.Vincular ()
+		{
+			ReqCiencia = ImportMachine.Valor (_req_ciencia_id) as Ciencia;
+			foreach (var x in _reqs_id)
+			{
+				Reqs.Add (ImportMachine.Valor (x.Key) as Recurso, x.Value);
+			}
+
+			// Limpiar
+			_req_ciencia_id = null;
+			_reqs_id = null;
+		}
+
+		#endregion
 	}
 }
 
