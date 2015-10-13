@@ -61,7 +61,7 @@ namespace Civ
 			{
 				if (recurso.EsGlobal)
 				{
-					CiudadDueño.CivDueno.Almacén [recurso] = value;
+					CiudadDueño.CivDueño.Almacén [recurso] = value;
 				}
 				else
 				{

@@ -24,7 +24,8 @@ namespace Test
 			TestBigIrA ();
 		}
 
-		void Init ()
+		[Test]
+		public void Init ()
 		{
 			Juego.CargaData ();
 			Juego.InicializarJuego ();

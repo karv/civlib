@@ -48,8 +48,6 @@ namespace Civ
 			}
 		}
 
-		public ICivilización CivDueño { get; set; }
-
 		System.Collections.Generic.ICollection<TrabajoRAW> ICiudad.ObtenerTrabajosAbiertos ()
 		{
 			return TrabajosAbiertos ();
@@ -93,7 +91,7 @@ namespace Civ
 		/// Devuelve o establece la civilización a la cual pertecene esta ciudad.
 		/// </summary>
 		/// <value>The civ dueño.</value>
-		public ICivilización CivDueno
+		public ICivilización CivDueño
 		{
 			get
 			{
@@ -137,7 +135,7 @@ namespace Civ
 			RealPoblaciónProductiva = iniPop;
 			Edificios = new C5.HashSet<Edificio> ();
 			Propiedades = new C5.HashSet<Propiedad> ();
-			CivDueno = dueño;
+			CivDueño = dueño;
 			Nombre = nombre;
 			Almacen = new AlmacenCiudad (this);
 			terreno.CiudadConstruida = this;
@@ -174,7 +172,7 @@ namespace Civ
 
 			foreach (var x in Juego.Data.Unidades)
 			{
-				if (x.EstaDisponible(CivDueno))
+				if (x.EstaDisponible (CivDueño))
 					ret.Add (x, x.MaxReclutables (this));
 			}
 			return ret;
@@ -260,7 +258,7 @@ namespace Civ
 		public System.Collections.Generic.ICollection<Armada> ArmadasEnCiudad ()
 		{
 			var rat = new List<Armada> ();
-			foreach (var x in CivDueno.Armadas)
+			foreach (var x in CivDueño.Armadas)
 			{
 				if (!x.EsDefensa && x.Posición.Equals (Pos))
 					rat.Add (x);
@@ -366,7 +364,7 @@ namespace Civ
 		public Edificio AgregaEdificio (EdificioRAW edif)
 		{
 			var ret = new Edificio (edif, this);
-			AlObtenerNuevoEdificio (ret);
+			AlObtenerNuevoEdificio?.Invoke (ret);
 			return ret;
 		}
 
@@ -397,7 +395,7 @@ namespace Civ
 				return false;
 			if (ExisteEdificio (edif))
 				return false;	// Por ahora no se permite múltiples instancias del mismo edificio en una ciudad.
-			if (edif.MaxPorCivilizacion > 0 && edif.MaxPorCivilizacion <= CivDueno.CuentaEdificios (edif))
+			if (edif.MaxPorCivilizacion > 0 && edif.MaxPorCivilizacion <= CivDueño.CuentaEdificios (edif))
 				return false;
 			if (edif.MaxPorMundo > 0 && edif.MaxPorCivilizacion <= Juego.State.CuentaEdificios (edif))
 				return false;
@@ -899,7 +897,7 @@ namespace Civ
 
 			if (Crecimiento [1] < -(long)TrabajadoresDesocupados)
 			{
-				CivDueno.AgregaMensaje (new IU.Mensaje (
+				CivDueño.AgregaMensaje (new IU.Mensaje (
 					"La ciudad {0} ha perdido trabajadores productivos ocupados.",
 					this));
 				LiberarTrabajadores (PoblacionProductiva - (ulong)Crecimiento [1]);
@@ -992,11 +990,11 @@ namespace Civ
 			AlTickAntes?.Invoke (t);
 			PopTick (t);
 			ResourceTick (t);
-			if (CivDueno != null && Poblacion == 0)
+			if (CivDueño != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				{
 					AlConvertirseRuinas?.Invoke ();
-					CivDueno.RemoveCiudad (this);
+					CivDueño.RemoveCiudad (this);
 				}
 			}
 			AlTickDespués?.Invoke (t);
