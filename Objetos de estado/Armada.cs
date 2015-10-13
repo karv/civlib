@@ -2,7 +2,6 @@ using ListasExtra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Civ.Data;
 
 namespace Civ
 {
@@ -29,9 +28,9 @@ namespace Civ
 		/// <summary>
 		/// Diccionario privado UnidadRAW-Stack
 		/// </summary>
-		readonly ListaPeso<UnidadRAW, Stack> _unidades = new ListaPeso<UnidadRAW, Stack> (
-			                                                 Stack.Merge,
-			                                                 null);
+		readonly ListaPeso<IUnidadRAW, Stack> _unidades = new ListaPeso<IUnidadRAW, Stack> (
+			                                                  Stack.Merge,
+			                                                  null);
 
 		/// <summary>
 		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
@@ -50,7 +49,7 @@ namespace Civ
 			}
 		}
 
-		public ICollection<UnidadRAW> TiposUnidades ()
+		public ICollection<IUnidadRAW> TiposUnidades ()
 		{
 			return _unidades.Keys;
 		}
@@ -61,7 +60,7 @@ namespace Civ
 		/// <param name="raw">Tipo de unidades.</param>
 		/// <returns></returns>
 		[Obsolete ("Usar this[]")]
-		public Stack UnidadesAgrupadas (UnidadRAW raw)
+		public Stack UnidadesAgrupadas (IUnidadRAW raw)
 		{
 			return _unidades [raw];
 		}
@@ -172,7 +171,7 @@ namespace Civ
 			}
 		}
 
-		public void AgregaUnidad (UnidadRAW raw, ulong cantidad)
+		public void AgregaUnidad (IUnidadRAW raw, ulong cantidad)
 		{
 			if (cantidad <= 0)
 			{
@@ -339,9 +338,9 @@ namespace Civ
 		/// Devuelve un nuevo diccionario que asocia a cada UnidadRAW la lista de Unidades que tiene.
 		/// </summary>
 		/// <returns>The dictionary.</returns>
-		public Dictionary <UnidadRAW, List<Stack>> ToDictionary ()
+		public Dictionary <IUnidadRAW, List<Stack>> ToDictionary ()
 		{
-			var ret = new Dictionary<UnidadRAW, List<Stack>> ();
+			var ret = new Dictionary<IUnidadRAW, List<Stack>> ();
 			foreach (var x in Unidades)
 			{
 				if (!ret.ContainsKey (x.RAW))
@@ -356,7 +355,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve el stack que le corresponde a una clase de unidad
 		/// </summary>
-		public Stack this [UnidadRAW uRAW]
+		public Stack this [IUnidadRAW uRAW]
 		{
 			get
 			{
@@ -374,10 +373,11 @@ namespace Civ
 		/// <param name="unidad">Unidad.</param>
 		/// <param name="deltaHP">Daño o cura (negativo es daño)</param>
 		/// <param name="atacante">Stack atacante </param>
-		public void DañarStack (UnidadRAW unidad, Stack atacante, float deltaHP)
+		public void DañarStack (IUnidadRAW unidad, Stack atacante, float deltaHP)
 		{
 			Stack currStack = this [unidad];
-			currStack.Dañar (-deltaHP, atacante.RAW.Dispersion);
+			var atacanteRAW = atacante.RAW as IUnidadRAWCombate;
+			currStack.Dañar (-deltaHP, atacanteRAW.Dispersión);
 			if (currStack.HP < 0)
 			{
 				_unidades.Remove (unidad);
@@ -414,36 +414,9 @@ namespace Civ
 
 		#region Comandos especiales
 
-		#region Colonizar
 
-		/// <summary>
-		/// Devuelve true si al menos un stack puede colonizar.
-		/// </summary>
-		/// <returns><c>true</c>, if colonizar was pueded, <c>false</c> otherwise.</returns>
-		public bool PuedeColonizar ()
-		{
-			foreach (var x in _unidades.Keys)
-			{
-				if (x.PuedeColonizar)
-					return true;
-			}
-			return false;
-		}
 
-		/// <summary>
-		/// Coloniza y contruye una ciudad. Usa sólo un stack que pueda colonizar.
-		/// Devuelve la ciudad colonizada.
-		/// </summary>
-		public Ciudad Coloniza ()
-		{
-			foreach (var x in _unidades)
-			{
-				return x.Value.Colonizar ();
-			}
-			return null;
-		}
 
-		#endregion
 
 		#endregion
 	}

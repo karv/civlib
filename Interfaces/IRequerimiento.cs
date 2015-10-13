@@ -5,6 +5,9 @@ using System;
 
 namespace Civ
 {
+	/// <summary>
+	/// Representa un objeto que se puede requerir.
+	/// </summary>
 	public interface IRequerimiento<T>
 	{
 		/// <summary>

@@ -23,7 +23,7 @@ namespace Global
 		[DataMember (Name = "Trabajos", Order = 5)]
 		public C5.HashSet<TrabajoRAW> Trabajos = new C5.HashSet<TrabajoRAW> ();
 		[DataMember (Name = "Unidades", Order = 6)]
-		public C5.HashSet<UnidadRAW> Unidades = new C5.HashSet<UnidadRAW> ();
+		public ListaUnidades Unidades = new ListaUnidades ();
 		[DataMember (Name = "Propiedades", Order = 1)]
 		public C5.HashSet<Propiedad> Propiedades = new C5.HashSet<Propiedad> ();
 		[DataMember (Name = "Ecosistemas", Order = 2)]

@@ -24,6 +24,8 @@ namespace Civ.Data.Import
 		/// <param name="id">Id del objeto</param>
 		public static IImportable Valor (string id)
 		{
+			if (id == null)
+				return null;
 			if (refs.Contains (id))
 				return refs [id];
 			else
@@ -77,6 +79,15 @@ namespace Civ.Data.Import
 							break;
 						case ".trabajo":
 							current = new TrabajoRAW ();
+							break;
+						case ".unidad":
+							current = new UnidadRAW ();
+							break;
+						case ".unidadcombate":
+							current = new UnidadRAWCombate ();
+							break;
+						case ".unidadcolono":
+							current = new UnidadRAWColono ();
 							break;
 						default:
 							throw new Exception (string.Format (

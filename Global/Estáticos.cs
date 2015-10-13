@@ -70,7 +70,7 @@ namespace Global
 			// Matar Civs sin ciudades.
 			EliminarMuertos ();
 
-			// Generar b��rbaros
+			// Generar bárbaros
 			BarbGen.Tick (t);
 		}
 

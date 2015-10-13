@@ -48,8 +48,7 @@ namespace Test
 		public void TestRecoger ()
 		{
 			Init ();
-			UnidadRAW u = Juego.Data.Unidades.Elegir ();
-			u.MaxCarga = 100; // Porque yo lo digo
+			IUnidadRAW u = Juego.Data.Unidades.Elegir ();
 			var pos = new Pseudoposición ();
 			Terreno terrA = MyCiudad.Posición ().A;
 			Terreno terrB = Juego.State.Terrenos ().Elegir ();
@@ -85,7 +84,7 @@ namespace Test
 		public void TestBigIrA ()
 		{
 			Init ();
-			var u = new UnidadRAW ();
+			var u = new UnidadRAWCombate ();
 			u.Nombre = "Velociraptor";
 			u.Velocidad = 10;
 			u.Fuerza = 1;
@@ -114,7 +113,7 @@ namespace Test
 		public void TestReclutar ()
 		{
 			Init ();
-			UnidadRAW u = Juego.Data.Unidades.Elegir ();
+			IUnidadRAW u = Juego.Data.Unidades.Elegir ();
 			MyCiudad.Reclutar (u, 3);
 		}
 
@@ -148,13 +147,13 @@ namespace Test
 			DateTime timer = DateTime.Now;
 			while (duración.Ticks > 0)
 			{				
-				TimeSpan Tiempo = DateTime.Now - timer;
+				TimeSpan tiempo = DateTime.Now - timer;
 				timer = DateTime.Now;
-				duración -= Tiempo;
-				Tiempo = new TimeSpan ((long)(Tiempo.Ticks * multiplicadorVelocidad));
+				duración -= tiempo;
+				tiempo = new TimeSpan ((long)(tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);
-				Juego.Tick (Tiempo);
+				Juego.Tick (tiempo);
 
 				entreCiclos?.Invoke ();
 				if (Juego.State.Civs.Count == 0)
@@ -194,11 +193,10 @@ namespace Test
 		{
 			Init ();
 			var u = new UnidadRAW ();
-			u.Fuerza = 1;
 			u.Nombre = "Gordo";
 			var reg = new ReglaGeneracionPuntuacion ();
-			reg.ClaseArmada = new List<Tuple<UnidadRAW, ulong>> ();
-			reg.ClaseArmada.Add (new Tuple<UnidadRAW, ulong> (u, 100));
+			reg.ClaseArmada = new List<Tuple<IUnidadRAW, ulong>> ();
+			reg.ClaseArmada.Add (new Tuple<IUnidadRAW, ulong> (u, 100));
 			reg.MaxPuntuacion = float.PositiveInfinity;
 			reg.MinPuntuacion = 0;
 			//g_.BarbGen.Reglas.Add(reg);
@@ -224,17 +222,17 @@ namespace Test
 			p.A = Juego.State.Terrenos ().Elegir ();
 			p.Loc = 0;
 
-			var u = new UnidadRAW ();
+			var u = new UnidadRAWCombate ();
 			u.Fuerza = 1;
 			u.Nombre = "Guerrero";
 			u.Flags.Add ("A pie");
 
-			var uGordo = new UnidadRAW ();
+			var uGordo = new UnidadRAWCombate ();
 			uGordo.Fuerza = 150;
 			uGordo.Nombre = "Hulk";
 			uGordo.Flags.Add ("A pie");
 			uGordo.Mods.Add ("A pie", 1f);
-			uGordo.Dispersion = 0.1f;
+			uGordo.Dispersión = 0.1f;
 
 			var ac1 = new Armada (c1, p);
 			ac1.AgregaUnidad (u, 150);
