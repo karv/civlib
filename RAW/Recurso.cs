@@ -1,10 +1,13 @@
 using System;
 using System.Runtime.Serialization;
+using Civ.Data.Import;
+using System.IO;
+using Global;
 
 namespace Civ.Data
 {
 	[DataContract (IsReference = true)]
-	public class Recurso : Civ.Debug.IPlainSerializable, IEquatable<Recurso>
+	public class Recurso : Civ.Debug.IPlainSerializable, IEquatable<Recurso>, IImportable
 	{
 		public override string ToString ()
 		{
@@ -57,6 +60,54 @@ namespace Civ.Data
 
 		[DataMember (Name = "Imagen")]
 		public string Img;
+
+		#region Importable
+
+		void IImportable.Importar (StreamReader reader)
+		{			
+			while (!reader.EndOfStream)
+			{
+				string line = reader.ReadLine ();
+				line.ToLower ();
+				var spl = line.Split (':');
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+
+				switch (spl [0])
+				{
+					case "nombre":
+						Nombre = spl [1];
+						break;
+					case "desaparece":
+						Desaparece = spl [1] != "0";
+						break;
+					case "científico":
+						EsCientifico = spl [1] != "0";
+						break;
+					case "global":
+						EsGlobal = spl [1] != "0";
+						break;
+					case "alimento":
+						#if DEBUG
+						if (Juego.Data.RecursoAlimento != null)
+							Console.WriteLine (string.Format (
+								"se están definiendo varios recursos de alimento: {0}, {1}",
+								Juego.Data.RecursoAlimento,
+								this));
+						#endif
+						Juego.Data.RecursoAlimento = this;
+						break;
+				}
+			}
+		}
+
+		void IImportable.Vincular ()
+		{
+		}
+
+		#endregion
 
 		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
 		{

@@ -2,6 +2,7 @@
 using ListasExtra;
 using System.Collections.Generic;
 using Civ.Data;
+using Civ.Data.Import;
 
 namespace Civ
 {
@@ -11,7 +12,7 @@ namespace Civ
 	/// Ej. Selva, desierto, etc.
 	/// </summary>
 	[DataContract]
-	public class Ecosistema
+	public class Ecosistema : IImportable
 	{
 		/// <summary>
 		/// Representa las propiedades que puede adquirir un ecosistema.
@@ -19,6 +20,12 @@ namespace Civ
 		//[DataContract (Name= "Propiedad")]
 		public class EcosistemaPropiedades : ListaPeso<Propiedad>
 		{
+		}
+
+		public Ecosistema ()
+		{
+			Nombres = new C5.ArrayList<string> ();
+			PropPropiedad = new EcosistemaPropiedades ();
 		}
 
 		/// <summary>
@@ -47,5 +54,51 @@ namespace Civ
 		{
 			return new Terreno (this);
 		}
+
+		#region IImportable
+
+		C5.ArrayList<string []> _prop_ids = new C5.ArrayList<string []> ();
+
+		void IImportable.Importar (System.IO.StreamReader reader)
+		{
+			while (!reader.EndOfStream)
+			{
+				string line = reader.ReadLine ();
+				line.ToLower ();
+				var spl = line.Split (':');
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+
+				switch (spl [0])
+				{
+					case "nombre":
+						Nombre = spl [1];
+						break;
+					case "nombres":
+						Nombres.Add (spl [1]);
+						break;
+					case "propiedad":
+						var a = new string[2];
+						a [0] = spl [1];
+						a [1] = spl [2];
+						_prop_ids.Add (a);
+						break;
+				}
+			}
+		}
+
+		void IImportable.Vincular ()
+		{
+			foreach (var x in _prop_ids)
+			{
+				var a = ImportMachine.Valor (x [0]) as Propiedad;
+				PropPropiedad.Add (a, float.Parse (x [1]));
+			}
+			_prop_ids = null;
+		}
+
+		#endregion
 	}
 }
