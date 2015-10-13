@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
 using ListasExtra;
 using Civ;
-using System.Globalization;
 
 namespace Civ.Data
 {
 	/// <summary>
 	/// Representa una clase de unidad
 	/// </summary>
-	[DataContract (Name = "Unidad", IsReference = true)]
 	public class UnidadRAWCombate : UnidadRAW, IPuntuado, IUnidadRAWCombate
 	{
 		public class Modificadores : ListaPeso<string>
@@ -31,7 +28,6 @@ namespace Civ.Data
 		/// <summary>
 		/// Lista de modificadores de combate de la unidad.
 		/// </summary>        
-		[DataMember (Name = "Modificadores")]
 		public Modificadores Mods { get; }
 
 		float IUnidadRAWCombate.getModificador (string modificador)
@@ -44,14 +40,12 @@ namespace Civ.Data
 		/// <summary>
 		/// Fuerza de la unidad.
 		/// </summary>
-		[DataMember]
 		public float Fuerza { get; set; }
 
 		/// <summary>
 		/// Flotante en [0, 1]
 		/// Qué tanto se dispersa el daño entre el stack enemigo.
 		/// </summary>
-		[DataMember]
 		public float Dispersión { get; set; }
 
 		#region IImportable

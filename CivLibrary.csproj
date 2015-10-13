@@ -31,8 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml" />
     <Reference Include="Store">
       <HintPath>packages\Store.0.1\lib\Store.dll</HintPath>
     </Reference>
@@ -113,7 +111,6 @@
     <Compile Include="UnidadRAW.cs" />
     <Compile Include="UnidadRAWColono.cs" />
     <Compile Include="RAW\UnidadRAWCombate.cs" />
-    <Compile Include="ListaUnidades.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

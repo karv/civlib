@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Civ.Orden;
 using ListasExtra;
 using C5;
@@ -15,20 +14,17 @@ namespace Civ.Data
 			RecursosPorUnidad = new ListaPeso<Recurso> ();
 		}
 
-		[DataMember (Name = "RecursosIniciales")]
 		public ListaPeso<Recurso> RecursosPorUnidad { get; }
 
 		/// <summary>
 		/// Población con la que cada unidad se convierte en población productiva en la nueva ciudad.
 		/// </summary>
-		[DataMember (Name = "Población")]
 		public float PoblacionACiudad;
 
 		/// <summary>
 		/// Mínica cantidad para poder colonizar
 		/// </summary>
 		/// <value>The edificios iniciales.</value>
-		[DataMember (Name = "CantidadColonizar")]
 		public ulong MinCantidadColonizar;
 
 		/// <summary>

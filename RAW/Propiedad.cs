@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System;
 using Civ.Data.Import;
 using Civ.Data.TasaProd;
@@ -9,19 +8,16 @@ namespace Civ.Data
 	/// <summary>
 	/// Representa una propiedad innata de un edificio.
 	/// </summary>
-	[DataContract]
 	public class Propiedad : IRequerimiento<Ciudad>, IImportable
 	{
 		/// <summary>
 		/// Nombre de la propiedad.
 		/// </summary>
-		[DataMember]
 		public string Nombre;
 
 		/// <summary>
 		/// Recursos que produce esta propiedad por turno.
 		/// </summary>
-		[DataMember (Name = "Salida")]
 		public ICollection<TasaProd.TasaProd> Salida { get; private set; }
 		// IRequerimiento:
 		bool IRequerimiento<Ciudad>.LoSatisface (Ciudad ciudad)

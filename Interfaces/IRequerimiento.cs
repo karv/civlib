@@ -1,4 +1,3 @@
-using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Civ.Data;
 using System;
@@ -18,14 +17,10 @@ namespace Civ
 		bool LoSatisface (T objeto);
 	}
 
-	[DataContract (Name = "Requerimiento")]
 	public class Requerimiento : Civ.Debug.IPlainSerializable
 	{
-		[DataMember]
 		public ICollection<Ciencia> Ciencias = new C5.HashSet<Ciencia> ();
-		[DataMember]
 		public ICollection<EdificioRAW> Edificios = new C5.HashSet<EdificioRAW> ();
-		[DataMember]
 		public ICollection<Propiedad> Propiedades = new C5.HashSet<Propiedad> ();
 
 		/// <summary>

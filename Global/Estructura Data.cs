@@ -1,6 +1,5 @@
 using Civ;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Civ.Data;
 
 namespace Global
@@ -8,30 +7,19 @@ namespace Global
 	/// <summary>
 	/// Representa las opciones del juego.
 	/// </summary>
-	[DataContract (
-		IsReference = true,
-		Namespace = "http://schemas.datacontract.org/2004/07/Civ",
-		Name = "Data")]
 	public class GameData
 	{
-		[DataMember (Name = "Ciencias", Order = 3)]
 		public C5.HashSet<Ciencia> Ciencias = new C5.HashSet<Ciencia> ();
-		[DataMember (Name = "Edificios", Order = 4)]
 		public C5.HashSet<EdificioRAW> Edificios = new C5.HashSet<EdificioRAW> ();
-		[DataMember (Name = "Recursos", Order = 0)]
 		public C5.HashSet<Recurso> Recursos = new C5.HashSet<Recurso> ();
-		[DataMember (Name = "Trabajos", Order = 5)]
 		public C5.HashSet<TrabajoRAW> Trabajos = new C5.HashSet<TrabajoRAW> ();
-		[DataMember (Name = "Unidades", Order = 6)]
-		public ListaUnidades Unidades = new ListaUnidades ();
-		[DataMember (Name = "Propiedades", Order = 1)]
+		public C5.HashSet<IUnidadRAW> Unidades = new C5.HashSet<IUnidadRAW> ();
 		public C5.HashSet<Propiedad> Propiedades = new C5.HashSet<Propiedad> ();
-		[DataMember (Name = "Ecosistemas", Order = 2)]
 		public C5.HashSet<Ecosistema> Ecosistemas = new C5.HashSet<Ecosistema> ();
+
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
 		/// </summary>
-		[DataMember (Name = "Alimento", Order = 7)]
 		public Recurso RecursoAlimento;
 
 		/// <summary>
@@ -157,7 +145,6 @@ namespace Global
 		/// <summary>
 		/// Devuelve todos los IRequerimientos.
 		/// </summary>
-		[System.Xml.Serialization.XmlIgnore]
 		public ICollection<IRequerimiento<ICiudad>> Reqs
 		{
 			get

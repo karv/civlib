@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using ListasExtra;
 using Civ.Data.Import;
 using System;
@@ -9,35 +8,28 @@ namespace Civ.Data
 	/// <summary>
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
-	[DataContract (IsReference = true, Name = "Edificio")]
 	public class EdificioRAW : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable, IImportable
 	{
-		[DataMember]
 		public string Nombre;
-		[DataMember]
 		public ulong MaxWorkers;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por ciudad
 		/// </summary>
-		[DataMember]
 		public int MaxPorCiudad = 1;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por civilización
 		/// Si vale 0, significa "sin límite"
 		/// </summary>
-		[DataMember]
 		public int MaxPorCivilizacion;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por mundo
 		/// Si vale 0, significa "sin límite"
 		/// </summary>
-		[DataMember]
 		public int MaxPorMundo;
 
 		/// <summary>
 		/// Devuelve los recursos y su cantidad que genera, incluso si no existe trabajador.
 		/// </summary>
-		[DataMember (Name = "Producción")]
 		public ListaPeso<Recurso> Salida { get; }
 
 		public EdificioRAW ()
@@ -60,13 +52,11 @@ namespace Civ.Data
 		/// <summary>
 		/// IRequerimientos necesarios para construir.
 		/// </summary>        
-		[DataMember]
 		public Requerimiento Requiere = new Requerimiento ();
 		// Construcción
 		/// <summary>
 		/// Lista de los recursos requeridos.
 		/// </summary>
-		[DataMember (Name = "Construcción")]
 		public IDictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float> ();
 		//public List<Basic.Par<Recurso, float>> ReqRecursos = new List<Basic.Par<Recurso, float>>();
 		/// <summary>
@@ -82,7 +72,6 @@ namespace Civ.Data
 		/// <summary>
 		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
 		/// </summary>
-		[DataMember (Name = "EsAutoConstruíble")]
 		public bool EsAutoConstruible;
 
 		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)

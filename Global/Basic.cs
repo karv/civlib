@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using C5;
 
 namespace Basic
 {
-	[DataContract (IsReference = true)]
 	[Obsolete ("Usar el par de ListaExtras")]
 	public struct Par<T1, T2>
 	{

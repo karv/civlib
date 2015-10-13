@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using ListasExtra;
 using Civ.Comandos;
 using Civ.Data.Import;
@@ -17,7 +16,6 @@ namespace Civ.Data
 			Flags = new ArrayList<string> ();
 		}
 
-		[DataMember (Name = "Requerimientos")]
 		readonly ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso> ();
 
 		/// <summary>
@@ -29,16 +27,7 @@ namespace Civ.Data
 		/// <summary>
 		/// Devuelve la ciencia requerida para entrenar a la unidad.
 		/// </summary>
-		public Ciencia ReqCiencia
-		{
-			get { return _ReqCiencia; }
-			set { _ReqCiencia = value; }
-		}
-
-		[DataMember (Name = "Ciencia")]
-		Ciencia _ReqCiencia;
-
-
+		public Ciencia ReqCiencia { get; set; }
 
 		#region UnidadRAW
 
@@ -61,34 +50,29 @@ namespace Civ.Data
 		/// <summary>
 		/// Peso de cada unidad de este tipo
 		/// </summary>
-		[DataMember]
 		public float Peso { get; set; }
 
 		/// <summary>
 		/// Nombre de la unidad
 		/// </summary>
-		[DataMember]
 		public string Nombre { get; set; }
 
 		/// <summary>
 		/// Velocidad de desplazamiento (unidades por hora)
 		/// </summary>
 		/// <value>The velocidad.</value>
-		[DataMember]
 		public float Velocidad { get; set; }
 
 		/// <summary>
 		/// Población productiva que requiere para entrenar.
 		/// </summary>
 		/// <value>The coste poblacion.</value>
-		[DataMember (Name = "CostePoblación")]
 		public ulong CostePoblación { get; set; }
 
 		/// <summary>
 		/// Cantidad de peso que puede cargar
 		/// </summary>
 		/// <value>The max carga.</value>
-		[DataMember]
 		public float MaxCarga { get; set; }
 
 		/// <summary>
@@ -136,7 +120,6 @@ namespace Civ.Data
 
 
 
-		[DataMember]
 		public float Puntuación { get; set; }
 
 		public bool EstaDisponible (ICivilización civil)

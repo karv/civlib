@@ -1,5 +1,4 @@
 using ListasExtra;
-using System.Runtime.Serialization;
 using C5;
 using Civ.Data.Import;
 
@@ -8,7 +7,6 @@ namespace Civ.Data
 	/// <summary>
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
-	[DataContract (IsReference = true, Name = "Trabajo")]
 	public class TrabajoRAW: Civ.Debug.IPlainSerializable, IImportable
 	{
 		public TrabajoRAW ()
@@ -20,24 +18,20 @@ namespace Civ.Data
 		/// <summary>
 		/// Nombre
 		/// </summary>
-		[DataMember]
 		public string Nombre;
 		/// <summary>
 		/// EdificioRAW vinculado a este trabajo.
 		/// </summary>
-		[DataMember]
 		public EdificioRAW Edificio;
 
 		/// <summary>
 		/// Recursos producidos por trabajador*turno (Base)
 		/// </summary>
-		[DataMember (Name = "Salida")]
 		public ListaPeso<Recurso> SalidaBase { get; }
 
 		/// <summary>
 		/// Recursos consumidos por trabajador*turno (Base)
 		/// </summary>
-		[DataMember (Name = "Entrada")]
 		public ListaPeso<Recurso> EntradaBase { get; }
 
 		public override string ToString ()
@@ -48,7 +42,6 @@ namespace Civ.Data
 		/// <summary>
 		/// Lista de requerimientos.
 		/// </summary>
-		[DataMember]
 		public Requerimiento Requiere = new Requerimiento ();
 
 		/// <summary>

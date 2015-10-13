@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.Serialization;
 using C5;
 using Civ.Data.Import;
 
@@ -8,13 +7,10 @@ namespace Civ.Data
 	/// <summary>
 	/// Representa un adelanto científico.
 	/// </summary>
-	[DataContract (IsReference = true)]
 	public class Ciencia : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable, IImportable
 	{
-		[DataContract (IsReference = false)]
 		public class Requerimiento
 		{
-			[DataMember (Name = "Recurso")]
 			readonly RequiereCiencia _Recursos = new RequiereCiencia ();
 
 			/// <summary>
@@ -32,7 +28,6 @@ namespace Civ.Data
 			/// <summary>
 			/// Lista de requisitos científicos.
 			/// </summary>
-			[DataMember (Name = "Ciencias")]
 			public ICollection< Ciencia> Ciencias = new HashSet<Ciencia> ();
 			// Se debe convertir en GuardedCollection cuando se lea.
 		}
@@ -40,7 +35,6 @@ namespace Civ.Data
 		/// <summary>
 		/// Nombre de la ciencia;
 		/// </summary>
-		[DataMember (Name = "Nombre")]
 		public String Nombre { get; set; }
 
 		public override string ToString ()
@@ -52,7 +46,6 @@ namespace Civ.Data
 		/// <summary>
 		/// Requerimientos para poder aprender este avance.
 		/// </summary>
-		[DataMember (Name = "Requiere")]
 		public Requerimiento Reqs = new Requerimiento ();
 
 

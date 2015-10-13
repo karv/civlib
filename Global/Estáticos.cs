@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Civ;
 using Civ.Options;
@@ -19,7 +18,6 @@ namespace Global
 	{
 		static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
 		public static GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
-		[DataMember (Name = "Data")]
 		public static GameData Data = new GameData ();
 		public static GameState State = new GameState ();
 
