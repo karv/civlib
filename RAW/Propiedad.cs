@@ -3,7 +3,6 @@ using System.Runtime.Serialization;
 using System;
 using Civ.Data.Import;
 using Civ.Data.TasaProd;
-using System.Threading;
 
 namespace Civ.Data
 {

@@ -120,7 +120,7 @@ namespace Civ.Data
 
 			ret = tab + "(Recurso)" + Nombre + "\n";
 
-			foreach (var x in Global.Juego.Data.Trabajos)
+			foreach (var x in Juego.Data.Trabajos)
 			{
 				// ¿Agregar?
 				bool Agregar = false;
