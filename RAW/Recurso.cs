@@ -2,6 +2,7 @@ using System;
 using System.Runtime.Serialization;
 using Civ.Data.Import;
 using System.IO;
+using Global;
 
 namespace Civ.Data
 {
@@ -69,8 +70,11 @@ namespace Civ.Data
 				string line = reader.ReadLine ();
 				line.ToLower ();
 				var spl = line.Split (':');
-				spl [0] = spl [0].Trim ();
-				spl [1] = spl [1].Trim ();
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+
 				switch (spl [0])
 				{
 					case "nombre":
@@ -84,6 +88,16 @@ namespace Civ.Data
 						break;
 					case "global":
 						EsGlobal = spl [1] != "0";
+						break;
+					case "alimento":
+						#if DEBUG
+						if (Juego.Data.RecursoAlimento != null)
+							Console.WriteLine (string.Format (
+								"se están definiendo varios recursos de alimento: {0}, {1}",
+								Juego.Data.RecursoAlimento,
+								this));
+						#endif
+						Juego.Data.RecursoAlimento = this;
 						break;
 				}
 			}
