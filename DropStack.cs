@@ -52,23 +52,6 @@ namespace Civ
 			}
 		}
 
-		float IAlmacénRead.recurso (Recurso recurso)
-		{
-			return Almacén [recurso];
-		}
-
-		[Obsolete]
-		void IAlmacén.SetRecurso (Recurso rec, float val)
-		{
-			Almacén [rec] = val;
-		}
-
-		[Obsolete]
-		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
-		{
-			Almacén [rec] += delta;
-		}
-
 		float IAlmacén.this [Recurso recurso]
 		{
 			get

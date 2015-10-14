@@ -123,11 +123,6 @@ namespace Civ
 
 		#region IAlmacénRead implementation
 
-		float IAlmacénRead.recurso (Recurso recurso)
-		{
-			return this [recurso];
-		}
-
 		System.Collections.Generic.IEnumerable<Recurso> IAlmacénRead.recursos
 		{
 			get
@@ -138,20 +133,5 @@ namespace Civ
 
 		#endregion
 
-		#region IAlmacén implementation
-
-		[Obsolete]
-		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
-		{
-			Add (rec, delta);
-		}
-
-		[Obsolete]
-		void IAlmacén.SetRecurso (Recurso rec, float val)
-		{
-			this [rec] = val;
-		}
-
-		#endregion
 	}
 }

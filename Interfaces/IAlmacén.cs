@@ -17,13 +17,6 @@ namespace Civ
 		IEnumerable<Recurso> recursos { get; }
 
 		/// <summary>
-		/// Devuelve la cantidad existente de un recurso dado.
-		/// </summary>
-		/// <param name="recurso">Recurso.</param>
-		[Obsolete]
-		float recurso (Recurso recurso);
-
-		/// <summary>
 		/// Almacén de lectura y escritura
 		/// </summary>
 		/// <param name="recurso">Recurso.</param>
@@ -40,22 +33,6 @@ namespace Civ
 	/// </summary>
 	public interface IAlmacén : IAlmacénRead
 	{
-		/// <summary>
-		/// Establece la cantidad de recursos
-		/// </summary>
-		/// <param name="rec">Rec.</param>
-		/// <param name="val">Value.</param>
-		[Obsolete]
-		void SetRecurso (Recurso rec, float val);
-
-		/// <summary>
-		/// Cambia la cantidad de recursos por una cantidad dada.
-		/// </summary>
-		/// <param name="rec">Rec.</param>
-		/// <param name="delta">Delta.</param>
-		[Obsolete]
-		void ChangeRecurso (Recurso rec, float delta);
-
 		/// <summary>
 		/// Devuelve la cantidad existente de un recurso dado.
 		/// </summary>

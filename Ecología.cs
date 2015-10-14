@@ -12,12 +12,6 @@ namespace Civ
 
 		public event System.EventHandler<ListasExtra.CambioElementoEventArgs<Recurso, float>> AlCambiar;
 
-		[System.Obsolete]
-		public float recurso (Recurso recurso)
-		{
-			throw new System.NotImplementedException ();
-		}
-
 		public float this [Recurso recurso]
 		{
 			get

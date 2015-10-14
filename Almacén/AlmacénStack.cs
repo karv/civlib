@@ -89,21 +89,6 @@ namespace Civ
 
 		IEnumerable<Recurso> IAlmacénRead.recursos { get { return Keys; } }
 
-		float IAlmacénRead.recurso (Recurso recurso)
-		{
-			return base [recurso];
-		}
-
-		void IAlmacén.SetRecurso (Recurso rec, float val)
-		{
-			base [rec] = Math.Min (val, base [rec] + CargaRestante);
-		}
-
-		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
-		{
-			throw new NotImplementedException ();
-		}
-
 		float IAlmacén.this [Recurso recurso]
 		{
 			get

@@ -99,27 +99,7 @@ namespace Civ
 			}
 		}
 
-		#region IAlmacén implementation
-
-		void IAlmacén.ChangeRecurso (Recurso rec, float delta)
-		{
-			this [rec] += delta;
-			//this.Add(rec, delta);
-		}
-
-		void IAlmacén.SetRecurso (Recurso rec, float val)
-		{
-			this [rec] = val;
-		}
-
-		#endregion
-
 		#region IAlmacénRead implementation
-
-		float IAlmacénRead.recurso (Recurso recurso)
-		{
-			return this [recurso];
-		}
 
 		IEnumerable<Recurso> IAlmacénRead.recursos
 		{

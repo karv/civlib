@@ -99,7 +99,7 @@ namespace Civ
 			float ret = 0;
 			foreach (IAlmacenante x in Ciudades)
 			{
-				ret += x.Almacén.recurso (recurso);
+				ret += x.Almacén [recurso];
 			}
 			return ret;
 		}
