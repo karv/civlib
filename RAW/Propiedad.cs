@@ -30,7 +30,7 @@ namespace Civ.Data
 		/// </summary>
 		/// <param name="almacén"><see cref="Civ.ICiudad"/> donde hará un tick esta propiedad.</param>
 		/// <param name="t">longitud del tick</param>
-		public virtual void Tick (IAlmacenante almacén, TimeSpan t)
+		public virtual void Tick (IAlmacén almacén, TimeSpan t)
 		{
 			foreach (Civ.Data.TasaProd.TasaProd x in Salida)
 			{

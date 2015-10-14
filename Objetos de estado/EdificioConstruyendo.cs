@@ -74,9 +74,9 @@ namespace Civ
 		{
 			foreach (Recurso x in RecursosRestantes.Keys)
 			{
-				float abs = Math.Min (RecursosRestantes [x], CiudadDueño.Almacen [x]);
+				float abs = Math.Min (RecursosRestantes [x], CiudadDueño.Almacén [x]);
 				RecursosAcumulados [x] += abs;
-				CiudadDueño.Almacen [x] -= abs;
+				CiudadDueño.Almacén [x] -= abs;
 			}
 		}
 

@@ -123,7 +123,7 @@ namespace Civ
 
 		#region IAlmacénRead implementation
 
-		System.Collections.Generic.IEnumerable<Recurso> IAlmacénRead.recursos
+		System.Collections.Generic.IEnumerable<Recurso> IAlmacénRead.Recursos
 		{
 			get
 			{

@@ -66,7 +66,7 @@ namespace Civ
 			if (RAW.Salida != null)
 				foreach (var x in RAW.Salida)
 				{
-					CiudadDueño.Almacen [x.Key] += x.Value * (float)t.TotalHours;
+					CiudadDueño.Almacén [x.Key] += x.Value * (float)t.TotalHours;
 				}
 
 			foreach (var x in Trabajos)

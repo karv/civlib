@@ -7,7 +7,7 @@ namespace Civ
 	/// <summary>
 	/// Una ciudad
 	/// </summary>
-	public interface ICiudad: IAlmacenante, ITickable, IPuntuado, IPosicionable
+	public interface ICiudad: ITickable, IPuntuado, IPosicionable
 	{
 		/// <summary>
 		/// Nombre de la ciudad
@@ -51,6 +51,8 @@ namespace Civ
 		/// Devuelve la armada inmovil que representa la defensa de la ciudad.
 		/// </summary>
 		Armada Defensa { get; }
+
+		IAlmacén Almacén { get; }
 
 		/// <summary>
 		/// Devuelve o establece la civilización que posee a esta ciudad.

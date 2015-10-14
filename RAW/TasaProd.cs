@@ -58,7 +58,7 @@ namespace Civ.Data.TasaProd
 
 		#region ITickable implementation
 
-		public abstract void Tick (IAlmacenante alm, TimeSpan t);
+		public abstract void Tick (IAlmacén alm, TimeSpan t);
 
 		public abstract float DeltaEsperado (IAlmacénRead alm);
 
@@ -83,11 +83,11 @@ namespace Civ.Data.TasaProd
 
 		#region TasaProd
 
-		public override void Tick (IAlmacenante alm, TimeSpan t)
+		public override void Tick (IAlmacén alm, TimeSpan t)
 		{
 			
-			if (alm.Almacén [Recurso] < Max)
-				alm.Almacén [Recurso] += Crecimiento * (float)t.TotalHours;
+			if (alm [Recurso] < Max)
+				alm [Recurso] += Crecimiento * (float)t.TotalHours;
 		}
 
 
@@ -126,10 +126,10 @@ namespace Civ.Data.TasaProd
 
 		#region implemented abstract members of TasaProd
 
-		public override void Tick (IAlmacenante alm, TimeSpan t)
+		public override void Tick (IAlmacén alm, TimeSpan t)
 		{
-			alm.Almacén [Recurso] *= CrecimientoBase * (float)t.TotalHours; // TODO, debe tener comportamiento exponencial
-			alm.Almacén [Recurso] = Math.Min (Max, alm.Almacén [Recurso]);
+			alm [Recurso] *= CrecimientoBase * (float)t.TotalHours; // TODO, debe tener comportamiento exponencial
+			alm [Recurso] = Math.Min (Max, alm [Recurso]);
 			
 		}
 

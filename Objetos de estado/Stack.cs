@@ -7,7 +7,7 @@ namespace Civ
 	/// <summary>
 	/// Representa a una instancia de unidad.
 	/// </summary>
-	public class Stack: IPuntuado, IAlmacenante
+	public class Stack: IPuntuado
 	{
 		#region General
 
@@ -428,8 +428,6 @@ namespace Civ
 				}
 			}
 		}
-
-		IAlmacén IAlmacenante.Almacén { get { return Carga; } }
 
 		#endregion
 

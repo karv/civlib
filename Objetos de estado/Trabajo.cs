@@ -94,11 +94,11 @@ namespace Civ
 		/// Devuelve la lista de recursos de la ciudad.
 		/// </summary>
 		/// <value>The almacén.</value>
-		public AlmacenCiudad Almacén
+		public IAlmacén Almacén
 		{
 			get
 			{
-				return CiudadDueño.Almacen;
+				return CiudadDueño.Almacén;
 			}
 		}
 

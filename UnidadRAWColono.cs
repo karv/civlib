@@ -52,7 +52,7 @@ namespace Civ.Data
 			// Los recursos
 			foreach (var x in RecursosPorUnidad)
 			{
-				ret.Almacen [x.Key] = x.Value * stack.Cantidad;
+				ret.Almacén [x.Key] = x.Value * stack.Cantidad;
 			}
 
 			AlColonizar?.Invoke (ret);

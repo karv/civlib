@@ -44,7 +44,7 @@ namespace Civ
 
 		#region Almacén
 
-		IEnumerable<Recurso> IAlmacénRead.recursos
+		IEnumerable<Recurso> IAlmacénRead.Recursos
 		{
 			get
 			{
