@@ -429,11 +429,6 @@ namespace Civ
 			}
 		}
 
-		float IAlmacenante.CalculaDeltaRecurso (Recurso recurso)
-		{
-			return 0;
-		}
-
 		IAlmacén IAlmacenante.Almacén { get { return Carga; } }
 
 		#endregion

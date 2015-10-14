@@ -34,14 +34,14 @@
     <Reference Include="Store">
       <HintPath>packages\Store.0.1\lib\Store.dll</HintPath>
     </Reference>
-    <Reference Include="ListaExtras">
-      <HintPath>packages\ListaExtras.0.2.2.1\lib\ListaExtras.dll</HintPath>
-    </Reference>
     <Reference Include="C5">
       <HintPath>packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
     </Reference>
     <Reference Include="Grafos">
       <HintPath>packages\Grafos.0.1.2.1\lib\Grafos.dll</HintPath>
+    </Reference>
+    <Reference Include="ListaExtras">
+      <HintPath>packages\ListaExtras.0.2.3.2\lib\ListaExtras.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

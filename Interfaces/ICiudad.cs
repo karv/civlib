@@ -80,6 +80,12 @@ namespace Civ
 		Stack Reclutar (IUnidadRAW uRAW, ulong cantidad = 1);
 
 		/// <summary>
+		/// Calcula la tasa de cambio por hora de un recurso específico
+		/// </summary>
+		/// <param name="recurso">Recurso.</param>
+		float CalculaDeltaRecurso (Recurso recurso);
+
+		/// <summary>
 		/// Devuelve el número de trabajadores.
 		/// </summary>
 		ulong NumTrabajadores { get; }

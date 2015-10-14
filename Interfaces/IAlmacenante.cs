@@ -15,7 +15,7 @@ namespace Civ
 		/// <summary>
 		/// Calcula la tasa de cambiod eun recurso, por hora.
 		/// </summary>
-		float CalculaDeltaRecurso (Recurso recurso);
+		//float CalculaDeltaRecurso (Recurso recurso);
 	}
 
 	public static class ExiIAlmacen

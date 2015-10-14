@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Global;
 using Civ.Data;
 using C5;
+using ListasExtra;
+using ListasExtra.Extensiones;
 
 namespace Civ
 {
@@ -205,46 +207,6 @@ namespace Civ
 		/// Almacén de recursos.
 		/// </summary>
 		public AlmacenCiudad Almacen;
-
-		/// <summary>
-		/// Calcula el cambio en el almacén de un recurso.
-		/// </summary>
-		/// <returns>The delta recurso.</returns>
-		/// <param name="recurso">Recurso.</param>
-		public float CalculaDeltaRecurso (Recurso recurso)
-		{
-			float ret = 0;
-
-			// Trabajos
-			foreach (var x in ObtenerListaTrabajos())
-			{
-				if (x.RAW.EntradaBase.ContainsKey (recurso))
-					ret += x.Trabajadores * x.RAW.EntradaBase [recurso];
-				if (x.RAW.SalidaBase.ContainsKey (recurso))
-					ret -= x.Trabajadores * x.RAW.SalidaBase [recurso];
-
-			}
-
-			// Propiedades
-			foreach (var x in Propiedades)
-			{
-				foreach (var y in x.Salida)
-				{
-					if (y.Recurso == recurso)
-					{
-						ret += y.DeltaEsperado (Almacen);
-					}
-				}
-			}
-
-			// Si es alimento, lo que se van a comer
-			if (recurso == RecursoAlimento)
-				ret -= Poblacion * ConsumoAlimentoPorCiudadanoBase;
-
-
-			return ret;
-		}
-
 
 		#endregion
 
@@ -822,6 +784,20 @@ namespace Civ
 
 		#endregion
 
+		#region DeltaRecurso
+
+		/// <summary>
+		/// Cambio de recursos
+		/// </summary>
+		ListaPeso<Recurso, float> DeltaRec;
+
+		public float CalculaDeltaRecurso (Recurso recurso)
+		{
+			return DeltaRec [recurso];
+		}
+
+		#endregion
+
 		public float AlimentoAlmacen
 		{ 
 			get
@@ -989,7 +965,9 @@ namespace Civ
 		{
 			AlTickAntes?.Invoke (t);
 			PopTick (t);
+			var RecAntes = Almacen.Clonar ();
 			ResourceTick (t);
+			DeltaRec = ((ListaPeso<Recurso>)Almacen + RecAntes) * (float)(t.TotalHours);
 			if (CivDueño != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				{
