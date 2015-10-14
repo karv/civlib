@@ -98,21 +98,7 @@ namespace Civ
 		public void Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
-			//TODO ¿No debería Propiedad hacer esto?
-			//Crecimiento automático de recursos ecológicos.
-			foreach (var x in Eco.RecursoEcologico.Keys)
-			{
-				var RE = new RecursoEstado ();
-
-				RE.Cant = Eco.RecursoEcologico [x].Cant + Eco.RecursoEcologico [x].Crec * (float)t.TotalHours;
-				RE.Cant = Math.Min (
-					Eco.RecursoEcologico [x].Cant,
-					Eco.RecursoEcologico [x].Max);
-				RE.Crec = Eco.RecursoEcologico [x].Crec;
-				RE.Max = Eco.RecursoEcologico [x].Max;
-				Eco.RecursoEcologico.Remove (x);
-				Eco.RecursoEcologico.Add (x, RE);
-			}
+			Eco.Tick (t);
 			AlTickDespués?.Invoke (t);
 		}
 
