@@ -1,4 +1,6 @@
-﻿namespace Civ
+﻿using System;
+
+namespace Civ
 {
 	/// <summary>
 	/// Clase de diplomacia para civilizaciones nómadas
@@ -10,6 +12,14 @@
 			return true;
 		}
 
-		public event System.EventHandler AlCambiarDiplomacia;
+		event Action IDiplomacia.AlCambiarDiplomacia
+		{
+			add
+			{
+			}
+			remove
+			{
+			}
+		}
 	}
 }

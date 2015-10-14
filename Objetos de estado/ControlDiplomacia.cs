@@ -12,7 +12,7 @@ namespace Civ
 		}
 
 		//TODO Por ahora no se puede ya que Dicionary no tiene métodos para monitorear cambios
-		event EventHandler IDiplomacia.AlCambiarDiplomacia
+		event Action IDiplomacia.AlCambiarDiplomacia
 		{
 			add
 			{
