@@ -412,9 +412,15 @@ namespace Civ
 
 		#region Comandos especiales
 
-
-
-
+		/// <summary>
+		/// Revisa si existe un IUnidadRAWColoniza que pueda colonizar y lo devuelve, 
+		/// null si no existe
+		/// </summary>
+		public bool PuedeColonizar (out Stack unidad)
+		{
+			unidad = Unidades.FirstOrDefault (x => x.PuedeColonizarAqui);
+			return  unidad != null;
+		}
 
 		#endregion
 	}
