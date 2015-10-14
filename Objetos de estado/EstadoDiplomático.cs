@@ -5,7 +5,7 @@ namespace Civ
 	/// <summary>
 	/// Estado diplomatico entre dos cavilizaciones.
 	/// </summary>
-	public class EstadoDiplomatico
+	public class EstadoDiplomático
 	{
 		bool _PermiteAtacar = true;
 

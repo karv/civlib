@@ -19,7 +19,7 @@ namespace Civ.Bárbaros
 		/// <summary>
 		/// Las reglas de generación
 		/// </summary>
-		public C5.HashSet<IReglaGeneracion> Reglas { get; }
+		public C5.HashSet<IReglaGeneración> Reglas { get; }
 
 		double lambda
 		{
@@ -31,7 +31,7 @@ namespace Civ.Bárbaros
 
 		public GeneradorArmadasBarbaras ()
 		{
-			Reglas = new C5.HashSet<IReglaGeneracion> ();
+			Reglas = new C5.HashSet<IReglaGeneración> ();
 		}
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace Civ.Bárbaros
 		public Armada Armada ()
 		{
 			// Escoger una regla
-			var reglas = new List<IReglaGeneracion> (Reglas.Filter (x => x.EsPosibleGenerar (Juego.State)));
+			var reglas = new List<IReglaGeneración> (Reglas.Filter (x => x.EsPosibleGenerar (Juego.State)));
 			if (reglas.Count == 0)
 			{
 				System.Diagnostics.Debug.WriteLine ("No hay regla para este caso");
@@ -65,7 +65,7 @@ namespace Civ.Bárbaros
 			}
 			
 
-			IReglaGeneracion usarRegla = reglas [Juego.Rnd.Next (reglas.Count)];
+			IReglaGeneración usarRegla = reglas [Juego.Rnd.Next (reglas.Count)];
 			Armada ret = usarRegla.GenerarArmada ();
 			return ret;
 		}

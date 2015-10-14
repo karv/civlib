@@ -37,11 +37,11 @@ namespace Civ
 			}
 		}
 
-		public InfoPoblacion GetPoblacionInfo
+		public InfoPoblación GetPoblacionInfo
 		{ 
 			get
 			{
-				return new InfoPoblacion (
+				return new InfoPoblación (
 					PoblacionPreProductiva,
 					PoblacionProductiva,
 					PoblacionPostProductiva);

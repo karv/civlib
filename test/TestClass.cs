@@ -196,11 +196,11 @@ namespace Test
 			Init ();
 			var u = new UnidadRAW ();
 			u.Nombre = "Gordo";
-			var reg = new ReglaGeneracionPuntuacion ();
+			var reg = new ReglaGeneraciónPuntuación ();
 			reg.ClaseArmada = new List<Tuple<IUnidadRAW, ulong>> ();
 			reg.ClaseArmada.Add (new Tuple<IUnidadRAW, ulong> (u, 100));
-			reg.MaxPuntuacion = float.PositiveInfinity;
-			reg.MinPuntuacion = 0;
+			reg.MaxPuntuación = float.PositiveInfinity;
+			reg.MinPuntuación = 0;
 			//g_.BarbGen.Reglas.Add(reg);
 
 			Ciclo (1000);
@@ -213,7 +213,7 @@ namespace Test
 			Init ();
 			var c1 = (Civilización)Juego.State.Civs [0];
 			var c2 = (Civilización)Juego.State.Civs [1];
-			var diplomaciaGuerra = new EstadoDiplomatico ();
+			var diplomaciaGuerra = new EstadoDiplomático ();
 			diplomaciaGuerra.PermiteAtacar = true;
 			c1.Diplomacia.Add (c2, diplomaciaGuerra);
 			c2.Diplomacia.Add (c1, diplomaciaGuerra);

@@ -60,7 +60,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la información de distribución de poblaciones
 		/// </summary>
-		InfoPoblacion GetPoblacionInfo { get; }
+		InfoPoblación GetPoblacionInfo { get; }
 
 		/// <summary>
 		/// Devuelve la cantidad máxima de unidades contruíbles de cierto tipo.

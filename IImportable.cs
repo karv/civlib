@@ -8,7 +8,7 @@ namespace Civ.Data.Import
 	public interface IImportable
 	{
 		/// <summary>
-		/// Construye este objeto a partir d un archivo de textoe 
+		/// Construye este objeto a partir de un archivo de texto
 		/// </summary>
 		/// <param name="reader">Stream de la información</param>
 		void Importar (StreamReader reader);

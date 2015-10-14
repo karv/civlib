@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Mantiene información sobre la distribución por edades de una población
 	/// </summary>
-	public struct InfoPoblacion
+	public struct InfoPoblación
 	{
 		public readonly ulong PreProductiva;
 		public readonly ulong Productiva;
@@ -17,7 +17,7 @@
 			}
 		}
 
-		public InfoPoblacion (ulong pre, ulong prod, ulong post)
+		public InfoPoblación (ulong pre, ulong prod, ulong post)
 		{
 			PreProductiva = pre;
 			Productiva = prod;

@@ -5,7 +5,7 @@ namespace Civ.Bárbaros
 	/// <summary>
 	/// Dice cuándo y qué tipo de armadas generar
 	/// </summary>
-	public interface IReglaGeneracion
+	public interface IReglaGeneración
 	{
 		/// <summary>
 		/// Revisa si se debe generar esta clase de armada

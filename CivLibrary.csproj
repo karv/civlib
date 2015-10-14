@@ -72,9 +72,7 @@
     <Compile Include="Objetos de estado\ControlDiplomacia.cs" />
     <Compile Include="Objetos de estado\Edificio.cs" />
     <Compile Include="Objetos de estado\EdificioConstruyendo.cs" />
-    <Compile Include="Objetos de estado\EstadoDiplomatico.cs" />
     <Compile Include="RAW\GeneradorArmadasBarbaras.cs" />
-    <Compile Include="Objetos de estado\InfoPoblacion.cs" />
     <Compile Include="Ciencia\Ciencia.cs" />
     <Compile Include="Ciencia\InvestigandoCiencia.cs" />
     <Compile Include="Ciencia\ListaInvestigación.cs" />
@@ -111,6 +109,8 @@
     <Compile Include="UnidadRAW.cs" />
     <Compile Include="UnidadRAWColono.cs" />
     <Compile Include="RAW\UnidadRAWCombate.cs" />
+    <Compile Include="Objetos de estado\EstadoDiplomático.cs" />
+    <Compile Include="Objetos de estado\InfoPoblación.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

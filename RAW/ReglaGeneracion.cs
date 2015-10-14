@@ -7,16 +7,16 @@ namespace Civ.Bárbaros
 	/// <summary>
 	/// Representa una regla de generación de bárbaros
 	/// </summary>
-	public class ReglaGeneracionPuntuacion : IReglaGeneracion
+	public class ReglaGeneraciónPuntuación : IReglaGeneración
 	{
 		/// <summary>
 		/// Puntuación mínica para generar armada
 		/// </summary>
-		public float MinPuntuacion;
+		public float MinPuntuación;
 		/// <summary>
 		/// Puntuación máxima para generar armada
 		/// </summary>
-		public float MaxPuntuacion;
+		public float MaxPuntuación;
 
 		/// <summary>
 		/// Armada que podría generar.
@@ -36,7 +36,7 @@ namespace Civ.Bárbaros
 		{
 			float Puntuacion = estado.SumaPuntuacion ();
 			_estado = estado;
-			return Puntuacion < MaxPuntuacion && Puntuacion > MinPuntuacion;
+			return Puntuacion < MaxPuntuación && Puntuacion > MinPuntuación;
 		}
 
 		public Armada GenerarArmada ()

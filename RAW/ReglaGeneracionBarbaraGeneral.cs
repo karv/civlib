@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Civ.Bárbaros
 {
-	public class ReglaGeneracionBarbaraGeneral:IReglaGeneracion
+	public class ReglaGeneracionBarbaraGeneral:IReglaGeneración
 	{
 		/// <summary>
 		/// Coeficiente de puntuación máximo para armadas.

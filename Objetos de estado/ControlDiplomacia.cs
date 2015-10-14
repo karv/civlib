@@ -3,11 +3,11 @@ using System;
 
 namespace Civ
 {
-	public class ControlDiplomacia : Dictionary<ICivilización, EstadoDiplomatico>, IDiplomacia
+	public class ControlDiplomacia : Dictionary<ICivilización, EstadoDiplomático>, IDiplomacia
 	{
 		public bool PermiteAtacar (Armada arm)
 		{
-			EstadoDiplomatico dip;
+			EstadoDiplomático dip;
 			return TryGetValue (arm.CivDueño, out dip) && dip.PermiteAtacar;
 		}
 
