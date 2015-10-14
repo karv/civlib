@@ -1,0 +1,4 @@
+﻿nombre:Recolectar frutas
+edificio:recolector.edificio
+entrada:frutas silvestres.recurso:1
+salida:alimento.recurso:1

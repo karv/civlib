@@ -1,0 +1,4 @@
+﻿nombre:Recolector
+max workers:30
+auto
+requiere en ciudad:vida nómada.ciencia

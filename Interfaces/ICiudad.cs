@@ -65,24 +65,26 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la cantidad máxima de unidades contruíbles de cierto tipo.
 		/// </summary>
-		ulong UnidadesConstruibles (UnidadRAW unidad);
+		ulong UnidadesConstruibles (IUnidadRAW unidad);
 
 		/// <summary>
 		/// Devuelve una colección de las unidades que podrían ser contruidas en esta ciudad
 		/// </summary>
-		ICollection<UnidadRAW> UnidadesConstruibles ();
+		ICollection<IUnidadRAW> UnidadesConstruibles ();
 
 		/// <summary>
 		/// Recluta unidades directamente a la armada Defensa
 		/// </summary>
 		/// <param name="uRAW">Tipo de unidad</param>
 		/// <param name="cantidad">Cantidad.</param>
-		Stack Reclutar (UnidadRAW uRAW, ulong cantidad = 1);
+		Stack Reclutar (IUnidadRAW uRAW, ulong cantidad = 1);
 
 		/// <summary>
 		/// Devuelve el número de trabajadores.
 		/// </summary>
 		ulong NumTrabajadores { get; }
+
+		ulong TrabajadoresDesocupados { get; }
 
 		/// <summary>
 		/// Ocurre cuando el nombre de la ciudad es cambiado
@@ -97,9 +99,7 @@ namespace Civ
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		event Action<UnidadRAW, ulong> AlReclutar;
+		event Action<IUnidadRAW, ulong> AlReclutar;
 	}
-
-
 }
 

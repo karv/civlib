@@ -8,9 +8,9 @@ namespace Civ
 	/// <summary>
 	/// Representa un lugar que no es terreno, más bien es un punto en una arista de la Topología del mundo.
 	/// </summary>
-	public class Pseudoposicion : Continuo<Terreno>.ContinuoPunto
+	public class Pseudoposición : Continuo<Terreno>.ContinuoPunto
 	{
-		public Pseudoposicion ()
+		public Pseudoposición ()
 			: base (Juego.State.Mapa)
 		{
 		}
@@ -94,9 +94,9 @@ namespace Civ
 		/// <summary>
 		/// Devuelve una nueva pseudoposición equivalente a ésta.
 		/// </summary>
-		public Pseudoposicion Clonar ()
+		public Pseudoposición Clonar ()
 		{
-			var ret = new Pseudoposicion ();
+			var ret = new Pseudoposición ();
 			ret.A = A;
 			ret.B = B;
 			ret.Loc = Loc;
@@ -110,7 +110,7 @@ namespace Civ
 		/// </summary>
 		/// <returns>The orientacion.</returns>
 		/// <param name="other">Other.</param>
-		public int Orientacion (Pseudoposicion other)
+		public int Orientacion (Pseudoposición other)
 		{
 			return A == other.A && B == other.B && Loc < other.Loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
 		}

@@ -1,9 +1,12 @@
-using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Civ.Data;
+using System;
 
 namespace Civ
 {
+	/// <summary>
+	/// Representa un objeto que se puede requerir.
+	/// </summary>
 	public interface IRequerimiento<T>
 	{
 		/// <summary>
@@ -14,21 +17,17 @@ namespace Civ
 		bool LoSatisface (T objeto);
 	}
 
-	[DataContract (Name = "Requerimiento")]
 	public class Requerimiento : Civ.Debug.IPlainSerializable
 	{
-		[DataMember]
-		public List<Ciencia> Ciencias = new List<Ciencia> ();
-		[DataMember]
-		public List<EdificioRAW> Edificios = new List<EdificioRAW> ();
-		[DataMember]
-		public List<Propiedad> Propiedades = new List<Propiedad> ();
+		public ICollection<Ciencia> Ciencias = new C5.HashSet<Ciencia> ();
+		public ICollection<EdificioRAW> Edificios = new C5.HashSet<EdificioRAW> ();
+		public ICollection<Propiedad> Propiedades = new C5.HashSet<Propiedad> ();
 
 		/// <summary>
 		/// Junta todos los requeriemintos en una lista de IRequerimientos.
 		/// </summary>
 		/// <returns></returns>
-		public List<IRequerimiento<ICiudad>> Requiere ()
+		public IList<IRequerimiento<ICiudad>> Requiere ()
 		{
 			var ret = new List<IRequerimiento<ICiudad>> ();
 			foreach (Ciencia x in Ciencias)
@@ -41,6 +40,18 @@ namespace Civ
 			}
 
 			return ret;
+		}
+
+		public void Add (object x)
+		{
+			if (x.GetType ().IsAssignableFrom (typeof (Ciencia)))
+				Ciencias.Add (x as Ciencia);
+			else if (x.GetType ().IsAssignableFrom (typeof (EdificioRAW)))
+				Edificios.Add (x as EdificioRAW);
+			else if (x.GetType ().IsAssignableFrom (typeof (Propiedad)))
+				Propiedades.Add (x as Propiedad);
+			else
+				throw new Exception ();
 		}
 
 		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)

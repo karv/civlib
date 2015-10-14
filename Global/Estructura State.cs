@@ -55,7 +55,7 @@ namespace Global
 			var ret = new List<ICivilización> ();
 			foreach (var x in Topología.Nodos)
 			{
-				ICivilización C = x.CiudadConstruida?.CivDueno;
+				ICivilización C = x.CiudadConstruida?.CivDueño;
 				if (C != null && !ret.Contains (C))
 					ret.Add (C);
 			}
@@ -84,10 +84,10 @@ namespace Global
 		/// <returns></returns>
 		public ICollection<Terreno> TerrenosLibres ()
 		{
-			var ret = new List<Terreno> ();
+			var ret = new C5.ArrayList<Terreno> ();
 			foreach (var x in Terrenos())
 			{
-				if (x.CiudadConstruida != null)
+				if (x.CiudadConstruida == null)
 					ret.Add (x);
 			}
 			return ret;

@@ -1,42 +1,41 @@
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using ListasExtra;
+using Civ.Data.Import;
+using System;
 
 namespace Civ.Data
 {
 	/// <summary>
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
-	[DataContract (IsReference = true, Name = "Edificio")]
-	public class EdificioRAW : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable
+	public class EdificioRAW : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable, IImportable
 	{
-		[DataMember]
 		public string Nombre;
-		[DataMember]
 		public ulong MaxWorkers;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por ciudad
 		/// </summary>
-		[DataMember]
-		public int MaxPorCiudad;
+		public int MaxPorCiudad = 1;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por civilización
 		/// Si vale 0, significa "sin límite"
 		/// </summary>
-		[DataMember]
 		public int MaxPorCivilizacion;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por mundo
 		/// Si vale 0, significa "sin límite"
 		/// </summary>
-		[DataMember]
 		public int MaxPorMundo;
 
 		/// <summary>
 		/// Devuelve los recursos y su cantidad que genera, incluso si no existe trabajador.
 		/// </summary>
-		[DataMember (Name = "Producción")]
 		public ListaPeso<Recurso> Salida { get; }
+
+		public EdificioRAW ()
+		{
+			Salida = new ListaPeso<Recurso> ();
+		}
 
 		public override string ToString ()
 		{
@@ -53,20 +52,18 @@ namespace Civ.Data
 		/// <summary>
 		/// IRequerimientos necesarios para construir.
 		/// </summary>        
-		[DataMember]
 		public Requerimiento Requiere = new Requerimiento ();
 		// Construcción
 		/// <summary>
 		/// Lista de los recursos requeridos.
 		/// </summary>
-		[DataMember (Name = "Construcción")]
-		public Dictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float> ();
+		public IDictionary<Recurso, float> ReqRecursos = new Dictionary<Recurso, float> ();
 		//public List<Basic.Par<Recurso, float>> ReqRecursos = new List<Basic.Par<Recurso, float>>();
 		/// <summary>
 		/// Devuelve la lista de requerimientos
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public List<IRequerimiento<ICiudad>> Reqs ()
+		public ICollection<IRequerimiento<ICiudad>> Reqs ()
 		{
 			//List<IRequerimiento> ret = Basic.Covertidor<string, IRequerimiento>.ConvertirLista(Requiere, x => Global.g_.Data.EncuentraRequerimiento(x));
 			return Requiere.Requiere ();
@@ -75,7 +72,6 @@ namespace Civ.Data
 		/// <summary>
 		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
 		/// </summary>
-		[DataMember (Name = "EsAutoConstruíble")]
 		public bool EsAutoConstruible;
 
 		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
@@ -100,19 +96,86 @@ namespace Civ.Data
 
 		}
 
-		#region Defaults
+		#region IImportable
 
-		[OnDeserializing]
-		void OnDeserializing (StreamingContext context)
+		C5.ArrayList<string []> _req_rec_id = new C5.ArrayList<string []> ();
+		C5.ArrayList<string> _req_obj_id = new C5.ArrayList<string> ();
+		C5.ArrayList<string []> _salida_id = new C5.ArrayList<string []> ();
+
+		public void Importar (System.IO.StreamReader reader)
 		{
-			SetDefaults ();
+			while (!reader.EndOfStream)
+			{
+				string line = reader.ReadLine ();
+				line.ToLower ();
+				var spl = line.Split (':');
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+
+				switch (spl [0])
+				{
+					case "nombre":
+						Nombre = spl [1];
+						break;
+					case "max workers":
+						MaxWorkers = ulong.Parse (spl [1]);
+						break;
+					case "max por ciudad":
+						MaxPorCiudad = int.Parse (spl [1]);
+						break;
+					case "max por civil":
+						MaxPorCivilizacion = int.Parse (spl [1]);
+						break;
+					case "max por mundo":
+						MaxPorMundo = int.Parse (spl [1]);
+						break;
+					case "auto":
+						EsAutoConstruible = true;
+						break;
+					case "requiere recurso":
+						var a = new string[2];
+						a [0] = spl [1];
+						a [1] = spl [2];
+						_req_rec_id.Add (a);
+						break;
+					case "requiere en ciudad":
+						_req_obj_id.Add (spl [1]);
+						break;
+					case "salida":
+						var a2 = new string[2];
+						a2 [0] = spl [1];
+						a2 [1] = spl [2];
+						_salida_id.Add (a2);
+						break;
+				}
+			}
 		}
 
-		void SetDefaults ()
+		void IImportable.Vincular ()
 		{
-			MaxPorCiudad = 1;
-			MaxPorCivilizacion = 0;
-			MaxPorMundo = 0;
+			// Recursos consumidos:
+			foreach (var x in _req_rec_id)
+			{
+				ReqRecursos.Add (
+					ImportMachine.Valor (x [0]) as Recurso,
+					float.Parse (x [1]));
+			}
+			// Req de ciudad
+			foreach (var x in _req_obj_id)
+			{
+				Requiere.Add (ImportMachine.Valor (x));
+			}
+			// Salida
+			foreach (var x in _salida_id)
+			{
+				Salida.Add (ImportMachine.Valor (x [0]) as Recurso, float.Parse (x [1]));
+			}
+			// limpiar
+			_req_obj_id = null;
+			_req_rec_id = null;
+			_salida_id = null;
 		}
 
 		#endregion

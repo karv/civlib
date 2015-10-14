@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Global;
-using Civ.Data;
 
-namespace Civ.Barbaros
+namespace Civ.Bárbaros
 {
 	/// <summary>
 	/// Representa una regla de generación de bárbaros
@@ -22,7 +21,7 @@ namespace Civ.Barbaros
 		/// <summary>
 		/// Armada que podría generar.
 		/// </summary>
-		public ICollection<Tuple<UnidadRAW, ulong>> ClaseArmada;
+		public ICollection<Tuple<IUnidadRAW, ulong>> ClaseArmada;
 		GameState _estado;
 
 		#region IReglaGeneracion
@@ -44,8 +43,8 @@ namespace Civ.Barbaros
 		{
 			var cb = new CivilizacionBárbara ();
 
-			var ppos = new List<Pseudoposicion> (_estado.Topología.Nodos);
-			Pseudoposicion pos = ppos [Juego.Rnd.Next (ppos.Count)];
+			var ppos = new List<Pseudoposición> (_estado.Topología.Nodos);
+			Pseudoposición pos = ppos [Juego.Rnd.Next (ppos.Count)];
 
 			var ret = new Armada (cb, pos);
 			foreach (var x in ClaseArmada)

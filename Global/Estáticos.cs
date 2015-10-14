@@ -1,13 +1,14 @@
 using System;
-using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Civ;
 using Civ.Options;
-using Civ.Barbaros;
+using Civ.Bárbaros;
 using Graficas;
 using System.IO;
 using Basic;
 using ListasExtra.Extensiones;
+using C5;
+using Civ.Data.Import;
 
 namespace Global
 {
@@ -18,7 +19,6 @@ namespace Global
 	{
 		static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
 		public static GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
-		[DataMember (Name = "Data")]
 		public static GameData Data = new GameData ();
 		public static GameState State = new GameState ();
 
@@ -69,7 +69,7 @@ namespace Global
 			// Matar Civs sin ciudades.
 			EliminarMuertos ();
 
-			// Generar b��rbaros
+			// Generar bárbaros
 			BarbGen.Tick (t);
 		}
 
@@ -94,9 +94,7 @@ namespace Global
 		/// </summary>
 		public static void CargaData ()
 		{
-			Stream stream = System.Reflection.Assembly.GetExecutingAssembly ().GetManifestResourceStream ("Data.xml");
-			Data = Store.Store<GameData>.Deserialize (stream);
-			stream.Dispose ();
+			ImportMachine.Importar ();
 		}
 
 		public static void GuardaData ()
@@ -125,7 +123,7 @@ namespace Global
 			//State = new GameState();
 
 			// Hacer la topolog�a
-			var Terrenos = new List<Terreno> ();
+			var Terrenos = new ArrayList<Terreno> ();
 			State.Topología = new Grafo<Terreno> ();
 			State.Mapa = new Graficas.Continuo.Continuo<Terreno> (State.Topología);
 
@@ -136,14 +134,14 @@ namespace Global
 
 			for (int i = 0; i < PrefsJuegoNuevo.NumTerrenos; i++)
 			{
-				Eco = Data.Ecosistemas [Rnd.Next (Data.Ecosistemas.Count)]; // Selecciono un ecosistema al azar.
+				Eco = Data.Ecosistemas.Elegir ();
 				T = new Terreno (Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add (T);
 				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());
 			}
 
 			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
-			ConstruirTopologia (Terrenos);
+			ConstruirTopología (Terrenos);
 			/*
 			// Vaciar la topolog�a en cada Terreno
 			foreach (var x in State.Topologia.Nodos)
@@ -175,11 +173,11 @@ namespace Global
 			// Incluir el alimento inicial en cada ciudad
 			foreach (var c in State.CiudadesExistentes())
 			{
-				c.Almacen [Juego.Data.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
+				c.Almacén [Juego.Data.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
 			}
 		}
 
-		public static void ConstruirTopologia (IEnumerable<Terreno> lista)
+		public static void ConstruirTopología (IEnumerable<Terreno> lista)
 		{
 			foreach (var x in lista)
 			{
@@ -223,10 +221,10 @@ namespace Global
 		/// Devuelve un nombre de civilizaciónn único
 		/// </summary>
 		/// <returns>The unique civ name.</returns>
-		public static string NombreCiudadUnico ()
+		public static string NombreCiudadÚnico ()
 		{
 			string baseNombre = ReadRandomLine ("NombresCiudad.txt");
-			string unique = HacerUnico (
+			string unique = HacerÚnico (
 				                baseNombre,
 				                State.CiudadesExistentes ().ConvertirLista (x => x.Nombre));
 			return unique;
@@ -239,7 +237,7 @@ namespace Global
 		public static string NombreCivÚnico ()
 		{
 			string baseNombre = ReadRandomLine ("NombresCiv.txt");
-			string unique = HacerUnico (
+			string unique = HacerÚnico (
 				                baseNombre,
 				                State.Civs.ConvertirLista (x => x.Nombre));
 
@@ -254,8 +252,8 @@ namespace Global
 		/// <param name="str">String base</param>
 		/// <param name="universo">Lista de strings que debe evitar devolver</param>
 		/// <param name="enumInicial">Número entero con el que se empieza la enumeración en caso de repetición</param>
-		static string HacerUnico (string str,
-		                          ICollection<string> universo,
+		static string HacerÚnico (string str,
+		                          System.Collections.Generic.ICollection<string> universo,
 		                          int enumInicial = 0)
 		{
 			if (!universo.Contains (str))

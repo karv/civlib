@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CivLibrary</id>
-    <version>0.1.4</version>
+    <version>0.2</version>
     <title>Civ Library</title>
     <authors>Edgar Carballo</authors>
     <owners>Edgar Carballo</owners>
@@ -16,6 +16,6 @@
   </metadata>
   <files>
     <file src="bin/Release/CivLibrary.dll" target="lib" /> 
-    <file src="Data.xml" target="content" /> 
+    <file src="Data/*.*" target="content/CivObjects" /> 
   </files>
 </package>

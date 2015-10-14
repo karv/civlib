@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using Global;
 using Civ.Data;
+using Basic;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	public class Terreno: Pseudoposicion, ITickable, IEquatable<Terreno>, IEquatable<Pseudoposicion>, IPosicionable
+	public class Terreno: Pseudoposición, ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
@@ -16,11 +17,12 @@ namespace Civ
 		/// <param name="ecosistema">Ecología a usar para crear el terreno.</param>
 		public Terreno (Ecosistema ecosistema)
 		{
+			
 			A = this;
 			Loc = 0;
 			Random r = Juego.Rnd;
 
-			Nombre = ecosistema.Nombres [r.Next (ecosistema.Nombres.Count)];
+			Nombre = ecosistema.Nombres.Elegir ();
 
 			foreach (var x in ecosistema.PropPropiedad.Keys)
 			{
@@ -33,7 +35,7 @@ namespace Civ
 
 		#region IPosicionable implementation
 
-		Pseudoposicion IPosicionable.Posición ()
+		Pseudoposición IPosicionable.Posición ()
 		{
 			return this;
 		}
@@ -47,7 +49,7 @@ namespace Civ
 			return ReferenceEquals (this, other);
 		}
 
-		bool IEquatable<Pseudoposicion>.Equals (Pseudoposicion other)
+		bool IEquatable<Pseudoposición>.Equals (Pseudoposición other)
 		{
 			return other.EnTerreno && ((IEquatable<Terreno>)other.A).Equals (this);
 		}

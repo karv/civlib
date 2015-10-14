@@ -1,9 +1,8 @@
 ﻿using Civ;
 using Global;
 using System.Collections.Generic;
-using Civ.Data;
 
-namespace Civ.Barbaros
+namespace Civ.Bárbaros
 {
 	public class ReglaGeneracionBarbaraGeneral:IReglaGeneracion
 	{
@@ -31,21 +30,23 @@ namespace Civ.Barbaros
 		{
 			float PuntRestante = CoefPuntuacion * _estado.SumaPuntuacion () / _estado.CivsVivas ().Count;
 
-			var Unidades = new List<UnidadRAW> (Juego.Data.Unidades);
+			var Unidades = new List<IUnidadRAW> (Juego.Data.Unidades);
 			var cb = new CivilizacionBárbara ();
 
-			var ppos = new List<Pseudoposicion> (_estado.Topología.Nodos);
-			Pseudoposicion pos = ppos [Juego.Rnd.Next (ppos.Count)];
+			var ppos = new List<Pseudoposición> (_estado.Topología.Nodos);
+			Pseudoposición pos = ppos [Juego.Rnd.Next (ppos.Count)];
 
 			var ret = new Armada (cb, pos);
 
 			while (Unidades.Count > 0 && PuntRestante >= 0)
 			{
-				UnidadRAW unid = Unidades [Juego.Rnd.Next (Unidades.Count)];
+				var unid = Unidades [Juego.Rnd.Next (Unidades.Count)];
 				Unidades.Remove (unid);
-				ulong Cant = (ulong)(PuntRestante / ((IPuntuado)unid).Puntuación);
+				ulong Cant = (ulong)(PuntRestante / unid.Puntuación);
+				if (Cant <= 0)
+					break;
 				ret.AgregaUnidad (unid, Cant);
-				PuntRestante -= Cant * ((IPuntuado)unid).Puntuación;
+				PuntRestante -= Cant * unid.Puntuación;
 			}
 
 			return ret;

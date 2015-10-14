@@ -62,8 +62,8 @@ namespace Civ
 		public static void RemoveCiudad (this ICivilización civilización,
 		                                 Ciudad ciudad)
 		{
-			if (ciudad.CivDueno == civilización)
-				ciudad.CivDueno = null;
+			if (ciudad.CivDueño == civilización)
+				ciudad.CivDueño = null;
 		}
 
 	}

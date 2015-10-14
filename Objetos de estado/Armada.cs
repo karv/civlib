@@ -2,7 +2,6 @@ using ListasExtra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Civ.Data;
 
 namespace Civ
 {
@@ -26,14 +25,17 @@ namespace Civ
 		}
 
 
-		readonly ListaPeso<UnidadRAW, Stack> _unidades = new ListaPeso<UnidadRAW, Stack> (
-			                                                 Stack.Merge,
-			                                                 null);
+		/// <summary>
+		/// Diccionario privado UnidadRAW-Stack
+		/// </summary>
+		readonly ListaPeso<IUnidadRAW, Stack> _unidades = new ListaPeso<IUnidadRAW, Stack> (
+			                                                  Stack.Merge,
+			                                                  null);
 
 		/// <summary>
 		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
 		/// </summary>
-		public readonly bool EsDefensa;
+		public bool EsDefensa { get; }
 
 		/// <summary>
 		/// Devuelve la lista de unidades en la armada.
@@ -47,7 +49,7 @@ namespace Civ
 			}
 		}
 
-		public ICollection<UnidadRAW> TiposUnidades ()
+		public ICollection<IUnidadRAW> TiposUnidades ()
 		{
 			return _unidades.Keys;
 		}
@@ -57,7 +59,8 @@ namespace Civ
 		/// </summary>
 		/// <param name="raw">Tipo de unidades.</param>
 		/// <returns></returns>
-		public Stack UnidadesAgrupadas (UnidadRAW raw)
+		[Obsolete ("Usar this[]")]
+		public Stack UnidadesAgrupadas (IUnidadRAW raw)
 		{
 			return _unidades [raw];
 		}
@@ -67,13 +70,11 @@ namespace Civ
 		/// </summary>
 		/// <param name="civilizacion">Civilización</param>
 		/// <param name="posición">Posición de la armada (se clona) </param>
-		public Armada (ICivilización civilizacion, Pseudoposicion posición)
+		public Armada (ICivilización civilizacion, Pseudoposición posición)
 		{
 			CivDueño = civilizacion;
 			EsDefensa = false;
-			Posición.A = posición.A;
-			Posición.B = posición.B;
-			Posición.Loc = posición.Loc;
+			Posición = posición.Clonar ();
 			civilizacion.Armadas.Add (this);
 		}
 
@@ -139,7 +140,7 @@ namespace Civ
 		/// Devuelve o establece el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		public Pseudoposicion Posición { get; }
+		public Pseudoposición Posición { get; }
 
 		/// <summary>
 		/// Agrega, mueve o junta unidad(es) a esta armada.
@@ -168,7 +169,7 @@ namespace Civ
 			}
 		}
 
-		public void AgregaUnidad (UnidadRAW raw, ulong cantidad)
+		public void AgregaUnidad (IUnidadRAW raw, ulong cantidad)
 		{
 			if (cantidad <= 0)
 			{
@@ -335,9 +336,9 @@ namespace Civ
 		/// Devuelve un nuevo diccionario que asocia a cada UnidadRAW la lista de Unidades que tiene.
 		/// </summary>
 		/// <returns>The dictionary.</returns>
-		public Dictionary <UnidadRAW, List<Stack>> ToDictionary ()
+		public Dictionary <IUnidadRAW, List<Stack>> ToDictionary ()
 		{
-			var ret = new Dictionary<UnidadRAW, List<Stack>> ();
+			var ret = new Dictionary<IUnidadRAW, List<Stack>> ();
 			foreach (var x in Unidades)
 			{
 				if (!ret.ContainsKey (x.RAW))
@@ -352,11 +353,11 @@ namespace Civ
 		/// <summary>
 		/// Devuelve el stack que le corresponde a una clase de unidad
 		/// </summary>
-		public Stack this [UnidadRAW uRAW]
+		public Stack this [IUnidadRAW uRAW]
 		{
 			get
 			{
-				return UnidadesAgrupadas (uRAW);
+				return _unidades [uRAW];
 			}
 		}
 
@@ -370,10 +371,11 @@ namespace Civ
 		/// <param name="unidad">Unidad.</param>
 		/// <param name="deltaHP">Daño o cura (negativo es daño)</param>
 		/// <param name="atacante">Stack atacante </param>
-		public void DañarStack (UnidadRAW unidad, Stack atacante, float deltaHP)
+		public void DañarStack (IUnidadRAW unidad, Stack atacante, float deltaHP)
 		{
 			Stack currStack = this [unidad];
-			currStack.Dañar (-deltaHP, atacante.RAW.Dispersion);
+			var atacanteRAW = atacante.RAW as IUnidadRAWCombate;
+			currStack.Dañar (-deltaHP, atacanteRAW.Dispersión);
 			if (currStack.HP < 0)
 			{
 				_unidades.Remove (unidad);
@@ -401,7 +403,7 @@ namespace Civ
 
 		#region IPosicionable implementation
 
-		Pseudoposicion IPosicionable.Posición ()
+		Pseudoposición IPosicionable.Posición ()
 		{
 			return Posición;
 		}
@@ -410,36 +412,9 @@ namespace Civ
 
 		#region Comandos especiales
 
-		#region Colonizar
 
-		/// <summary>
-		/// Devuelve true si al menos un stack puede colonizar.
-		/// </summary>
-		/// <returns><c>true</c>, if colonizar was pueded, <c>false</c> otherwise.</returns>
-		public bool PuedeColonizar ()
-		{
-			foreach (var x in _unidades.Keys)
-			{
-				if (x.PuedeColonizar)
-					return true;
-			}
-			return false;
-		}
 
-		/// <summary>
-		/// Coloniza y contruye una ciudad. Usa sólo un stack que pueda colonizar.
-		/// Devuelve la ciudad colonizada.
-		/// </summary>
-		public Ciudad Coloniza ()
-		{
-			foreach (var x in _unidades)
-			{
-				return x.Value.Colonizar ();
-			}
-			return null;
-		}
 
-		#endregion
 
 		#endregion
 	}

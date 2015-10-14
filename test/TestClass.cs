@@ -2,7 +2,7 @@
 using Civ;
 using Global;
 using System.Diagnostics;
-using Civ.Barbaros;
+using Civ.Bárbaros;
 using System.Collections.Generic;
 using Civ.Orden;
 using IU;
@@ -24,7 +24,8 @@ namespace Test
 			TestBigIrA ();
 		}
 
-		void Init ()
+		[Test]
+		public void Init ()
 		{
 			Juego.CargaData ();
 			Juego.InicializarJuego ();
@@ -48,9 +49,9 @@ namespace Test
 		public void TestRecoger ()
 		{
 			Init ();
-			UnidadRAW u = Juego.Data.Unidades [0];
-			u.MaxCarga = 100; // Porque yo lo digo
-			var pos = new Pseudoposicion ();
+			IUnidadRAW u = Juego.Data.Unidades.Elegir ();
+			Console.WriteLine (u);
+			var pos = new Pseudoposición ();
 			Terreno terrA = MyCiudad.Posición ().A;
 			Terreno terrB = Juego.State.Terrenos ().Elegir ();
 			Juego.State.Topología [terrA, terrB] = 1;
@@ -71,7 +72,7 @@ namespace Test
 
 			ord.AlLlegar += delegate
 			{
-				Debug.WriteLine ("Llegamos a " + ord.StackTarget.Posición ());
+				Debug.WriteLine ("Llegamos a " + ord.StackTarget.Posición);
 			};
 			ord.AlRegresar += delegate
 			{
@@ -85,7 +86,7 @@ namespace Test
 		public void TestBigIrA ()
 		{
 			Init ();
-			var u = new UnidadRAW ();
+			var u = new UnidadRAWCombate ();
 			u.Nombre = "Velociraptor";
 			u.Velocidad = 10;
 			u.Fuerza = 1;
@@ -114,7 +115,7 @@ namespace Test
 		public void TestReclutar ()
 		{
 			Init ();
-			UnidadRAW u = Juego.Data.Unidades [0];
+			IUnidadRAW u = Juego.Data.Unidades.Elegir ();
 			MyCiudad.Reclutar (u, 3);
 		}
 
@@ -148,13 +149,13 @@ namespace Test
 			DateTime timer = DateTime.Now;
 			while (duración.Ticks > 0)
 			{				
-				TimeSpan Tiempo = DateTime.Now - timer;
+				TimeSpan tiempo = DateTime.Now - timer;
 				timer = DateTime.Now;
-				duración -= Tiempo;
-				Tiempo = new TimeSpan ((long)(Tiempo.Ticks * multiplicadorVelocidad));
+				duración -= tiempo;
+				tiempo = new TimeSpan ((long)(tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);
-				Juego.Tick (Tiempo);
+				Juego.Tick (tiempo);
 
 				entreCiclos?.Invoke ();
 				if (Juego.State.Civs.Count == 0)
@@ -172,13 +173,13 @@ namespace Test
 			{
 				if (Juego.Rnd.NextDouble () < 0.001f)
 				{
-					foreach (var x in cd.Almacen.recursos)
+					foreach (var x in cd.Almacén.recursos)
 					{
 						Debug.WriteLine (
 							string.Format (
 								"{0}: {1}({2})",
 								x,
-								cd.Almacen [x],
+								cd.Almacén [x],
 								cd.CalculaDeltaRecurso (x))
 						);
 					}
@@ -194,11 +195,10 @@ namespace Test
 		{
 			Init ();
 			var u = new UnidadRAW ();
-			u.Fuerza = 1;
 			u.Nombre = "Gordo";
 			var reg = new ReglaGeneracionPuntuacion ();
-			reg.ClaseArmada = new List<Tuple<UnidadRAW, ulong>> ();
-			reg.ClaseArmada.Add (new Tuple<UnidadRAW, ulong> (u, 100));
+			reg.ClaseArmada = new List<Tuple<IUnidadRAW, ulong>> ();
+			reg.ClaseArmada.Add (new Tuple<IUnidadRAW, ulong> (u, 100));
 			reg.MaxPuntuacion = float.PositiveInfinity;
 			reg.MinPuntuacion = 0;
 			//g_.BarbGen.Reglas.Add(reg);
@@ -220,21 +220,21 @@ namespace Test
 			Juego.State.Civs.Add (c1);
 			Juego.State.Civs.Add (c2);
 
-			var p = new Pseudoposicion ();
+			var p = new Pseudoposición ();
 			p.A = Juego.State.Terrenos ().Elegir ();
 			p.Loc = 0;
 
-			var u = new UnidadRAW ();
+			var u = new UnidadRAWCombate ();
 			u.Fuerza = 1;
 			u.Nombre = "Guerrero";
 			u.Flags.Add ("A pie");
 
-			var uGordo = new UnidadRAW ();
+			var uGordo = new UnidadRAWCombate ();
 			uGordo.Fuerza = 150;
 			uGordo.Nombre = "Hulk";
 			uGordo.Flags.Add ("A pie");
 			uGordo.Mods.Add ("A pie", 1f);
-			uGordo.Dispersion = 0.1f;
+			uGordo.Dispersión = 0.1f;
 
 			var ac1 = new Armada (c1, p);
 			ac1.AgregaUnidad (u, 150);

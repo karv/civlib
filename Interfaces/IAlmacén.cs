@@ -24,10 +24,6 @@ namespace Civ
 		float recurso (Recurso recurso);
 
 		/// <summary>
-		/// Devuelve la cantidad existente de un recurso dado.
-	
-
-		/// <summary>
 		/// Almacén de lectura y escritura
 		/// </summary>
 		/// <param name="recurso">Recurso.</param>
@@ -35,11 +31,13 @@ namespace Civ
 
 		/// <summary>
 		/// Ocurre cuando cambia el almacén de un recurso
-		/// Recurso, valor viejo, valor nuevo
 		/// </summary>
 		event EventHandler<CambioElementoEventArgs<Recurso, float>> AlCambiar;
 	}
 
+	/// <summary>
+	/// Almacén de lectura y escritura
+	/// </summary>
 	public interface IAlmacén : IAlmacénRead
 	{
 		/// <summary>

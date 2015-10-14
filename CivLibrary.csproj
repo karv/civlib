@@ -9,7 +9,7 @@
     <AssemblyName>CivLibrary</AssemblyName>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ReleaseVersion>0.1.4</ReleaseVersion>
+    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,16 +31,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml" />
     <Reference Include="Store">
       <HintPath>packages\Store.0.1\lib\Store.dll</HintPath>
     </Reference>
     <Reference Include="ListaExtras">
       <HintPath>packages\ListaExtras.0.2.2.1\lib\ListaExtras.dll</HintPath>
     </Reference>
+    <Reference Include="C5">
+      <HintPath>packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
+    </Reference>
     <Reference Include="Grafos">
-      <HintPath>packages\Grafos.0.1.2\lib\Grafos.dll</HintPath>
+      <HintPath>packages\Grafos.0.1.2.1\lib\Grafos.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -57,7 +58,6 @@
     <Compile Include="Interfaces\ITickable.cs" />
     <Compile Include="RAW\EdificioRAW.cs" />
     <Compile Include="RAW\TrabajoRAW.cs" />
-    <Compile Include="RAW\UnidadRAW.cs" />
     <Compile Include="NewGameOptions.cs" />
     <Compile Include="Interfaces\ICiudad.cs" />
     <Compile Include="Interfaces\IDiplomacia.cs" />
@@ -94,20 +94,26 @@
     <Compile Include="DropStack.cs" />
     <Compile Include="Orden\OrdenIrALugar.cs" />
     <Compile Include="Almacén\AlmacénStack.cs" />
+    <Compile Include="IUnidadRAW.cs" />
+    <Compile Include="IUnidadRAWCombate.cs" />
+    <Compile Include="IUnidadRAWColoniza.cs" />
     <Compile Include="Interfaces\ICivilización.cs" />
     <Compile Include="Ecología.cs" />
     <Compile Include="Objetos de estado\DiplomaciaNómada.cs" />
     <Compile Include="Orden\IOrden.cs" />
     <Compile Include="Orden\OrdenRecoger.cs" />
+    <Compile Include="Comandos\ComandoIr.cs" />
+    <Compile Include="Comandos\IComandoEspecial.cs" />
     <Compile Include="Objetos de estado\CivilizacionBárbara.cs" />
     <Compile Include="Ciencia\RequiereCiencia.cs" />
+    <Compile Include="IImportable.cs" />
+    <Compile Include="ImportMachine.cs" />
+    <Compile Include="UnidadRAW.cs" />
+    <Compile Include="UnidadRAWColono.cs" />
+    <Compile Include="RAW\UnidadRAWCombate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <EmbeddedResource Include="Data.xml">
-      <LogicalName>Data.xml</LogicalName>
-      <DeployService-Deploy>True</DeployService-Deploy>
-    </EmbeddedResource>
     <EmbeddedResource Include="Nombres\NombresCiudad.txt">
       <LogicalName>NombresCiudad.txt</LogicalName>
     </EmbeddedResource>
@@ -123,8 +129,180 @@
     <Folder Include="Orden\" />
     <Folder Include="Topología\" />
     <Folder Include="Nombres\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Data\alimento.propiedad">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\alimento.tasaprodconstante">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\alimento.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\frutas silvestres.recurso">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\frutas silvestres.tasaprodconstante">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\frutas silvestres.propiedad">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\desierto.ecosistema">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\lenguaje.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\social.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\palacio.edificio">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\recolector.edificio">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\recolectar fruta.trabajo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\bruto.unidadcombate">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\colono.unidadcolono">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\entorno ciencia.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\manufactura.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\arte.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\tela.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\ropa.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\seda.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\árbol.recurso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\gusano seda.tasaprodconstante">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\gusano seda.propiedad">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\árboles dispersos.tasaprodconstante">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\árboles dispersos.propiedad">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\arboleda.tasaprodexp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\arboleda.propiedad">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\bosque.tasaprodexp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\gran bosque.tasaprodexp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\bosque.propiedad">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\gran bosque.propiedad">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\colina.ecosistema">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\montaña.ecosistema">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\vida nómada.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\recolección.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\asentamiento cuevas.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\tejeduría.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\alimentación subsistencia.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\control fuego.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\herbolarea.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\cooperación.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\construcción refugios.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\cestrería.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\caza resistencia.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\fabrica utensilios.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\coción.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\tradición oral.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\percutor piedra.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\mortero piedra.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\música prehistórica.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\danza prehistórica.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\ciencia social.trabajo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\entorno.trabajo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\producir manufactura.trabajo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\producir arte.trabajo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\trazo senderos.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\trampas.ciencia">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

@@ -86,7 +86,7 @@ namespace Civ
 		{
 			get
 			{
-				return CiudadDueño.CivDueno;
+				return CiudadDueño.CivDueño;
 			}
 		}
 

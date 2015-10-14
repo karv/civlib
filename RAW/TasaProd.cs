@@ -1,34 +1,60 @@
-﻿//
-//  TasaProd.cs
-//
-//  Author:
-//       Edgar Carballo <karvayoEdgar@gmail.com>
-//
-//  Copyright (c) 2015 edgar
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+﻿using System;
 using Civ.Data;
+using Civ.Data.Import;
 
 namespace Civ.Data.TasaProd
 {
 	/// <summary>
 	/// Forma en que los recursos natirales crecen
 	/// </summary>
-	public abstract class TasaProd
+	public abstract class TasaProd : IImportable
 	{
 		public Recurso Recurso;
+
+		void IImportable.Importar (System.IO.StreamReader reader)
+		{
+			while (!reader.EndOfStream)
+			{
+				string line = reader.ReadLine ();
+				line.ToLower ();
+				var spl = line.Split (':');
+				for (int i = 0; i < spl.Length; i++)
+				{
+					spl [i] = spl [i].Trim ();
+				}
+				ImportarLinea (spl);
+			}
+		}
+
+		string RecursoId;
+
+		protected virtual void CrearVínculos ()
+		{
+			Recurso = ImportMachine.Valor (RecursoId) as Recurso;
+		}
+
+		protected virtual void Limpiar ()
+		{
+			RecursoId = null;
+		}
+
+		void IImportable.Vincular ()
+		{
+			CrearVínculos ();
+			Limpiar ();
+		}
+
+		/// <summary>
+		/// Los pasos de imporatación cuando lee una línea
+		/// </summary>
+		/// <param name="spl">Spl.</param>
+		protected virtual void ImportarLinea (string [] spl)
+		{
+			if (spl [0] == "recurso")
+			{
+				RecursoId = spl [1];
+			}
+		}
 
 		#region ITickable implementation
 
@@ -60,13 +86,27 @@ namespace Civ.Data.TasaProd
 		public override void Tick (IAlmacenante alm, TimeSpan t)
 		{
 			
-			if (alm.Almacen [Recurso] < Max)
-				alm.Almacen [Recurso] += Crecimiento * (float)t.TotalHours;
+			if (alm.Almacén [Recurso] < Max)
+				alm.Almacén [Recurso] += Crecimiento * (float)t.TotalHours;
 		}
 
 		public override float DeltaEsperado (IAlmacenante alm)
 		{
 			return Crecimiento;
+		}
+
+		protected override void ImportarLinea (string [] spl)
+		{
+			base.ImportarLinea (spl);
+			switch (spl [0])
+			{
+				case "max":
+					Max = float.Parse (spl [1]);
+					break;
+				case "crecimiento":
+					Crecimiento = float.Parse (spl [1]);
+					break;
+			}
 		}
 
 		#endregion
@@ -87,14 +127,28 @@ namespace Civ.Data.TasaProd
 
 		public override void Tick (IAlmacenante alm, TimeSpan t)
 		{
-			if (alm.Almacen [Recurso] < Max)
-				alm.Almacen [Recurso] += CrecimientoBase * (float)t.TotalHours;
+			if (alm.Almacén [Recurso] < Max)
+				alm.Almacén [Recurso] += CrecimientoBase * (float)t.TotalHours;
 			
 		}
 
 		public override float DeltaEsperado (IAlmacenante alm)
 		{
 			return alm.ObtenerRecurso (Recurso) * CrecimientoBase;
+		}
+
+		protected override void ImportarLinea (string [] spl)
+		{
+			base.ImportarLinea (spl);
+			switch (spl [0])
+			{
+				case "max":
+					Max = float.Parse (spl [1]);
+					break;
+				case "crecimiento":
+					CrecimientoBase = float.Parse (spl [1]);
+					break;
+			}
 		}
 
 		#endregion

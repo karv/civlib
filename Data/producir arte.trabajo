@@ -1,0 +1,4 @@
+﻿nombre:Producir arte
+edificio:palacio.edificio
+salida:arte.recurso:1
+requiere:tradición oral.ciencia

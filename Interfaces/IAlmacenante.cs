@@ -10,7 +10,7 @@ namespace Civ
 		/// <summary>
 		/// Su almacén
 		/// </summary>
-		IAlmacén Almacen { get; }
+		IAlmacén Almacén { get; }
 
 		/// <summary>
 		/// Calcula la tasa de cambiod eun recurso, por hora.
@@ -29,7 +29,7 @@ namespace Civ
 		public static float ObtenerRecurso (this IAlmacenante almacén,
 		                                    Recurso recurso)
 		{
-			return almacén.Almacen [recurso];
+			return almacén.Almacén [recurso];
 		}
 	}
 }
