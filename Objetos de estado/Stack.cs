@@ -386,8 +386,13 @@ namespace Civ
 		{
 			get
 			{
-				return (ArmadaPerteneciente.Orden is Orden.OrdenEstacionado) &&
-				((RAW as IUnidadRAWColoniza).PuedeColonizar (this));
+				var col = RAW as IUnidadRAWColoniza;
+				if (col != null)
+				{
+					return (ArmadaPerteneciente.Orden is Orden.OrdenEstacionado) &&
+					(col.PuedeColonizar (this));
+				}
+				return false;
 			}
 		}
 
