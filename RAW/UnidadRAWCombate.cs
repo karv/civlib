@@ -13,6 +13,11 @@ namespace Civ.Data
 		{
 		}
 
+		public UnidadRAWCombate ()
+		{
+			Mods = new Modificadores ();
+		}
+
 		#region IPuntuado
 
 		float IPuntuado.Puntuación
@@ -36,11 +41,6 @@ namespace Civ.Data
 		}
 
 		IEnumerable<string> IUnidadRAWCombate.Modificadores{ get { return Mods.Keys; } }
-
-		/// <summary>
-		/// Fuerza de la unidad.
-		/// </summary>
-		public float Fuerza { get; set; }
 
 		/// <summary>
 		/// Flotante en [0, 1]

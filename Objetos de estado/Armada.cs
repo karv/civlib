@@ -74,9 +74,7 @@ namespace Civ
 		{
 			CivDueño = civilizacion;
 			EsDefensa = false;
-			Posición.A = posición.A;
-			Posición.B = posición.B;
-			Posición.Loc = posición.Loc;
+			Posición = posición.Clonar ();
 			civilizacion.Armadas.Add (this);
 		}
 
@@ -359,7 +357,7 @@ namespace Civ
 		{
 			get
 			{
-				return this [uRAW];
+				return _unidades [uRAW];
 			}
 		}
 

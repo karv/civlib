@@ -10,7 +10,7 @@
     <RootNamespace>test</RootNamespace>
     <AssemblyName>test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>0.1.4</ReleaseVersion>
+    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,9 +35,6 @@
     <Reference Include="Store">
       <HintPath>..\packages\Store.0.1\lib\Store.dll</HintPath>
     </Reference>
-    <Reference Include="Grafos">
-      <HintPath>..\packages\Grafos.0.1.2\lib\Grafos.dll</HintPath>
-    </Reference>
     <Reference Include="ListaExtras">
       <HintPath>..\packages\ListaExtras.0.2.2.1\lib\ListaExtras.dll</HintPath>
     </Reference>
@@ -49,6 +46,9 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization" />
+    <Reference Include="Grafos">
+      <HintPath>..\packages\Grafos.0.1.2.1\lib\Grafos.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

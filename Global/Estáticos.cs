@@ -8,6 +8,7 @@ using System.IO;
 using Basic;
 using ListasExtra.Extensiones;
 using C5;
+using Civ.Data.Import;
 
 namespace Global
 {
@@ -93,9 +94,7 @@ namespace Global
 		/// </summary>
 		public static void CargaData ()
 		{
-			Stream stream = System.Reflection.Assembly.GetExecutingAssembly ().GetManifestResourceStream ("Data.xml");
-			Data = Store.Store<GameData>.Deserialize (stream);
-			stream.Dispose ();
+			ImportMachine.Importar ();
 		}
 
 		public static void GuardaData ()

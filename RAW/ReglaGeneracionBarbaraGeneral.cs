@@ -43,6 +43,8 @@ namespace Civ.Bárbaros
 				var unid = Unidades [Juego.Rnd.Next (Unidades.Count)];
 				Unidades.Remove (unid);
 				ulong Cant = (ulong)(PuntRestante / unid.Puntuación);
+				if (Cant <= 0)
+					break;
 				ret.AgregaUnidad (unid, Cant);
 				PuntRestante -= Cant * unid.Puntuación;
 			}

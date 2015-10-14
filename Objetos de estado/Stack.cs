@@ -30,7 +30,7 @@ namespace Civ
 		{
 			get
 			{
-				return (RAW as IUnidadRAWCombate).Fuerza;
+				return RAW.Fuerza;
 			}
 		}
 
@@ -370,7 +370,7 @@ namespace Civ
 		{ 
 			get
 			{ 
-				return Fuerza * Cantidad; 
+				return RAW.Puntuación * Cantidad; 
 			} 
 		}
 

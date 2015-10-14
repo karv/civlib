@@ -24,7 +24,8 @@ namespace Test
 			TestBigIrA ();
 		}
 
-		void Init ()
+		[Test]
+		public void Init ()
 		{
 			Juego.CargaData ();
 			Juego.InicializarJuego ();
@@ -49,6 +50,7 @@ namespace Test
 		{
 			Init ();
 			IUnidadRAW u = Juego.Data.Unidades.Elegir ();
+			Console.WriteLine (u);
 			var pos = new Pseudoposición ();
 			Terreno terrA = MyCiudad.Posición ().A;
 			Terreno terrB = Juego.State.Terrenos ().Elegir ();
