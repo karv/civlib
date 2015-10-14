@@ -43,6 +43,10 @@ namespace Civ.Data
 		/// útil para la IA
 		/// </summary>
 		public float Valor;
+		/// <summary>
+		/// Si este recurso se puede almacenar en Ecología
+		/// </summary>
+		public bool EsEcológico;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Data.Recurso"/>class.
@@ -96,6 +100,9 @@ namespace Civ.Data
 								this));
 						#endif
 						Juego.Data.RecursoAlimento = this;
+						break;
+					case "ecológico":
+						EsEcológico = spl [1] != "0";
 						break;
 				}
 			}

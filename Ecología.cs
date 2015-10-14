@@ -61,7 +61,8 @@ namespace Civ
 			{
 				foreach (var y in x.Salida)
 				{
-					RecursoEcologico [y.Recurso] += y.DeltaEsperado (this) * (float)t.TotalHours;
+					if (y.Recurso.EsEcológico) // Sólo hace esto para recursos ecológicos
+						RecursoEcologico [y.Recurso] += y.DeltaEsperado (this) * (float)t.TotalHours;
 				}
 			}
 			AlTickDespués?.Invoke (t);
