@@ -173,7 +173,7 @@ namespace Test
 			{
 				if (Juego.Rnd.NextDouble () < 0.001f)
 				{
-					foreach (var x in cd.Almacén.recursos)
+					foreach (var x in cd.Almacén.Recursos)
 					{
 						Debug.WriteLine (
 							string.Format (

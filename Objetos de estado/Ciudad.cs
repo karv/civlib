@@ -139,7 +139,7 @@ namespace Civ
 			Propiedades = new C5.HashSet<Propiedad> ();
 			CivDueño = dueño;
 			Nombre = nombre;
-			Almacen = new AlmacenCiudad (this);
+			Almacén = new AlmacenCiudad (this);
 			terreno.CiudadConstruida = this;
 			Terr = terreno;
 
@@ -195,18 +195,10 @@ namespace Civ
 
 		#region Almacén
 
-		IAlmacén IAlmacenante.Almacén
-		{
-			get
-			{
-				return Almacen;
-			}
-		}
-
 		/// <summary>
 		/// Almacén de recursos.
 		/// </summary>
-		public AlmacenCiudad Almacen;
+		public IAlmacén Almacén { get; }
 
 		#endregion
 
@@ -736,9 +728,9 @@ namespace Civ
 			{
 				float ret = 0;
 				// Recursos
-				foreach (var x in Almacen)
+				foreach (var x in Almacén.Recursos)
 				{
-					ret += x.Key.Valor * x.Value;
+					ret += x.Valor * Almacén [x];
 				}
 
 				// Población
@@ -802,11 +794,11 @@ namespace Civ
 		{ 
 			get
 			{
-				return Almacen [RecursoAlimento];
+				return Almacén [RecursoAlimento];
 			}
 			set
 			{
-				Almacen [RecursoAlimento] = value;
+				Almacén [RecursoAlimento] = value;
 			}
 		}
 
@@ -836,7 +828,7 @@ namespace Civ
 			//Si tienen qué comer
 			if (Consumo <= AlimentoAlmacen)
 			{
-				Almacen [RecursoAlimento] -= Consumo;
+				Almacén [RecursoAlimento] -= Consumo;
 			}
 			else
 			{
@@ -903,7 +895,7 @@ namespace Civ
 
 			foreach (var x in Propiedades)
 			{
-				x.Tick (this, t);
+				x.Tick (Almacén, t);
 			}
 			// Construir edificio.
 			if (EdifConstruyendo != null)
@@ -946,12 +938,12 @@ namespace Civ
 		public void DestruirRecursosTemporales ()
 		{
 			// Desaparecen algunos recursos
-			var Alm = new List<Recurso> (Almacen.Keys);
+			var Alm = new List<Recurso> (Almacén.Recursos);
 			foreach (Recurso x in Alm)
 			{
 				if (x.Desaparece)
 				{
-					Almacen [x] = 0;
+					Almacén [x] = 0;
 				}
 			}
 
@@ -965,9 +957,9 @@ namespace Civ
 		{
 			AlTickAntes?.Invoke (t);
 			PopTick (t);
-			var RecAntes = Almacen.Clonar ();
+			var RecAntes = (Almacén as AlmacenCiudad).Clonar ();
 			ResourceTick (t);
-			DeltaRec = ((ListaPeso<Recurso>)Almacen + RecAntes) * (float)(t.TotalHours);
+			DeltaRec = ((ListaPeso<Recurso>)Almacén + RecAntes) * (float)(t.TotalHours);
 			if (CivDueño != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				{

@@ -54,7 +54,6 @@
     <Compile Include="Mensaje.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Interfaces\IAlmacén.cs" />
-    <Compile Include="Interfaces\IAlmacenante.cs" />
     <Compile Include="Interfaces\ITickable.cs" />
     <Compile Include="RAW\EdificioRAW.cs" />
     <Compile Include="RAW\TrabajoRAW.cs" />

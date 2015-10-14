@@ -87,7 +87,7 @@ namespace Civ
 		}
 
 
-		IEnumerable<Recurso> IAlmacénRead.recursos { get { return Keys; } }
+		IEnumerable<Recurso> IAlmacénRead.Recursos { get { return Keys; } }
 
 		float IAlmacén.this [Recurso recurso]
 		{

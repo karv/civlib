@@ -14,7 +14,7 @@ namespace Civ
 		/// Devuelve la lista de recursos implicados
 		/// </summary>
 		/// <value>The recursos.</value>
-		IEnumerable<Recurso> recursos { get; }
+		IEnumerable<Recurso> Recursos { get; }
 
 		/// <summary>
 		/// Almacén de lectura y escritura
@@ -49,7 +49,7 @@ namespace Civ
 		public static Dictionary<Recurso, float> ToDictionary (this IAlmacénRead alm)
 		{
 			var ret = new Dictionary<Recurso, float> ();
-			foreach (var x in alm.recursos)
+			foreach (var x in alm.Recursos)
 			{
 				ret [x] = alm [x];
 			}

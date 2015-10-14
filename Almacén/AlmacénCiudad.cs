@@ -101,7 +101,7 @@ namespace Civ
 
 		#region IAlmacénRead implementation
 
-		IEnumerable<Recurso> IAlmacénRead.recursos
+		IEnumerable<Recurso> IAlmacénRead.Recursos
 		{
 			get
 			{

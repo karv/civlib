@@ -97,7 +97,7 @@ namespace Civ
 		public float ObtenerGlobalRecurso (Recurso recurso)
 		{
 			float ret = 0;
-			foreach (IAlmacenante x in Ciudades)
+			foreach (var x in Ciudades)
 			{
 				ret += x.Almacén [recurso];
 			}

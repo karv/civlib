@@ -42,7 +42,7 @@ namespace Civ
 			}
 		}
 
-		IEnumerable<Recurso> IAlmacénRead.recursos
+		IEnumerable<Recurso> IAlmacénRead.Recursos
 		{
 			get
 			{
