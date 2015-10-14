@@ -1,25 +1,30 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
 
 namespace Civ
 {
-	public class ControlDiplomacia : Dictionary<ICivilización, EstadoDiplomático>, IDiplomacia
+	public class ControlDiplomacia : C5.HashDictionary<ICivilización, EstadoDiplomático>, IDiplomacia
 	{
+		/// <summary>
+		/// Devuelve o establece si una civilización permite atacar a otras con las que no tiene diplomacia.
+		/// </summary>
+		public bool PermiteAtacarDesconocidos { get; set; }
+
 		public bool PermiteAtacar (Armada arm)
 		{
 			EstadoDiplomático dip;
-			return TryGetValue (arm.CivDueño, out dip) && dip.PermiteAtacar;
+			var civ = arm.CivDueño;
+			return Find (ref civ, out dip) ? dip.PermiteAtacar : PermiteAtacarDesconocidos;
 		}
 
-		//TODO Por ahora no se puede ya que Dicionary no tiene métodos para monitorear cambios
-		event Action IDiplomacia.AlCambiarDiplomacia
+		//TEST
+		public event Action AlCambiarDiplomacia;
+
+		public ControlDiplomacia ()
 		{
-			add
+			CollectionChanged += delegate
 			{
-			}
-			remove
-			{
-			}
+				AlCambiarDiplomacia?.Invoke ();
+			};
 		}
 	}
 }
