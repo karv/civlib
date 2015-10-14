@@ -72,7 +72,13 @@ namespace Civ
 		/// <summary>
 		/// Propiedades que se contruyen al construir una ciudad aquí.
 		/// </summary>        
-		public ICollection<Propiedad> Innatos = new List<Propiedad> ();
+		public ICollection<Propiedad> Innatos
+		{
+			get
+			{
+				return Eco.Innatos;
+			}
+		}
 
 		public override string ToString ()
 		{

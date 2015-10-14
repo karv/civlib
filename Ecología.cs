@@ -10,6 +10,8 @@ namespace Civ
 	{
 		readonly Dictionary<Recurso, RecursoEstado> RecursoEcologico = new Dictionary<Recurso, RecursoEstado> ();
 
+		public readonly ICollection<Propiedad> Innatos = new C5.HashSet<Propiedad> ();
+
 		public event System.EventHandler<ListasExtra.CambioElementoEventArgs<Recurso, float>> AlCambiar;
 
 		public float this [Recurso recurso]
