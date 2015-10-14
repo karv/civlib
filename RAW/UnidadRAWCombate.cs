@@ -43,11 +43,6 @@ namespace Civ.Data
 		IEnumerable<string> IUnidadRAWCombate.Modificadores{ get { return Mods.Keys; } }
 
 		/// <summary>
-		/// Fuerza de la unidad.
-		/// </summary>
-		public float Fuerza { get; set; }
-
-		/// <summary>
 		/// Flotante en [0, 1]
 		/// Qué tanto se dispersa el daño entre el stack enemigo.
 		/// </summary>

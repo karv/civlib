@@ -142,6 +142,12 @@ namespace Civ.Data
 			get { return _Reqs; }
 		}
 
+		/// <summary>
+		/// Fuerza de combate
+		/// </summary>
+		/// <value>La fuerza de combate</value>
+		public float Fuerza { get; set; }
+
 		#region IImportable
 
 		string _req_ciencia_id;

@@ -23,11 +23,5 @@ namespace Civ
 		/// </summary>
 		/// <value>The dispersion.</value>
 		float Dispersión { get; }
-
-		/// <summary>
-		/// Fuerza de combate
-		/// </summary>
-		/// <value>La fuerza de combate</value>
-		float Fuerza { get; }
 	}
 }
