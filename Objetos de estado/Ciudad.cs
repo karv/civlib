@@ -232,7 +232,7 @@ namespace Civ
 				{
 					if (y.Recurso == recurso)
 					{
-						ret += y.DeltaEsperado (this);
+						ret += y.DeltaEsperado (Almacen);
 					}
 				}
 			}

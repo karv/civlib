@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Civ.Data;
+using ListasExtra;
 
 namespace Civ
 {
@@ -8,7 +9,7 @@ namespace Civ
 	/// </summary>
 	public class Ecología : ITickable, IAlmacénRead
 	{
-		readonly Dictionary<Recurso, RecursoEstado> RecursoEcologico = new Dictionary<Recurso, RecursoEstado> ();
+		readonly ListaPeso<Recurso> RecursoEcologico = new ListaPeso<Recurso> ();
 
 		public readonly ICollection<Propiedad> Innatos = new C5.HashSet<Propiedad> ();
 
@@ -18,18 +19,18 @@ namespace Civ
 		{
 			get
 			{
-				return RecursoEcologico [recurso].Cant;
+				return RecursoEcologico [recurso];
 			}
 			protected set
 			{
-				float prev = RecursoEcologico [recurso].Cant;
-				RecursoEcologico [recurso].Cant = value;
+				float prev = RecursoEcologico [recurso];
+				RecursoEcologico [recurso] = value;
 				AlCambiar?.Invoke (
 					this,
 					new ListasExtra.CambioElementoEventArgs<Recurso, float> (
 						recurso,
 						prev,
-						RecursoEcologico [recurso].Cant));
+						RecursoEcologico [recurso]));
 			}
 		}
 
@@ -53,22 +54,18 @@ namespace Civ
 
 		public event System.Action<System.TimeSpan> AlTickDespués;
 
-		public void Tick (System.TimeSpan t)
+		public void Tick (System.TimeSpan t) //TEST
 		{
 			AlTickAntes?.Invoke (t);
-			foreach (var x in RecursoEcologico)
+			foreach (var x in Innatos)
 			{
-				x.Value.Cant += x.Value.Crec * (float)t.TotalHours;
+				foreach (var y in x.Salida)
+				{
+					RecursoEcologico [y.Recurso] += y.DeltaEsperado (this) * (float)t.TotalHours;
+				}
 			}
 			AlTickDespués?.Invoke (t);
 
 		}
-	}
-
-	public class RecursoEstado
-	{
-		public float Cant;
-		public float Max;
-		public float Crec;
 	}
 }
