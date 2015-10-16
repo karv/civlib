@@ -2,13 +2,14 @@ using ListasExtra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Civ.Combate;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public class Armada: IPosicionable, IPuntuado
+	public class Armada: IPosicionable, IPuntuado, IDefensor
 	{
 		#region General
 
@@ -371,6 +372,7 @@ namespace Civ
 		/// <param name="unidad">Unidad.</param>
 		/// <param name="deltaHP">Daño o cura (negativo es daño)</param>
 		/// <param name="atacante">Stack atacante </param>
+		[Obsolete]
 		public void DañarStack (IUnidadRAW unidad, Stack atacante, float deltaHP)
 		{
 			Stack currStack = this [unidad];
@@ -420,6 +422,34 @@ namespace Civ
 		{
 			unidad = Unidades.FirstOrDefault (x => x.PuedeColonizarAqui);
 			return  unidad != null;
+		}
+
+		#endregion
+
+		#region IDefensor
+
+		Stack IDefensor.Defensa (IAtacante atacante)
+		{
+			// Elegir el defensa que le cause menor daño
+			Stack DefÓptimo = null;
+			float MinActual = 0;
+			foreach (var x in Unidades)
+			{
+				float daño = atacante.ProponerDaño (x.RAW);
+				if (DefÓptimo == null || MinActual > daño)
+				{
+					DefÓptimo = x;
+					MinActual = daño;
+				}
+			}
+			if (DefÓptimo == null)
+			{
+				throw new Exception (string.Format (
+					"Por alguna razón, el defensor {0} no eligió un stack para defenderse contra {1}",
+					this,
+					atacante));
+			}
+			return DefÓptimo;
 		}
 
 		#endregion

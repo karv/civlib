@@ -1,13 +1,17 @@
 ﻿using System;
 using Global;
 using Civ.Data;
+using Civ.Combate;
+using System.Security.Cryptography.X509Certificates;
+using ListasExtra.Set;
+using System.Runtime.Remoting.Messaging;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa a una instancia de unidad.
 	/// </summary>
-	public class Stack: IPuntuado
+	public class Stack: IPuntuado, IAtacante
 	{
 		#region General
 
@@ -182,6 +186,11 @@ namespace Civ
 			AlSerAtacado?.Invoke ();
 		}
 
+		public void Dañar (AnálisisCombate anal)
+		{
+			AlSerAtacado.Invoke ();
+		}
+
 		void DañarDisperso (float daño)
 		{
 			HP -= daño / _cantidad;
@@ -270,6 +279,7 @@ namespace Civ
 		/// Devuelve el daño máximo que haría esta unidad contra U.
 		/// </summary>
 		/// <param name="stack">Stack con quien comparar</param>
+		[Obsolete]
 		public float DañoPropuesto (Stack stack)
 		{
 			var cRAW = RAW as IUnidadRAWCombate;
@@ -313,6 +323,7 @@ namespace Civ
 		/// <param name="raw">RAW de la armada a dañar</param>
 		/// <param name="atacante">Quien ataca</param>
 		/// <param name="t">Tiempo</param>
+		[Obsolete]
 		public void CausaDaño (Armada arm, IUnidadRAW raw, Stack atacante, float t)
 		{
 			Stack U = arm [raw];
@@ -431,6 +442,40 @@ namespace Civ
 
 		#endregion
 
+		#region IAtacante
+
+		float IAtacante.ProponerDaño (IUnidadRAW unidad)
+		{
+			
+			var cRAW = RAW as IUnidadRAWCombate;
+			float ret;
+			float mod = 0;
+			ret = Fuerza * Cantidad / unidad.Fuerza;
+
+			foreach (var y in cRAW.Modificadores)
+			{
+				if (unidad.TieneFlag (y))
+					mod += cRAW.getModificador (y);
+			}
+			return ret * (1 + mod);
+		}
+
+		IAnálisisCombate IAtacante.CausarDaño (Stack stack)
+		{
+			throw new NotImplementedException ();
+		}
+
+		public float Dispersión
+		{
+			get
+			{
+				var cbt = RAW as IUnidadRAWCombate;
+				return cbt?.Dispersión ?? 0;
+			}
+		}
+
+		#endregion
+
 		#region Eventos
 
 		/// <summary>
@@ -451,5 +496,6 @@ namespace Civ
 		public event Action<ICiudad> AlColonizar;
 
 		#endregion
+
 	}
 }

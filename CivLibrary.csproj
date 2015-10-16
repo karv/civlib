@@ -110,6 +110,9 @@
     <Compile Include="RAW\UnidadRAWCombate.cs" />
     <Compile Include="Objetos de estado\EstadoDiplomático.cs" />
     <Compile Include="Objetos de estado\InfoPoblación.cs" />
+    <Compile Include="IAtacante.cs" />
+    <Compile Include="IAnálisisCombate.cs" />
+    <Compile Include="AnálisisCombate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
