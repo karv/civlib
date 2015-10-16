@@ -216,59 +216,11 @@ namespace Civ
 		/// <param name="t">tiempo de pelea</param>
 		public void Pelea (Armada armada, TimeSpan t)
 		{
-			if (Unidades.Count == 0 || armada.Unidades.Count == 0)
-				return;
-
-			int i, j;
-
-			var Arms = new Armada[2];
-			Stack Ata;
-			Stack Def;
-			Arms [0] = this;
-			Arms [1] = armada;
-
-			i = Global.Juego.Rnd.Next (2); // Arms[i] Inicia
-			j = 1 - i;
-			if (Arms [i].Unidades.Count > 0)
+			foreach (IAtacante x in Unidades)
 			{
-				Ata = Arms [i].MayorDaño (Arms [j]);
-				Def = Ata.MenorDaño (Arms [j]);
-				Ata.CausaDaño (Def.ArmadaPerteneciente, Def.RAW, Ata, (float)t.TotalHours);
-				if (Def.Muerto)
-					return;
+				var cbt = new AnálisisCombate (x, armada, t);
+				cbt.Ejecutar ();
 			}
-				
-			i = j; // Arms[1 - 1] le sigue.
-			j = 1 - i;
-			if (Arms [i].Unidades.Count > 0)
-			{
-				Ata = Arms [i].MayorDaño (Arms [j]);
-				Def = Ata.MenorDaño (Arms [j]);
-				Ata.CausaDaño (Def.ArmadaPerteneciente, Def.RAW, Ata, (float)t.TotalHours);
-			}
-		}
-
-		/// <summary>
-		/// Devuelve la unidad de maximin daño de this.Unidades a A.Unidades
-		/// </summary>
-		/// <returns>La unidad que hace el mayor daño menor.</returns>
-		/// <param name="armada">A.</param>
-		Stack MayorDaño (Armada armada)
-		{
-			float maxDaño = 0;
-			float currDaño;
-			Stack ret = null;
-			foreach (var x in Unidades)
-			{
-				currDaño = x.DañoPropuesto (x.MenorDaño (armada));
-				if (currDaño >= maxDaño)
-				{
-					ret = x;
-					maxDaño = currDaño;
-				}
-			}
-			System.Diagnostics.Debug.Assert (ret != null);
-			return ret;
 		}
 
 		public float Vitalidad
@@ -359,28 +311,6 @@ namespace Civ
 			get
 			{
 				return _unidades [uRAW];
-			}
-		}
-
-		#endregion
-
-		#region Daño
-
-		/// <summary>
-		/// Daña un stack
-		/// </summary>
-		/// <param name="unidad">Unidad.</param>
-		/// <param name="deltaHP">Daño o cura (negativo es daño)</param>
-		/// <param name="atacante">Stack atacante </param>
-		[Obsolete]
-		public void DañarStack (IUnidadRAW unidad, Stack atacante, float deltaHP)
-		{
-			Stack currStack = this [unidad];
-			var atacanteRAW = atacante.RAW as IUnidadRAWCombate;
-			currStack.Dañar (-deltaHP, atacanteRAW.Dispersión);
-			if (currStack.HP < 0)
-			{
-				_unidades.Remove (unidad);
 			}
 		}
 

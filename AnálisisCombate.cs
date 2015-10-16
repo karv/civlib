@@ -1,5 +1,6 @@
 ﻿using System;
 using Global;
+using System.Collections.Generic;
 
 namespace Civ.Combate
 {
@@ -16,6 +17,8 @@ namespace Civ.Combate
 		public IAtacante Atacante { get; set; }
 
 		public Stack Defensor { get; set; }
+
+		public IEnumerable<string> Mods { get; }
 
 		IAtacante IAnálisisCombate.Atacante
 		{
@@ -36,6 +39,8 @@ namespace Civ.Combate
 		public float DañoDisperso { get; set; }
 
 		public float DañoDirecto { get; set; }
+
+		public TimeSpan Tiempo { get; }
 
 		public string Análisis ()
 		{
@@ -67,19 +72,22 @@ namespace Civ.Combate
 		{
 			DañarDisperso ();
 			DañarDirecto ();
+			Defensor.FueAtacado ();
 		}
 
-
-		public AnálisisCombate (IAtacante atacante, IDefensor defensa)
+		public AnálisisCombate (IAtacante atacante, IDefensor defensa, TimeSpan t)
 		{
 			var def = defensa.Defensa (atacante);
 			Atacante = atacante;
 			Defensor = def;
+			Tiempo = t;
 
-			float Daño = Atacante.ProponerDaño (Defensor.RAW);
+			var Daño = Atacante.ProponerDaño (Defensor.RAW) * (float)t.TotalHours;
 
 			DañoDirecto = Daño * (1 - Dispersión);
 			DañoDisperso = Daño * Dispersión;
+
+
 		}
 
 		/// <summary>

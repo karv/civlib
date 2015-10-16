@@ -17,10 +17,12 @@ namespace Civ.Combate
 		/// <summary>
 		/// Causa daño propuesto a un stack
 		/// </summary>
-		/// <param name="stack">Stack.</param>
-		IAnálisisCombate CausarDaño (Stack stack);
+		/// <param name="Def">Defensor</param>
+		IAnálisisCombate CausarDaño (IDefensor Def, TimeSpan t);
 
 		float Dispersión { get; }
+
+		event Action AlSerAtacado;
 
 	}
 
