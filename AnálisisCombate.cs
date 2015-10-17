@@ -47,6 +47,18 @@ namespace Civ.Combate
 			return ToString ();
 		}
 
+		public override string ToString ()
+		{
+			return string.Format (
+				"[AnálisisCombate: Atacante={0}, Defensor={1}, Mods={2}, DañoDisperso={3}, DañoDirecto={4}]",
+				Atacante,
+				Defensor,
+				Mods,
+				DañoDisperso,
+				DañoDirecto);
+		}
+
+
 		void DañarDirecto ()
 		{
 			// Esto se supone que es el piso.
@@ -72,7 +84,7 @@ namespace Civ.Combate
 		{
 			DañarDisperso ();
 			DañarDirecto ();
-			Defensor.FueAtacado ();
+			Defensor.FueAtacado (this);
 		}
 
 		public AnálisisCombate (IAtacante atacante, IDefensor defensa, TimeSpan t)

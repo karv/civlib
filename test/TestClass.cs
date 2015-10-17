@@ -243,6 +243,12 @@ namespace Test
 			var ac2 = new Armada (c2, p);
 			ac2.AgregaUnidad (u, 150);
 
+			ac1 [u].AlSerAtacado += delegate(Civ.Combate.IAnálisisCombate anal)
+			{
+				Console.WriteLine (anal.Análisis ());
+				Console.WriteLine (ac1);
+				Console.WriteLine (ac2);
+			};
 
 			// Listos para matarse
 			Ciclo (50);

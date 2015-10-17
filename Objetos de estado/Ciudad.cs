@@ -781,7 +781,7 @@ namespace Civ
 		/// <summary>
 		/// Cambio de recursos
 		/// </summary>
-		ListaPeso<Recurso, float> DeltaRec;
+		ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
 
 		public float CalculaDeltaRecurso (Recurso recurso)
 		{
@@ -957,9 +957,32 @@ namespace Civ
 		{
 			AlTickAntes?.Invoke (t);
 			PopTick (t);
-			var RecAntes = (Almacén as AlmacenCiudad).Clonar ();
+			var dictTmp = ((System.Collections.Generic.IDictionary<Recurso, float>)Almacén).Clonar ();
+			var RecAntes = new ListaPeso<Recurso> (dictTmp);
 			ResourceTick (t);
-			DeltaRec = ((ListaPeso<Recurso>)Almacén + RecAntes) * (float)(t.TotalHours);
+
+			// Hacer la suma manual 
+			//TODO corregir esto.
+			dictTmp = ((System.Collections.Generic.IDictionary<Recurso, float>)Almacén).Clonar ();
+
+			DeltaRec.Clear ();
+			foreach (var x in dictTmp)
+			{
+				DeltaRec.Add (x);
+			}
+
+			foreach (var x in RecAntes)
+			{
+				DeltaRec [x.Key] = (DeltaRec [x.Key] - x.Value);
+			}
+
+			foreach (var x in new List<Recurso> (DeltaRec.Keys))
+			{
+				DeltaRec [x] /= (float)(t.TotalHours);
+			}
+			//var xx = tmp + alm;
+			//DeltaRec = tmp + alm;
+			//DeltaRec = ((ListaPeso<Recurso>)(Almacén) + (-1f) * RecAntes);// * (float)(t.TotalHours);
 			if (CivDueño != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				{

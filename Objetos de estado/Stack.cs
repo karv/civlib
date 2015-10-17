@@ -168,9 +168,9 @@ namespace Civ
 			}
 		}
 
-		public void FueAtacado ()
+		public void FueAtacado (IAnálisisCombate anal)
 		{
-			AlSerAtacado?.Invoke ();
+			AlSerAtacado?.Invoke (anal);
 		}
 
 		/// <summary>
@@ -394,7 +394,7 @@ namespace Civ
 		/// <summary>
 		/// Ocurre cuando una armada ataca este Stack
 		/// </summary>
-		public event Action AlSerAtacado;
+		public event Action<IAnálisisCombate> AlSerAtacado;
 
 		/// <summary>
 		/// Ocurre cuando hay un cambio en la cantidad

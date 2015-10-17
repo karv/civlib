@@ -375,8 +375,10 @@ namespace Civ
 			if (DefÓptimo == null)
 			{
 				throw new Exception (string.Format (
-					"Por alguna razón, el defensor {0} no eligió un stack para defenderse contra {1}",
+					"Por alguna razón, el defensor {0} no eligió un stack para defenderse contra {2}\n" +
+					"¿No tiene unidades? #Unidades: {1}",
 					this,
+					Unidades,
 					atacante));
 			}
 			return DefÓptimo;

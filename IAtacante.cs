@@ -22,7 +22,7 @@ namespace Civ.Combate
 
 		float Dispersión { get; }
 
-		event Action AlSerAtacado;
+		event Action<IAnálisisCombate> AlSerAtacado;
 
 	}
 
