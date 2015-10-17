@@ -1,60 +1,46 @@
 ﻿using System.Collections.Generic;
 using Civ.Data;
-using ListasExtra;
+using System;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa la ecología del terreno.
 	/// </summary>
-	public class Ecología : ITickable, IAlmacénRead
+	public class Ecología : ITickable
 	{
-		readonly ListaPeso<Recurso> RecursoEcologico = new ListaPeso<Recurso> ();
+		readonly AlmacénGenérico RecursoEcológico = new AlmacénGenérico ();
 
+		/// <summary>
+		/// Propiedades innatas del lugar
+		/// </summary>
 		public readonly ICollection<Propiedad> Innatos = new C5.HashSet<Propiedad> ();
 
-		public event System.EventHandler<ListasExtra.CambioElementoEventArgs<Recurso, float>> AlCambiar;
+		public event Action<TimeSpan> AlTickAntes;
 
-		public float this [Recurso recurso]
+		public event Action<TimeSpan> AlTickDespués;
+
+		/// <summary>
+		/// Devuelve el almacén de recursos.
+		/// </summary>
+		public IAlmacénRead AlmacénRecursos { get; }
+
+		/// <summary>
+		/// Devuelve la lista de los recursos en esta Ecología
+		/// </summary>
+		public ICollection<Recurso> ListaRecursos
 		{
 			get
 			{
-				return RecursoEcologico [recurso];
-			}
-			protected set
-			{
-				float prev = RecursoEcologico [recurso];
-				RecursoEcologico [recurso] = value;
-				AlCambiar?.Invoke (
-					this,
-					new ListasExtra.CambioElementoEventArgs<Recurso, float> (
-						recurso,
-						prev,
-						RecursoEcologico [recurso]));
+				return RecursoEcológico.Keys;
 			}
 		}
 
-		public ICollection<Recurso> recursos
-		{
-			get
-			{
-				return RecursoEcologico.Keys;
-			}
-		}
-
-		IEnumerable<Recurso> IAlmacénRead.Recursos
-		{
-			get
-			{
-				return RecursoEcologico.Keys;
-			}
-		}
-
-		public event System.Action<System.TimeSpan> AlTickAntes;
-
-		public event System.Action<System.TimeSpan> AlTickDespués;
-
-		public void Tick (System.TimeSpan t) //TEST
+		/// <summary>
+		/// Ejecuta un tick
+		/// </summary>
+		/// <param name="t">Lapso del tick</param>
+		public void Tick (TimeSpan t) //TEST
 		{
 			AlTickAntes?.Invoke (t);
 			foreach (var x in Innatos)
@@ -62,11 +48,10 @@ namespace Civ
 				foreach (var y in x.Salida)
 				{
 					if (y.Recurso.EsEcológico) // Sólo hace esto para recursos ecológicos
-						RecursoEcologico [y.Recurso] += y.DeltaEsperado (this) * (float)t.TotalHours;
+						y.Tick (RecursoEcológico, t);
 				}
 			}
 			AlTickDespués?.Invoke (t);
-
 		}
 	}
 }

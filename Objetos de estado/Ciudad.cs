@@ -139,7 +139,7 @@ namespace Civ
 			Propiedades = new C5.HashSet<Propiedad> ();
 			CivDueño = dueño;
 			Nombre = nombre;
-			Almacén = new AlmacenCiudad (this);
+			this.Almacén = new AlmacenCiudad (this);
 			terreno.CiudadConstruida = this;
 			Terr = terreno;
 

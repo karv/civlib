@@ -52,8 +52,8 @@ namespace Civ
 				float r;
 
 				r = base [recurso]; // Devuelve lo almacenado en esta ciudad.
-				if (CiudadDueño.Terr.Eco.recursos.Contains (recurso))
-					r += CiudadDueño.Terr.Eco [recurso];
+				if (CiudadDueño.Terr.Eco.ListaRecursos.Contains (recurso))
+					r += CiudadDueño.Terr.Eco.AlmacénRecursos [recurso];
 
 				return r;
 			}

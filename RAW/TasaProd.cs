@@ -60,8 +60,6 @@ namespace Civ.Data.TasaProd
 
 		public abstract void Tick (IAlmacén alm, TimeSpan t);
 
-		public abstract float DeltaEsperado (IAlmacénRead alm);
-
 		#endregion
 	}
 
@@ -90,11 +88,6 @@ namespace Civ.Data.TasaProd
 				alm [Recurso] += Crecimiento * (float)t.TotalHours;
 		}
 
-
-		public override float DeltaEsperado (IAlmacénRead alm)
-		{
-			return Crecimiento;
-		}
 
 		protected override void ImportarLinea (string [] spl)
 		{
@@ -128,14 +121,9 @@ namespace Civ.Data.TasaProd
 
 		public override void Tick (IAlmacén alm, TimeSpan t)
 		{
-			alm [Recurso] *= CrecimientoBase * (float)t.TotalHours; // TODO, debe tener comportamiento exponencial
+			alm [Recurso] *= (float)Math.Pow (CrecimientoBase, t.TotalHours);
 			alm [Recurso] = Math.Min (Max, alm [Recurso]);
 			
-		}
-
-		public override float DeltaEsperado (IAlmacénRead alm)
-		{
-			return alm [Recurso] * CrecimientoBase;
 		}
 
 		protected override void ImportarLinea (string [] spl)
