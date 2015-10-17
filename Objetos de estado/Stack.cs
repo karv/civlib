@@ -1,13 +1,14 @@
 ﻿using System;
 using Global;
 using Civ.Data;
+using Civ.Combate;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa a una instancia de unidad.
 	/// </summary>
-	public class Stack: IPuntuado
+	public class Stack: IPuntuado, IAtacante
 	{
 		#region General
 
@@ -157,7 +158,7 @@ namespace Civ
 				return _HP;
 			}
 			set
-			{
+			{				
 				_HP = Math.Max (Math.Min (1, value), 0);
 				if (_HP <= 0)		// Si HP = 0, la unidad muere.
 				{
@@ -167,37 +168,9 @@ namespace Civ
 			}
 		}
 
-		/// <summary>
-		/// Daña este stack 
-		/// </summary>
-		/// <param name="dañoTotal">Total daño.</param>
-		/// <param name="dispersión">Dispersión del daño. En [0, 1]</param>
-		public void Dañar (float dañoTotal, float dispersión)
+		public void FueAtacado (IAnálisisCombate anal)
 		{
-			float DañoDirecto = dañoTotal * (1 - dispersión);
-			float DañoDisperso = dañoTotal * dispersión;
-
-			DañarDisperso (DañoDisperso);
-			DañarDirecto (DañoDirecto);
-			AlSerAtacado?.Invoke ();
-		}
-
-		void DañarDisperso (float daño)
-		{
-			HP -= daño / _cantidad;
-		}
-
-		void DañarDirecto (float daño)
-		{
-			// Esto se supone que es el piso.
-			double MuertosPct = daño / HP; // Probabilidad de muerte
-			ulong Muertos = (ulong)MuertosPct;
-			MuertosPct -= Muertos;
-
-			if (Juego.Rnd.NextDouble () < MuertosPct)
-				Muertos++;
-
-			Cantidad -= Muertos;
+			AlSerAtacado?.Invoke (anal);
 		}
 
 		/// <summary>
@@ -260,64 +233,6 @@ namespace Civ
 			{
 				ArmadaPerteneciente.QuitarUnidad (this);
 			}
-		}
-
-		#endregion
-
-		#region Daño
-
-		/// <summary>
-		/// Devuelve el daño máximo que haría esta unidad contra U.
-		/// </summary>
-		/// <param name="stack">Stack con quien comparar</param>
-		public float DañoPropuesto (Stack stack)
-		{
-			var cRAW = RAW as IUnidadRAWCombate;
-			float ret;
-			float mod = 0;
-			ret = Fuerza * Cantidad / stack.Fuerza;
-
-			foreach (var y in cRAW.Modificadores)
-			{
-				if (stack.RAW.TieneFlag (y))
-					mod += cRAW.getModificador (y);
-			}
-			return ret * (1 + mod);
-		}
-
-		/// <summary>
-		/// Devuelve la unidad de una armada, tal que this propone el menor daño.
-		/// </summary>
-		public Stack MenorDaño (Armada armada)
-		{
-			float minDaño = float.PositiveInfinity;
-			float currDaño;
-			Stack ret = null;
-			foreach (var x in armada.Unidades)
-			{
-				currDaño = DañoPropuesto (x);
-				if (currDaño <= minDaño)
-				{
-					ret = x;
-					minDaño = currDaño;
-				}
-			}
-			System.Diagnostics.Debug.Assert (ret != null);
-			return ret;
-		}
-
-		/// <summary>
-		/// Causa el daño a la unidad U que le corresponde.
-		/// </summary>
-		/// <param name="arm">Armada a quién dañar</param>
-		/// <param name="raw">RAW de la armada a dañar</param>
-		/// <param name="atacante">Quien ataca</param>
-		/// <param name="t">Tiempo</param>
-		public void CausaDaño (Armada arm, IUnidadRAW raw, Stack atacante, float t)
-		{
-			Stack U = arm [raw];
-			float Daño = DañoPropuesto (U) * t;
-			arm.DañarStack (raw, atacante, -Daño);
 		}
 
 		#endregion
@@ -431,6 +346,44 @@ namespace Civ
 
 		#endregion
 
+		#region IAtacante
+
+		float IAtacante.ProponerDaño (IUnidadRAW Unidad)
+		{
+			
+			var cRAW = RAW as IUnidadRAWCombate;
+			float ret;
+			float mod = 0;
+			ret = Fuerza * Cantidad / Unidad.Fuerza;
+
+			foreach (var y in cRAW.Modificadores)
+			{
+				if (Unidad.TieneFlag (y))
+					mod += cRAW.getModificador (y);
+			}
+			return ret * (1 + mod);
+		}
+
+
+
+		IAnálisisCombate IAtacante.CausarDaño (IDefensor Def, TimeSpan t)
+		{
+			var ret = new AnálisisCombate (this, Def, t);
+			ret.Ejecutar ();
+			return ret;
+		}
+
+		public float Dispersión
+		{
+			get
+			{
+				var cbt = RAW as IUnidadRAWCombate;
+				return cbt?.Dispersión ?? 0;
+			}
+		}
+
+		#endregion
+
 		#region Eventos
 
 		/// <summary>
@@ -441,7 +394,7 @@ namespace Civ
 		/// <summary>
 		/// Ocurre cuando una armada ataca este Stack
 		/// </summary>
-		public event Action AlSerAtacado;
+		public event Action<IAnálisisCombate> AlSerAtacado;
 
 		/// <summary>
 		/// Ocurre cuando hay un cambio en la cantidad
@@ -451,5 +404,6 @@ namespace Civ
 		public event Action<ICiudad> AlColonizar;
 
 		#endregion
+
 	}
 }
