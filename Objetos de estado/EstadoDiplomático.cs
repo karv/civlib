@@ -26,6 +26,10 @@ namespace Civ
 			}
 		}
 
+		/// <summary>
+		/// Permite esta unidad el paso a otra
+		/// </summary>
+		/// <value><c>true</c> isi permite paso; si no, <c>false</c>.</value>
 		public bool PermitePaso
 		{
 			get

@@ -2,7 +2,9 @@
 
 namespace Civ
 {
-	//TODO ¿Qué es esto?
+	/// <summary>
+	/// Mi estado diplomático con respecto a otra ICIvilización
+	/// </summary>
 	public class ControlDiplomacia : C5.HashDictionary<ICivilización, EstadoDiplomático>, IDiplomacia
 	{
 		/// <summary>
