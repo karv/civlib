@@ -12,6 +12,11 @@ namespace Civ
 			return true;
 		}
 
+		public bool PermitePaso (Armada arm)
+		{
+			return false;
+		}
+
 		event Action IDiplomacia.AlCambiarDiplomacia
 		{
 			add
@@ -21,5 +26,6 @@ namespace Civ
 			{
 			}
 		}
+
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace Civ
 {
+	//TODO ¿Qué es esto?
 	public class ControlDiplomacia : C5.HashDictionary<ICivilización, EstadoDiplomático>, IDiplomacia
 	{
 		/// <summary>
@@ -14,6 +15,13 @@ namespace Civ
 			EstadoDiplomático dip;
 			var civ = arm.CivDueño;
 			return Find (ref civ, out dip) ? dip.PermiteAtacar : PermiteAtacarDesconocidos;
+		}
+
+		public bool PermitePaso (Armada arm)
+		{
+			EstadoDiplomático dip;
+			var civ = arm.CivDueño;
+			return Find (ref civ, out dip) && dip.PermitePaso;
 		}
 
 		//TEST

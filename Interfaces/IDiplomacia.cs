@@ -13,6 +13,8 @@ namespace Civ
 		/// </summary>
 		bool PermiteAtacar (Armada arm);
 
+		bool PermitePaso (Armada arm);
+
 		event Action AlCambiarDiplomacia;
 	}
 }
