@@ -32,7 +32,7 @@ namespace Civ.Orden
 		public OrdenRecoger (Armada armada, DropStack target)
 		{
 			this.ArmadaEjecutante = armada;
-			Origen = ArmadaEjecutante.Posición.Clonar ();
+			Origen = ArmadaEjecutante.Posición.Clonar (ArmadaEjecutante.Posición.Objeto);
 
 			StackTarget = target;
 			_actual = new OrdenIr (ArmadaEjecutante, StackTarget.Posición);

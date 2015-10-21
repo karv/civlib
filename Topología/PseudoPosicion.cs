@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Graficas.Continuo;
 using Global;
 using System;
+using ListasExtra;
 
 namespace Civ
 {
@@ -10,10 +11,17 @@ namespace Civ
 	/// </summary>
 	public class Pseudoposición : Continuo<Terreno>.ContinuoPunto
 	{
-		public Pseudoposición ()
+		public Pseudoposición (IPosicionable objeto)
 			: base (Juego.State.Mapa)
 		{
+			Objeto = objeto;
 		}
+
+		/// <summary>
+		/// Objeto en esta posición
+		/// Armada, ciudad, etc
+		/// </summary>
+		public IPosicionable Objeto { get; }
 
 		/// <summary>
 		/// Devuelve una colección con las armadas que existen en esta misma poisición
@@ -56,6 +64,7 @@ namespace Civ
 		/// Si sólo tiene un extremo, devuelve este único.
 		/// </summary>
 		/// <param name="noExtremo">Extremo excluido.</param>
+		[Obsolete]
 		public Terreno ExtremoNo (Terreno noExtremo)
 		{
 			if (B == null)
@@ -94,9 +103,9 @@ namespace Civ
 		/// <summary>
 		/// Devuelve una nueva pseudoposición equivalente a ésta.
 		/// </summary>
-		public Pseudoposición Clonar ()
+		public Pseudoposición Clonar (IPosicionable p)
 		{
-			var ret = new Pseudoposición ();
+			var ret = new Pseudoposición (p);
 			ret.A = A;
 			ret.B = B;
 			ret.Loc = Loc;

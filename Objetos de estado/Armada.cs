@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Civ.Combate;
+using Civ.Orden;
 
 namespace Civ
 {
@@ -75,8 +76,23 @@ namespace Civ
 		{
 			CivDueño = civilizacion;
 			EsDefensa = false;
-			Posición = posición.Clonar ();
+			Posición = posición.Clonar (this);
 			civilizacion.Armadas.Add (this);
+
+			posición.AlColisionar += delegate(Graficas.Continuo.Continuo<Terreno>.ContinuoPunto obj)
+			{
+				var arm = (obj as Pseudoposición)?.Objeto as Armada;
+				if (!CivDueño.Diplomacia.PermitePaso (arm))
+				{
+					arm.Orden = new OrdenEstacionado ();
+					arm.CivDueño.AgregaMensaje (new IU.Mensaje (
+						"Nuestra Armada {0} detenida por armada {1} de {2} en {3}",
+						arm,
+						this,
+						CivDueño,
+						posición));
+				}
+			};
 		}
 
 		/// <summary>

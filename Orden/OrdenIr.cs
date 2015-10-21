@@ -42,7 +42,7 @@ namespace Civ.Orden
 			// int orientacion; // Orientación de esta posición con respecto a PS
 			if (ArmadaEjecutante.EnTerreno)
 			{
-				ArmadaEjecutante.Posición.B = Destino.ExtremoNo (ArmadaEjecutante.Posición.A);  // Asigna la posición de la armada en el intervalo correcto.
+				ArmadaEjecutante.Posición.B = Destino.Extremos.Excepto (ArmadaEjecutante.Posición.A);  // Asigna la posición de la armada en el intervalo correcto.
 			}
 
 			// orientacion = PS.Orientacion(Destino);

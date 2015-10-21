@@ -66,7 +66,7 @@ namespace Test
 			Init ();
 			IUnidadRAW u = Juego.Data.Unidades.Elegir ();
 			Console.WriteLine (u);
-			var pos = new Pseudoposición ();
+			var pos = new Pseudoposición (null);
 			Terreno terrA = MyCiudad.Posición ().A;
 			Terreno terrB = Juego.State.Terrenos ().Elegir ();
 			Juego.State.Topología [terrA, terrB] = 1;
@@ -234,7 +234,7 @@ namespace Test
 			Juego.State.Civs.Add (c1);
 			Juego.State.Civs.Add (c2);
 
-			var p = new Pseudoposición ();
+			var p = new Pseudoposición (null);
 			p.A = Juego.State.Terrenos ().Elegir ();
 			p.Loc = 0;
 

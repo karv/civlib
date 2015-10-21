@@ -44,7 +44,7 @@ namespace Global
 			Civs = new List<ICivilización> ();
 			Drops = new List<DropStack> ();
 			Topología = new Grafo<Terreno> ();
-			Topología.EsSimetrico = true;
+			Topología.EsSimétrico = true;
 		}
 
 		/// <summary>

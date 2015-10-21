@@ -16,6 +16,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="ecosistema">Ecología a usar para crear el terreno.</param>
 		public Terreno (Ecosistema ecosistema)
+			: base (null)
 		{
 			
 			A = this;

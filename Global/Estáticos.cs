@@ -190,7 +190,7 @@ namespace Global
 					}
 				}
 			}
-			State.Topología.EsSimetrico = true;
+			State.Topología.EsSimétrico = true;
 		}
 
 		#region Unicidad de nombres
