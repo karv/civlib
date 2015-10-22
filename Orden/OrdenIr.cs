@@ -50,6 +50,7 @@ namespace Civ.Orden
 
 			// Avanzar
 			var Avance = (float)t.TotalHours * ArmadaEjecutante.Velocidad;
+			PS.EnMismoIntervalo (Destino);
 			if (PS.AvanzarHacia (Destino, ref Avance))
 			{
 				OnLlegar ();
