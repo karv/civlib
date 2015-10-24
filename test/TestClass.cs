@@ -46,6 +46,21 @@ namespace Test
 		}
 
 		[Test]
+		public void TestCambioDiplomacia ()
+		{
+			Init ();
+			MyCiv.Diplomacia.AlCambiarDiplomacia += () => Console.WriteLine ("Cambió diplomacia.");
+
+			var Enemigo = Juego.State.Civs [1];
+			Console.WriteLine ("Antes de todo");
+			MyCiv.Diplomacia.Add (Enemigo, new EstadoDiplomático ());
+			Console.WriteLine ("Medio");
+			MyCiv.Diplomacia [Enemigo].PermiteAtacar = true;
+			Console.WriteLine ("Al terminar");
+
+		}
+
+		[Test]
 		public void TestRecoger ()
 		{
 			Init ();

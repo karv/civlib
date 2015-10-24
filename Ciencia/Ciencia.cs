@@ -87,10 +87,6 @@ namespace Civ.Data
 						{
 							Console.WriteLine ("Hhuehue");
 						}
-						Console.WriteLine (string.Format (
-							"Leyendo {0} para el objeto Ciencia::{1}",
-							line,
-							Nombre));
 						a [1] = spl [2];
 						_reqRecurso_id.Add (a);
 						break;

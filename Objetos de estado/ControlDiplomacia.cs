@@ -21,10 +21,22 @@ namespace Civ
 
 		public ControlDiplomacia ()
 		{
-			CollectionChanged += delegate
+			// Analysis disable PossibleAssignmentToReadonlyField
+			ItemsAdded += delegate(object sender,
+			                       C5.ItemCountEventArgs<C5.KeyValuePair<ICivilización, EstadoDiplomático>> eventArgs)
 			{
 				AlCambiarDiplomacia?.Invoke ();
+				eventArgs.Item.Value.AlCambiarPermisoAtacar += InvocarCambio;
 			};
+
+			ItemsRemoved += (sender,
+			                 eventArgs) => eventArgs.Item.Value.AlCambiarPermisoAtacar -= InvocarCambio;
+			// Analysis restore PossibleAssignmentToReadonlyField
+		}
+
+		void InvocarCambio ()
+		{
+			AlCambiarDiplomacia?.Invoke ();
 		}
 	}
 }
