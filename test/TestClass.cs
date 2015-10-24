@@ -89,7 +89,6 @@ namespace Test
 			var u = new UnidadRAWCombate ();
 			u.Nombre = "Velociraptor";
 			u.Velocidad = 10;
-			u.Fuerza = 1;
 			Terreno destino = Juego.State.Terrenos ().Elegir ();
 			Assert.NotNull (destino); //Por alguna razón estaba pasando mucho esto
 			Assert.AreNotEqual (destino.Vecinos, 0);
@@ -225,12 +224,11 @@ namespace Test
 			p.Loc = 0;
 
 			var u = new UnidadRAWCombate ();
-			u.Fuerza = 1;
 			u.Nombre = "Guerrero";
 			u.Flags.Add ("A pie");
 
 			var uGordo = new UnidadRAWCombate ();
-			uGordo.Fuerza = 150;
+			uGordo.Defensa = 10;
 			uGordo.Nombre = "Hulk";
 			uGordo.Flags.Add ("A pie");
 			uGordo.Mods.Add ("A pie", 1f);

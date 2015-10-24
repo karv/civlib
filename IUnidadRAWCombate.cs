@@ -23,5 +23,7 @@ namespace Civ
 		/// </summary>
 		/// <value>The dispersion.</value>
 		float Dispersión { get; }
+
+		float Ataque { get; }
 	}
 }

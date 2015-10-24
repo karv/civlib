@@ -31,7 +31,7 @@ namespace Civ
 		{
 			get
 			{
-				return RAW.Fuerza;
+				return (RAW as IUnidadRAWCombate)?.Ataque ?? 0;
 			}
 		}
 
@@ -354,7 +354,7 @@ namespace Civ
 			var cRAW = RAW as IUnidadRAWCombate;
 			float ret;
 			float mod = 0;
-			ret = Fuerza * Cantidad / Unidad.Fuerza;
+			ret = Fuerza * Cantidad / Unidad.Defensa;
 
 			foreach (var y in cRAW.Modificadores)
 			{

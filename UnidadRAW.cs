@@ -146,7 +146,7 @@ namespace Civ.Data
 		/// Fuerza de combate
 		/// </summary>
 		/// <value>La fuerza de combate</value>
-		public float Fuerza { get; set; }
+		public float Defensa { get; set; }
 
 		#region IImportable
 

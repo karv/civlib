@@ -51,7 +51,7 @@ namespace Civ
 		/// </summary>
 		float MaxCarga { get; }
 
-		float Fuerza { get; }
+		float Defensa { get; }
 
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad

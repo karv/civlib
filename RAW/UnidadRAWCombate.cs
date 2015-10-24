@@ -18,13 +18,15 @@ namespace Civ.Data
 			Mods = new Modificadores ();
 		}
 
+		public float Ataque { get; }
+
 		#region IPuntuado
 
 		float IPuntuado.Puntuación
 		{
 			get
 			{
-				return Fuerza;
+				return Defensa;
 			}
 		}
 
@@ -59,7 +61,7 @@ namespace Civ.Data
 					Dispersión = float.Parse (spl [1]);
 					return;
 				case "fuerza":
-					Fuerza = float.Parse (spl [1]);
+					Defensa = float.Parse (spl [1]);
 					return;
 				case "modificador":
 					Mods [spl [1]] = float.Parse (spl [2]);

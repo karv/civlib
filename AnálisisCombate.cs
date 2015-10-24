@@ -89,9 +89,8 @@ namespace Civ.Combate
 
 		public AnálisisCombate (IAtacante atacante, IDefensor defensa, TimeSpan t)
 		{
-			var def = defensa.Defensa (atacante);
+			Defensor = defensa.Defensa (atacante);
 			Atacante = atacante;
-			Defensor = def;
 			Tiempo = t;
 
 			var Daño = Atacante.ProponerDaño (Defensor.RAW) * (float)t.TotalHours;
