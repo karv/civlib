@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Civ.Data;
 using System;
-using System.Threading;
 
 namespace Civ
 {
