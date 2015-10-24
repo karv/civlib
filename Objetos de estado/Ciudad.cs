@@ -962,7 +962,6 @@ namespace Civ
 			ResourceTick (t);
 
 			// Hacer la suma manual 
-			//TODO corregir esto.
 			dictTmp = ((System.Collections.Generic.IDictionary<Recurso, float>)Almacén).Clonar ();
 
 			DeltaRec.Clear ();
