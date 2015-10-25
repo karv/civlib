@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Civ.Combate;
 using Civ.Orden;
+using Global;
+using Civ.Data;
+using Basic;
 
 namespace Civ
 {
@@ -93,6 +96,26 @@ namespace Civ
 						posición));
 				}
 			};
+
+			//TEST
+			posición.AlDesplazarse += delegate
+			{
+				// Para saber si dropea cosas
+				var drops = new DropStack (Posición);
+				foreach (var u in _unidades)
+				{
+					while (u.Value.Carga.CargaRestante < 0)
+					{
+						var t = u.Value.Carga.Elegir ();
+						drops.Almacén [t.Key] += t.Value;
+						u.Value.Carga [t.Key] = 0;
+					}
+				}
+
+				// Si dropeó algo, se agrega.
+				if (drops.Almacén.Count > 0)
+					Juego.State.Drops.Add (drops);
+			};
 		}
 
 		/// <summary>
@@ -163,6 +186,7 @@ namespace Civ
 		/// Agrega, mueve o junta unidad(es) a esta armada.
 		/// </summary>
 		/// <param name="stack">El stack que se agregará o moverá.</param>
+		[Obsolete ("Usar la otra variante de esta función.")]
 		public void AgregaUnidad (Stack stack)
 		{
 			if (PosicionConsistente (stack))
@@ -195,13 +219,18 @@ namespace Civ
 				#endif
 				return;
 			}
+
+			//TODO Que promedie HP, entrenamiento, etc
+			//TODO Revisar que el peso no limite esto
 			if (_unidades.ContainsKey (raw))
 			{
 				_unidades [raw].Cantidad += cantidad;
 			}
 			else
 			{
-				_unidades.Add (raw, new Stack (raw, cantidad, this));
+				var stack = new Stack (raw, cantidad, this);
+				_unidades.Add (raw, stack);
+
 			}
 		}
 

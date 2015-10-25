@@ -18,6 +18,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using ListasExtra;
 using System.Collections.Generic;
 using Civ.Data;
@@ -25,13 +26,13 @@ using System;
 
 namespace Civ
 {
-	public class AlmacenCiudad: ListaPeso<Recurso>, IAlmacén
+	public class AlmacénCiudad: ListaPeso<Recurso>, IAlmacén
 	{
 		/// <summary>
 		/// Initializes a new instance
 		/// </summary>
 		/// <param name="ciudad">Ciudad de este almacén</param>
-		public AlmacenCiudad (Ciudad ciudad)
+		public AlmacénCiudad (Ciudad ciudad)
 		{
 			CiudadDueño = ciudad;
 		}
