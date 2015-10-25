@@ -9,7 +9,7 @@ namespace Civ.Orden
 		{
 			var origen = armada.Posición;
 
-			var RutaAA = Global.Juego.State.Topología.CaminoÓptimo (origen.A, destino.A);
+			var RutaAA = Global.Juego.State.Rutas.CaminoÓptimo (origen.A, destino.A);
 
 			Encolar (new OrdenIr (armada, origen.A.Pos));
 
