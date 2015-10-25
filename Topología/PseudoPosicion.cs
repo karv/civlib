@@ -24,7 +24,7 @@ namespace Civ
 			B = p.B;
 			Loc = p.Loc;
 			Objeto = null;
-			p.Remove ();
+			//p.Remove ();
 		}
 
 		public Pseudoposición ()

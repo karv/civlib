@@ -160,16 +160,24 @@ namespace Test
 		                   TimeSpan duración,
 		                   Action entreCiclos = null)
 		{
-			DateTime timer = DateTime.Now;
+			var Contador = DateTime.Now;
+			var timer = DateTime.Now;
 			while (duración.Ticks > 0)
 			{				
 				TimeSpan tiempo = DateTime.Now - timer;
-				timer = DateTime.Now;
 				duración -= tiempo;
 				tiempo = new TimeSpan ((long)(tiempo.Ticks * multiplicadorVelocidad));
 
 				// Console.WriteLine (t);
 				Juego.Tick (tiempo);
+
+				// Cada segundo
+				timer = DateTime.Now;
+				if (timer - Contador > TimeSpan.FromSeconds (1))
+				{
+					Contador = timer;
+					Console.WriteLine ("Tick");
+				}
 
 				entreCiclos?.Invoke ();
 				if (Juego.State.Civs.Count == 0)
