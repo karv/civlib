@@ -110,7 +110,7 @@ namespace Test
 			var arm = new Armada (MyCiudad);
 
 			arm.AgregaUnidad (u, 5);
-			var ord = new OrdenIrALugar (arm, destino);
+			var ord = new OrdenIrALugar (arm, destino.Pos);
 			ord.AlAcabarUnaOrden += delegate
 			{
 				Debug.WriteLine ("Armada está en " + arm.Posición);

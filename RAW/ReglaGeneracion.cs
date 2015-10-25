@@ -43,10 +43,10 @@ namespace Civ.Bárbaros
 		{
 			var cb = new CivilizacionBárbara ();
 
-			var ppos = new List<Pseudoposición> (_estado.Topología.Nodos);
-			Pseudoposición pos = ppos [Juego.Rnd.Next (ppos.Count)];
+			var ppos = new List<Terreno> (_estado.Topología.Nodos);
+			Terreno pos = ppos [Juego.Rnd.Next (ppos.Count)];
 
-			var ret = new Armada (cb, pos);
+			var ret = new Armada (cb, pos.Pos);
 			foreach (var x in ClaseArmada)
 			{
 				ret.AgregaUnidad (x.Item1, x.Item2);

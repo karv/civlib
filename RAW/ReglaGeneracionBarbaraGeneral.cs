@@ -33,10 +33,10 @@ namespace Civ.Bárbaros
 			var Unidades = new List<IUnidadRAW> (Juego.Data.Unidades);
 			var cb = new CivilizacionBárbara ();
 
-			var ppos = new List<Pseudoposición> (_estado.Topología.Nodos);
-			Pseudoposición pos = ppos [Juego.Rnd.Next (ppos.Count)];
+			var ppos = new List<Terreno> (_estado.Topología.Nodos);
+			var pos = ppos [Juego.Rnd.Next (ppos.Count)];
 
-			var ret = new Armada (cb, pos);
+			var ret = new Armada (cb, pos.Pos);
 
 			while (Unidades.Count > 0 && PuntRestante >= 0)
 			{

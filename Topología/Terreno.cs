@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using Global;
 using Civ.Data;
 using Basic;
+using System.Reflection;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	public class Terreno: Pseudoposición, ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
+	public class Terreno: ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
 	{
+		public Pseudoposición Pos
+		{
+			get
+			{
+				return Juego.State.Mapa.PuntoFijo (this) as Pseudoposición;
+			}
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
 		/// </summary>
 		/// <param name="ecosistema">Ecología a usar para crear el terreno.</param>
 		public Terreno (Ecosistema ecosistema)
-			: base (null)
 		{
-			
-			A = this;
-			Loc = 0;
 			Random r = Juego.Rnd;
 
 			Nombre = ecosistema.Nombres.Elegir ();
@@ -38,7 +43,7 @@ namespace Civ
 
 		Pseudoposición IPosicionable.Posición ()
 		{
-			return this;
+			return Pos;
 		}
 
 		#endregion
@@ -64,7 +69,7 @@ namespace Civ
 		{
 			get
 			{
-				return Universo.GráficaBase.Vecinos (this);
+				return Juego.State.Topología.Vecino (this);
 			}
 		}
 

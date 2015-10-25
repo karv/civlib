@@ -63,7 +63,7 @@ namespace Civ
 
 		public Pseudoposición Posición ()
 		{
-			return Terr;
+			return Terr.Pos;
 		}
 
 		#endregion
@@ -78,7 +78,7 @@ namespace Civ
 		{
 			get
 			{
-				return Terr;
+				return Terr.Pos;
 			}
 		}
 

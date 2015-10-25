@@ -11,11 +11,11 @@ namespace Civ.Orden
 
 			var RutaAA = Global.Juego.State.Topología.CaminoÓptimo (origen.A, destino.A);
 
-			Encolar (new OrdenIr (armada, origen.A));
+			Encolar (new OrdenIr (armada, origen.A.Pos));
 
 			foreach (var x in RutaAA.Pasos)
 			{
-				Encolar (new OrdenIr (armada, x.Destino));
+				Encolar (new OrdenIr (armada, x.Destino.Pos));
 			}
 
 			Encolar (new OrdenIr (armada, destino));
