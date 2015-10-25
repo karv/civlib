@@ -17,6 +17,22 @@ namespace Civ
 			Objeto = objeto;
 		}
 
+		public Pseudoposición (Continuo<Terreno>.ContinuoPunto p)
+			: base (Juego.State.Mapa)
+		{
+			A = p.A;
+			B = p.B;
+			Loc = p.Loc;
+			Objeto = null;
+			p.Remove ();
+		}
+
+		public Pseudoposición ()
+			: base (Juego.State.Mapa)
+		{
+			Objeto = null;
+		}
+
 		/// <summary>
 		/// Objeto en esta posición
 		/// Armada, ciudad, etc
@@ -123,5 +139,6 @@ namespace Civ
 		{
 			return A == other.A && B == other.B && Loc < other.Loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
 		}
+
 	}
 }

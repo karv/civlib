@@ -12,19 +12,14 @@ namespace Civ
 	/// </summary>
 	public class Terreno: ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
 	{
-		public Pseudoposición Pos
-		{
-			get
-			{
-				return Juego.State.Mapa.PuntoFijo (this) as Pseudoposición;
-			}
-		}
+		public Pseudoposición Pos { get; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
 		/// </summary>
 		/// <param name="ecosistema">Ecología a usar para crear el terreno.</param>
 		public Terreno (Ecosistema ecosistema)
+			: this ()
 		{
 			Random r = Juego.Rnd;
 
@@ -37,6 +32,11 @@ namespace Civ
 					Innatos.Add (x);
 				}
 			}
+		}
+
+		Terreno ()
+		{
+			Pos = new Pseudoposición (Juego.State.Mapa.PuntoFijo (this));
 		}
 
 		#region IPosicionable implementation
