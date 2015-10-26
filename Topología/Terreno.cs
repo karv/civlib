@@ -21,9 +21,13 @@ namespace Civ
 		public Terreno (Ecosistema ecosistema)
 			: this ()
 		{
+		{
+			Juego.State.Mapa.AgregaPunto (this);
 			Random r = Juego.Rnd;
 
 			Nombre = ecosistema.Nombres.Elegir ();
+
+			Nombre = r.Next (10000).ToString ();
 
 			foreach (var x in ecosistema.PropPropiedad.Keys)
 			{

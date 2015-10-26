@@ -1,26 +1,43 @@
-﻿using Graficas.Rutas;
+﻿using Graficas.Continuo;
+using Global;
+using System;
+using Graficas.Rutas;
 
 namespace Civ.Orden
 {
-	public class OrdenIrALugar:OrdenSerie
+	public class OrdenIrALugar : IOrden
 	{
+		public bool Ejecutar (TimeSpan t)
+		{
+			var avance = (float)t.TotalHours * ArmadaEjecutante.Velocidad;
+
+			ArmadaEjecutante.Posición.AvanzarHacia (Ruta, avance);
+
+
+			if (ArmadaEjecutante.Posición.Equals (Ruta.NodoFinal))
+			{
+				AlLlegar?.Invoke ();
+				return true;
+			}
+			return false;
+		}
+
+		public Armada ArmadaEjecutante { get; }
+
+		public Continuo<Terreno>.Ruta Ruta { get; }
+
 		public OrdenIrALugar (Armada armada, Pseudoposición destino)
-			: base (armada)
 		{
 			var origen = armada.Posición;
-
-			var RutaAA = Global.Juego.State.Rutas.CaminoÓptimo (origen.A, destino.A);
-
-			Encolar (new OrdenIr (armada, origen.A.Pos));
-
-			foreach (var x in RutaAA.Pasos)
-			{
-				Encolar (new OrdenIr (armada, x.Destino.Pos));
-			}
-
-			Encolar (new OrdenIr (armada, destino));
-
+			ArmadaEjecutante = armada;
+			Ruta = Juego.State.Mapa.RutaÓptima (origen, destino, Juego.State.Rutas);
+			//Ruta = new Continuo<Terreno>.Ruta (origen);
+			//var rutaIntermedia = Juego.State.Rutas.CaminoÓptimo (origen.A, destino.A);
+			//Ruta.Concat (rutaIntermedia);
+			//Ruta.ConcatFinal (destino);
 		}
+
+		public event Action AlLlegar;
 	}
 }
 

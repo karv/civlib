@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Global;
+using Graficas.Continuo;
 
 namespace Civ.Bárbaros
 {
@@ -44,9 +45,12 @@ namespace Civ.Bárbaros
 			var cb = new CivilizacionBárbara ();
 
 			var ppos = new List<Terreno> (_estado.Topología.Nodos);
-			Terreno pos = ppos [Juego.Rnd.Next (ppos.Count)];
+			var pos = ppos [Juego.Rnd.Next (ppos.Count)];
+			var pseudopos = new Continuo<Terreno>.ContinuoPunto (
+				                Juego.State.Mapa,
+				                pos);
 
-			var ret = new Armada (cb, pos.Pos);
+			var ret = new Armada (cb, pseudopos);
 			foreach (var x in ClaseArmada)
 			{
 				ret.AgregaUnidad (x.Item1, x.Item2);

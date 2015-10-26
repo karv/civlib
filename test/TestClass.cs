@@ -104,9 +104,10 @@ namespace Test
 			var u = new UnidadRAWCombate ();
 			u.Nombre = "Velociraptor";
 			u.Velocidad = 10;
-			Terreno destino = Juego.State.Terrenos ().Elegir ();
+			u.Fuerza = 1;
+			Terreno destino = Juego.State.Topología.Vecino (MyCiudad.Terr).Elegir ();
 			Assert.NotNull (destino); //Por alguna razón estaba pasando mucho esto
-			Assert.AreNotEqual (destino.Vecinos, 0);
+			Assert.AreNotEqual (destino.Vecinos, MyCiudad.Terr);
 			var arm = new Armada (MyCiudad);
 
 			arm.AgregaUnidad (u, 5);

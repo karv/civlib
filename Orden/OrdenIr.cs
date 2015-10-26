@@ -33,39 +33,15 @@ namespace Civ.Orden
 		public bool Ejecutar (TimeSpan t)
 		{
 			Pseudoposición PS = ArmadaEjecutante.Posición;
-			if (PS.Equals (Destino))
-			{
-				OnLlegar ();
-				return true;
-
-			}
-			// int orientacion; // Orientación de esta posición con respecto a PS
-			if (ArmadaEjecutante.EnTerreno)
-			{
-				ArmadaEjecutante.Posición.B = Destino.Extremos.Excepto (ArmadaEjecutante.Posición.A);  // Asigna la posición de la armada en el intervalo correcto.
-			}
-
-			// orientacion = PS.Orientacion(Destino);
-			// Para este encontes, Posición debería ser una auténtica Pseudoposición
 
 			// Avanzar
 			var Avance = (float)t.TotalHours * ArmadaEjecutante.Velocidad;
-			PS.EnMismoIntervalo (Destino);
 			if (PS.AvanzarHacia (Destino, ref Avance))
 			{
 				OnLlegar ();
 				return true;
 			}
 
-			//Revisar si están en el mismo Terreno-intervalo
-			if (Destino.Equals (PS))
-			{
-				ArmadaEjecutante.Posición.A = Destino.A;
-				ArmadaEjecutante.Posición.B = Destino.B;
-				ArmadaEjecutante.Posición.Loc = Destino.Loc;
-				AlLlegar?.Invoke ();
-				return true;
-			}
 			return false;
 		}
 

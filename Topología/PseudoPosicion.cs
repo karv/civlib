@@ -125,6 +125,7 @@ namespace Civ
 			ret.A = A;
 			ret.B = B;
 			ret.Loc = Loc;
+
 			return ret;
 		}
 
@@ -135,6 +136,7 @@ namespace Civ
 		/// </summary>
 		/// <returns>The orientacion.</returns>
 		/// <param name="other">Other.</param>
+		[Obsolete]
 		public int Orientacion (Pseudoposición other)
 		{
 			return A == other.A && B == other.B && Loc < other.Loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
