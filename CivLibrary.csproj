@@ -31,17 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Store">
-      <HintPath>packages\Store.0.1\lib\Store.dll</HintPath>
-    </Reference>
     <Reference Include="C5">
       <HintPath>packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
-    </Reference>
-    <Reference Include="ListaExtras">
-      <HintPath>packages\ListaExtras.0.2.4.2\lib\ListaExtras.dll</HintPath>
-    </Reference>
-    <Reference Include="Grafos">
-      <HintPath>packages\Grafos.0.1.4\lib\Grafos.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -307,5 +298,19 @@
     <None Include="Data\trampas.ciencia">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Grafo\Grafos.csproj">
+      <Project>{AF2E2C37-9F1D-4D32-AE62-8484B0A9DD50}</Project>
+      <Name>Grafos</Name>
+    </ProjectReference>
+    <ProjectReference Include="Grafo\ListaExtras\ListaExtras.csproj">
+      <Project>{B9F315AE-47F8-4629-83FC-3B4D70087083}</Project>
+      <Name>ListaExtras</Name>
+    </ProjectReference>
+    <ProjectReference Include="Store\Store.csproj">
+      <Project>{B5651422-0901-4E7F-976A-A4F7893267CA}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
