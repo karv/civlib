@@ -1,0 +1,6 @@
+[submodule "Grafo"]
+	path = Grafo
+	url = /media/edgar/TRAVELER/git/Grafo.git
+[submodule "Store"]
+	path = Store
+	url = /media/edgar/TRAVELER/git/Store.git
