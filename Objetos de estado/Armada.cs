@@ -96,8 +96,7 @@ namespace Civ
 				}
 			};
 
-			//TEST
-			posición.AlDesplazarse += delegate
+			Posición.AlDesplazarse += delegate
 			{
 				// Para saber si dropea cosas
 				var drops = new DropStack (Posición);
@@ -107,7 +106,7 @@ namespace Civ
 					{
 						var t = u.Value.Carga.Elegir ();
 						drops.Almacén [t.Key] += t.Value;
-						u.Value.Carga [t.Key] = 0;
+						u.Value.Carga.Remove (t.Key);
 					}
 				}
 

@@ -42,7 +42,40 @@ namespace Test
 					Debug.WriteLine (m.ToString ());
 				}
 			};
+		}
 
+		[Test]
+		public void TestDropearRecurso ()
+		{
+			Init ();
+			var u = new UnidadRAWCombate ();
+			u.Nombre = "Velociraptor";
+			u.Velocidad = 10;
+			u.Peso = 1;
+			u.MaxCarga = 10;
+			//MyCiv.MaxPeso = 100;
+			Terreno destino = Juego.State.Topología.Vecino (MyCiudad.Terr).Elegir ();
+			Assert.NotNull (destino); //Por alguna razón estaba pasando mucho esto
+			Assert.AreNotEqual (destino.Vecinos, MyCiudad.Terr);
+			var arm = new Armada (MyCiudad);
+
+			arm.AgregaUnidad (u, 5);
+			var stack = arm [u];
+			stack.Carga [Juego.Data.RecursoAlimento] = stack.Carga.CargaRestante;// Llenar la unidad
+			stack.Cantidad = 1; // Perder 4 unidades
+
+			var ord = new OrdenIrALugar (arm, destino.Pos);
+
+			arm.Orden = ord;
+			Console.WriteLine ("Entrando al ciclo");
+			Ciclo (500);
+		}
+
+		[Test]
+		public void TestSóloCiclo ()
+		{
+			Init ();
+			Ciclo (500);
 		}
 
 		[Test]
@@ -104,7 +137,6 @@ namespace Test
 			var u = new UnidadRAWCombate ();
 			u.Nombre = "Velociraptor";
 			u.Velocidad = 10;
-			u.Fuerza = 1;
 			Terreno destino = Juego.State.Topología.Vecino (MyCiudad.Terr).Elegir ();
 			Assert.NotNull (destino); //Por alguna razón estaba pasando mucho esto
 			Assert.AreNotEqual (destino.Vecinos, MyCiudad.Terr);
@@ -112,14 +144,9 @@ namespace Test
 
 			arm.AgregaUnidad (u, 5);
 			var ord = new OrdenIrALugar (arm, destino.Pos);
-			ord.AlAcabarUnaOrden += delegate
+			ord.AlLlegar += delegate
 			{
 				Debug.WriteLine ("Armada está en " + arm.Posición);
-			};
-			ord.AlTerminar += delegate
-			{
-				Debug.WriteLine ("Armada llegó a " + arm.Posición);
-				Debug.WriteLine ("Ahora está at ease; orden: " + arm.Orden);
 			};
 			arm.Orden = ord;
 			Console.WriteLine ("Entrando al ciclo");

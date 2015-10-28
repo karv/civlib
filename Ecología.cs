@@ -40,7 +40,7 @@ namespace Civ
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		public void Tick (TimeSpan t) //TEST
+		public void Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
 			foreach (var x in Innatos)
