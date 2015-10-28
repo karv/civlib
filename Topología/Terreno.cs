@@ -21,7 +21,6 @@ namespace Civ
 		public Terreno (Ecosistema ecosistema)
 			: this ()
 		{
-		{
 			Juego.State.Mapa.AgregaPunto (this);
 			Random r = Juego.Rnd;
 

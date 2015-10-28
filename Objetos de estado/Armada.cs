@@ -181,26 +181,36 @@ namespace Civ
 		/// Agrega, mueve o junta unidad(es) a esta armada.
 		/// </summary>
 		/// <param name="stack">El stack que se agregará o moverá.</param>
-		[Obsolete ("Usar la otra variante de esta función.")]
 		public void AgregaUnidad (Stack stack)
 		{
+			if (stack.Peso > PesoLibre)
+				throw new Exception (string.Format (
+					"No hay peso libre en la armada {0} para el stack {1}.",
+					this,
+					stack));
+			
 			if (PosicionConsistente (stack))
 			{
-				if (PesoLibre >= stack.Peso)
+				if (_unidades.ContainsKey (stack.RAW))
 				{
-					stack.ArmadaPerteneciente = this;
-					if (_unidades.ContainsKey (stack.RAW))
-					{
-						_unidades [stack.RAW].Cantidad += stack.Cantidad;
-					}
-					else
-						_unidades.Add (stack.RAW, stack);
+					var stackArmada = _unidades [stack.RAW];
+
+					stackArmada.HP = (stackArmada.Cantidad * stackArmada.HP + stack.Cantidad * stack.HP) / (stack.Cantidad + stackArmada.Cantidad);
+					stackArmada.Entrenamiento = (stackArmada.Cantidad * stack.Entrenamiento + stack.Cantidad * stack.Entrenamiento) / (stack.Cantidad + stackArmada.Cantidad);
+
+					stackArmada.Cantidad += stack.Cantidad;
 				}
+				else
+					_unidades.Add (stack.RAW, stack);
+				
+				stack.ArmadaPerteneciente = null;
+				stack.Cantidad = 0;
+				stack.RAW = null;
 			}
 			else
 			{
 				#if DEBUG
-				Console.WriteLine ("No se puede agregar unidad a armada si éstas no están en el mismo lugar");
+				Console.WriteLine ("No se puede agregar unidad a armada si éstas no están en el mismo lugar.");
 				#endif
 			}
 		}
