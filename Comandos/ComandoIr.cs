@@ -12,7 +12,7 @@
 		public void Ejecutar (Stack stack, ArgComando arg)
 		{
 			var args = arg as Args;
-			stack.ArmadaPerteneciente.Orden = new Civ.Orden.OrdenIr (
+			stack.ArmadaPerteneciente.Orden = new Civ.Orden.OrdenIrALugar (
 				stack.ArmadaPerteneciente,
 				args.Destino);
 		}

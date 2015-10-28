@@ -35,7 +35,7 @@ namespace Civ.Orden
 			Origen = ArmadaEjecutante.Posición.Clonar (ArmadaEjecutante.Posición.Objeto);
 
 			StackTarget = target;
-			_actual = new OrdenIr (ArmadaEjecutante, StackTarget.Posición);
+			_actual = new OrdenIrALugar (ArmadaEjecutante, StackTarget.Posición);
 		}
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace Civ.Orden
 				{
 					s.RecogerTodo ();
 				}
-				_actual = new OrdenIr (ArmadaEjecutante, Origen);
+				_actual = new OrdenIrALugar (ArmadaEjecutante, Origen);
 			}
 
 			// Aún no acaba
