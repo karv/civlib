@@ -7,9 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Civ</RootNamespace>
     <AssemblyName>CivLibrary</AssemblyName>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +29,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="C5">
-      <HintPath>packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
+      <HintPath>..\packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +123,6 @@
     <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Data\alimento.propiedad">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -298,6 +294,7 @@
     <None Include="Data\trampas.ciencia">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Grafo\Grafos.csproj">
