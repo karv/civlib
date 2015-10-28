@@ -215,17 +215,22 @@ namespace Civ
 				return;
 			}
 
-			//TODO Que promedie HP, entrenamiento, etc
-			//TODO Revisar que el peso no limite esto
+			var realCantidad = (ulong)(PesoLibre / raw.Peso);
+			if (realCantidad == 0)
+				return;
 			if (_unidades.ContainsKey (raw))
 			{
-				_unidades [raw].Cantidad += cantidad;
+				var stack = _unidades [raw];
+				var antes = stack.Cantidad;
+				stack.Cantidad += realCantidad;
+
+				stack.HP = (antes * stack.HP + realCantidad) / stack.Cantidad;
+				stack.Entrenamiento = (antes * stack.Entrenamiento) / stack.Cantidad;
 			}
 			else
 			{
-				var stack = new Stack (raw, cantidad, this);
+				var stack = new Stack (raw, realCantidad, this);
 				_unidades.Add (raw, stack);
-
 			}
 		}
 
