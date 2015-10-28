@@ -26,7 +26,6 @@ namespace Civ
 			return Find (ref civ, out dip) && dip.PermitePaso;
 		}
 
-		//TEST
 		public event Action AlCambiarDiplomacia;
 
 		public ControlDiplomacia ()
