@@ -50,6 +50,12 @@ namespace Civ
 		/// </summary>
 		/// <param name="mensaje">Mensaje.</param>
 		void AgregaMensaje (IU.Mensaje mensaje);
+
+		#region Armadas
+
+		float MaxPeso { get; }
+
+		#endregion
 	}
 
 	public static class CivExt

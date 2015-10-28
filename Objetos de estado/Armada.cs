@@ -5,7 +5,6 @@ using System.Linq;
 using Civ.Combate;
 using Civ.Orden;
 using Global;
-using Civ.Data;
 using Basic;
 
 namespace Civ
@@ -130,7 +129,7 @@ namespace Civ
 			EsDefensa = esDefensa;
 		}
 
-		float _maxPeso;
+		float _personalPesoMejoraCoef = 1f;
 		//  Probablemente, _MaxPeso sea una función que dependa de CivDueño.
 		/// <summary>
 		/// Devuelve o establece el máximo peso que puede cargar esta armada.
@@ -140,11 +139,7 @@ namespace Civ
 		{
 			get
 			{
-				return _maxPeso;
-			}
-			set
-			{
-				_maxPeso = Math.Max (value, Peso);	// No puedo reducir MaxPeso a menor que Peso.
+				return _personalPesoMejoraCoef * CivDueño.MaxPeso;
 			}
 		}
 
@@ -323,7 +318,7 @@ namespace Civ
 		{
 			if (Orden.Ejecutar (t))
 			{
-				Orden = new Civ.Orden.OrdenEstacionado ();
+				Orden = new OrdenEstacionado ();
 				CivDueño.AgregaMensaje (new IU.Mensaje ("{0} llegó a {1}", this, Posición));
 			}
 		}
@@ -346,7 +341,7 @@ namespace Civ
 			return ret;
 		}
 
-		public Civ.Orden.IOrden Orden = new Civ.Orden.OrdenEstacionado ();
+		public IOrden Orden = new OrdenEstacionado ();
 
 		/// <summary>
 		/// Devuelve el stack que le corresponde a una clase de unidad

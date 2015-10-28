@@ -145,7 +145,6 @@ namespace Civ
 
 			// Inicializar la armada
 			Defensa = new Armada (this, true);
-			Defensa.MaxPeso = float.PositiveInfinity;
 			Defensa.Posición.FromGrafica (terreno);
 
 			// Importar propiedades desde T.
@@ -232,7 +231,7 @@ namespace Civ
 			uRAW.Reclutar (cantidad, this);
 			AlReclutar?.Invoke (uRAW, cantidad);
 
-			return Defensa [uRAW];											// Devuelve la unidad creada.
+			return Defensa [uRAW]; // Devuelve la unidad creada.
 		}
 
 		#endregion
@@ -781,7 +780,7 @@ namespace Civ
 		/// <summary>
 		/// Cambio de recursos
 		/// </summary>
-		ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
+		readonly ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
 
 		public float CalculaDeltaRecurso (Recurso recurso)
 		{

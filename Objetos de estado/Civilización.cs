@@ -81,6 +81,7 @@ namespace Civ
 			Diplomacia = new ControlDiplomacia ();
 			Ciudades = new List<ICiudad> ();
 			Mensajes = new System.Collections.Queue ();
+			MaxPeso = Juego.PrefsJuegoNuevo.MaxPesoInicial;
 		}
 
 		public override string ToString ()
@@ -103,6 +104,11 @@ namespace Civ
 			}
 			return ret;
 		}
+
+		/// <summary>
+		/// Devuelve el (base) peso mayor que puede tener una armada
+		/// </summary>
+		public float MaxPeso { get; private set; }
 
 		#endregion
 

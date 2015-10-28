@@ -9,6 +9,8 @@
 		public long AlimentoInicial = 100;
 		public int PoblacionInicial = 10;
 
+		public float MaxPesoInicial = 10;
+
 		// Topología
 		public int NumTerrenos = 50;
 		public int NumCivs = 10;

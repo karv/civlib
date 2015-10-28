@@ -17,7 +17,7 @@ namespace Global
 	/// </summary>	
 	public static class Juego
 	{
-		static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
+		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
 		public static GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
 		public static GameData Data = new GameData ();
 		public static GameState State = new GameState ();

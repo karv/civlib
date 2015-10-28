@@ -12,6 +12,10 @@ namespace Civ
 			Armadas = new C5.HashSet<Armada> ();
 		}
 
+		float ICivilización.MaxPeso
+
+		{ get { return float.PositiveInfinity; } }
+
 		/// <summary>
 		/// Devuelve el modelo diplomático.
 		/// </summary>
