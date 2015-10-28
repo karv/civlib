@@ -117,6 +117,14 @@ namespace Civ
 		{
 		}
 
+		public void Destruir ()
+		{
+			ArmadaPerteneciente = null;
+			HP = 0;
+			Entrenamiento = 0;
+			Cantidad = 0;
+		}
+
 		#endregion
 
 		#region Estado inherente

@@ -203,9 +203,7 @@ namespace Civ
 				else
 					_unidades.Add (stack.RAW, stack);
 				
-				stack.ArmadaPerteneciente = null;
-				stack.Cantidad = 0;
-				stack.RAW = null;
+				stack.Destruir ();
 			}
 			else
 			{
