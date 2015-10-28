@@ -46,6 +46,13 @@ namespace Test
 		}
 
 		[Test]
+		public void TestSóloCiclo ()
+		{
+			Init ();
+			Ciclo (500);
+		}
+
+		[Test]
 		public void TestCambioDiplomacia ()
 		{
 			Init ();
@@ -104,7 +111,6 @@ namespace Test
 			var u = new UnidadRAWCombate ();
 			u.Nombre = "Velociraptor";
 			u.Velocidad = 10;
-			u.Fuerza = 1;
 			Terreno destino = Juego.State.Topología.Vecino (MyCiudad.Terr).Elegir ();
 			Assert.NotNull (destino); //Por alguna razón estaba pasando mucho esto
 			Assert.AreNotEqual (destino.Vecinos, MyCiudad.Terr);
@@ -112,14 +118,9 @@ namespace Test
 
 			arm.AgregaUnidad (u, 5);
 			var ord = new OrdenIrALugar (arm, destino.Pos);
-			ord.AlAcabarUnaOrden += delegate
+			ord.AlLlegar += delegate
 			{
 				Debug.WriteLine ("Armada está en " + arm.Posición);
-			};
-			ord.AlTerminar += delegate
-			{
-				Debug.WriteLine ("Armada llegó a " + arm.Posición);
-				Debug.WriteLine ("Ahora está at ease; orden: " + arm.Orden);
 			};
 			arm.Orden = ord;
 			Console.WriteLine ("Entrando al ciclo");
