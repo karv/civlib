@@ -2,6 +2,7 @@
 
 namespace Civ.Orden
 {
+	[Obsolete ("Usar OrdenIrALugar")]
 	public class OrdenIr : IOrden
 	{
 		/// <summary>
