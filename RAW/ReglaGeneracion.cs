@@ -50,7 +50,7 @@ namespace Civ.Bárbaros
 				                Juego.State.Mapa,
 				                pos);
 
-			var ret = new Armada (cb, pseudopos);
+			var ret = new Armada (cb, new Pseudoposición (pseudopos));
 			foreach (var x in ClaseArmada)
 			{
 				ret.AgregaUnidad (x.Item1, x.Item2);
