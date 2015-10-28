@@ -31,7 +31,7 @@ namespace Civ.Orden
 		/// <param name="target">El DropStack que recogerá </param>
 		public OrdenRecoger (Armada armada, DropStack target)
 		{
-			this.ArmadaEjecutante = armada;
+			ArmadaEjecutante = armada;
 			Origen = ArmadaEjecutante.Posición.Clonar (ArmadaEjecutante.Posición.Objeto);
 
 			StackTarget = target;
@@ -49,13 +49,13 @@ namespace Civ.Orden
 			// Si ya llegó al origen, ya terminó toda la orden.
 			if (ArmadaEjecutante.Posición.Equals (Origen))
 			{
-				AlRegresar.Invoke (this, null);
+				AlRegresar?.Invoke ();
 				return true;
 			}
 			// Si llegó a dónde se encuentran los recursos
 			if (retOrdenPasada)
 			{
-				AlLlegar?.Invoke (this, null);
+				AlLlegar?.Invoke ();
 				// Recoger todo lo que se encuentra allá
 				foreach (var s in ArmadaEjecutante.Unidades)
 				{
@@ -73,12 +73,12 @@ namespace Civ.Orden
 		/// <summary>
 		/// Ocurre al llegar al DropStack
 		/// </summary>
-		public event EventHandler AlLlegar;
+		public event Action AlLlegar;
 
 		/// <summary>
 		/// Ocurre al regresar a casa
 		/// </summary>
-		public event EventHandler AlRegresar;
+		public event Action AlRegresar;
 
 		#endregion
 	}
