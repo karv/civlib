@@ -955,9 +955,9 @@ namespace Civ
 		public void Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
-			PopTick (t);
 			var dictTmp = ((System.Collections.Generic.IDictionary<Recurso, float>)Almacén).Clonar ();
 			var RecAntes = new ListaPeso<Recurso> (dictTmp);
+			PopTick (t);
 			ResourceTick (t);
 
 			// Hacer la suma manual 
