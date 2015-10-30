@@ -110,11 +110,6 @@ namespace Civ.Data
 		{
 			ulong realCantidad = Math.Min (cantidad, MaxReclutables (ciudad));
 
-			#if DEBUG
-			if (cantidad > realCantidad)
-				Console.WriteLine ("Se pidió reclutar más de lo que puede.");
-			#endif
-
 			ciudad.Defensa.AgregaUnidad (this, realCantidad);
 		}
 
