@@ -138,7 +138,7 @@ namespace Civ
 		{
 			get
 			{
-				return _personalPesoMejoraCoef * CivDueño.MaxPeso;
+				return EsDefensa ? float.PositiveInfinity : _personalPesoMejoraCoef * CivDueño.MaxPeso;
 			}
 		}
 
@@ -222,7 +222,10 @@ namespace Civ
 				return;
 			}
 
-			var realCantidad = (ulong)(PesoLibre / raw.Peso);
+			var realCantidad = 
+				float.IsPositiveInfinity (PesoLibre) ?
+				cantidad :
+				Math.Min (cantidad, (ulong)(PesoLibre / raw.Peso));
 			if (realCantidad == 0)
 				return;
 			if (_unidades.ContainsKey (raw))

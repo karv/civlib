@@ -229,6 +229,8 @@ namespace Civ
 		public Stack Reclutar (IUnidadRAW uRAW, ulong cantidad = 1)
 		{
 			uRAW.Reclutar (cantidad, this);
+			RealPoblaciónProductiva -= cantidad;
+
 			AlReclutar?.Invoke (uRAW, cantidad);
 
 			return Defensa [uRAW]; // Devuelve la unidad creada.
