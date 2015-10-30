@@ -62,7 +62,7 @@ namespace Civ
 
 		public override string ToString ()
 		{
-			return string.Format ("{0}: {1}", Ciencia.Nombre, ObtPct ());
+			return string.Format ("{0}: {1}%", Ciencia.Nombre, ObtPct ());
 		}
 
 		/// <summary>
