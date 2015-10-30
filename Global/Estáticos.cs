@@ -97,16 +97,6 @@ namespace Global
 			ImportMachine.Importar ();
 		}
 
-		public static void GuardaData ()
-		{
-			Store.Store<GameData>.Serialize (archivo, Data);
-		}
-
-		public static void GuardaData (string f)
-		{
-			Store.Store<GameData>.Serialize (f, Data);
-		}
-
 		#endregion
 
 		/// <summary>
