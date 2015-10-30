@@ -150,7 +150,7 @@ namespace Civ
 		/// </summary>
 		bool SatisfaceRequerimientosRecursos (Ciencia ciencia)
 		{
-			return Avances.Contains (ciencia);
+			return Investigando.EncuentraInstancia (ciencia).EstáCompletada ();
 		}
 
 		#endregion

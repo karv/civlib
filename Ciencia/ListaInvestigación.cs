@@ -67,7 +67,7 @@ namespace Civ
 		/// <param name="ciencia">Ciencia a eliminar</param>
 		public bool Remove (Ciencia ciencia)
 		{
-			return Remove (EncuentraInstancia (ciencia)?.Ciencia);
+			return base.Remove (EncuentraInstancia (ciencia));
 		}
 	}
 }
