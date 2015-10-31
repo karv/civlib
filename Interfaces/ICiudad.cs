@@ -80,6 +80,13 @@ namespace Civ
 		ICollection<IUnidadRAW> UnidadesConstruibles ();
 
 		/// <summary>
+		/// Devuelve <c>true</c> si un edificio se puede contruir en esta ciudad.
+		/// <c>false</c> en caso contrario.
+		/// </summary>
+		/// <param name="edif">Clase de edificio</param>
+		bool PuedeConstruir (EdificioRAW edif);
+
+		/// <summary>
 		/// Recluta unidades directamente a la armada Defensa
 		/// </summary>
 		/// <param name="uRAW">Tipo de unidad</param>

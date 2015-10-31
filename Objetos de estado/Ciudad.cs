@@ -326,6 +326,7 @@ namespace Civ
 		/// Devuelve la lista de edificios contruibles por esta ciudad; los que se pueden hacer y no están hechos.
 		/// </summary>
 		/// <returns></returns>
+		[Obsolete ("Usar Data.ObtenerEdificiosConstruíbles(this)")]
 		public System.Collections.Generic.ICollection<EdificioRAW> Construibles ()
 		{
 			var ret = new List<EdificioRAW> ();
@@ -342,7 +343,6 @@ namespace Civ
 		/// <c>false</c> en caso contrario.
 		/// </summary>
 		/// <param name="edif">Clase de edificio</param>
-		/// <returns></returns>
 		public bool PuedeConstruir (EdificioRAW edif)
 		{
 			if (!SatisfaceReq (edif.Reqs ()))

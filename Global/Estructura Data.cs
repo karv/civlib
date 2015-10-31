@@ -161,5 +161,15 @@ namespace Global
 				return ret;
 			}
 		}
+
+		/// <summary>
+		/// Devuelve una collección de edificios que pueden ser construídos por una ciudad específica.
+		/// </summary>
+		/// <returns>The edificios construíbles.</returns>
+		/// <param name="ciudad">Ciudad para la cual se quiere saber cuáles edificios son construíbles</param>
+		public IEnumerable<EdificioRAW> ObtenerEdificiosConstruíbles (ICiudad ciudad)
+		{
+			return Edificios.Filter (ciudad.PuedeConstruir);
+		}
 	}
 }
