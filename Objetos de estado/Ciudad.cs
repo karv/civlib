@@ -276,7 +276,6 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la lista de instancias de edicio de la ciudad.
 		/// </summary>
-		/// <value></value>
 		public System.Collections.Generic.ICollection<Edificio> Edificios { get; }
 
 		/// <summary>

@@ -30,6 +30,11 @@ namespace Civ
 		bool ExisteEdificio (EdificioRAW edif);
 
 		/// <summary>
+		/// Devuelve la lista de instancias de edicio de la ciudad.
+		/// </summary>
+		ICollection<Edificio> Edificios { get; }
+
+		/// <summary>
 		/// Devuelve una colección de los trabajos que puede realizar esta ciudad
 		/// </summary>
 		ICollection<TrabajoRAW> ObtenerTrabajosAbiertos ();
