@@ -272,7 +272,7 @@ namespace Civ
 		/// <param name="referencia">Referencias u orígenes del mensaje.</param>
 		public void AgregaMensaje (string str, params object [] referencia)
 		{
-			AgregaMensaje (new Mensaje (str, referencia));
+			AgregaMensaje (new Mensaje (str, null, referencia));
 		}
 
 		/// <summary>

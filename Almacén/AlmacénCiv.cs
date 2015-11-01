@@ -22,6 +22,7 @@ using System;
 using ListasExtra;
 using System.Linq;
 using Civ.Data;
+using IU;
 
 namespace Civ
 {
@@ -48,8 +49,14 @@ namespace Civ
 		{
 			foreach (var x in Entradas)
 			{
-				if (x.Desaparece)
+				if (x.Desaparece && this [x] > 0)
+				{
 					this [x] = 0;
+					Civil.AgregaMensaje (new Mensaje (
+						"Desperdiciando recurso {0}",
+						x,
+						x.Nombre));
+				}
 			}
 		}
 

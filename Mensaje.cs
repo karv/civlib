@@ -32,6 +32,9 @@ namespace IU
 			Msj = nMensaje;
 			Origen = nOrigen;
 			VerificadorRepetición = repetidor;
+			#if DEBUG
+			System.Console.WriteLine ("+" + ToString ());
+			#endif
 		}
 
 		public override string ToString ()
