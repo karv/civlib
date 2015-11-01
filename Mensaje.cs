@@ -17,14 +17,21 @@ namespace IU
 		public object [] Origen;
 
 		/// <summary>
+		/// Se usa para comparar si dos mensajes son de la misma clase y no deben duplicarse.
+		/// </summary>
+		public object VerificadorRepetición;
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="IU.Mensaje"/> class.
 		/// </summary>
 		/// <param name="nMensaje">Texto</param>
 		/// <param name="nOrigen">Objeto vinculado</param>
-		public Mensaje (string nMensaje, params object [] nOrigen)
+		/// <param name="repetidor">Objeto para verificar si es un mensaje repetido.</param>
+		public Mensaje (string nMensaje, object repetidor, params object [] nOrigen)
 		{
 			Msj = nMensaje;
 			Origen = nOrigen;
+			VerificadorRepetición = repetidor;
 		}
 
 		public override string ToString ()

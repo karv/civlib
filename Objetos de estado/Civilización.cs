@@ -80,7 +80,7 @@ namespace Civ
 			Avances = new List<Ciencia> ();
 			Diplomacia = new ControlDiplomacia ();
 			Ciudades = new List<ICiudad> ();
-			Mensajes = new System.Collections.Queue ();
+			Mensajes = new ManejadorMensajes ();
 			MaxPeso = Juego.PrefsJuegoNuevo.MaxPesoInicial;
 		}
 
@@ -253,7 +253,7 @@ namespace Civ
 		/// <summary>
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
-		protected System.Collections.Queue Mensajes { get; }
+		protected ManejadorMensajes Mensajes { get; }
 
 		/// <summary>
 		/// Agrega un mensaje de usuario a la cola.

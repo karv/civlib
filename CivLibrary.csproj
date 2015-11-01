@@ -102,6 +102,7 @@
     <Compile Include="IAnálisisCombate.cs" />
     <Compile Include="AnálisisCombate.cs" />
     <Compile Include="AlmacénGenérico.cs" />
+    <Compile Include="ManejadorMensajes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
