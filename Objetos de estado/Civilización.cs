@@ -4,6 +4,7 @@ using Basic;
 using Global;
 using Civ.Data;
 using IU;
+using ListasExtra.Extensiones;
 using System.Linq;
 
 namespace Civ
@@ -150,7 +151,7 @@ namespace Civ
 		/// </summary>
 		bool SatisfaceRequerimientosRecursos (Ciencia ciencia)
 		{
-			return Investigando.EncuentraInstancia (ciencia).EstáCompletada ();
+			return Investigando.EncuentraInstancia (ciencia)?.EstáCompletada () ?? false;
 		}
 
 		#endregion
@@ -346,7 +347,6 @@ namespace Civ
 		public void Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
-			Random r = Juego.Rnd;
 			foreach (var x in Ciudades)
 			{
 				{
@@ -360,17 +360,25 @@ namespace Civ
 			foreach (Recurso Rec in Juego.Data.ObtenerRecursosCientificos())
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
-				var CienciaInvertibleRec = CienciasAbiertas ().Filter (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
+				var CienciaInvertibleRec = new List<Ciencia> (CienciasAbiertas ().Filter (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
 				                           (!Investigando.Exists (w => w.Ciencia == z) ||
-				                           Investigando.EncuentraInstancia (z) [Rec] < z.Reqs.Recursos [Rec])); // Y que aún le falte de tal recurso.
-				var Count = CienciaInvertibleRec.Count ();
-				float [] sep = r.Separadores (Count, Almacén [Rec]);
-
-				int i = 0;
-				foreach (var y in CienciaInvertibleRec)
+				                           Investigando.EncuentraInstancia (z) [Rec] < z.Reqs.Recursos [Rec]))); // Y que aún le falte de tal recurso.
+				if (CienciaInvertibleRec.Count > 0)
 				{
-					// En este momento, se está investigando "y" con el recurso "Rec".
-					Investigando.Invertir (y, Rec, sep [i++]);
+					var ciencia = CienciaInvertibleRec.Aleatorio ();
+					Investigando.Invertir (ciencia, Rec, Almacén [Rec]);
+					Almacén [Rec] = 0;
+				}
+				else
+				{
+					if (Almacén [Rec] > 0)
+					{					
+						// Se está desperdiciando Rec
+						AgregaMensaje (new Mensaje (
+							"Se está desperdiciando recurso científico {0}",
+							Rec,
+							Rec.Nombre));
+					}
 				}
 			}
 
