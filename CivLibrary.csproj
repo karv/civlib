@@ -31,6 +31,12 @@
     <Reference Include="C5">
       <HintPath>..\packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
     </Reference>
+    <Reference Include="Grafos">
+      <HintPath>..\packages\Grafos.0.1.5\lib\Grafos.dll</HintPath>
+    </Reference>
+    <Reference Include="ListaExtras">
+      <HintPath>..\packages\ListaExtras.0.2.5\lib\ListaExtras.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,15 +302,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Grafo\Grafos.csproj">
-      <Project>{AF2E2C37-9F1D-4D32-AE62-8484B0A9DD50}</Project>
-      <Name>Grafos</Name>
-    </ProjectReference>
-    <ProjectReference Include="Grafo\ListaExtras\ListaExtras.csproj">
-      <Project>{B9F315AE-47F8-4629-83FC-3B4D70087083}</Project>
-      <Name>ListaExtras</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>
