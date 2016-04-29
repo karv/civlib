@@ -2,6 +2,7 @@
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Mi estado diplomático con respecto a otra ICIvilización
 	/// </summary>

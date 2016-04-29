@@ -6,13 +6,15 @@ using Civ.Combate;
 using Civ.Orden;
 using Global;
 using Basic;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa un conjunto de unidades.
 	/// </summary>
-	public class Armada: IPosicionable, IPuntuado, IDefensor
+	[Serializable]
+	public class Armada : IPosicionable, IPuntuado, IDefensor
 	{
 		#region General
 

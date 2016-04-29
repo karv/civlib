@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace Civ
 {
+	[Serializable]
 	public class Civilización : ICivilización
 	{
 		#region ICivilización
@@ -50,7 +51,16 @@ namespace Civ
 		/// Devuelve una colección con las armadas
 		/// </summary>
 		/// <value>The armadas.</value>
-		public ICollection<Armada> Armadas { get; }
+		public ICollection<Armada> Armadas
+		{
+			get
+			{
+				return _armadas;
+			}
+			private set{ _armadas = value; }
+		}
+
+		ICollection<Armada> _armadas;
 
 		/// <summary>
 		/// Devuelve el modelo diplomático.
@@ -254,7 +264,7 @@ namespace Civ
 		/// <summary>
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
-		protected ManejadorMensajes Mensajes { get; }
+		protected ManejadorMensajes Mensajes;
 
 		/// <summary>
 		/// Agrega un mensaje de usuario a la cola.

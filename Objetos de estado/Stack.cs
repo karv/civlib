@@ -5,6 +5,7 @@ using Civ.Combate;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Representa a una instancia de unidad.
 	/// </summary>

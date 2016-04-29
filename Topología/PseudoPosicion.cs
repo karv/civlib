@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using Graficas.Continuo;
 using Global;
 using System;
-using ListasExtra;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Representa un lugar que no es terreno, más bien es un punto en una arista de la Topología del mundo.
 	/// </summary>

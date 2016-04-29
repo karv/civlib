@@ -4,6 +4,7 @@ using System;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Representa la ecología del terreno.
 	/// </summary>

@@ -5,6 +5,7 @@ using Civ.Data;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Representa un conjunto de recursos que no están (necesariamente) en una ciudad.
 	/// </summary>

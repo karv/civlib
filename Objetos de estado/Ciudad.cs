@@ -5,12 +5,15 @@ using Civ.Data;
 using C5;
 using ListasExtra;
 using ListasExtra.Extensiones;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa una instancia de ciudad.
 	/// </summary>
+	[DataContract]
+	[Serializable]
 	public class Ciudad : ICiudad
 	{
 		#region ICiudad

@@ -23,6 +23,7 @@ using System;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Representa la lista de ciencias que se están investigando.
 	/// </summary>

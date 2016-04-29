@@ -20,18 +20,24 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using ListasExtra;
 using Civ.Data;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa una entrada de una ciencia que se está investigando.
 	/// </summary>
+	[CollectionDataContract]
 	public class InvestigandoCiencia: ListaPeso<Recurso>
 	{
 		/// <summary>
 		/// La ciencia anclada.
 		/// </summary>
 		public readonly Ciencia Ciencia;
+
+		public InvestigandoCiencia ()
+		{
+		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.InvestigandoCiencia"/> class.

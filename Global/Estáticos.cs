@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Civ;
 using Civ.Options;
 using Civ.Bárbaros;
-using Graficas;
 using System.IO;
 using Basic;
 using ListasExtra.Extensiones;
 using C5;
 using Civ.Data.Import;
+using Civ.Topología;
+using Graficas.Grafo;
+using Graficas.Rutas;
 
 namespace Global
 {
@@ -87,7 +89,8 @@ namespace Global
 
 		#region IO
 
-		const string archivo = "Data.xml";
+		public const string ArchivoData = "Data.xml";
+		public const string ArchivoState = "game.state";
 
 		/// <summary>
 		/// Carga del archivo predeterminado.
@@ -115,7 +118,7 @@ namespace Global
 			// Hacer la topolog�a
 			var Terrenos = new ArrayList<Terreno> ();
 			State.Topología = new Grafo<Terreno> ();
-			State.Mapa = new Graficas.Continuo.Continuo<Terreno> (State.Topología);
+			State.Mapa = new Mapa (State.Topología);
 
 			Terreno T;
 			Ecosistema Eco;
