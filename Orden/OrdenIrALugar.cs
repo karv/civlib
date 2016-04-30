@@ -1,10 +1,10 @@
 ﻿using Graficas.Continuo;
 using Global;
 using System;
-using Graficas.Rutas;
 
 namespace Civ.Orden
 {
+	[Serializable]
 	public class OrdenIrALugar : IOrden
 	{
 		public bool Ejecutar (TimeSpan t)

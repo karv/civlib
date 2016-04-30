@@ -1,8 +1,11 @@
-﻿namespace Civ
+﻿using System;
+
+namespace Civ
 {
 	/// <summary>
 	/// Mantiene información sobre la distribución por edades de una población
 	/// </summary>
+	[Serializable]
 	public struct InfoPoblación
 	{
 		public readonly ulong PreProductiva;

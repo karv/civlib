@@ -6,7 +6,8 @@ namespace Civ
 	/// <summary>
 	/// Representa una instancia trabajo en una instancia de edificio.
 	/// </summary>
-	public class Trabajo: ITickable
+	[Serializable]
+	public class Trabajo : ITickable
 	{
 		#region General
 
@@ -204,6 +205,5 @@ namespace Civ
 		public event Action AlCambiarTrabajadores;
 
 		#endregion
-
 	}
 }

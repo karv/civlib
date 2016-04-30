@@ -8,6 +8,7 @@ namespace Civ.Data
 	/// <summary>
 	/// Representa una propiedad innata de un edificio.
 	/// </summary>
+	[Serializable]
 	public class Propiedad : IRequerimiento<Ciudad>, IImportable
 	{
 		/// <summary>
@@ -74,7 +75,7 @@ namespace Civ.Data
 
 		void IImportable.Vincular ()
 		{
-			Salida = new C5.HashSet<TasaProd.TasaProd> ();
+			Salida = new HashSet<TasaProd.TasaProd> ();
 			foreach (var x in ref_Salida)
 			{
 				var a = ImportMachine.Valor (x) as TasaProd.TasaProd;

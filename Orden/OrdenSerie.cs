@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Civ.Orden
 {
 	/// <summary>
 	/// Representa una serie de órdenes
 	/// </summary>
-	public class OrdenSerie:C5.ArrayList<IOrden>, IOrden
+	[Serializable]
+	public class OrdenSerie : List<IOrden>, IOrden
 	{
 		/// <summary>
 		/// La orden actual
@@ -26,7 +28,7 @@ namespace Civ.Orden
 		{
 			if (orden.ArmadaEjecutante != ArmadaEjecutante)
 				throw new Exception ("Encolar órdenes debe ser de la misma armada.");
-			Enqueue (orden);
+			Add (orden);
 		}
 
 		public OrdenSerie (Armada armada)
@@ -48,7 +50,7 @@ namespace Civ.Orden
 				AlAcabarUnaOrden?.Invoke ();
 				if (Count > 1)
 				{
-					Dequeue ();
+					RemoveAt (0);
 				}
 				else
 				{

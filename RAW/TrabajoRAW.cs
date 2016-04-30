@@ -1,6 +1,6 @@
 using ListasExtra;
-using C5;
 using Civ.Data.Import;
+using System.Collections.Generic;
 
 namespace Civ.Data
 {
@@ -77,9 +77,9 @@ namespace Civ.Data
 
 		#region IImportable
 
-		ArrayList <string []> _entrada_id = new ArrayList<string []> ();
-		ArrayList <string []> _salida_id = new ArrayList<string []> ();
-		ArrayList <string> _req_id = new ArrayList<string> ();
+		List <string []> _entrada_id = new List<string []> ();
+		List <string []> _salida_id = new List<string []> ();
+		List <string> _req_id = new List<string> ();
 		string _edif_id;
 
 		void IImportable.Importar (System.IO.StreamReader reader)

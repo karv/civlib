@@ -87,7 +87,7 @@ namespace Global
 		/// <returns></returns>
 		public ICollection<Terreno> TerrenosLibres ()
 		{
-			var ret = new C5.ArrayList<Terreno> ();
+			var ret = new List<Terreno> ();
 			foreach (var x in Terrenos())
 			{
 				if (x.CiudadConstruida == null)
@@ -181,7 +181,7 @@ namespace Global
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine (ex);	
+				Console.WriteLine (ex);
 			}
 		}
 

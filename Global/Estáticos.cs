@@ -6,7 +6,6 @@ using Civ.Bárbaros;
 using System.IO;
 using Basic;
 using ListasExtra.Extensiones;
-using C5;
 using Civ.Data.Import;
 using Civ.Topología;
 using Graficas.Grafo;
@@ -116,7 +115,7 @@ namespace Global
 			//State = new GameState();
 
 			// Hacer la topolog�a
-			var Terrenos = new ArrayList<Terreno> ();
+			var Terrenos = new List<Terreno> ();
 			State.Topología = new Grafo<Terreno> ();
 			State.Mapa = new Mapa (State.Topología);
 

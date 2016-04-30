@@ -2,6 +2,7 @@
 
 namespace Civ.Orden
 {
+	[Serializable]
 	public class OrdenRecoger: IOrden
 	{
 		/// <summary>

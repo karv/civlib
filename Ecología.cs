@@ -15,7 +15,7 @@ namespace Civ
 		/// <summary>
 		/// Propiedades innatas del lugar
 		/// </summary>
-		public readonly ICollection<Propiedad> Innatos = new C5.HashSet<Propiedad> ();
+		public readonly ICollection<Propiedad> Innatos = new HashSet<Propiedad> ();
 
 		public event Action<TimeSpan> AlTickAntes;
 

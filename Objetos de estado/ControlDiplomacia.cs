@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Civ
 {
@@ -6,7 +7,7 @@ namespace Civ
 	/// <summary>
 	/// Mi estado diplomático con respecto a otra ICIvilización
 	/// </summary>
-	public class ControlDiplomacia : C5.HashDictionary<ICivilización, EstadoDiplomático>, IDiplomacia
+	public class ControlDiplomacia : Dictionary<ICivilización, EstadoDiplomático>, IDiplomacia
 	{
 		/// <summary>
 		/// Devuelve o establece si una civilización permite atacar a otras con las que no tiene diplomacia.
@@ -17,21 +18,21 @@ namespace Civ
 		{
 			EstadoDiplomático dip;
 			var civ = arm.CivDueño;
-			return Find (ref civ, out dip) ? dip.PermiteAtacar : PermiteAtacarDesconocidos;
+			return TryGetValue (civ, out dip) ? dip.PermiteAtacar : PermiteAtacarDesconocidos;
 		}
 
 		public bool PermitePaso (Armada arm)
 		{
 			EstadoDiplomático dip;
 			var civ = arm.CivDueño;
-			return Find (ref civ, out dip) && dip.PermitePaso;
+			return TryGetValue (civ, out dip) && dip.PermitePaso;
 		}
 
 		public event Action AlCambiarDiplomacia;
 
 		public ControlDiplomacia ()
 		{
-			// Analysis disable PossibleAssignmentToReadonlyField
+			/*
 			ItemsAdded += delegate(object sender,
 			                       C5.ItemCountEventArgs<C5.KeyValuePair<ICivilización, EstadoDiplomático>> eventArgs)
 			{
@@ -39,9 +40,8 @@ namespace Civ
 				eventArgs.Item.Value.AlCambiarPermisoAtacar += InvocarCambio;
 			};
 
-			ItemsRemoved += (sender,
-			                 eventArgs) => eventArgs.Item.Value.AlCambiarPermisoAtacar -= InvocarCambio;
-			// Analysis restore PossibleAssignmentToReadonlyField
+			ItemsRemoved += (sender,			                 eventArgs) => eventArgs.Item.Value.AlCambiarPermisoAtacar -= InvocarCambio;
+			*/
 		}
 
 		void InvocarCambio ()

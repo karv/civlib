@@ -1,6 +1,7 @@
 ﻿using System;
 using Global;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Civ.Bárbaros
 {
@@ -19,7 +20,7 @@ namespace Civ.Bárbaros
 		/// <summary>
 		/// Las reglas de generación
 		/// </summary>
-		public C5.HashSet<IReglaGeneración> Reglas { get; }
+		public HashSet<IReglaGeneración> Reglas { get; }
 
 		double lambda
 		{
@@ -31,7 +32,7 @@ namespace Civ.Bárbaros
 
 		public GeneradorArmadasBarbaras ()
 		{
-			Reglas = new C5.HashSet<IReglaGeneración> ();
+			Reglas = new HashSet<IReglaGeneración> ();
 		}
 
 		/// <summary>
@@ -57,7 +58,7 @@ namespace Civ.Bárbaros
 		public Armada Armada ()
 		{
 			// Escoger una regla
-			var reglas = new List<IReglaGeneración> (Reglas.Filter (x => x.EsPosibleGenerar (Juego.State)));
+			var reglas = new List<IReglaGeneración> (Reglas.Where (x => x.EsPosibleGenerar (Juego.State)));
 			if (reglas.Count == 0)
 			{
 				System.Diagnostics.Debug.WriteLine ("No hay regla para este caso");

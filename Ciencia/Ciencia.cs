@@ -1,12 +1,13 @@
 using System;
-using C5;
 using Civ.Data.Import;
+using System.Collections.Generic;
 
 namespace Civ.Data
 {
 	/// <summary>
 	/// Representa un adelanto científico.
 	/// </summary>
+	[Serializable]
 	public class Ciencia : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable, IImportable
 	{
 		public class Requerimiento
@@ -60,8 +61,8 @@ namespace Civ.Data
 
 		#region IImportable
 
-		ArrayList <string []> _reqRecurso_id = new ArrayList<string []> ();
-		ArrayList <string> _reqCiencia_id = new ArrayList<string> ();
+		List <string []> _reqRecurso_id = new List<string []> ();
+		List <string> _reqCiencia_id = new List<string> ();
 
 		void IImportable.Importar (System.IO.StreamReader reader)
 		{

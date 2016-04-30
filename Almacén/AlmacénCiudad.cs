@@ -26,6 +26,7 @@ using System;
 
 namespace Civ
 {
+	[Serializable]
 	public class AlmacénCiudad: ListaPeso<Recurso>, IAlmacén
 	{
 		/// <summary>

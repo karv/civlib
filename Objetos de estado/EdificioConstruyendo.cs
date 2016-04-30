@@ -24,6 +24,7 @@ using Civ.Data;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Representa un edificio en construcción.
 	/// </summary>

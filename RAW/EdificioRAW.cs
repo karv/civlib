@@ -8,6 +8,7 @@ namespace Civ.Data
 	/// <summary>
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
+	[Serializable]
 	public class EdificioRAW : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable, IImportable
 	{
 		public string Nombre;
@@ -98,9 +99,9 @@ namespace Civ.Data
 
 		#region IImportable
 
-		C5.ArrayList<string []> _req_rec_id = new C5.ArrayList<string []> ();
-		C5.ArrayList<string> _req_obj_id = new C5.ArrayList<string> ();
-		C5.ArrayList<string []> _salida_id = new C5.ArrayList<string []> ();
+		List<string []> _req_rec_id = new List<string []> ();
+		List<string> _req_obj_id = new List<string> ();
+		List<string []> _salida_id = new List<string []> ();
 
 		public void Importar (System.IO.StreamReader reader)
 		{

@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Civ.Data;
-using C5;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa una instancia de edificio en una ciudad.
 	/// </summary>
+	[Serializable]
 	public class Edificio: ITickable
 	{
 		#region General
@@ -36,7 +36,7 @@ namespace Civ
 		public Edificio (EdificioRAW nRAW)
 		{
 			RAW = nRAW;
-			Trabajos = new ArrayList<Trabajo> ();
+			Trabajos = new List<Trabajo> ();
 		}
 
 		public Edificio (EdificioRAW nRAW, Ciudad nCiudad)
@@ -86,7 +86,7 @@ namespace Civ
 		/// Devuelve la lista de instancias de trabajo de este edificio
 		/// </summary>
 		/// <value>The _ trabajo.</value>
-		public C5.IList<Trabajo> Trabajos { get; }
+		public IList<Trabajo> Trabajos { get; }
 
 		/// <summary>
 		/// Devuelve el número de trabajadores ocupados en este edificio.

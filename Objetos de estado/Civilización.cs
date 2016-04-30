@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Basic;
 using Global;
 using Civ.Data;
 using IU;
@@ -39,7 +38,6 @@ namespace Civ
 				AlCambiarNombre?.Invoke ();
 			}
 		}
-
 
 		/// <summary>
 		/// Devuelve una lista con las ciudades de la civilización
@@ -133,9 +131,9 @@ namespace Civ
 		/// <summary>
 		/// Devuelve las ciencias que no han sido investigadas y que comple todos los requesitos para investigarlas.
 		/// </summary>
-		public C5.ICollection<Ciencia> CienciasAbiertas ()
+		public ICollection<Ciencia> CienciasAbiertas ()
 		{
-			var ret = new C5.ArrayList<Ciencia> ();
+			var ret = new List<Ciencia> ();
 			foreach (Ciencia x in Juego.Data.Ciencias)
 			{
 				if (EsCienciaAbierta (x))
@@ -261,6 +259,7 @@ namespace Civ
 
 		#region Mensajes
 
+		[NonSerialized]
 		/// <summary>
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
@@ -370,8 +369,8 @@ namespace Civ
 			foreach (Recurso Rec in Juego.Data.ObtenerRecursosCientificos())
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
-				var CienciaInvertibleRec = new List<Ciencia> (CienciasAbiertas ().Filter (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
-				                           (!Investigando.Exists (w => w.Ciencia == z) ||
+				var CienciaInvertibleRec = new List<Ciencia> (CienciasAbiertas ().Where (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
+				                           (!Investigando.Any (w => w.Ciencia == z) ||
 				                           Investigando.EncuentraInstancia (z) [Rec] < z.Reqs.Recursos [Rec]))); // Y que aún le falte de tal recurso.
 				if (CienciaInvertibleRec.Count > 0)
 				{

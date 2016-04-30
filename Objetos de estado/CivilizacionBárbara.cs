@@ -4,12 +4,13 @@ using System;
 
 namespace Civ
 {
+	[Serializable]
 	public class CivilizacionBárbara: ICivilización
 	{
 		public CivilizacionBárbara ()
 		{
 			Diplomacia = new DiplomaciaNómada ();
-			Armadas = new C5.HashSet<Armada> ();
+			Armadas = new HashSet<Armada> ();
 		}
 
 		float ICivilización.MaxPeso

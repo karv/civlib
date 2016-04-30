@@ -21,6 +21,7 @@
 using ListasExtra;
 using Civ.Data;
 using System.Runtime.Serialization;
+using System;
 
 namespace Civ
 {
@@ -28,6 +29,7 @@ namespace Civ
 	/// Representa una entrada de una ciencia que se está investigando.
 	/// </summary>
 	[CollectionDataContract]
+	[Serializable]
 	public class InvestigandoCiencia: ListaPeso<Recurso>
 	{
 		/// <summary>

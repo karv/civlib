@@ -5,8 +5,8 @@ using System.Linq;
 using Civ.Combate;
 using Civ.Orden;
 using Global;
+using Civ;
 using Basic;
-using System.Runtime.Serialization;
 
 namespace Civ
 {
@@ -30,18 +30,20 @@ namespace Civ
 			CivDueño?.Armadas.Remove (this);
 		}
 
-
 		/// <summary>
 		/// Diccionario privado UnidadRAW-Stack
 		/// </summary>
+		//readonly ListaArmada _unidades = new ListaArmada ();
 		readonly ListaPeso<IUnidadRAW, Stack> _unidades = new ListaPeso<IUnidadRAW, Stack> (
 			                                                  Stack.Merge,
 			                                                  null);
-
+		/*new ListaPeso<IUnidadRAW, Stack> (;
+			                                                  (x, y) => Stack.Merge (x, y),
+			                                                  null);*/
 		/// <summary>
 		/// Devuelve true si esta armada es una armada intrínseca de una ciudad.
 		/// </summary>
-		public bool EsDefensa { get; }
+		public bool EsDefensa;
 
 		/// <summary>
 		/// Devuelve la lista de unidades en la armada.
@@ -83,39 +85,42 @@ namespace Civ
 			Posición = posición.Clonar (this);
 			civilizacion.Armadas.Add (this);
 
-			posición.AlColisionar += delegate(Graficas.Continuo.Continuo<Terreno>.ContinuoPunto obj)
-			{
-				var arm = (obj as Pseudoposición)?.Objeto as Armada;
-				if (!CivDueño.Diplomacia.PermitePaso (arm))
-				{
-					arm.Orden = new OrdenEstacionado ();
-					arm.CivDueño.AgregaMensaje (new IU.Mensaje (
-						"Nuestra Armada {0} detenida por armada {1} de {2} en {3}",
-						arm,
-						this,
-						CivDueño,
-						posición));
-				}
-			};
+			posición.AlColisionar += Posición_AlColisionar;
+			posición.AlDesplazarse += Posición_AlDesplazarse;
+		}
 
-			Posición.AlDesplazarse += delegate
+		void Posición_AlDesplazarse ()
+		{
+			// Para saber si dropea cosas
+			var drops = new DropStack (Posición);
+			foreach (var u in _unidades)
 			{
-				// Para saber si dropea cosas
-				var drops = new DropStack (Posición);
-				foreach (var u in _unidades)
+				while (u.Value.Carga.CargaRestante < 0)
 				{
-					while (u.Value.Carga.CargaRestante < 0)
-					{
-						var t = u.Value.Carga.Elegir ();
-						drops.Almacén [t.Key] += t.Value;
-						u.Value.Carga.Remove (t.Key);
-					}
+					var t = u.Value.Carga.Elegir ();
+					drops.Almacén [t.Key] += t.Value;
+					u.Value.Carga.Remove (t.Key);
 				}
+			}
 
-				// Si dropeó algo, se agrega.
-				if (drops.Almacén.Count > 0)
-					Juego.State.Drops.Add (drops);
-			};
+			// Si dropeó algo, se agrega.
+			if (drops.Almacén.Count > 0)
+				Juego.State.Drops.Add (drops);
+		}
+
+		void Posición_AlColisionar (Graficas.Continuo.Continuo<Terreno>.ContinuoPunto obj)
+		{
+			var arm = (obj as Pseudoposición)?.Objeto as Armada;
+			if (!CivDueño.Diplomacia.PermitePaso (arm))
+			{
+				arm.Orden = new OrdenEstacionado ();
+				arm.CivDueño.AgregaMensaje (new IU.Mensaje (
+					"Nuestra Armada {0} detenida por armada {1} de {2} en {3}",
+					arm,
+					this,
+					CivDueño,
+					Posición));
+			}
 		}
 
 		/// <summary>
@@ -176,7 +181,8 @@ namespace Civ
 		/// Devuelve o establece el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		public Pseudoposición Posición { get; }
+		// TODO readonly (o get)
+		public Pseudoposición Posición;
 
 		/// <summary>
 		/// Agrega, mueve o junta unidad(es) a esta armada.
@@ -340,7 +346,8 @@ namespace Civ
 			}
 		}
 
-		public ICivilización CivDueño { get; }
+		public ICivilización CivDueño;
+		//TODO readonly
 
 		/// <summary>
 		/// Devuelve un nuevo diccionario que asocia a cada UnidadRAW la lista de Unidades que tiene.

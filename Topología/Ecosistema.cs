@@ -22,7 +22,7 @@ namespace Civ
 
 		public Ecosistema ()
 		{
-			Nombres = new C5.ArrayList<string> ();
+			Nombres = new List<string> ();
 			PropPropiedad = new EcosistemaPropiedades ();
 		}
 
@@ -52,7 +52,7 @@ namespace Civ
 
 		#region IImportable
 
-		C5.ArrayList<string []> _prop_ids = new C5.ArrayList<string []> ();
+		List<string []> _prop_ids = new List<string []> ();
 
 		void IImportable.Importar (System.IO.StreamReader reader)
 		{

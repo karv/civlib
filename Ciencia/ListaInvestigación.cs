@@ -20,6 +20,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using Civ.Data;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Civ
 {
@@ -27,7 +29,7 @@ namespace Civ
 	/// <summary>
 	/// Representa la lista de ciencias que se están investigando.
 	/// </summary>
-	public class ListaInvestigación:C5.HashSet<InvestigandoCiencia>
+	public class ListaInvestigación : HashSet<InvestigandoCiencia>
 	{
 		/// <summary>
 		/// Agrega cierta cantidad de recursos, a la investigación de una ciencia.
@@ -37,16 +39,12 @@ namespace Civ
 		/// <param name="cantidad">Cantidad de tal recurso.</param>
 		public void Invertir (Ciencia ciencia, Recurso recurso, float cantidad)
 		{
-			if (!Exists (x => x.Ciencia == ciencia)) // Si no existe la ciencia C en la lista, se agrega
+			if (this.All (x => x.Ciencia != ciencia)) // Si no existe la ciencia C en la lista, se agrega
 				Add (new InvestigandoCiencia (ciencia));
 
 			InvestigandoCiencia IC;
-			if (Find (x => x.Ciencia == ciencia, out IC)) //IC es la correspondiente a la ciencia C.
+			IC = this.First (x => x.Ciencia == ciencia);
 			IC [recurso] += cantidad;
-			else
-			{
-				throw new Exception ("Se intentó invertir en una ciencia cerrada.");
-			}
 		}
 
 		/// <summary>
@@ -56,8 +54,7 @@ namespace Civ
 		/// <param name="ciencia">Ciencia a buscar</param>
 		public InvestigandoCiencia EncuentraInstancia (Ciencia ciencia)
 		{
-			InvestigandoCiencia ret;
-			return Find (x => x.Ciencia == ciencia, out ret) ? ret : null;
+			return this.First (x => x.Ciencia == ciencia);
 		}
 
 		/// <Docs>The item to remove from the current collection.</Docs>
