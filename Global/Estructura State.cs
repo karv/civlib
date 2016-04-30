@@ -144,6 +144,7 @@ namespace Global
 			return ret;
 		}
 
+		public static Recurso RecursoAlimento;
 
 		#region Estadísico
 
@@ -187,7 +188,7 @@ namespace Global
 
 		public static GameState Cargar (string filename)
 		{
-			return Store.XmlStore<GameState>.Deserialize (filename);
+			return Store.BinarySerialization.ReadFromBinaryFile<GameState> (filename);
 		}
 
 		#endregion

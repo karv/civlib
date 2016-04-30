@@ -31,6 +31,16 @@ namespace Civ
 	/// </summary>
 	public class ListaInvestigación : HashSet<InvestigandoCiencia>
 	{
+		public ListaInvestigación ()
+		{
+		}
+
+		protected ListaInvestigación (System.Runtime.Serialization.SerializationInfo info,
+		                              System.Runtime.Serialization.StreamingContext context)
+			: base (info, context)
+		{
+		}
+
 		/// <summary>
 		/// Agrega cierta cantidad de recursos, a la investigación de una ciencia.
 		/// </summary>
@@ -54,7 +64,7 @@ namespace Civ
 		/// <param name="ciencia">Ciencia a buscar</param>
 		public InvestigandoCiencia EncuentraInstancia (Ciencia ciencia)
 		{
-			return this.First (x => x.Ciencia == ciencia);
+			return this.FirstOrDefault (x => x.Ciencia == ciencia);
 		}
 
 		/// <Docs>The item to remove from the current collection.</Docs>

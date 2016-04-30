@@ -5,6 +5,7 @@ using Civ.Data;
 using IU;
 using ListasExtra.Extensiones;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
@@ -89,7 +90,6 @@ namespace Civ
 			Avances = new List<Ciencia> ();
 			Diplomacia = new ControlDiplomacia ();
 			Ciudades = new List<ICiudad> ();
-			Mensajes = new ManejadorMensajes ();
 			MaxPeso = Juego.PrefsJuegoNuevo.MaxPesoInicial;
 		}
 
@@ -118,6 +118,16 @@ namespace Civ
 		/// Devuelve el (base) peso mayor que puede tener una armada
 		/// </summary>
 		public float MaxPeso { get; private set; }
+
+		#endregion
+
+		#region Defaults
+
+		[OnDeserialized]
+		void SetDefaults ()
+		{
+			Mensajes = new ManejadorMensajes ();
+		}
 
 		#endregion
 
@@ -259,11 +269,11 @@ namespace Civ
 
 		#region Mensajes
 
-		[NonSerialized]
 		/// <summary>
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
-		protected ManejadorMensajes Mensajes;
+		[NonSerialized]
+		protected ManejadorMensajes Mensajes = new ManejadorMensajes ();
 
 		/// <summary>
 		/// Agrega un mensaje de usuario a la cola.
@@ -356,11 +366,9 @@ namespace Civ
 		public void Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
-			foreach (var x in Ciudades)
+			foreach (var x in new List<ICiudad> (Ciudades))
 			{
-				{
-					x.Tick (t);
-				}
+				x.Tick (t);
 			}
 
 			// Las ciencias.

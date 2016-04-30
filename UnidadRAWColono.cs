@@ -6,6 +6,7 @@ using Civ.Data.Import;
 
 namespace Civ.Data
 {
+	[Serializable]
 	public class UnidadRAWColono : UnidadRAW, IUnidadRAWColoniza
 	{
 		public UnidadRAWColono ()

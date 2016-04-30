@@ -7,6 +7,7 @@ using Civ.Data.Import;
 namespace Civ.Data
 {
 	//[DataContract(Name = "Unidad", IsReference = true)]
+	[Serializable]
 	public class UnidadRAW : IUnidadRAW
 	{
 

@@ -4,7 +4,6 @@ using System;
 
 namespace IU
 {
-	[Serializable]
 	/// <summary>
 	/// Manejador de mensajes de una civilización
 	/// </summary>

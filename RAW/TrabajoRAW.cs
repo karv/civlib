@@ -1,12 +1,14 @@
 using ListasExtra;
 using Civ.Data.Import;
 using System.Collections.Generic;
+using System;
 
 namespace Civ.Data
 {
 	/// <summary>
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
+	[Serializable]
 	public class TrabajoRAW: Civ.Debug.IPlainSerializable, IImportable
 	{
 		public TrabajoRAW ()

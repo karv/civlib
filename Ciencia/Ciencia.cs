@@ -10,6 +10,7 @@ namespace Civ.Data
 	[Serializable]
 	public class Ciencia : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable, IImportable
 	{
+		[Serializable]
 		public class Requerimiento
 		{
 			readonly RequiereCiencia _Recursos = new RequiereCiencia ();

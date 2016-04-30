@@ -44,6 +44,13 @@ namespace Civ
 			*/
 		}
 
+		protected ControlDiplomacia (System.Runtime.Serialization.SerializationInfo info,
+		                             System.Runtime.Serialization.StreamingContext context)
+			: base (info, context)
+		{
+		}
+
+
 		void InvocarCambio ()
 		{
 			AlCambiarDiplomacia?.Invoke ();

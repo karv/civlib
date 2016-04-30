@@ -5,6 +5,7 @@ using Civ.Data;
 using ListasExtra;
 using ListasExtra.Extensiones;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
@@ -170,19 +171,8 @@ namespace Civ
 		/// <summary>
 		/// Terreno donde se contruye la ciudad.
 		/// </summary>
-		public Terreno Terr
-		{
-			get
-			{
-				return _terr;
-			}
-			set
-			{
-				_terr = value;
-			}
-		}
+		public Terreno Terr { get; set; }
 
-		Terreno _terr;
 
 		/// <summary>
 		/// Devuelve un nuevo diccionario cuyas entradas son el número de unidades que puede construir la ciudad, por cada unidad.
@@ -209,6 +199,12 @@ namespace Civ
 		public ulong UnidadesConstruibles (IUnidadRAW unid)
 		{
 			return unid.MaxReclutables (this);
+		}
+
+		[OnDeserialized]
+		void Defaults ()
+		{
+			DeltaRec = new ListaPeso<Recurso> ();
 		}
 
 		#endregion
@@ -817,7 +813,7 @@ namespace Civ
 		/// Cambio de recursos
 		/// </summary>
 		[NonSerialized]
-		readonly ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
+		ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
 
 		public float CalculaDeltaRecurso (Recurso recurso)
 		{
