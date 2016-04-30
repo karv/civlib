@@ -2,12 +2,14 @@ using Civ;
 using System.Collections.Generic;
 using Civ.Data;
 using System.Linq;
+using System;
 
 namespace Global
 {
 	/// <summary>
 	/// Representa las opciones del juego.
 	/// </summary>
+	[Serializable]
 	public class GameData
 	{
 		public HashSet<Ciencia> Ciencias = new HashSet<Ciencia> ();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Civ.Data;
 using Civ.Data.Import;
+using System;
 
 namespace Civ
 {
@@ -10,12 +11,14 @@ namespace Civ
 	/// Es, en forma menos técnica, una clase de ecosistema ecológico.
 	/// Ej. Selva, desierto, etc.
 	/// </summary>
+	[Serializable]
 	public class Ecosistema : IImportable
 	{
 		/// <summary>
 		/// Representa las propiedades que puede adquirir un ecosistema.
 		/// </summary>
 		//[DataContract (Name= "Propiedad")]
+		[Serializable]
 		public class EcosistemaPropiedades : ListaPeso<Propiedad>
 		{
 		}

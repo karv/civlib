@@ -27,7 +27,7 @@ namespace Civ.Debug
 		/// <param name="f">F.</param>
 		public static void CrearArchivoLeible (string f)
 		{
-			GameData glob = Juego.Data; //Dandole nuevo nombre al archivo.
+			GameData glob = Juego.Instancia.GData; //Dandole nuevo nombre al archivo.
 			var sw = new StreamWriter (f, false);
 			// System.IO.FileStream stream = new FileStream(f, FileMode.Create); // Sobreescribe.
 

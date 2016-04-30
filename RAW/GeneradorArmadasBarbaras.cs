@@ -9,6 +9,7 @@ namespace Civ.Bárbaros
 	/// Un generador de armadas bárbaras
 	/// Usando distribución exponencial
 	/// </summary>
+	[Serializable]
 	public class GeneradorArmadasBarbaras : ITickable
 	{
 		/// <summary>
