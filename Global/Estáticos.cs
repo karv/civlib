@@ -3,50 +3,77 @@ using System.Collections.Generic;
 using Civ;
 using Civ.Options;
 using Civ.Bárbaros;
-using Graficas;
 using System.IO;
 using Basic;
 using ListasExtra.Extensiones;
-using C5;
 using Civ.Data.Import;
+using Civ.Topología;
+using Graficas.Grafo;
+using Graficas.Rutas;
 
 namespace Global
 {
 	/// <summary>
 	/// Los objetos globales.
 	/// </summary>	
-	public static class Juego
+	[Serializable]
+	public class Juego
 	{
+		public static Juego Instancia = new Juego ();
 		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
-		public static GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
-		public static GameData Data = new GameData ();
-		public static GameState State = new GameState ();
+		public GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
+		public GameData GData = new GameData ();
+		public GameState GState = new GameState ();
 
-		static Juego ()
+		public static GameData Data
+		{
+			get
+			{
+				return Instancia.GData;
+			}
+			set
+			{
+				Instancia.GData = value;
+			}
+		}
+
+		public static GameState State
+		{
+			get
+			{
+				return Instancia.GState;
+			}
+			set
+			{
+				Instancia.GState = value;
+			}
+		}
+
+		Juego ()
 		{
 			BarbGen.Reglas.Add (new ReglaGeneracionBarbaraGeneral ());
 		}
 
-		public static void Tick (TimeSpan t)
+		public void Tick (TimeSpan t)
 		{
-			foreach (ITickable Civ in State.Civs)
+			foreach (ITickable Civ in GState.Civs)
 			{
 				Civ.Tick (t);
 			}
 
 			// Ticks de terreno
-			foreach (var x in State.Topología.Nodos)
+			foreach (var x in GState.Topología.Nodos)
 			{
 				x.Tick (t);
 			}
 
 			// Peleas entre armadas de Civs enemigas
-			for (int i = 1; i < State.Civs.Count; i++)
+			for (int i = 1; i < GState.Civs.Count; i++)
 			{
-				ICivilización civA = State.Civs [i];
+				ICivilización civA = GState.Civs [i];
 				for (int j = 0; j < i; j++)
 				{
-					ICivilización civB = State.Civs [j];
+					ICivilización civB = GState.Civs [j];
 					{
 						foreach (var ArmA in civA.Armadas)
 						{
@@ -76,18 +103,19 @@ namespace Global
 		/// <summary>
 		/// Elimina civilizaciones muertas
 		/// </summary>
-		static void EliminarMuertos ()
+		void EliminarMuertos ()
 		{
-			foreach (var x in State.CivsVivas())
+			foreach (var x in GState.CivsVivas())
 			{
 				if (x.Ciudades.Count == 0)
-					State.Civs.Remove (x);
+					GState.Civs.Remove (x);
 			}
 		}
 
 		#region IO
 
-		const string archivo = "Data.xml";
+		public const string ArchivoData = "Data.xml";
+		public const string ArchivoState = "game.state";
 
 		/// <summary>
 		/// Carga del archivo predeterminado.
@@ -108,14 +136,14 @@ namespace Global
 		/// Inicializa el g_State, a partir de el g_Data.
 		/// Usarse cuando se quiera iniciar un juego.
 		/// </summary>
-		public static void InicializarJuego ()
+		public void Inicializar ()
 		{
 			//State = new GameState();
 
 			// Hacer la topolog�a
-			var Terrenos = new ArrayList<Terreno> ();
-			State.Topología = new Grafo<Terreno> ();
-			State.Mapa = new Graficas.Continuo.Continuo<Terreno> (State.Topología);
+			var Terrenos = new List<Terreno> ();
+			GState.Topología = new Grafo<Terreno> ();
+			GState.Mapa = new Mapa (GState.Topología);
 
 			Terreno T;
 			Ecosistema Eco;
@@ -124,7 +152,7 @@ namespace Global
 
 			for (int i = 0; i < PrefsJuegoNuevo.NumTerrenos; i++)
 			{
-				Eco = Data.Ecosistemas.Elegir ();
+				Eco = GData.Ecosistemas.Elegir ();
 				T = new Terreno (Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add (T);
 				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());
@@ -143,7 +171,7 @@ namespace Global
 			}
 			*/
 			// Asignar una ciudad de cada civilizaci�n en terrenos vac�os y distintos lugares.
-			var Terrs = State.TerrenosLibres ();
+			var Terrs = GState.TerrenosLibres ();
 			for (int i = 0; i < PrefsJuegoNuevo.NumCivs; i++)
 			{
 				C = new Civilización ();
@@ -154,20 +182,32 @@ namespace Global
 				Cd = new Ciudad (C, T, PrefsJuegoNuevo.PoblacionInicial);
 				C.AddCiudad (Cd);
 
-				State.Civs.Add (C);
+				GState.Civs.Add (C);
 			}
 
 			// Construir las rutas óptimas
-			State.Rutas = new ConjuntoRutasÓptimas<Terreno> (State.Topología);
+			GState.Rutas = new ConjuntoRutasÓptimas<Terreno> (GState.Topología);
 
 			// Incluir el alimento inicial en cada ciudad
-			foreach (var c in State.CiudadesExistentes())
+			foreach (var c in GState.CiudadesExistentes())
 			{
-				c.Almacén [Juego.Data.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
+				c.Almacén [Instancia.GData.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
 			}
 		}
 
-		public static void ConstruirTopología (IEnumerable<Terreno> lista)
+		public const string FileName = "game.sav";
+
+		public static void Cargar (string filename = FileName)
+		{
+			Instancia = Store.BinarySerialization.ReadFromBinaryFile<Juego> (filename);
+		}
+
+		public static void Guardar (string filename = FileName)
+		{
+			Store.BinarySerialization.WriteToBinaryFile (filename, Instancia);
+		}
+
+		public void ConstruirTopología (IEnumerable<Terreno> lista)
 		{
 			foreach (var x in lista)
 			{
@@ -175,12 +215,12 @@ namespace Global
 				{
 					if (Rnd.NextDouble () < PrefsJuegoNuevo.Compacidad)
 					{
-						State.Topología [x, y] =
+						GState.Topología [x, y] =
 							PrefsJuegoNuevo.MinDistNodos + (float)Rnd.NextDouble () * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos);
 					}
 				}
 			}
-			State.Topología.EsSimétrico = true;
+			GState.Topología.EsSimétrico = true;
 		}
 
 		#region Unicidad de nombres
@@ -216,7 +256,7 @@ namespace Global
 			string baseNombre = ReadRandomLine ("NombresCiudad.txt");
 			string unique = HacerÚnico (
 				                baseNombre,
-				                State.CiudadesExistentes ().ConvertirLista (x => x.Nombre));
+				                Instancia.GState.CiudadesExistentes ().ConvertirLista (x => x.Nombre));
 			return unique;
 		}
 
@@ -229,7 +269,7 @@ namespace Global
 			string baseNombre = ReadRandomLine ("NombresCiv.txt");
 			string unique = HacerÚnico (
 				                baseNombre,
-				                State.Civs.ConvertirLista (x => x.Nombre));
+				                Instancia.GState.Civs.ConvertirLista (x => x.Nombre));
 
 			return unique;
 		}

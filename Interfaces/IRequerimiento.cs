@@ -17,11 +17,12 @@ namespace Civ
 		bool LoSatisface (T objeto);
 	}
 
+	[Serializable]
 	public class Requerimiento : Civ.Debug.IPlainSerializable
 	{
-		public ICollection<Ciencia> Ciencias = new C5.HashSet<Ciencia> ();
-		public ICollection<EdificioRAW> Edificios = new C5.HashSet<EdificioRAW> ();
-		public ICollection<Propiedad> Propiedades = new C5.HashSet<Propiedad> ();
+		public ICollection<Ciencia> Ciencias = new HashSet<Ciencia> ();
+		public ICollection<EdificioRAW> Edificios = new HashSet<EdificioRAW> ();
+		public ICollection<Propiedad> Propiedades = new HashSet<Propiedad> ();
 
 		/// <summary>
 		/// Junta todos los requeriemintos en una lista de IRequerimientos.

@@ -4,6 +4,7 @@ using Civ.Data;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Un almacén genérico
 	/// </summary>

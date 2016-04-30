@@ -26,6 +26,7 @@ using IU;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Almacena recursos globales.
 	/// </summary>

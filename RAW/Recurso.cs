@@ -5,6 +5,7 @@ using Global;
 
 namespace Civ.Data
 {
+	[Serializable]
 	public class Recurso : Civ.Debug.IPlainSerializable, IEquatable<Recurso>, IImportable
 	{
 		public override string ToString ()

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using Civ.Orden;
 using ListasExtra;
-using C5;
 using Civ.Data.Import;
 
 namespace Civ.Data
 {
+	[Serializable]
 	public class UnidadRAWColono : UnidadRAW, IUnidadRAWColoniza
 	{
 		public UnidadRAWColono ()
@@ -30,7 +30,7 @@ namespace Civ.Data
 		/// <summary>
 		/// Edificios con los que inicia la nueva ciudad.
 		/// </summary>
-		public ArrayList<EdificioRAW> EdificiosIniciales { get; set; }
+		public List<EdificioRAW> EdificiosIniciales { get; set; }
 
 		/// <summary>
 		/// Coloniza aquí
@@ -75,7 +75,7 @@ namespace Civ.Data
 		#region IImportable
 
 		ListaPeso<string> _rec_ini_id = new ListaPeso<string> ();
-		ArrayList<string> _edif_ini_id = new ArrayList<string> ();
+		List<string> _edif_ini_id = new List<string> ();
 
 		protected override void LeerLínea (string [] spl)
 		{

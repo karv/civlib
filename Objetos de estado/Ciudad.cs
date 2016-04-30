@@ -2,20 +2,22 @@ using System;
 using System.Collections.Generic;
 using Global;
 using Civ.Data;
-using C5;
 using ListasExtra;
 using ListasExtra.Extensiones;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa una instancia de ciudad.
 	/// </summary>
+	[Serializable]
 	public class Ciudad : ICiudad
 	{
 		#region ICiudad
 
-		System.Collections.Generic.ICollection<IUnidadRAW> ICiudad.UnidadesConstruibles ()
+		ICollection<IUnidadRAW> ICiudad.UnidadesConstruibles ()
 		{
 			return UnidadesConstruibles ().Keys;
 		}
@@ -50,12 +52,20 @@ namespace Civ
 			}
 		}
 
-		System.Collections.Generic.ICollection<TrabajoRAW> ICiudad.ObtenerTrabajosAbiertos ()
+		ICollection<TrabajoRAW> ICiudad.ObtenerTrabajosAbiertos ()
 		{
 			return TrabajosAbiertos ();
 		}
 
-		public Armada Defensa { get; }
+		public Armada Defensa
+		{
+			get
+			{
+				return _defensa;
+			}
+		}
+
+		Armada _defensa;
 
 		#endregion
 
@@ -87,7 +97,7 @@ namespace Civ
 			return Nombre;
 		}
 
-		ICivilización _CivDueño;
+		ICivilización _civDueño;
 
 		/// <summary>
 		/// Devuelve o establece la civilización a la cual pertecene esta ciudad.
@@ -97,15 +107,15 @@ namespace Civ
 		{
 			get
 			{
-				return _CivDueño;
+				return _civDueño;
 			}
 			set
 			{
-				if (_CivDueño != null)
-					_CivDueño.Ciudades.Remove (this);
-				_CivDueño = value;
-				if (_CivDueño != null)
-					_CivDueño.Ciudades.Add (this);
+				if (_civDueño != null)
+					_civDueño.Ciudades.Remove (this);
+				_civDueño = value;
+				if (_civDueño != null)
+					_civDueño.Ciudades.Add (this);
 				AlCambiarDueño?.Invoke ();
 			}
 		}
@@ -135,16 +145,16 @@ namespace Civ
 		               float iniPop = 1)
 		{
 			RealPoblaciónProductiva = iniPop;
-			Edificios = new C5.HashSet<Edificio> ();
-			Propiedades = new C5.HashSet<Propiedad> ();
+			Edificios = new HashSet<Edificio> ();
+			Propiedades = new HashSet<Propiedad> ();
 			CivDueño = dueño;
 			Nombre = nombre;
-			Almacén = new AlmacénCiudad (this);
+			_almacén = new AlmacénCiudad (this);
 			terreno.CiudadConstruida = this;
 			Terr = terreno;
 
 			// Inicializar la armada
-			Defensa = new Armada (this, true);
+			_defensa = new Armada (this, true);
 			Defensa.Posición.FromGrafica (terreno);
 
 			// Importar propiedades desde T.
@@ -162,6 +172,7 @@ namespace Civ
 		/// Terreno donde se contruye la ciudad.
 		/// </summary>
 		public Terreno Terr { get; set; }
+
 
 		/// <summary>
 		/// Devuelve un nuevo diccionario cuyas entradas son el número de unidades que puede construir la ciudad, por cada unidad.
@@ -190,6 +201,12 @@ namespace Civ
 			return unid.MaxReclutables (this);
 		}
 
+		[OnDeserialized]
+		void Defaults ()
+		{
+			DeltaRec = new ListaPeso<Recurso> ();
+		}
+
 		#endregion
 
 		#region Almacén
@@ -197,7 +214,15 @@ namespace Civ
 		/// <summary>
 		/// Almacén de recursos.
 		/// </summary>
-		public IAlmacén Almacén { get; }
+		public IAlmacén Almacén
+		{
+			get
+			{
+				return _almacén;
+			}
+		}
+
+		IAlmacén _almacén;
 
 		#endregion
 
@@ -208,7 +233,7 @@ namespace Civ
 		/// No cuenta la Defensa inmovil
 		/// </summary>
 		/// <returns>The en ciudad.</returns>
-		public System.Collections.Generic.ICollection<Armada> ArmadasEnCiudad ()
+		public ICollection<Armada> ArmadasEnCiudad ()
 		{
 			var rat = new List<Armada> ();
 			foreach (var x in CivDueño.Armadas)
@@ -276,7 +301,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la lista de instancias de edicio de la ciudad.
 		/// </summary>
-		public System.Collections.Generic.ICollection<Edificio> Edificios { get; }
+		public ICollection<Edificio> Edificios { get; }
 
 		/// <summary>
 		/// Revisa si existe una clase de edificio en esta ciudad.
@@ -327,7 +352,7 @@ namespace Civ
 		/// </summary>
 		/// <returns></returns>
 		[Obsolete ("Usar Data.ObtenerEdificiosConstruíbles(this)")]
-		public System.Collections.Generic.ICollection<EdificioRAW> Construibles ()
+		public ICollection<EdificioRAW> Construibles ()
 		{
 			var ret = new List<EdificioRAW> ();
 			foreach (EdificioRAW x in Juego.Data.Edificios)
@@ -378,7 +403,7 @@ namespace Civ
 		/// Devuelve la lista de Propiedades de la ciudad.
 		/// </summary>
 		/// <value>The propiedades.</value>
-		public System.Collections.Generic.ICollection<Propiedad> Propiedades { get; }
+		public ICollection<Propiedad> Propiedades { get; }
 
 		/// <summary>
 		/// Revisa si existe una propiedad P en la ciudad.
@@ -430,33 +455,33 @@ namespace Civ
 		/// <summary>
 		/// Número de infantes que nacen por (PoblaciónProductiva*Tick) Base.
 		/// </summary>
-		public static float TasaNatalidadBase = 0.12f;
+		public const float TasaNatalidadBase = 0.12f;
 		/// <summary>
 		/// Probabilidad base de un infante arbitrario de morir en cada tick.
 		/// </summary>
-		public static float TasaMortalidadInfantilBase = 0.01f;
+		public const float TasaMortalidadInfantilBase = 0.01f;
 		/// <summary>
 		/// Probabilidad base de un habitante productivo arbitrario de morir en cada tick.
 		/// </summary>
-		public static float TasaMortalidadProductivaBase = 0.02f;
+		public const float TasaMortalidadProductivaBase = 0.02f;
 		/// <summary>
 		/// Probabilidad base de un adulto de la tercera edad arbitrario de morir en cada tick.
 		/// </summary>
-		public static float TasaMortalidadVejezBase = 0.1f;
+		public const float TasaMortalidadVejezBase = 0.1f;
 		/// <summary>
 		/// Probabilidad de que un infante se convierta en productivo
 		/// </summary>
-		public static float TasaDesarrolloBase = 0.2f;
+		public const float TasaDesarrolloBase = 0.2f;
 		/// <summary>
 		/// Probabilidad de que un Productivo envejezca
 		/// </summary>
-		public static float TasaVejezBase = 0.05f;
+		public const float TasaVejezBase = 0.05f;
 		/// <summary>
 		/// Consumo base de alimento por ciudadano.
 		/// </summary>
-		public static float ConsumoAlimentoPorCiudadanoBase = 1f;
+		public const float ConsumoAlimentoPorCiudadanoBase = 1f;
 
-		public static float TasaMortalidadHambrunaBase = 0.5f;
+		public const float TasaMortalidadHambrunaBase = 0.5f;
 
 
 		//Población
@@ -529,6 +554,7 @@ namespace Civ
 
 		#region Trabajadores
 
+		[Serializable]
 		class PriorityComparer : IComparer<Trabajo>
 		{
 			public int Compare (Trabajo x, Trabajo y)
@@ -543,13 +569,17 @@ namespace Civ
 		public void AutoReclutarTrabajadores ()
 		{
 			// Autoacomodar trabajadores desocupados
-			var Lst = new SortedArray<Trabajo> (new PriorityComparer ());
-			Lst.AddAll (ObtenerListaTrabajos ());
+			var Lst = new SortedList<Trabajo, float> (new PriorityComparer ());
+			foreach (var x in ObtenerListaTrabajos())
+				Lst.Add (x, x.Prioridad);
 
+			//FIXME: Esto
+			/*
 			for (int i = 0; i < Lst.Count && TrabajadoresDesocupados > 0; i++)
 			{
 				Lst [i].Trabajadores = Lst [i].MaxTrabajadores;
 			}
+			*/
 		}
 
 		/// <summary>
@@ -584,7 +614,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la lista de trabajos que se pueden realizar en una ciudad.
 		/// </summary>
-		public System.Collections.Generic.IList<TrabajoRAW> ObtenerListaTrabajosRAW
+		public IList<TrabajoRAW> ObtenerListaTrabajosRAW
 		{
 			get
 			{
@@ -609,7 +639,7 @@ namespace Civ
 		/// <summary>
 		/// Devuelve la lista de trabajos actuales en esta  <see cref="Civ.Ciudad"/>. 
 		/// </summary>
-		public System.Collections.Generic.ICollection<Trabajo> ObtenerListaTrabajos ()
+		public ICollection<Trabajo> ObtenerListaTrabajos ()
 		{
 			var ret = new List<Trabajo> ();
 			foreach (var x in Edificios)
@@ -662,12 +692,13 @@ namespace Civ
 		/// <param name="n">Número de trabajadores a forzar que sean libres.</param>
 		public void LiberarTrabajadores (ulong n)
 		{
-			var L = new SortedArray<Trabajo> (new PriorityComparer ());
-			L.AddAll (ObtenerListaTrabajos ());
+			var L = new SortedSet<Trabajo> (
+				        ObtenerListaTrabajos (),
+				        new PriorityComparer ());
 
 			while (L.Count > 0 && TrabajadoresDesocupados < n && TrabajadoresDesocupados != Poblacion)
 			{
-				L.DeleteMin ();
+				L.Remove (L.First ());
 			}
 		}
 
@@ -676,7 +707,7 @@ namespace Civ
 		/// threadsafe.
 		/// </summary>
 		/// <returns>Devuelve una nueva lista.</returns>
-		public System.Collections.Generic.ICollection<TrabajoRAW> TrabajosAbiertos ()
+		public ICollection<TrabajoRAW> TrabajosAbiertos ()
 		{
 			var ret = new List<TrabajoRAW> ();
 			foreach (var x in Juego.Data.Trabajos)
@@ -708,7 +739,7 @@ namespace Civ
 		/// </summary>
 		/// <param name="reqs"></param>
 		/// <returns>Devuelve <c>true</c> si esta ciudad satisface todos los IRequerimiento. <c>false</c> en caso contrario.</returns>
-		public bool SatisfaceReq (System.Collections.Generic.ICollection<IRequerimiento<ICiudad>> reqs)
+		public bool SatisfaceReq (ICollection<IRequerimiento<ICiudad>> reqs)
 		{
 			foreach (var x in reqs)
 			{
@@ -781,7 +812,8 @@ namespace Civ
 		/// <summary>
 		/// Cambio de recursos
 		/// </summary>
-		readonly ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
+		[NonSerialized]
+		ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
 
 		public float CalculaDeltaRecurso (Recurso recurso)
 		{
@@ -916,7 +948,7 @@ namespace Civ
 		{
 			// Autocontruible
 			// Obtener lista de edificios autocontruibles no construidos.
-			var PosiblesEdif = new C5.HashSet<EdificioRAW> (); 
+			var PosiblesEdif = new HashSet<EdificioRAW> (); 
 			foreach (var x in Juego.Data.EdificiosAutoconstruibles())
 			{
 				if (!ExisteEdificio (x))
@@ -956,13 +988,13 @@ namespace Civ
 		public void Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
-			var dictTmp = ((System.Collections.Generic.IDictionary<Recurso, float>)Almacén).Clonar ();
+			var dictTmp = ((IDictionary<Recurso, float>)Almacén).Clonar ();
 			var RecAntes = new ListaPeso<Recurso> (dictTmp);
 			PopTick (t);
 			ResourceTick (t);
 
 			// Hacer la suma manual 
-			dictTmp = ((System.Collections.Generic.IDictionary<Recurso, float>)Almacén).Clonar ();
+			dictTmp = ((IDictionary<Recurso, float>)Almacén).Clonar ();
 
 			DeltaRec.Clear ();
 			foreach (var x in dictTmp)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Civ.Combate
 {
+	[Serializable]
 	public class AnálisisCombate : IAnálisisCombate
 	{
 		static Random _r

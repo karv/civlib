@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using ListasExtra;
 using Civ;
+using System;
 
 namespace Civ.Data
 {
 	/// <summary>
 	/// Representa una clase de unidad
 	/// </summary>
+	[Serializable]
 	public class UnidadRAWCombate : UnidadRAW, IPuntuado, IUnidadRAWCombate
 	{
+		[Serializable]
 		public class Modificadores : ListaPeso<string>
 		{
 		}

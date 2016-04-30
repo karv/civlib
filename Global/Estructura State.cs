@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using Civ;
-using Graficas;
 using Civ.Data;
+using System;
+using Graficas.Grafo;
+using Graficas.Rutas;
 
 namespace Global
 {
 	/// <summary>
 	/// Representa el estado de un juego.
 	/// </summary>
+	[Serializable]
 	public class GameState : IPuntuado
 	{
 		/// <summary>
@@ -23,7 +26,7 @@ namespace Global
 		/// <summary>
 		/// Mapa continuo del mundo
 		/// </summary>
-		public Graficas.Continuo.Continuo<Terreno> Mapa;
+		public Civ.Topología.Mapa Mapa;
 
 		/// <summary>
 		/// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
@@ -84,7 +87,7 @@ namespace Global
 		/// <returns></returns>
 		public ICollection<Terreno> TerrenosLibres ()
 		{
-			var ret = new C5.ArrayList<Terreno> ();
+			var ret = new List<Terreno> ();
 			foreach (var x in Terrenos())
 			{
 				if (x.CiudadConstruida == null)
@@ -141,6 +144,7 @@ namespace Global
 			return ret;
 		}
 
+		public static Recurso RecursoAlimento;
 
 		#region Estadísico
 
@@ -164,6 +168,27 @@ namespace Global
 			{
 				return SumaPuntuacion ();
 			}
+		}
+
+		#endregion
+
+		#region IO
+
+		public void Guardar (string filename)
+		{
+			try
+			{
+				Store.BinarySerialization.WriteToBinaryFile (filename, this);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine (ex);
+			}
+		}
+
+		public static GameState Cargar (string filename)
+		{
+			return Store.BinarySerialization.ReadFromBinaryFile<GameState> (filename);
 		}
 
 		#endregion

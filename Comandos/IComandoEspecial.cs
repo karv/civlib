@@ -1,4 +1,6 @@
-﻿namespace Civ.Comandos
+﻿using System;
+
+namespace Civ.Comandos
 {
 	/// <summary>
 	/// Representa un comando especial para un stack.
@@ -25,8 +27,8 @@
 	/// <summary>
 	/// Argumentos de un comando
 	/// </summary>
+	[Serializable]
 	public class ArgComando
 	{
 	}
 }
-

@@ -1,10 +1,10 @@
 ﻿using Graficas.Continuo;
 using Global;
 using System;
-using Graficas.Rutas;
 
 namespace Civ.Orden
 {
+	[Serializable]
 	public class OrdenIrALugar : IOrden
 	{
 		public bool Ejecutar (TimeSpan t)
@@ -30,7 +30,8 @@ namespace Civ.Orden
 		{
 			var origen = armada.Posición;
 			ArmadaEjecutante = armada;
-			Ruta = Juego.State.Mapa.RutaÓptima (origen, destino, Juego.State.Rutas);
+			Ruta = Continuo<Terreno>.RutaÓptima (origen, destino, Juego.State.Rutas);
+			//Ruta = Juego.State.Mapa.RutaÓptima (origen, destino, Juego.State.Rutas);
 			//Ruta = new Continuo<Terreno>.Ruta (origen);
 			//var rutaIntermedia = Juego.State.Rutas.CaminoÓptimo (origen.A, destino.A);
 			//Ruta.Concat (rutaIntermedia);

@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using ListasExtra;
 using Civ.Comandos;
 using Civ.Data.Import;
-using C5;
 
 namespace Civ.Data
 {
 	//[DataContract(Name = "Unidad", IsReference = true)]
+	[Serializable]
 	public class UnidadRAW : IUnidadRAW
 	{
 
 		public UnidadRAW ()
 		{
-			Flags = new ArrayList<string> ();
+			Flags = new List<string> ();
 		}
 
 		readonly ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso> ();
@@ -21,7 +21,7 @@ namespace Civ.Data
 		/// <summary>
 		/// Flags.
 		/// </summary>
-		public ArrayList<string> Flags { get; }
+		public List<string> Flags { get; }
 
 
 		/// <summary>
@@ -45,7 +45,7 @@ namespace Civ.Data
 		/// <summary>
 		/// Devuelve los comandos especiales de la unidad
 		/// </summary>
-		public C5.IList<IComandoEspecial> Comandos { get; }
+		public IList<IComandoEspecial> Comandos { get; }
 
 		/// <summary>
 		/// Peso de cada unidad de este tipo

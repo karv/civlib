@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using Global;
 using Civ.Data;
 using Basic;
-using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
+	[DataContract]
+	[Serializable]
 	public class Terreno: ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
 	{
 		public Pseudoposición Pos { get; }

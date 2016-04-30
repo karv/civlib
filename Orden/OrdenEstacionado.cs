@@ -23,6 +23,7 @@ using System;
 
 namespace Civ.Orden
 {
+	[Serializable]
 	public class OrdenEstacionado : IOrden
 	{
 		public bool Ejecutar (TimeSpan t)

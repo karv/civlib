@@ -5,6 +5,7 @@ using Civ.Data;
 
 namespace Civ
 {
+	[Serializable]
 	/// <summary>
 	/// Un almacén para Stacks (Inventory)
 	/// </summary>

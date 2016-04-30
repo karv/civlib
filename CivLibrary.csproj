@@ -28,14 +28,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="C5">
-      <HintPath>..\packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="ListaExtras">
+      <HintPath>..\packages\ListaExtras.0.2.6\lib\ListaExtras.dll</HintPath>
     </Reference>
     <Reference Include="Grafos">
-      <HintPath>..\packages\Grafos.0.1.5\lib\Grafos.dll</HintPath>
+      <HintPath>..\packages\Grafos.0.1.6\lib\Grafos.dll</HintPath>
     </Reference>
-    <Reference Include="ListaExtras">
-      <HintPath>..\packages\ListaExtras.0.2.5\lib\ListaExtras.dll</HintPath>
+    <Reference Include="Store">
+      <HintPath>..\packages\Store.0.2\lib\Store.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +110,7 @@
     <Compile Include="AnálisisCombate.cs" />
     <Compile Include="AlmacénGenérico.cs" />
     <Compile Include="ManejadorMensajes.cs" />
+    <Compile Include="Topología\Mapa.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -303,4 +305,13 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedFlat" ResourceNamePolicy="FileName" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

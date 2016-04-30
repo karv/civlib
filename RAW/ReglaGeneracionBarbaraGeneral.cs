@@ -1,10 +1,12 @@
 ﻿using Civ;
 using Global;
 using System.Collections.Generic;
+using System;
 
 namespace Civ.Bárbaros
 {
-	public class ReglaGeneracionBarbaraGeneral:IReglaGeneración
+	[Serializable]
+	public class ReglaGeneracionBarbaraGeneral : IReglaGeneración
 	{
 		/// <summary>
 		/// Coeficiente de puntuación máximo para armadas.

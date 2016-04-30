@@ -1,5 +1,8 @@
-﻿namespace Civ.Comandos
+﻿using System;
+
+namespace Civ.Comandos
 {
+	[Serializable]
 	public class ComandoIr : IComandoEspecial
 	{
 		public string Nombre { get { return "Ir a"; } }
@@ -23,4 +26,3 @@
 		}
 	}
 }
-

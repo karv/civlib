@@ -7,6 +7,7 @@ namespace Civ.Data.TasaProd
 	/// <summary>
 	/// Forma en que los recursos natirales crecen
 	/// </summary>
+	[Serializable]
 	public abstract class TasaProd : IImportable
 	{
 		public Recurso Recurso;
@@ -67,6 +68,7 @@ namespace Civ.Data.TasaProd
 	/// Tasa prod constante.
 	/// Comportamiento lineal
 	/// </summary>
+	[Serializable]
 	public class TasaProdConstante: TasaProd
 	{
 		/// <summary>
@@ -111,6 +113,7 @@ namespace Civ.Data.TasaProd
 	/// Tasa prod exp.
 	/// Comportamiento exponencial
 	/// </summary>
+	[Serializable]
 	public class TasaProdExp:TasaProd
 	{
 		public float Max;

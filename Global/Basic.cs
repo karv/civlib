@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using C5;
 
 namespace Basic
 {
@@ -51,10 +50,10 @@ namespace Basic
 		/// <param name="entrada"></param>
 		/// <param name="convertidor"></param>
 		/// <returns></returns>
-		public static C5.IList<TDest> ConvertirLista<TOri, TDest> (this IEnumerable<TOri> entrada,
-		                                                           Func<TOri, TDest> convertidor)
+		public static IList<TDest> ConvertirLista<TOri, TDest> (this IEnumerable<TOri> entrada,
+		                                                        Func<TOri, TDest> convertidor)
 		{
-			var ret = new ArrayList<TDest> ();
+			var ret = new List<TDest> ();
 
 			foreach (TOri x in entrada)
 			{
@@ -100,15 +99,15 @@ namespace Basic
 		/// <param name="n">Número de elementos a seleccionar.</param>
 		/// <param name="lista">Lista de dónde seleccionar la sublista.</param>
 		/// <returns>Devuelve una lista con los elementos seleccionados.</returns>
-		public static ArrayList<T> SeleccionaPeso<T> (this Random r,
-		                                              int n,
-		                                              ListasExtra.ListaPeso<T> lista)
+		public static List<T> SeleccionaPeso<T> (this Random r,
+		                                         int n,
+		                                         ListasExtra.ListaPeso<T> lista)
 		{
-			ArrayList<T> ret;
+			List<T> ret;
 			float Suma = 0;
 			float rn;
 			if (n == 0)
-				return new ArrayList<T> (0);
+				return new List<T> (0);
 			else
 			{
 				ret = r.SeleccionaPeso (n - 1, lista);

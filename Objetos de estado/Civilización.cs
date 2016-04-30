@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
-using Basic;
 using Global;
 using Civ.Data;
 using IU;
 using ListasExtra.Extensiones;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Civ
 {
+	[Serializable]
 	public class Civilización : ICivilización
 	{
 		#region ICivilización
@@ -39,7 +40,6 @@ namespace Civ
 			}
 		}
 
-
 		/// <summary>
 		/// Devuelve una lista con las ciudades de la civilización
 		/// </summary>
@@ -50,7 +50,16 @@ namespace Civ
 		/// Devuelve una colección con las armadas
 		/// </summary>
 		/// <value>The armadas.</value>
-		public ICollection<Armada> Armadas { get; }
+		public ICollection<Armada> Armadas
+		{
+			get
+			{
+				return _armadas;
+			}
+			private set{ _armadas = value; }
+		}
+
+		ICollection<Armada> _armadas;
 
 		/// <summary>
 		/// Devuelve el modelo diplomático.
@@ -81,7 +90,6 @@ namespace Civ
 			Avances = new List<Ciencia> ();
 			Diplomacia = new ControlDiplomacia ();
 			Ciudades = new List<ICiudad> ();
-			Mensajes = new ManejadorMensajes ();
 			MaxPeso = Juego.PrefsJuegoNuevo.MaxPesoInicial;
 		}
 
@@ -113,6 +121,16 @@ namespace Civ
 
 		#endregion
 
+		#region Defaults
+
+		[OnDeserialized]
+		void SetDefaults ()
+		{
+			Mensajes = new ManejadorMensajes ();
+		}
+
+		#endregion
+
 		#region Ciencia
 
 		/// <summary>
@@ -123,9 +141,9 @@ namespace Civ
 		/// <summary>
 		/// Devuelve las ciencias que no han sido investigadas y que comple todos los requesitos para investigarlas.
 		/// </summary>
-		public C5.ICollection<Ciencia> CienciasAbiertas ()
+		public ICollection<Ciencia> CienciasAbiertas ()
 		{
-			var ret = new C5.ArrayList<Ciencia> ();
+			var ret = new List<Ciencia> ();
 			foreach (Ciencia x in Juego.Data.Ciencias)
 			{
 				if (EsCienciaAbierta (x))
@@ -254,7 +272,8 @@ namespace Civ
 		/// <summary>
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
-		protected ManejadorMensajes Mensajes { get; }
+		[NonSerialized]
+		protected ManejadorMensajes Mensajes = new ManejadorMensajes ();
 
 		/// <summary>
 		/// Agrega un mensaje de usuario a la cola.
@@ -347,11 +366,9 @@ namespace Civ
 		public void Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
-			foreach (var x in Ciudades)
+			foreach (var x in new List<ICiudad> (Ciudades))
 			{
-				{
-					x.Tick (t);
-				}
+				x.Tick (t);
 			}
 
 			// Las ciencias.
@@ -360,8 +377,8 @@ namespace Civ
 			foreach (Recurso Rec in Juego.Data.ObtenerRecursosCientificos())
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
-				var CienciaInvertibleRec = new List<Ciencia> (CienciasAbiertas ().Filter (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
-				                           (!Investigando.Exists (w => w.Ciencia == z) ||
+				var CienciaInvertibleRec = new List<Ciencia> (CienciasAbiertas ().Where (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
+				                           (!Investigando.Any (w => w.Ciencia == z) ||
 				                           Investigando.EncuentraInstancia (z) [Rec] < z.Reqs.Recursos [Rec]))); // Y que aún le falte de tal recurso.
 				if (CienciaInvertibleRec.Count > 0)
 				{

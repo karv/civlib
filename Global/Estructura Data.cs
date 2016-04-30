@@ -1,21 +1,24 @@
 using Civ;
 using System.Collections.Generic;
 using Civ.Data;
+using System.Linq;
+using System;
 
 namespace Global
 {
 	/// <summary>
 	/// Representa las opciones del juego.
 	/// </summary>
+	[Serializable]
 	public class GameData
 	{
-		public C5.HashSet<Ciencia> Ciencias = new C5.HashSet<Ciencia> ();
-		public C5.HashSet<EdificioRAW> Edificios = new C5.HashSet<EdificioRAW> ();
-		public C5.HashSet<Recurso> Recursos = new C5.HashSet<Recurso> ();
-		public C5.HashSet<TrabajoRAW> Trabajos = new C5.HashSet<TrabajoRAW> ();
-		public C5.HashSet<IUnidadRAW> Unidades = new C5.HashSet<IUnidadRAW> ();
-		public C5.HashSet<Propiedad> Propiedades = new C5.HashSet<Propiedad> ();
-		public C5.HashSet<Ecosistema> Ecosistemas = new C5.HashSet<Ecosistema> ();
+		public HashSet<Ciencia> Ciencias = new HashSet<Ciencia> ();
+		public HashSet<EdificioRAW> Edificios = new HashSet<EdificioRAW> ();
+		public HashSet<Recurso> Recursos = new HashSet<Recurso> ();
+		public HashSet<TrabajoRAW> Trabajos = new HashSet<TrabajoRAW> ();
+		public HashSet<IUnidadRAW> Unidades = new HashSet<IUnidadRAW> ();
+		public HashSet<Propiedad> Propiedades = new HashSet<Propiedad> ();
+		public HashSet<Ecosistema> Ecosistemas = new HashSet<Ecosistema> ();
 
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
@@ -120,8 +123,7 @@ namespace Global
 		/// <param name="nombre">Nombre del Trabajo a buscar.</param>
 		public TrabajoRAW EncuentraTrabajo (string nombre)
 		{
-			TrabajoRAW ret;
-			return Trabajos.Find (x => x.Nombre == nombre, out ret) ? ret : null;
+			return Trabajos.FirstOrDefault (x => x.Nombre == nombre);
 		}
 
 		/// <summary>
@@ -130,7 +132,7 @@ namespace Global
 		/// <returns>The lista recursos científicos.</returns>
 		public IEnumerable<Recurso> ObtenerRecursosCientificos ()
 		{
-			return Recursos.Filter (x => x.EsCientifico);
+			return Recursos.Where (x => x.EsCientifico);
 		}
 
 		/// <summary>
@@ -139,7 +141,7 @@ namespace Global
 		/// <returns>The autoconstruibles.</returns>
 		public IEnumerable<EdificioRAW> EdificiosAutoconstruibles ()
 		{
-			return Edificios.Filter (x => x.EsAutoConstruible);
+			return Edificios.Where (x => x.EsAutoConstruible);
 		}
 
 		/// <summary>
@@ -169,7 +171,7 @@ namespace Global
 		/// <param name="ciudad">Ciudad para la cual se quiere saber cuáles edificios son construíbles</param>
 		public IEnumerable<EdificioRAW> ObtenerEdificiosConstruíbles (ICiudad ciudad)
 		{
-			return Edificios.Filter (ciudad.PuedeConstruir);
+			return Edificios.Where (ciudad.PuedeConstruir);
 		}
 	}
 }
