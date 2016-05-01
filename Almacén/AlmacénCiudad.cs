@@ -21,10 +21,11 @@
 
 using ListasExtra;
 using System.Collections.Generic;
-using Civ.Data;
 using System;
+using Civ.RAW;
+using Civ.ObjetosEstado;
 
-namespace Civ
+namespace Civ.Almacén
 {
 	[Serializable]
 	public class AlmacénCiudad: ListaPeso<Recurso>, IAlmacén

@@ -3,7 +3,7 @@ using ListasExtra;
 using Civ;
 using System;
 
-namespace Civ.Data
+namespace Civ.RAW
 {
 	/// <summary>
 	/// Representa una clase de unidad

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using Civ.RAW;
+using Civ.Ciencias;
 
 namespace Civ.Data.Import
 {
@@ -58,10 +60,10 @@ namespace Civ.Data.Import
 							current = new Propiedad ();
 							break;
 						case ".tasaprodconstante":
-							current = new TasaProd.TasaProdConstante ();
+							current = new TasaProdConstante ();
 							break;
 						case ".tasaprodexp":
-							current = new TasaProd.TasaProdExp ();
+							current = new TasaProdExp ();
 							break;
 						case ".ecosistema":
 							current = new Ecosistema ();

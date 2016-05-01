@@ -1,9 +1,11 @@
 ﻿using System;
+using Civ.ObjetosEstado;
+using Civ.Topología;
 
 namespace Civ.Orden
 {
 	[Serializable]
-	public class OrdenRecoger: IOrden
+	public class OrdenRecoger : IOrden
 	{
 		/// <summary>
 		/// Devuelve la armada de esta orden

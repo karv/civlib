@@ -2,14 +2,17 @@ using System.Collections.Generic;
 using ListasExtra;
 using Civ.Data.Import;
 using System;
+using Civ.ObjetosEstado;
+using Civ.Debug;
+using Civ.Global;
 
-namespace Civ.Data
+namespace Civ.RAW
 {
 	/// <summary>
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
 	[Serializable]
-	public class EdificioRAW : IRequerimiento<ICiudad>, Civ.Debug.IPlainSerializable, IImportable
+	public class EdificioRAW : IRequerimiento<ICiudad>, IPlainSerializable, IImportable
 	{
 		public string Nombre;
 		public ulong MaxWorkers;
@@ -75,7 +78,7 @@ namespace Civ.Data
 		/// </summary>
 		public bool EsAutoConstruible;
 
-		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;

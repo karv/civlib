@@ -2,14 +2,17 @@ using ListasExtra;
 using Civ.Data.Import;
 using System.Collections.Generic;
 using System;
+using Civ.ObjetosEstado;
+using Civ.Debug;
+using Civ.Global;
 
-namespace Civ.Data
+namespace Civ.RAW
 {
 	/// <summary>
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
 	[Serializable]
-	public class TrabajoRAW: Civ.Debug.IPlainSerializable, IImportable
+	public class TrabajoRAW: IPlainSerializable, IImportable
 	{
 		public TrabajoRAW ()
 		{
@@ -50,16 +53,16 @@ namespace Civ.Data
 		/// Devuelve la lista de requerimientos.
 		/// </summary>
 		/// <value>El IRequerimiento</value> 
-		public System.Collections.Generic.ICollection<IRequerimiento<ICiudad>> Reqs ()
+		public ICollection<IRequerimiento<ICiudad>> Reqs ()
 		{
 			return Requiere.Requiere ();
 		}
 
-		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
-			Civ.Debug.IPlainSerializable Ser;
+			IPlainSerializable Ser;
 			for (int i = 0; i < tabs; i++)
 			{
 				tab += "\t";

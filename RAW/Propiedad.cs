@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System;
 using Civ.Data.Import;
-using Civ.Data.TasaProd;
+using Civ.ObjetosEstado;
+using Civ.Global;
 
-namespace Civ.Data
+namespace Civ.RAW
 {
 	/// <summary>
 	/// Representa una propiedad innata de un edificio.
@@ -19,7 +20,7 @@ namespace Civ.Data
 		/// <summary>
 		/// Recursos que produce esta propiedad por turno.
 		/// </summary>
-		public ICollection<TasaProd.TasaProd> Salida { get; private set; }
+		public ICollection<TasaProd> Salida { get; private set; }
 		// IRequerimiento:
 		bool IRequerimiento<Ciudad>.LoSatisface (Ciudad ciudad)
 		{
@@ -33,7 +34,7 @@ namespace Civ.Data
 		/// <param name="t">longitud del tick</param>
 		public virtual void Tick (IAlmacén almacén, TimeSpan t)
 		{
-			foreach (Civ.Data.TasaProd.TasaProd x in Salida)
+			foreach (TasaProd x in Salida)
 			{
 				x.Tick (almacén, t);
 			}
@@ -75,10 +76,10 @@ namespace Civ.Data
 
 		void IImportable.Vincular ()
 		{
-			Salida = new HashSet<TasaProd.TasaProd> ();
+			Salida = new HashSet<TasaProd> ();
 			foreach (var x in ref_Salida)
 			{
-				var a = ImportMachine.Valor (x) as TasaProd.TasaProd;
+				var a = ImportMachine.Valor (x) as TasaProd;
 				Salida.Add (a);
 			}
 			ref_Salida = null;

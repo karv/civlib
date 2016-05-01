@@ -2,7 +2,7 @@
 using Civ.Data;
 using Civ.Data.Import;
 
-namespace Civ.Data.TasaProd
+namespace Civ.RAW
 {
 	/// <summary>
 	/// Forma en que los recursos natirales crecen

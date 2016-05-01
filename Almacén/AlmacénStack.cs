@@ -1,9 +1,10 @@
 ﻿using System;
 using ListasExtra;
 using System.Collections.Generic;
-using Civ.Data;
+using Civ.RAW;
+using Civ.ObjetosEstado;
 
-namespace Civ
+namespace Civ.Almacén
 {
 	[Serializable]
 	/// <summary>

@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using Civ;
-using Civ.Data;
+using Civ.RAW;
 using System;
 using Graficas.Grafo;
 using Graficas.Rutas;
+using Civ.Topología;
+using Civ.ObjetosEstado;
 
-namespace Global
+namespace Civ.Global
 {
 	/// <summary>
 	/// Representa el estado de un juego.

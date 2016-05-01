@@ -10,8 +10,9 @@ using Civ.Data.Import;
 using Civ.Topología;
 using Graficas.Grafo;
 using Graficas.Rutas;
+using Civ.ObjetosEstado;
 
-namespace Global
+namespace Civ.Global
 {
 	/// <summary>
 	/// Los objetos globales.

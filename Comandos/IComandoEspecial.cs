@@ -1,4 +1,5 @@
 ﻿using System;
+using Civ.ObjetosEstado;
 
 namespace Civ.Comandos
 {

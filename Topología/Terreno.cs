@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Global;
-using Civ.Data;
+using Civ.Global;
+using Civ.RAW;
 using Basic;
 using System.Runtime.Serialization;
+using Civ.ObjetosEstado;
 
-namespace Civ
+namespace Civ.Topología
 {
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.

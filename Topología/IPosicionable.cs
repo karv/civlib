@@ -1,8 +1,8 @@
 ﻿//
-//  OrdenEstacionado.cs
+//  IPosicionable.cs
 //
 //  Author:
-//       Edgar Carballo <karvayoEdgar@gmail.com>
+//       edgar <${AuthorEmail}>
 //
 //  Copyright (c) 2015 edgar
 //
@@ -18,26 +18,17 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using Civ.ObjetosEstado;
-
-
-namespace Civ.Orden
+namespace Civ.Topología
 {
-	[Serializable]
-	public class OrdenEstacionado : IOrden
+	/// <summary>
+	/// Clase tiene una posición
+	/// </summary>
+	public interface IPosicionable
 	{
-		public bool Ejecutar (TimeSpan t)
-		{
-			return false;
-		}
-
-		public Armada ArmadaEjecutante
-		{
-			get
-			{
-				return null;
-			}
-		}
+		/// <summary>
+		/// Obtener la posicion del objeto.
+		/// </summary>
+		/// <returns>The posicion.</returns>
+		Pseudoposición Posición ();
 	}
 }

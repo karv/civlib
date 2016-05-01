@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Graficas.Continuo;
-using Global;
+using Civ.Global;
 using System;
+using Civ.ObjetosEstado;
 
-namespace Civ
+namespace Civ.Topología
 {
 	[Serializable]
 	/// <summary>

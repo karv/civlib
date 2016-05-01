@@ -1,12 +1,13 @@
 using System;
 using Civ.Data.Import;
 using System.IO;
-using Global;
+using Civ.Global;
+using Civ.Debug;
 
-namespace Civ.Data
+namespace Civ.RAW
 {
 	[Serializable]
-	public class Recurso : Civ.Debug.IPlainSerializable, IEquatable<Recurso>, IImportable
+	public class Recurso : IPlainSerializable, IEquatable<Recurso>, IImportable
 	{
 		public override string ToString ()
 		{
@@ -115,7 +116,7 @@ namespace Civ.Data
 
 		#endregion
 
-		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
+		string IPlainSerializable.PlainSerialize (int tabs)
 		{
 			string tab = "";
 			string ret;
@@ -142,7 +143,7 @@ namespace Civ.Data
 				// Si este trabajo produce Robj
 				if (Agregar)
 				{
-					Civ.Debug.IPlainSerializable Ser = x;
+					Debug.IPlainSerializable Ser = x;
 					ret += Ser.PlainSerialize (tabs + 1);
 				}
 			}

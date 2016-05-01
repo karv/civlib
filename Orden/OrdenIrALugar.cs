@@ -1,6 +1,8 @@
 ﻿using Graficas.Continuo;
-using Global;
+using Civ.Global;
 using System;
+using Civ.Topología;
+using Civ.ObjetosEstado;
 
 namespace Civ.Orden
 {

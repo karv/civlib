@@ -1,10 +1,12 @@
 using Civ;
 using System.Collections.Generic;
-using Civ.Data;
+using Civ.Ciencias;
+using Civ.RAW;
 using System.Linq;
 using System;
+using Civ.ObjetosEstado;
 
-namespace Global
+namespace Civ.Global
 {
 	/// <summary>
 	/// Representa las opciones del juego.

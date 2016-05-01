@@ -21,10 +21,10 @@
 using System;
 using ListasExtra;
 using System.Linq;
-using Civ.Data;
+using Civ.RAW;
 using IU;
 
-namespace Civ
+namespace Civ.Almacén
 {
 	[Serializable]
 	/// <summary>
