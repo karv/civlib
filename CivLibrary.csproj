@@ -68,8 +68,6 @@
     <Compile Include="Orden\OrdenRecoger.cs" />
     <Compile Include="Comandos\ComandoIr.cs" />
     <Compile Include="Comandos\IComandoEspecial.cs" />
-    <Compile Include="IImportable.cs" />
-    <Compile Include="ImportMachine.cs" />
     <Compile Include="RAW\UnidadRAWCombate.cs" />
     <Compile Include="ManejadorMensajes.cs" />
     <Compile Include="Topología\Mapa.cs" />
@@ -114,6 +112,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <EmbeddedResource Include="Data.xml">
+      <DeployService-Deploy>True</DeployService-Deploy>
+    </EmbeddedResource>
     <EmbeddedResource Include="Nombres\NombresCiudad.txt">
       <LogicalName>NombresCiudad.txt</LogicalName>
     </EmbeddedResource>
@@ -132,9 +133,6 @@
     <Folder Include="Bárbaros\" />
     <Folder Include="Debug\" />
     <Folder Include="Combate\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

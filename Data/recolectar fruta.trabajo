@@ -1,0 +1,5 @@
+﻿nombre:Recolectar frutas
+edificio:palacio.edificio
+entrada:frutas silvestres.recurso:1
+salida:alimento.recurso:1
+requiere:lenguaje 2.ciencia

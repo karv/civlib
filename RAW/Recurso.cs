@@ -3,6 +3,7 @@ using Civ.Data.Import;
 using System.IO;
 using Civ.Global;
 using Civ.Debug;
+using System.Runtime.Serialization;
 
 namespace Civ.RAW
 {
@@ -44,6 +45,7 @@ namespace Civ.RAW
 		/// El valor del recurso,
 		/// útil para la IA
 		/// </summary>
+		[DataMember]
 		public float Valor;
 		/// <summary>
 		/// Si este recurso se puede almacenar en Ecología

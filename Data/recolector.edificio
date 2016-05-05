@@ -1,0 +1,5 @@
+﻿nombre:Recolector
+max workers:20
+requiere recurso:alimento.recurso:10
+requiere en ciudad:palacio.edificio
+salida:alimento.recurso:4
