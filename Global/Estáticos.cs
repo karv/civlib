@@ -6,7 +6,6 @@ using Civ.Bárbaros;
 using System.IO;
 using Basic;
 using ListasExtra.Extensiones;
-using Civ.Data.Import;
 using Civ.Topología;
 using Graficas.Grafo;
 using Graficas.Rutas;
@@ -124,6 +123,7 @@ namespace Civ.Global
 		public static void CargaData ()
 		{
 			// TODO
+			//ImportMachine.Importar ();
 		}
 
 		#endregion

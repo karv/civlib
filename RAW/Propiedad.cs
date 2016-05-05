@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System;
-using Civ.Data.Import;
 using Civ.ObjetosEstado;
 using Civ.Global;
 
@@ -10,12 +9,17 @@ namespace Civ.RAW
 	/// Representa una propiedad innata de un edificio.
 	/// </summary>
 	[Serializable]
-	public class Propiedad : IRequerimiento<Ciudad>, IImportable
+	public class Propiedad : IRequerimiento<Ciudad>
 	{
 		/// <summary>
 		/// Nombre de la propiedad.
 		/// </summary>
 		public string Nombre;
+
+		public Propiedad ()
+		{
+			Salida = new HashSet<TasaProd> ();
+		}
 
 		/// <summary>
 		/// Recursos que produce esta propiedad por turno.
@@ -72,17 +76,6 @@ namespace Civ.RAW
 						break;
 				}
 			}
-		}
-
-		void IImportable.Vincular ()
-		{
-			Salida = new HashSet<TasaProd> ();
-			foreach (var x in ref_Salida)
-			{
-				var a = ImportMachine.Valor (x) as TasaProd;
-				Salida.Add (a);
-			}
-			ref_Salida = null;
 		}
 	}
 }

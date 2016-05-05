@@ -1,6 +1,6 @@
 ﻿using System;
-using Civ.Data;
 using Civ.ObjetosEstado;
+using Civ.RAW;
 
 namespace Civ.Combate
 {

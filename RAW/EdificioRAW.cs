@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using ListasExtra;
-using Civ.Data.Import;
 using System;
 using Civ.ObjetosEstado;
 using Civ.Debug;
@@ -12,7 +11,7 @@ namespace Civ.RAW
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
 	[Serializable]
-	public class EdificioRAW : IRequerimiento<ICiudad>, IPlainSerializable, IImportable
+	public class EdificioRAW : IRequerimiento<ICiudad>, IPlainSerializable
 	{
 		public string Nombre;
 		public ulong MaxWorkers;
@@ -88,18 +87,14 @@ namespace Civ.RAW
 			}
 
 			ret = tab + "(Edificio)" + Nombre + "\n";
-			foreach (Civ.Debug.IPlainSerializable x in ReqRecursos.Keys)
+			foreach (IPlainSerializable x in ReqRecursos.Keys)
 			{
 				ret += x.PlainSerialize (tabs + 1);
 			}
 
-			ret += ((Civ.Debug.IPlainSerializable)Requiere).PlainSerialize (tabs + 1);
-
+			ret += ((IPlainSerializable)Requiere).PlainSerialize (tabs + 1);
 
 			return ret;
-
 		}
-
-
 	}
 }

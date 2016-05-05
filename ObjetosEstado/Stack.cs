@@ -3,6 +3,7 @@ using Civ.Global;
 using Civ.Combate;
 using Civ.Almacén;
 using Civ.Topología;
+using Civ.RAW;
 
 namespace Civ.ObjetosEstado
 {
@@ -358,17 +359,17 @@ namespace Civ.ObjetosEstado
 
 		#region IAtacante
 
-		float IAtacante.ProponerDaño (IUnidadRAW Unidad)
+		float IAtacante.ProponerDaño (IUnidadRAW unidad)
 		{
 			
 			var cRAW = RAW as IUnidadRAWCombate;
 			float ret;
 			float mod = 0;
-			ret = Fuerza * Cantidad / Unidad.Defensa;
+			ret = Fuerza * Cantidad / unidad.Defensa;
 
 			foreach (var y in cRAW.Modificadores)
 			{
-				if (Unidad.TieneFlag (y))
+				if (unidad.TieneFlag (y))
 					mod += cRAW.getModificador (y);
 			}
 			return ret * (1 + mod);

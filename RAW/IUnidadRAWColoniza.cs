@@ -3,7 +3,7 @@ using Civ.ObjetosEstado;
 
 namespace Civ
 {
-	public interface IUnidadRAWColoniza : IUnidadRAW
+	public interface IUnidadRAWColoniza
 	{
 		/// <summary>
 		/// Coloniza aquí

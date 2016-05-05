@@ -1,6 +1,4 @@
 ﻿using System;
-using Civ.Data;
-using Civ.Data.Import;
 
 namespace Civ.RAW
 {
@@ -8,53 +6,15 @@ namespace Civ.RAW
 	/// Forma en que los recursos natirales crecen
 	/// </summary>
 	[Serializable]
-	public abstract class TasaProd : IImportable
+	public abstract class TasaProd
 	{
 		public Recurso Recurso;
 
-		void IImportable.Importar (System.IO.StreamReader reader)
-		{
-			while (!reader.EndOfStream)
-			{
-				string line = reader.ReadLine ();
-				line.ToLower ();
-				var spl = line.Split (':');
-				for (int i = 0; i < spl.Length; i++)
-				{
-					spl [i] = spl [i].Trim ();
-				}
-				ImportarLinea (spl);
-			}
-		}
-
 		string RecursoId;
-
-		protected virtual void CrearVínculos ()
-		{
-			Recurso = ImportMachine.Valor (RecursoId) as Recurso;
-		}
 
 		protected virtual void Limpiar ()
 		{
 			RecursoId = null;
-		}
-
-		void IImportable.Vincular ()
-		{
-			CrearVínculos ();
-			Limpiar ();
-		}
-
-		/// <summary>
-		/// Los pasos de imporatación cuando lee una línea
-		/// </summary>
-		/// <param name="spl">Spl.</param>
-		protected virtual void ImportarLinea (string [] spl)
-		{
-			if (spl [0] == "recurso")
-			{
-				RecursoId = spl [1];
-			}
 		}
 
 		#region ITickable implementation
@@ -91,20 +51,6 @@ namespace Civ.RAW
 		}
 
 
-		protected override void ImportarLinea (string [] spl)
-		{
-			base.ImportarLinea (spl);
-			switch (spl [0])
-			{
-				case "max":
-					Max = float.Parse (spl [1]);
-					break;
-				case "crecimiento":
-					Crecimiento = float.Parse (spl [1]);
-					break;
-			}
-		}
-
 		#endregion
 
 	}
@@ -127,20 +73,6 @@ namespace Civ.RAW
 			alm [Recurso] *= (float)Math.Pow (CrecimientoBase, t.TotalHours);
 			alm [Recurso] = Math.Min (Max, alm [Recurso]);
 			
-		}
-
-		protected override void ImportarLinea (string [] spl)
-		{
-			base.ImportarLinea (spl);
-			switch (spl [0])
-			{
-				case "max":
-					Max = float.Parse (spl [1]);
-					break;
-				case "crecimiento":
-					CrecimientoBase = float.Parse (spl [1]);
-					break;
-			}
 		}
 
 		#endregion

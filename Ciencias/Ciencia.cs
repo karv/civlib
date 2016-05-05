@@ -1,5 +1,4 @@
 using System;
-using Civ.Data.Import;
 using System.Collections.Generic;
 using Civ.ObjetosEstado;
 using Civ.Debug;

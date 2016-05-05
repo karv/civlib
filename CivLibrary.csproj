@@ -29,14 +29,14 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="ListaExtras">
-      <HintPath>..\packages\ListaExtras.0.2.6\lib\ListaExtras.dll</HintPath>
-    </Reference>
     <Reference Include="Grafos">
       <HintPath>..\packages\Grafos.0.1.6\lib\Grafos.dll</HintPath>
     </Reference>
     <Reference Include="Store">
       <HintPath>..\packages\Store.0.2\lib\Store.dll</HintPath>
+    </Reference>
+    <Reference Include="ListaExtras">
+      <HintPath>..\packages\ListaExtras.0.3.0.1\lib\ListaExtras.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -143,4 +143,7 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

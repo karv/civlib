@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Civ
+namespace Civ.RAW
 {
 	public interface IUnidadRAWCombate : IUnidadRAW
 	{

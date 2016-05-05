@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Civ.Orden;
 using ListasExtra;
-using Civ.Data.Import;
 using Civ.ObjetosEstado;
 
 namespace Civ.RAW
@@ -72,48 +71,5 @@ namespace Civ.RAW
 		/// Ocurre cuando esta unidad coloniza
 		/// </summary>
 		public event Action<ICiudad> AlColonizar;
-
-		#region IImportable
-
-		ListaPeso<string> _rec_ini_id = new ListaPeso<string> ();
-		List<string> _edif_ini_id = new List<string> ();
-
-		protected override void LeerLínea (string [] spl)
-		{
-			base.LeerLínea (spl);
-			switch (spl [0])
-			{
-				case "recurso inicial":
-					_rec_ini_id [spl [1]] = float.Parse (spl [2]);
-					return;
-				case "edificio":
-					_edif_ini_id.Add (spl [1]);
-					return;
-				case "población a ciudad":
-					PoblacionACiudad = float.Parse (spl [1]);
-					return;
-				case "mínimo colonizar":
-					MinCantidadColonizar = ulong.Parse (spl [1]);
-					return;
-			}
-		}
-
-		protected override void Vincular ()
-		{
-			base.Vincular ();
-			foreach (var x in _edif_ini_id)
-			{
-				EdificiosIniciales.Add (ImportMachine.Valor (x) as EdificioRAW);
-			}
-			foreach (var x in _rec_ini_id)
-			{
-				RecursosPorUnidad.Add (ImportMachine.Valor (x.Key) as Recurso, x.Value);
-			}
-
-			_edif_ini_id = null;
-			_rec_ini_id = null;
-		}
-
-		#endregion
 	}
 }
