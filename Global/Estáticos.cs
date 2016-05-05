@@ -123,7 +123,7 @@ namespace Civ.Global
 		/// </summary>
 		public static void CargaData ()
 		{
-			ImportMachine.Importar ();
+			// TODO
 		}
 
 		#endregion

@@ -5,7 +5,7 @@ using Civ.Data.Import;
 using System;
 using Civ.Topología;
 
-namespace Civ
+namespace Civ.Topología
 {
 	/// <summary>
 	/// Es la forma RAW de Terreno.
