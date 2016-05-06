@@ -7,6 +7,7 @@ using Civ.Orden;
 using Civ.Global;
 using Civ;
 using Basic;
+using Civ.RAW;
 using Civ.Topología;
 
 namespace Civ.ObjetosEstado

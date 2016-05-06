@@ -1,5 +1,4 @@
 using ListasExtra;
-using Civ.Data.Import;
 using System.Collections.Generic;
 using System;
 using Civ.ObjetosEstado;
@@ -12,7 +11,7 @@ namespace Civ.RAW
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
 	[Serializable]
-	public class TrabajoRAW: IPlainSerializable, IImportable
+	public class TrabajoRAW: IPlainSerializable
 	{
 		public TrabajoRAW ()
 		{
@@ -79,83 +78,5 @@ namespace Civ.RAW
 			return ret;
 
 		}
-
-		#region IImportable
-
-		List <string []> _entrada_id = new List<string []> ();
-		List <string []> _salida_id = new List<string []> ();
-		List <string> _req_id = new List<string> ();
-		string _edif_id;
-
-		void IImportable.Importar (System.IO.StreamReader reader)
-		{
-			while (!reader.EndOfStream)
-			{
-				string line = reader.ReadLine ();
-				line.ToLower ();
-				var spl = line.Split (':');
-				for (int i = 0; i < spl.Length; i++)
-				{
-					spl [i] = spl [i].Trim ();
-				}
-
-				switch (spl [0])
-				{
-					case "nombre":
-						Nombre = spl [1];
-						break;
-					case "edificio":
-						_edif_id = spl [1];
-						break;
-					case "entrada":
-						var a = new string[2];
-						a [0] = spl [1];
-						a [1] = spl [2];
-						_entrada_id.Add (a);
-						break;
-					case "salida":
-						a = new string[2];
-						a [0] = spl [1];
-						a [1] = spl [2];
-						_salida_id.Add (a);
-						break;
-					case "requiere":
-						_req_id.Add (spl [1]);
-						break;
-				}
-			}
-		}
-
-		void IImportable.Vincular ()
-		{
-			// Entrada y salida
-			foreach (var x in _entrada_id)
-			{
-				EntradaBase.Add (
-					ImportMachine.Valor (x [0]) as Recurso,
-					float.Parse (x [1]));
-			}
-			foreach (var x in _salida_id)
-			{
-				SalidaBase.Add (
-					ImportMachine.Valor (x [0]) as Recurso,
-					float.Parse (x [1]));
-			}
-			// Req de ciudad
-			foreach (var x in _req_id)
-			{
-				Requiere.Add (ImportMachine.Valor (x));
-			}
-
-			Edificio = ImportMachine.Valor (_edif_id) as EdificioRAW;
-
-			// limpiar
-			_entrada_id = null;
-			_salida_id = null;
-			_req_id = null;
-			_edif_id = null;
-		}
-
-		#endregion
 	}
 }

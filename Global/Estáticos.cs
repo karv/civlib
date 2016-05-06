@@ -6,7 +6,6 @@ using Civ.Bárbaros;
 using System.IO;
 using Basic;
 using ListasExtra.Extensiones;
-using Civ.Data.Import;
 using Civ.Topología;
 using Graficas.Grafo;
 using Graficas.Rutas;
@@ -115,7 +114,7 @@ namespace Civ.Global
 
 		#region IO
 
-		public const string ArchivoData = "Data.xml";
+		public const string ArchivoData = "Data.bin";
 		public const string ArchivoState = "game.state";
 
 		/// <summary>
@@ -123,7 +122,9 @@ namespace Civ.Global
 		/// </summary>
 		public static void CargaData ()
 		{
-			ImportMachine.Importar ();
+			// TODO
+			Juego.Data = Store.BinarySerialization.ReadFromBinaryFile<GameData> (ArchivoData);
+			//ImportMachine.Importar ();
 		}
 
 		#endregion
@@ -139,6 +140,7 @@ namespace Civ.Global
 		/// </summary>
 		public void Inicializar ()
 		{
+			Juego.CargaData ();
 			//State = new GameState();
 
 			// Hacer la topolog�a

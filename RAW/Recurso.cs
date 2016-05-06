@@ -1,13 +1,13 @@
 using System;
-using Civ.Data.Import;
 using System.IO;
 using Civ.Global;
 using Civ.Debug;
+using System.Runtime.Serialization;
 
 namespace Civ.RAW
 {
 	[Serializable]
-	public class Recurso : IPlainSerializable, IEquatable<Recurso>, IImportable
+	public class Recurso : IPlainSerializable, IEquatable<Recurso>
 	{
 		public override string ToString ()
 		{
@@ -44,6 +44,7 @@ namespace Civ.RAW
 		/// El valor del recurso,
 		/// útil para la IA
 		/// </summary>
+		[DataMember]
 		public float Valor;
 		/// <summary>
 		/// Si este recurso se puede almacenar en Ecología
@@ -64,57 +65,6 @@ namespace Civ.RAW
 		}
 
 		public string Img;
-
-		#region Importable
-
-		void IImportable.Importar (StreamReader reader)
-		{			
-			while (!reader.EndOfStream)
-			{
-				string line = reader.ReadLine ();
-				line.ToLower ();
-				var spl = line.Split (':');
-				for (int i = 0; i < spl.Length; i++)
-				{
-					spl [i] = spl [i].Trim ();
-				}
-
-				switch (spl [0])
-				{
-					case "nombre":
-						Nombre = spl [1];
-						break;
-					case "desaparece":
-						Desaparece = spl [1] != "0";
-						break;
-					case "científico":
-						EsCientifico = spl [1] != "0";
-						break;
-					case "global":
-						EsGlobal = spl [1] != "0";
-						break;
-					case "alimento":
-						#if DEBUG
-						if (Juego.Data.RecursoAlimento != null)
-							Console.WriteLine (string.Format (
-								"se están definiendo varios recursos de alimento: {0}, {1}",
-								Juego.Data.RecursoAlimento,
-								this));
-						#endif
-						Juego.Data.RecursoAlimento = this;
-						break;
-					case "ecológico":
-						EsEcológico = spl [1] != "0";
-						break;
-				}
-			}
-		}
-
-		void IImportable.Vincular ()
-		{
-		}
-
-		#endregion
 
 		string IPlainSerializable.PlainSerialize (int tabs)
 		{

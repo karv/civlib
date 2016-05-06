@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using ListasExtra;
 using Civ.Comandos;
-using Civ.Data.Import;
 using Civ.Ciencias;
 using Civ.ObjetosEstado;
 
@@ -144,82 +143,5 @@ namespace Civ.RAW
 		/// </summary>
 		/// <value>La fuerza de combate</value>
 		public float Defensa { get; set; }
-
-		#region IImportable
-
-		string _req_ciencia_id;
-		ListaPeso<string> _reqs_id = new ListaPeso<string> ();
-
-		void IImportable.Importar (System.IO.StreamReader reader)
-		{
-			while (!reader.EndOfStream)
-			{
-				string line = reader.ReadLine ();
-				line.ToLower ();
-				var spl = line.Split (':');
-				for (int i = 0; i < spl.Length; i++)
-				{
-					spl [i] = spl [i].Trim ();
-				}
-				LeerLínea (spl);
-			}
-		}
-
-		/// <summary>
-		/// Importa una línea dada para configurarme.
-		/// </summary>
-		/// <param name="spl">Una línea, separada por sus sustantivos.</param>
-		protected virtual void LeerLínea (string [] spl)
-		{
-			switch (spl [0])
-			{
-				case "nombre":
-					Nombre = spl [1];
-					return;
-				case "población":
-					CostePoblación = ulong.Parse (spl [1]);
-					return;
-				case "flag":
-					Flags.Add (spl [1]);
-					return;
-				case "carga":
-					MaxCarga = float.Parse (spl [1]);
-					return;
-				case "peso":
-					Peso = float.Parse (spl [1]);
-					return;
-				case "avance":
-					_req_ciencia_id = spl [1];
-					return;
-				case "requiere":
-					_reqs_id.Add (spl [1], float.Parse (spl [2]));
-					return;
-				case "velocidad":
-					Velocidad = float.Parse (spl [1]);
-					return;
-			}
-		}
-
-		protected virtual void Vincular ()
-		{
-			ReqCiencia = ImportMachine.Valor (_req_ciencia_id) as Ciencia;
-			foreach (var x in _reqs_id)
-			{
-				Reqs.Add (ImportMachine.Valor (x.Key) as Recurso, x.Value);
-			}
-
-			// Limpiar
-			_req_ciencia_id = null;
-			_reqs_id = null;
-
-		}
-
-		void IImportable.Vincular ()
-		{
-			Vincular ();
-		}
-
-		#endregion
 	}
 }
-

@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using Civ.Comandos;
-using Civ.Data.Import;
 using Civ.ObjetosEstado;
 
-namespace Civ
+namespace Civ.RAW
 {
 	/// <summary>
 	/// Una clase de unidad
 	/// </summary>
-	public interface IUnidadRAW : IPuntuado, IImportable
+	public interface IUnidadRAW : IPuntuado
 	{
 		/// <summary>
 		/// Revisa si esta unidad tiene un flag
