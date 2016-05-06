@@ -114,7 +114,7 @@ namespace Civ.Global
 
 		#region IO
 
-		public const string ArchivoData = "Data.xml";
+		public const string ArchivoData = "Data.bin";
 		public const string ArchivoState = "game.state";
 
 		/// <summary>
@@ -123,6 +123,7 @@ namespace Civ.Global
 		public static void CargaData ()
 		{
 			// TODO
+			Juego.Data = Store.BinarySerialization.ReadFromBinaryFile<GameData> (ArchivoData);
 			//ImportMachine.Importar ();
 		}
 
@@ -139,6 +140,7 @@ namespace Civ.Global
 		/// </summary>
 		public void Inicializar ()
 		{
+			Juego.CargaData ();
 			//State = new GameState();
 
 			// Hacer la topolog�a
