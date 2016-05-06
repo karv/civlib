@@ -21,7 +21,7 @@ namespace Civ.RAW
 			Mods = new Modificadores ();
 		}
 
-		public float Ataque { get; }
+		public float Ataque { get; set; }
 
 		#region IPuntuado
 
