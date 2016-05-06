@@ -112,9 +112,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <EmbeddedResource Include="Data.xml">
-      <DeployService-Deploy>True</DeployService-Deploy>
-    </EmbeddedResource>
     <EmbeddedResource Include="Nombres\NombresCiudad.txt">
       <LogicalName>NombresCiudad.txt</LogicalName>
     </EmbeddedResource>
