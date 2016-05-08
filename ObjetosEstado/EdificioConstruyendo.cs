@@ -85,9 +85,9 @@ namespace Civ.ObjetosEstado
 		/// Revisa si este edificio está completado.
 		/// </summary>
 		/// <returns><c>true</c> si ya no quedan recursos restantes; <c>false</c> en caso contrario.</returns>
-		public bool EstaCompletado ()
+		public bool EstáCompletado ()
 		{
-			return RecursosRestantes.Keys.Count == 0;
+			return RecursosRestantes.SumaTotal () == 0;
 		}
 
 		/// <summary>

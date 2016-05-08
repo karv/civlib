@@ -936,7 +936,7 @@ namespace Civ.ObjetosEstado
 			if (EdifConstruyendo != null)
 			{
 				EdifConstruyendo.AbsorbeRecursos ();
-				if (EdifConstruyendo.EstaCompletado ())
+				if (EdifConstruyendo.EstáCompletado ())
 				{
 					EdifConstruyendo.Completar ();
 					EdifConstruyendo = null;    //  Ya no se contruye edificio. Para evitar error de duplicidad.
