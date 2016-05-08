@@ -10,13 +10,6 @@ namespace Civ.RAW
 	{
 		public Recurso Recurso;
 
-		string RecursoId;
-
-		protected virtual void Limpiar ()
-		{
-			RecursoId = null;
-		}
-
 		#region ITickable implementation
 
 		public abstract void Tick (IAlmacén alm, TimeSpan t);
@@ -64,7 +57,6 @@ namespace Civ.RAW
 	{
 		public float Max;
 		public float CrecimientoBase;
-
 
 		#region implemented abstract members of TasaProd
 
