@@ -120,7 +120,7 @@ namespace Civ.RAW
 
 		public bool EstaDisponible (ICivilización civil)
 		{
-			return civil.Avances.Contains (ReqCiencia);
+			return ReqCiencia == null || civil.Avances.Contains (ReqCiencia);
 		}
 
 		#endregion
