@@ -226,6 +226,18 @@ namespace Civ.ObjetosEstado
 
 		IAlmacén _almacén;
 
+		public float AlimentoAlmacen
+		{ 
+			get
+			{
+				return Almacén [RecursoAlimento];
+			}
+			set
+			{
+				Almacén [RecursoAlimento] = value;
+			}
+		}
+
 		#endregion
 
 		#region Armada
@@ -556,24 +568,14 @@ namespace Civ.ObjetosEstado
 
 		#region Trabajadores
 
-		[Serializable]
-		class PriorityComparer : IComparer<Trabajo>
-		{
-			public int Compare (Trabajo x, Trabajo y)
-			{
-				return x.Prioridad < y.Prioridad ? -1 : 1;
-			}
-		}
-
 		/// <summary>
 		/// Recluta a trabajadores desocupados a los trabajos de mayos prioridad.
 		/// </summary>
 		public void AutoReclutarTrabajadores ()
 		{
 			// Autoacomodar trabajadores desocupados
-			var Lst = new SortedList<Trabajo, float> (new PriorityComparer ());
-			foreach (var x in ObtenerListaTrabajos())
-				Lst.Add (x, x.Prioridad);
+			var Lst = new HashSet<Trabajo> (ObtenerListaTrabajos ());
+			var OrderLst = Lst.OrderBy (x => x.Prioridad);
 
 			//FIXME: Esto
 			/*
@@ -639,7 +641,7 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// Devuelve la lista de trabajos actuales en esta  <see cref="Civ.Ciudad"/>. 
+		/// Devuelve la lista de trabajos actuales en esta Ciudad. 
 		/// </summary>
 		public ICollection<Trabajo> ObtenerListaTrabajos ()
 		{
@@ -694,13 +696,13 @@ namespace Civ.ObjetosEstado
 		/// <param name="n">Número de trabajadores a forzar que sean libres.</param>
 		public void LiberarTrabajadores (ulong n)
 		{
-			var L = new SortedSet<Trabajo> (
-				        ObtenerListaTrabajos (),
-				        new PriorityComparer ());
-
+			var L = new HashSet<Trabajo> (ObtenerListaTrabajos ().OrderBy (x => x.Prioridad));
 			while (L.Count > 0 && TrabajadoresDesocupados < n && TrabajadoresDesocupados != Poblacion)
 			{
-				L.Remove (L.First ());
+				var rm = L.First ();
+				var removing = Math.Min (n - TrabajadoresDesocupados, rm.Trabajadores);
+				rm.Trabajadores -= removing;
+				L.Remove (rm);
 			}
 		}
 
@@ -824,18 +826,6 @@ namespace Civ.ObjetosEstado
 
 		#endregion
 
-		public float AlimentoAlmacen
-		{ 
-			get
-			{
-				return Almacén [RecursoAlimento];
-			}
-			set
-			{
-				Almacén [RecursoAlimento] = value;
-			}
-		}
-
 		#region ITickable
 
 		// Tick
@@ -896,14 +886,16 @@ namespace Civ.ObjetosEstado
 			Crecimiento [2] -= PoblacionPostProductiva * TasaMortalidadVejezBase * (float)t.TotalHours;
 
 			// Aplicar cambios.
-
-			if (Crecimiento [1] < -(long)TrabajadoresDesocupados)
+			// Población que tendrá después del tick
+			var futProd = (ulong)(RealPoblaciónProductiva + Crecimiento [1]);
+			ulong decrec = Math.Max (0, PoblacionProductiva - futProd);
+			if (decrec > TrabajadoresDesocupados)
 			{
 				CivDueño.AgregaMensaje (new IU.Mensaje (
 					"La ciudad {0} ha perdido trabajadores productivos ocupados.",
 					this,
 					this));
-				LiberarTrabajadores (PoblacionProductiva - (ulong)Crecimiento [1]);
+				LiberarTrabajadores (decrec - TrabajadoresDesocupados);
 
 			}
 
