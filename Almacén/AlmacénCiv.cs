@@ -48,15 +48,18 @@ namespace Civ.Almacén
 		/// </summary>
 		public void RemoverRecursosDesaparece ()
 		{
+			// Los globales
 			foreach (var x in Entradas)
 			{
 				if (x.Desaparece && this [x] > 0)
 				{
 					this [x] = 0;
+					/*
 					Civil.AgregaMensaje (new Mensaje (
 						"Desperdiciando recurso {0}",
 						x,
 						x.Nombre));
+						*/
 				}
 			}
 		}
