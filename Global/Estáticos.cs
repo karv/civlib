@@ -122,9 +122,7 @@ namespace Civ.Global
 		/// </summary>
 		public static void CargaData ()
 		{
-			// TODO
 			Juego.Data = Store.BinarySerialization.ReadFromBinaryFile<GameData> (ArchivoData);
-			//ImportMachine.Importar ();
 		}
 
 		#endregion
@@ -198,14 +196,12 @@ namespace Civ.Global
 			}
 		}
 
-		public const string FileName = "game.sav";
-
-		public static void Cargar (string filename = FileName)
+		public static void Cargar (string filename = ArchivoState)
 		{
 			Instancia = Store.BinarySerialization.ReadFromBinaryFile<Juego> (filename);
 		}
 
-		public static void Guardar (string filename = FileName)
+		public static void Guardar (string filename = ArchivoState)
 		{
 			Store.BinarySerialization.WriteToBinaryFile (filename, Instancia);
 		}
