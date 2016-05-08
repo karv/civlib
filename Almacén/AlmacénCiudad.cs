@@ -66,6 +66,10 @@ namespace Civ.Almacén
 				{
 					CiudadDueño.CivDueño.Almacén [recurso] = value;
 				}
+				else if (recurso.EsEcológico)
+				{
+					CiudadDueño.Terr.Eco.RecursoEcológico [recurso] = value;
+				}
 				else
 				{
 					if (float.IsNaN (value))

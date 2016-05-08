@@ -22,7 +22,7 @@ namespace Civ.RAW
 	/// Comportamiento lineal
 	/// </summary>
 	[Serializable]
-	public class TasaProdConstante: TasaProd
+	public class TasaProdConstante : TasaProd
 	{
 		/// <summary>
 		/// Máximo del recurso que puede ofrecer esta tasa de crecimiento
@@ -53,7 +53,7 @@ namespace Civ.RAW
 	/// Comportamiento exponencial
 	/// </summary>
 	[Serializable]
-	public class TasaProdExp:TasaProd
+	public class TasaProdExp : TasaProd
 	{
 		public float Max;
 		public float CrecimientoBase;
@@ -64,7 +64,6 @@ namespace Civ.RAW
 		{
 			alm [Recurso] *= (float)Math.Pow (CrecimientoBase, t.TotalHours);
 			alm [Recurso] = Math.Min (Max, alm [Recurso]);
-			
 		}
 
 		#endregion
