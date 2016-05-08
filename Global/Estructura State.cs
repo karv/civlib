@@ -28,7 +28,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Mapa continuo del mundo
 		/// </summary>
-		public Civ.Topología.Mapa Mapa;
+		public Mapa Mapa;
 
 		/// <summary>
 		/// Lista de civilizaciones en el juego. (Incluyendo las muertas)        

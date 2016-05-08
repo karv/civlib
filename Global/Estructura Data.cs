@@ -19,7 +19,6 @@ namespace Civ.Global
 		public HashSet<Recurso> Recursos = new HashSet<Recurso> ();
 		public HashSet<TrabajoRAW> Trabajos = new HashSet<TrabajoRAW> ();
 		public HashSet<IUnidadRAW> Unidades = new HashSet<IUnidadRAW> ();
-		public HashSet<Propiedad> Propiedades = new HashSet<Propiedad> ();
 		public HashSet<Ecosistema> Ecosistemas = new HashSet<Ecosistema> ();
 
 		/// <summary>
@@ -102,20 +101,29 @@ namespace Civ.Global
 		}
 
 		/// <summary>
+		/// Devuelve un conjunto con todas las Propiedades en Data
+		/// </summary>
+		[Obsolete]
+		public IEnumerable<Propiedad> ListarPropiedades ()
+		{
+			foreach (var x in Ecosistemas)
+			{
+				foreach (var y in x.PropPropiedad.Keys)
+				{
+					yield return y;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Devuelve el edificio con un nombre específico.
 		/// </summary>
 		/// <returns>The recurso.</returns>
 		/// <param name="nombre">Nombre del edificio a buscar.</param>
+		[Obsolete]
 		public Propiedad EncuentraPropiedad (string nombre)
 		{
-			foreach (var x in Propiedades)
-			{
-				if (x.Nombre == nombre)
-				{
-					return x;
-				}
-			}
-			return null;
+			return ListarPropiedades ().FirstOrDefault (x => x.Nombre == nombre);
 		}
 
 		/// <summary>

@@ -44,11 +44,6 @@ namespace Civ.Debug
 				sw.WriteLine (x.PlainSerialize (0) + "\n");
 			}
 
-			foreach (IPlainSerializable x in glob.Propiedades)
-			{
-				sw.WriteLine (x.PlainSerialize (0) + "\n");
-			}
-
 			foreach (IPlainSerializable x in glob.Recursos)
 			{
 				sw.WriteLine (x.PlainSerialize (0) + "\n");
@@ -138,13 +133,6 @@ namespace Civ.Debug
 			{
 				CrearArchivoObjetosAbiertos (
 					"Doc/Edificios/" + x.Nombre + ".Edificio.txt",
-					x);
-			}
-			
-			foreach (var x in Juego.Data.Propiedades)
-			{
-				CrearArchivoObjetosAbiertos (
-					"Doc/Propiedades/" + x.Nombre + ".Propiedad.txt",
 					x);
 			}
 			
