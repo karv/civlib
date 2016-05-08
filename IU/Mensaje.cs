@@ -1,4 +1,4 @@
-namespace IU
+namespace Civ.IU
 {
 	/// <summary>
 	/// Representa un mensaje al usuario

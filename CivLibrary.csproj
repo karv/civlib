@@ -45,11 +45,9 @@
     <Compile Include="Global\Estructura State.cs" />
     <Compile Include="Global\Estáticos.cs" />
     <Compile Include="Global\Basic.cs" />
-    <Compile Include="Mensaje.cs" />
     <Compile Include="Interfaces\ITickable.cs" />
     <Compile Include="RAW\EdificioRAW.cs" />
     <Compile Include="RAW\TrabajoRAW.cs" />
-    <Compile Include="NewGameOptions.cs" />
     <Compile Include="Interfaces\IPuntuado.cs" />
     <Compile Include="Almacén\AlmacénCiudad.cs" />
     <Compile Include="Almacén\AlmacénCiv.cs" />
@@ -69,7 +67,6 @@
     <Compile Include="Comandos\ComandoIr.cs" />
     <Compile Include="Comandos\IComandoEspecial.cs" />
     <Compile Include="RAW\UnidadRAWCombate.cs" />
-    <Compile Include="ManejadorMensajes.cs" />
     <Compile Include="Topología\Mapa.cs" />
     <Compile Include="Ciencias\Ciencia.cs" />
     <Compile Include="Ciencias\InvestigandoCiencia.cs" />
@@ -109,6 +106,9 @@
     <Compile Include="RAW\IUnidadRAWCombate.cs" />
     <Compile Include="Combate\IAnálisisCombate.cs" />
     <Compile Include="Combate\IAtacante.cs" />
+    <Compile Include="IU\ManejadorMensajes.cs" />
+    <Compile Include="IU\Mensaje.cs" />
+    <Compile Include="IU\NewGameOptions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -130,6 +130,7 @@
     <Folder Include="Bárbaros\" />
     <Folder Include="Debug\" />
     <Folder Include="Combate\" />
+    <Folder Include="IU\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

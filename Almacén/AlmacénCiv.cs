@@ -22,7 +22,7 @@ using System;
 using ListasExtra;
 using System.Linq;
 using Civ.RAW;
-using IU;
+using Civ.IU;
 
 namespace Civ.Almacén
 {
@@ -54,7 +54,7 @@ namespace Civ.Almacén
 				if (x.Desaparece && this [x] > 0)
 				{
 					this [x] = 0;
-					/*
+					/*q
 					Civil.AgregaMensaje (new Mensaje (
 						"Desperdiciando recurso {0}",
 						x,

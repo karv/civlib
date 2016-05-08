@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Civ.Global;
 using Civ.Ciencias;
-using IU;
+using Civ.IU;
 using ListasExtra.Extensiones;
 using System.Linq;
 using System.Runtime.Serialization;

@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using System;
 
-namespace IU
+namespace Civ.IU
 {
 	/// <summary>
 	/// Manejador de mensajes de una civilización
@@ -18,4 +17,3 @@ namespace IU
 		}
 	}
 }
-
