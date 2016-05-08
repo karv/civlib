@@ -901,6 +901,7 @@ namespace Civ.ObjetosEstado
 			{
 				CivDueño.AgregaMensaje (new IU.Mensaje (
 					"La ciudad {0} ha perdido trabajadores productivos ocupados.",
+					this,
 					this));
 				LiberarTrabajadores (PoblacionProductiva - (ulong)Crecimiento [1]);
 
