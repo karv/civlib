@@ -420,6 +420,13 @@ namespace Civ.ObjetosEstado
 
 			// Fase final, desaparecer recursos.
 			Almacén.RemoverRecursosDesaparece ();
+			foreach (var x in Ciudades)
+			{
+				foreach (var y in x.Almacén.ToDictionary().Keys.Where (z => z.Desaparece))
+				{
+					x.Almacén [y] = 0;
+				}
+			}
 
 			// Armadas
 
