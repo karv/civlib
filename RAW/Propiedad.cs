@@ -19,6 +19,7 @@ namespace Civ.RAW
 		public Propiedad ()
 		{
 			Salida = new HashSet<TasaProd> ();
+			Iniciales = new Dictionary<Recurso, float> ();
 		}
 
 		/// <summary>
@@ -44,38 +45,11 @@ namespace Civ.RAW
 			}
 		}
 
+		public Dictionary<Recurso, float> Iniciales;
+
 		public override string ToString ()
 		{
 			return Nombre;
-		}
-
-		#region apuntadores
-
-		List<string> ref_Salida = new List<string> ();
-
-		#endregion
-
-		public void Importar (System.IO.StreamReader reader)
-		{
-			while (!reader.EndOfStream)
-			{
-				string line = reader.ReadLine ();
-				line.ToLower ();
-				var spl = line.Split (':');
-				for (int i = 0; i < spl.Length; i++)
-				{
-					spl [i] = spl [i].Trim ();
-				}
-				switch (spl [0])
-				{
-					case "nombre":
-						Nombre = spl [1];
-						break;
-					case "salida":
-						ref_Salida.Add (spl [1]);
-						break;
-				}
-			}
 		}
 	}
 }

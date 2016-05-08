@@ -5,6 +5,8 @@ using Civ.RAW;
 using Basic;
 using System.Runtime.Serialization;
 using Civ.ObjetosEstado;
+using ListasExtra;
+using System.Runtime.Remoting.Messaging;
 
 namespace Civ.Topología
 {
@@ -30,12 +32,15 @@ namespace Civ.Topología
 			Nombre = ecosistema.Nombres.Elegir ();
 
 			Nombre = r.Next (10000).ToString ();
+			Eco = new Ecología ();
 
 			foreach (var x in ecosistema.PropPropiedad.Keys)
 			{
 				if (r.NextDouble () <= ecosistema.PropPropiedad [x])
 				{	// Si el azar determina (¡Qué loco suena eso!) que hay que agregarle la propiedad...
 					Innatos.Add (x);
+					foreach (var y in x.Iniciales)
+						Eco.RecursoEcológico [y.Key] += y.Value;
 				}
 			}
 		}
@@ -101,7 +106,7 @@ namespace Civ.Topología
 		/// <summary>
 		/// Representa la ecología del terreno.
 		/// </summary>
-		public Ecología Eco = new Ecología ();
+		public Ecología Eco;
 
 
 		/// <summary>
