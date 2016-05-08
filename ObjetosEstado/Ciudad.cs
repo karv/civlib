@@ -984,7 +984,7 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// Ejecuta PopTick (), ResourseTick y PopTick ().
+		/// Ejecuta PopTick (), ResourseTick Y calcula delta
 		/// En ese orden.
 		/// </summary>
 		public void Tick (TimeSpan t)
