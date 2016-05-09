@@ -17,6 +17,12 @@ namespace Civ.IU
 		public object [] Origen;
 
 		/// <summary>
+		/// El estado de este mensaje
+		/// </summary>
+		/// <value>The estado.</value>
+		public EstadoMensaje Estado { get; set; }
+
+		/// <summary>
 		/// Se usa para comparar si dos mensajes son de la misma clase y no deben duplicarse.
 		/// </summary>
 		public object VerificadorRepetición;
@@ -32,6 +38,7 @@ namespace Civ.IU
 			Msj = nMensaje;
 			Origen = nOrigen;
 			VerificadorRepetición = repetidor;
+			Estado = EstadoMensaje.NoLeído;
 			#if DEBUG
 			System.Console.WriteLine ("+" + ToString ());
 			#endif
@@ -41,5 +48,14 @@ namespace Civ.IU
 		{
 			return string.Format (Msj, Origen);
 		}
+	}
+
+	/// <summary>
+	/// El estado de un mensaje
+	/// </summary>
+	public enum EstadoMensaje
+	{
+		NoLeído,
+		Leído
 	}
 }

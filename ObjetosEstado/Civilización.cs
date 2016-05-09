@@ -284,7 +284,7 @@ namespace Civ.ObjetosEstado
 		/// <param name="mensaje">Mensaje</param>
 		public void AgregaMensaje (Mensaje mensaje)
 		{
-			Mensajes.Enqueue (mensaje);
+			Mensajes.Add (mensaje);
 			AlNuevoMensaje?.Invoke ();
 		}
 
@@ -315,7 +315,7 @@ namespace Civ.ObjetosEstado
 		/// <returns>Devuelve el mensaje siguiente en la cola.</returns>
 		public Mensaje SiguienteMensaje ()
 		{
-			return ExisteMensaje ? (Mensaje)Mensajes.Dequeue () : null;
+			return Mensajes.Siguiente;
 		}
 
 		/// <summary>
@@ -324,15 +324,8 @@ namespace Civ.ObjetosEstado
 		/// <returns>The todos los mensajes.</returns>
 		public ICollection<Mensaje> ObtenerTodosLosMensajes ()
 		{
-			var ret = new List<Mensaje> ();
-			while (ExisteMensaje)
-			{
-				ret.Add (SiguienteMensaje ());
-			}
-			return ret;
+			return Mensajes;
 		}
-
-
 
 		#endregion
 
