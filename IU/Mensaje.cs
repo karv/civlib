@@ -1,3 +1,5 @@
+using System;
+
 namespace Civ.IU
 {
 	/// <summary>
@@ -25,7 +27,7 @@ namespace Civ.IU
 		/// <summary>
 		/// Se usa para comparar si dos mensajes son de la misma clase y no deben duplicarse.
 		/// </summary>
-		public object VerificadorRepetición;
+		public IRepetidor VerificadorRepetición;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IU.Mensaje"/> class.
@@ -33,14 +35,16 @@ namespace Civ.IU
 		/// <param name="nMensaje">Texto</param>
 		/// <param name="nOrigen">Objeto vinculado</param>
 		/// <param name="repetidor">Objeto para verificar si es un mensaje repetido.</param>
-		public Mensaje (string nMensaje, object repetidor, params object [] nOrigen)
+		public Mensaje (string nMensaje,
+		                IRepetidor repetidor,
+		                params object [] nOrigen)
 		{
 			Msj = nMensaje;
 			Origen = nOrigen;
 			VerificadorRepetición = repetidor;
 			Estado = EstadoMensaje.NoLeído;
 			#if DEBUG
-			System.Console.WriteLine ("+" + ToString ());
+			//System.Console.WriteLine ("+" + ToString ());
 			#endif
 		}
 

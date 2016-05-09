@@ -19,30 +19,20 @@ namespace Civ.IU
 		/// </summary>
 		public new void Add (Mensaje m)
 		{
-			if (m.VerificadorRepetición == null || !this.Any (m.VerificadorRepetición.Equals))
+			if (m.VerificadorRepetición == null || !this.Any (z => m.VerificadorRepetición.Coincide (z.VerificadorRepetición)))
 			{
 				base.Add (m);
 				AlAgregar?.Invoke (m);
 			}
 		}
 
-		public bool Remove (object repetidor)
+		public bool Remove (IRepetidor repetidor)
 		{
-			var removing = this.Where (x => x.VerificadorRepetición.Equals (repetidor));
-			var ret = RemoveAll (x => x.VerificadorRepetición.Equals (repetidor)) > 0;
+			var removing = this.Where (x => x.VerificadorRepetición.Coincide (repetidor));
+			var ret = RemoveAll (x => x.VerificadorRepetición.Coincide (repetidor)) > 0;
 			foreach (var x in removing)
 				AlEliminar?.Invoke (x);
 			return ret;
-		}
-
-		public int Puntero { get; set; }
-
-		public Mensaje Actual
-		{
-			get
-			{
-				return this [Puntero];
-			}
 		}
 
 		#region Eventos

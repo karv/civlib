@@ -20,6 +20,8 @@ namespace Civ.Global
 	public class Juego
 	{
 		public static Juego Instancia = new Juego ();
+
+		[NonSerialized]
 		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
 		public GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
 		public GameData GData = new GameData ();

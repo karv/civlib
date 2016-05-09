@@ -9,6 +9,7 @@ using Civ;
 using Basic;
 using Civ.RAW;
 using Civ.Topología;
+using Civ.IU;
 
 namespace Civ.ObjetosEstado
 {
@@ -118,7 +119,7 @@ namespace Civ.ObjetosEstado
 				arm.Orden = new OrdenEstacionado ();
 				arm.CivDueño.AgregaMensaje (new IU.Mensaje (
 					"Nuestra Armada {0} detenida por armada {1} de {2} en {3}",
-					arm,
+					new RepetidorArmadaDestino (arm),
 					this,
 					CivDueño,
 					Posición));
@@ -344,7 +345,11 @@ namespace Civ.ObjetosEstado
 			if (Orden.Ejecutar (t))
 			{
 				Orden = new OrdenEstacionado ();
-				CivDueño.AgregaMensaje (new IU.Mensaje ("{0} llegó a {1}", this, Posición));
+				CivDueño.AgregaMensaje (new Mensaje (
+					"{0} llegó a {1}",
+					new RepetidorArmadaDestino (this),
+					this,
+					Posición));
 			}
 		}
 

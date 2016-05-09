@@ -276,7 +276,7 @@ namespace Civ.ObjetosEstado
 		/// Lista de mensajes de eventos para el usuario.
 		/// </summary>
 		[NonSerialized]
-		protected ManejadorMensajes Mensajes = new ManejadorMensajes ();
+		public ManejadorMensajes Mensajes = new ManejadorMensajes ();
 
 		/// <summary>
 		/// Agrega un mensaje de usuario a la cola.
@@ -389,7 +389,7 @@ namespace Civ.ObjetosEstado
 						// Se está desperdiciando Rec
 						AgregaMensaje (new Mensaje (
 							"Se está desperdiciando recurso científico {0}",
-							Rec,
+							new RepetidorExcesoRecurso (Rec, Almacén),
 							Rec.Nombre));
 					}
 				}
