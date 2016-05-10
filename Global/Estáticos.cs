@@ -198,13 +198,70 @@ namespace Civ.Global
 
 		public static void Cargar (string filename = ArchivoState)
 		{
-			Instancia = Store.BinarySerialization.ReadFromBinaryFile<Juego> (filename);
+			try
+			{
+				Instancia = Store.BinarySerialization.ReadFromBinaryFile<Juego> (filename);
+				Console.WriteLine ("Carga exitosa de archivo " + filename);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine (DateTime.Now);
+				Console.WriteLine ("No se puede cargar archivo de guardado, posiblemente corrupto.");
+				Console.WriteLine (ex);
+
+				try
+				{
+					var j = Store.BinarySerialization.ReadFromBinaryFile<object> (filename);
+					Console.WriteLine ("Objeto en archivo: " + j);
+					Console.WriteLine ("Del tipo " + j.GetType ());
+
+				}
+				catch (Exception exInn)
+				{
+					Console.WriteLine ("Tipo de objeto ajeno al proyecto.");
+					Console.WriteLine (exInn);
+				}
+
+				Console.WriteLine ("Iniciando nuevo juego");
+				Instancia.Inicializar ();
+			}
+			finally
+			{
+				Console.WriteLine (string.Format (
+					"[{1}]Cargado de imagen exitoso: {0}",
+					filename,
+					DateTime.Now));
+			}
 		}
 
 		public static void Guardar (string filename = ArchivoState)
 		{
-			Store.BinarySerialization.WriteToBinaryFile (filename, Instancia);
+			Store.BinarySerialization.WriteToBinaryFile<Juego> (filename, Instancia);
+
+			#if DEBUG
+			Store.BinarySerialization.WriteToBinaryFile ("data", Instancia.GData);
+			Store.BinarySerialization.WriteToBinaryFile ("state", Instancia.GState);
+			try
+			{
+				Store.BinarySerialization.ReadFromBinaryFile<GameData> ("data");
+				Store.BinarySerialization.ReadFromBinaryFile<GameState> ("state");
+				Store.BinarySerialization.ReadFromBinaryFile<Juego> (filename);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine ("No se puede guardar archivo de estadod de juego. Desconocido");
+				Console.WriteLine (ex.Message);
+			}
+			finally
+			{
+				Console.WriteLine (string.Format (
+					"[{1}]Guardado de imagen exitoso: {0}",
+					filename,
+					DateTime.Now));
+			}
+			#endif
 		}
+
 
 		public void ConstruirTopología (IEnumerable<Terreno> lista)
 		{
