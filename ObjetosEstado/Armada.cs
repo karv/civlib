@@ -352,8 +352,7 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
-		public ICivilización CivDueño;
-		//TODO readonly
+		public ICivilización CivDueño { get; }
 
 		/// <summary>
 		/// Devuelve un nuevo diccionario que asocia a cada UnidadRAW la lista de Unidades que tiene.
