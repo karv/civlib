@@ -36,7 +36,7 @@
       <HintPath>..\packages\Grafos.0.1.6.1\lib\Grafos.dll</HintPath>
     </Reference>
     <Reference Include="ListaExtras">
-      <HintPath>..\packages\ListaExtras.0.3.0.2\lib\ListaExtras.dll</HintPath>
+      <HintPath>..\packages\ListaExtras.0.3.0.3\lib\ListaExtras.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
