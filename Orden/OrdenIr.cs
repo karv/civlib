@@ -1,6 +1,7 @@
 ﻿using System;
 using Civ.Topología;
 using Civ.ObjetosEstado;
+using Civ.IU;
 
 namespace Civ.Orden
 {
@@ -50,8 +51,9 @@ namespace Civ.Orden
 
 		protected virtual void OnLlegar ()
 		{
-			ArmadaEjecutante.CivDueño.AgregaMensaje (new IU.Mensaje (
+			ArmadaEjecutante.CivDueño.AgregaMensaje (new Mensaje (
 				"Armada {0} LLegó a su destino en {1} : Orden {2}",
+				new RepetidorArmadaDestino (ArmadaEjecutante),
 				ArmadaEjecutante,
 				Destino,
 				this));

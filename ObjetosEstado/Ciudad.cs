@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Civ.Almacén;
 using Civ.Topología;
+using Civ.IU;
 
 namespace Civ.ObjetosEstado
 {
@@ -893,7 +894,7 @@ namespace Civ.ObjetosEstado
 			{
 				CivDueño.AgregaMensaje (new IU.Mensaje (
 					"La ciudad {0} ha perdido trabajadores productivos ocupados.",
-					this,
+					new RepetidorCiudadNoPop (this),
 					this));
 				LiberarTrabajadores (decrec - TrabajadoresDesocupados);
 
