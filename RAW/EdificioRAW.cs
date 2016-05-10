@@ -42,6 +42,7 @@ namespace Civ.RAW
 		public EdificioRAW ()
 		{
 			Salida = new ListaPeso<Recurso> ();
+			Trabajos = new HashSet<TrabajoRAW> ();
 		}
 
 		public override string ToString ()
