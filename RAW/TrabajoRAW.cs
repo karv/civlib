@@ -22,10 +22,35 @@ namespace Civ.RAW
 		/// Nombre
 		/// </summary>
 		public string Nombre;
+
+		EdificioRAW _edificio;
+
 		/// <summary>
 		/// EdificioRAW vinculado a este trabajo.
 		/// </summary>
-		public EdificioRAW Edificio;
+		public EdificioRAW Edificio
+		{
+			get
+			{
+				return _edificio;
+			}
+			set
+			{
+				if (_edificio != null)
+				{
+					_edificio.Trabajos.Remove (this);
+					#if DEBUG
+					Console.WriteLine (string.Format (
+						"Se ha cambiado edificio del trabajo {0} desde {1} hasta {2}",
+						this,
+						_edificio,
+						value));
+					#endif
+				}
+				_edificio = value;
+				_edificio.Trabajos.Add (this);
+			}
+		}
 
 		/// <summary>
 		/// Recursos producidos por trabajador*turno (Base)
