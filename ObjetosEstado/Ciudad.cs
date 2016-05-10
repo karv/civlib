@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using Civ.Almacén;
 using Civ.Topología;
 using Civ.IU;
+using System.Security.Policy;
 
 namespace Civ.ObjetosEstado
 {
@@ -619,24 +620,14 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Devuelve la lista de trabajos que se pueden realizar en una ciudad.
 		/// </summary>
-		public IList<TrabajoRAW> ObtenerListaTrabajosRAW
+		public ICollection<TrabajoRAW> ObtenerListaTrabajosRAW
 		{
 			get
 			{
-				var ret = new List<TrabajoRAW> ();
-				foreach (var x in Juego.Data.Trabajos)
-				{
-					var Req = new List<IRequerimiento<ICiudad>> ();
-					foreach (var y in x.Requiere.Requiere())
-					{
-						Req.Add (y);
-					}
-
-					if (SatisfaceReq (Req) && ExisteEdificio (x.Edificio))
-					{
-						ret.Add (x);
-					}
-				}
+				var ret = new HashSet<TrabajoRAW> ();
+				foreach (var x in Edificios)
+					foreach (var y in x.Trabajos)
+						ret.Add (y.RAW);
 				return ret;
 			}
 		}
@@ -715,7 +706,7 @@ namespace Civ.ObjetosEstado
 		public ICollection<TrabajoRAW> TrabajosAbiertos ()
 		{
 			var ret = new List<TrabajoRAW> ();
-			foreach (var x in Juego.Data.Trabajos)
+			foreach (var x in Juego.Data.Trabajos ())
 			{
 				if (SatisfaceReq (x.Reqs ()) && ExisteEdificio (x.Edificio))
 				{

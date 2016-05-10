@@ -34,6 +34,11 @@ namespace Civ.RAW
 		/// </summary>
 		public ListaPeso<Recurso> Salida { get; }
 
+		/// <summary>
+		/// La lista de trabajos de este edificio
+		/// </summary>
+		public HashSet<TrabajoRAW> Trabajos { get; set; }
+
 		public EdificioRAW ()
 		{
 			Salida = new ListaPeso<Recurso> ();

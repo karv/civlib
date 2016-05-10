@@ -17,7 +17,6 @@ namespace Civ.Global
 		public HashSet<Ciencia> Ciencias = new HashSet<Ciencia> ();
 		public HashSet<EdificioRAW> Edificios = new HashSet<EdificioRAW> ();
 		public HashSet<Recurso> Recursos = new HashSet<Recurso> ();
-		public HashSet<TrabajoRAW> Trabajos = new HashSet<TrabajoRAW> ();
 		public HashSet<IUnidadRAW> Unidades = new HashSet<IUnidadRAW> ();
 		public HashSet<Ecosistema> Ecosistemas = new HashSet<Ecosistema> ();
 
@@ -25,6 +24,17 @@ namespace Civ.Global
 		/// El recurso que sirve como alimento en una ciudad.
 		/// </summary>
 		public Recurso RecursoAlimento;
+
+		public IEnumerable<TrabajoRAW> Trabajos ()
+		{
+			foreach (var x in Edificios)
+			{
+				foreach (var y in x.Trabajos)
+				{
+					yield return y;
+				}
+			}
+		}
 
 		/// <summary>
 		/// Revisa si existe una edificio con un nombre específico.
@@ -133,7 +143,7 @@ namespace Civ.Global
 		/// <param name="nombre">Nombre del Trabajo a buscar.</param>
 		public TrabajoRAW EncuentraTrabajo (string nombre)
 		{
-			return Trabajos.FirstOrDefault (x => x.Nombre == nombre);
+			return Trabajos ().FirstOrDefault (x => x.Nombre == nombre);
 		}
 
 		/// <summary>
