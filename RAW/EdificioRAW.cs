@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using ListasExtra;
 using System;
 using Civ.ObjetosEstado;
-using Civ.Debug;
 using Civ.Global;
 
 namespace Civ.RAW
@@ -11,7 +10,7 @@ namespace Civ.RAW
 	/// Representa una clase de edificios. Para sólo lectura.
 	/// </summary>
 	[Serializable]
-	public class EdificioRAW : IRequerimiento<ICiudad>, IPlainSerializable
+	public class EdificioRAW : IRequerimiento<ICiudad>
 	{
 		public string Nombre;
 		public ulong MaxWorkers;
@@ -76,25 +75,5 @@ namespace Civ.RAW
 		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
 		/// </summary>
 		public bool EsAutoConstruible;
-
-		string IPlainSerializable.PlainSerialize (int tabs)
-		{
-			string tab = "";
-			string ret;
-			for (int i = 0; i < tabs; i++)
-			{
-				tab += "\t";
-			}
-
-			ret = tab + "(Edificio)" + Nombre + "\n";
-			foreach (IPlainSerializable x in ReqRecursos.Keys)
-			{
-				ret += x.PlainSerialize (tabs + 1);
-			}
-
-			ret += ((IPlainSerializable)Requiere).PlainSerialize (tabs + 1);
-
-			return ret;
-		}
 	}
 }

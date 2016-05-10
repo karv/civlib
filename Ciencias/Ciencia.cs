@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Civ.ObjetosEstado;
-using Civ.Debug;
 using Civ.Global;
 using Civ.RAW;
 
@@ -11,7 +10,7 @@ namespace Civ.Ciencias
 	/// Representa un adelanto científico.
 	/// </summary>
 	[Serializable]
-	public class Ciencia : IRequerimiento<ICiudad>, IPlainSerializable
+	public class Ciencia : IRequerimiento<ICiudad>
 	{
 		[Serializable]
 		public class Requerimiento
@@ -53,40 +52,11 @@ namespace Civ.Ciencias
 		/// </summary>
 		public Requerimiento Reqs = new Requerimiento ();
 
-
 		#region IRequerimiento
 
 		bool IRequerimiento<ICiudad>.LoSatisface (ICiudad ciudad)
 		{
 			return ciudad.CivDueño.Avances.Contains (this);
-		}
-
-		#endregion
-
-		#region PlainSerializable
-
-		string IPlainSerializable.PlainSerialize (int tabs)
-		{
-			string tab = "";
-			string ret;
-			for (int i = 0; i < tabs; i++)
-			{
-				tab += "\t";
-			}
-			ret = tab + "(Ciencia)" + Nombre + "\n";
-
-			foreach (Ciencia x in Reqs.Ciencias)
-			{
-				IPlainSerializable Ser = x;
-				ret += Ser.PlainSerialize (tabs + 1);
-			}
-
-			foreach (var x in Reqs.Recursos.Keys)
-			{
-				IPlainSerializable Ser = x;
-				ret += Ser.PlainSerialize (tabs + 1);
-			}
-			return ret;
 		}
 
 		#endregion

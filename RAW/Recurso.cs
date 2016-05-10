@@ -1,13 +1,11 @@
 using System;
-using System.IO;
 using Civ.Global;
-using Civ.Debug;
 using System.Runtime.Serialization;
 
 namespace Civ.RAW
 {
 	[Serializable]
-	public class Recurso : IPlainSerializable, IEquatable<Recurso>
+	public class Recurso : IEquatable<Recurso>
 	{
 		public override string ToString ()
 		{
@@ -65,41 +63,6 @@ namespace Civ.RAW
 		}
 
 		public string Img;
-
-		string IPlainSerializable.PlainSerialize (int tabs)
-		{
-			string tab = "";
-			string ret;
-			for (int i = 0; i < tabs; i++)
-			{
-				tab += "\t";
-			}
-
-			ret = tab + "(Recurso)" + Nombre + "\n";
-
-			foreach (var x in Juego.Data.Trabajos)
-			{
-				// ¿Agregar?
-				bool Agregar = false;
-				foreach (var y in x.SalidaBase.Keys)
-				{
-					if (y == this)
-					{
-						Agregar = true;
-						break;
-					}
-				}
-
-				// Si este trabajo produce Robj
-				if (Agregar)
-				{
-					Debug.IPlainSerializable Ser = x;
-					ret += Ser.PlainSerialize (tabs + 1);
-				}
-			}
-
-			return ret;
-		}
 
 		public float Puntuación
 		{

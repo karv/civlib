@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Civ.RAW;
 using Civ.Ciencias;
 using System;
-using Civ.Debug;
 using Civ.ObjetosEstado;
 
 namespace Civ.Global
@@ -21,7 +20,7 @@ namespace Civ.Global
 	}
 
 	[Serializable]
-	public class Requerimiento : IPlainSerializable
+	public class Requerimiento
 	{
 		public ICollection<Ciencia> Ciencias = new HashSet<Ciencia> ();
 		public ICollection<EdificioRAW> Edificios = new HashSet<EdificioRAW> ();
@@ -58,21 +57,5 @@ namespace Civ.Global
 				throw new Exception ();
 		}
 
-		string Civ.Debug.IPlainSerializable.PlainSerialize (int tabs)
-		{
-			string tab = "";
-			string ret = "";
-			for (int i = 0; i < tabs; i++)
-			{
-				tab += "\t";
-			}
-
-			foreach (Civ.Debug.IPlainSerializable x in Requiere())
-			{
-				ret += x.PlainSerialize (tabs);
-			}
-
-			return ret;
-		}
 	}
 }

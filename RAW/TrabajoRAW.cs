@@ -2,7 +2,6 @@ using ListasExtra;
 using System.Collections.Generic;
 using System;
 using Civ.ObjetosEstado;
-using Civ.Debug;
 using Civ.Global;
 
 namespace Civ.RAW
@@ -11,7 +10,7 @@ namespace Civ.RAW
 	/// Representa un trabajo en un edificioRAW
 	/// </summary>	
 	[Serializable]
-	public class TrabajoRAW: IPlainSerializable
+	public class TrabajoRAW
 	{
 		public TrabajoRAW ()
 		{
@@ -55,28 +54,6 @@ namespace Civ.RAW
 		public ICollection<IRequerimiento<ICiudad>> Reqs ()
 		{
 			return Requiere.Requiere ();
-		}
-
-		string IPlainSerializable.PlainSerialize (int tabs)
-		{
-			string tab = "";
-			string ret;
-			IPlainSerializable Ser;
-			for (int i = 0; i < tabs; i++)
-			{
-				tab += "\t";
-			}
-
-			ret = tab + "(Trabajo)" + Nombre + "\n";
-
-			Ser = Edificio;
-			ret += Ser.PlainSerialize (tabs + 1);
-
-			Ser = Requiere;
-			ret += Ser.PlainSerialize (tabs + 1);
-
-			return ret;
-
 		}
 	}
 }

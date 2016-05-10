@@ -85,7 +85,6 @@
     <Compile Include="ObjetosEstado\EstadoDiplomático.cs" />
     <Compile Include="ObjetosEstado\InfoPoblación.cs" />
     <Compile Include="Bárbaros\GeneradorArmadasBarbaras.cs" />
-    <Compile Include="Debug\Debug.cs" />
     <Compile Include="Combate\AnálisisCombate.cs" />
     <Compile Include="Global\IRequerimiento.cs" />
     <Compile Include="Bárbaros\ReglaGeneracion.cs" />
@@ -129,7 +128,6 @@
     <Folder Include="Ciencias\" />
     <Folder Include="ObjetosEstado\" />
     <Folder Include="Bárbaros\" />
-    <Folder Include="Debug\" />
     <Folder Include="Combate\" />
     <Folder Include="IU\" />
   </ItemGroup>
