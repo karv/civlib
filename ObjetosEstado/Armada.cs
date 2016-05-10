@@ -184,8 +184,7 @@ namespace Civ.ObjetosEstado
 		/// Devuelve o establece el lugar donde está la armada.
 		/// </summary>
 		/// <value></value>
-		// TODO readonly (o get)
-		public Pseudoposición Posición;
+		public Pseudoposición Posición { get; }
 
 		/// <summary>
 		/// Agrega, mueve o junta unidad(es) a esta armada.
