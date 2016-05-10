@@ -9,7 +9,6 @@ using System.Runtime.Serialization;
 using Civ.Almacén;
 using Civ.Topología;
 using Civ.IU;
-using System.Security.Policy;
 
 namespace Civ.ObjetosEstado
 {
@@ -125,19 +124,19 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Ciudad"/> class.
+		/// Initializes a new instance of the <see cref="Civ.ObjetosEstado.Ciudad"/> class.
 		/// Usa nombre únici de ciudad
 		/// </summary>
-		/// <param name="dueño">Dueño.</param>
-		/// <param name="t">T.</param>
-		/// <param name="inipop">Inipop.</param>
+		/// <param name="dueño">Civilización dueño</param>
+		/// <param name="t">Terreno</param>
+		/// <param name="inipop">Población inicial</param>
 		public Ciudad (ICivilización dueño, Terreno t, float inipop = 1)
 			: this (Juego.NombreCiudadÚnico (), dueño, t, inipop)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Ciudad"/> class.
+		/// Initializes a new instance of the <see cref="Civ.ObjetosEstado.Ciudad"/> class.
 		/// </summary>
 		/// <param name="nombre">Nombre de la ciudad.</param>
 		/// <param name="dueño">Civ a la que pertenece esta ciudad.</param>
@@ -579,13 +578,12 @@ namespace Civ.ObjetosEstado
 			var Lst = new HashSet<Trabajo> (ObtenerListaTrabajos ());
 			var OrderLst = Lst.OrderBy (x => x.Prioridad);
 
-			//FIXME: Esto
-			/*
-			for (int i = 0; i < Lst.Count && TrabajadoresDesocupados > 0; i++)
+			foreach (var x in OrderLst)
 			{
-				Lst [i].Trabajadores = Lst [i].MaxTrabajadores;
+				x.Trabajadores = x.MaxTrabajadores;
+				if (TrabajadoresDesocupados == 0)
+					return;
 			}
-			*/
 		}
 
 		/// <summary>
@@ -883,7 +881,7 @@ namespace Civ.ObjetosEstado
 			ulong decrec = Math.Max (0, PoblacionProductiva - futProd);
 			if (decrec > TrabajadoresDesocupados)
 			{
-				CivDueño.AgregaMensaje (new IU.Mensaje (
+				CivDueño.AgregaMensaje (new Mensaje (
 					"La ciudad {0} ha perdido trabajadores productivos ocupados.",
 					new RepetidorCiudadNoPop (this),
 					this));
