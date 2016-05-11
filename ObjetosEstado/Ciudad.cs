@@ -217,7 +217,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Almacén de recursos.
 		/// </summary>
-		public IAlmacén Almacén
+		public AlmacénCiudad Almacén
 		{
 			get
 			{
@@ -225,7 +225,15 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
-		IAlmacén _almacén;
+		IAlmacén ICiudad.Almacén
+		{
+			get
+			{
+				return _almacén;
+			}
+		}
+
+		AlmacénCiudad _almacén;
 
 		public float AlimentoAlmacen
 		{ 
@@ -237,6 +245,19 @@ namespace Civ.ObjetosEstado
 			{
 				Almacén [RecursoAlimento] = value;
 			}
+		}
+
+		public ICollection<Recurso> RecursosVisibles ()
+		{
+			var ret = new HashSet<Recurso> ();
+			ret.UnionWith (Almacén.Keys);
+			ret.UnionWith (CivDueño.Almacén.Entradas);
+			ret.UnionWith (Terr.Eco.AlmacénRecursos.Recursos);
+			#if DEBUG
+			return ret;
+			#else
+			return return;
+			#endif
 		}
 
 		#endregion
@@ -749,7 +770,7 @@ namespace Civ.ObjetosEstado
 			{
 				float ret = 0;
 				// Recursos
-				foreach (var x in Almacén.Recursos)
+				foreach (var x in Almacén.Keys)
 				{
 					ret += x.Valor * Almacén [x];
 				}
@@ -951,14 +972,9 @@ namespace Civ.ObjetosEstado
 		public void DestruirRecursosTemporales ()
 		{
 			// Desaparecen algunos recursos
-			var Alm = new List<Recurso> (Almacén.Recursos);
+			var Alm = new List<Recurso> (Almacén.Keys.Where (x => x.Desaparece));
 			foreach (Recurso x in Alm)
-			{
-				if (x.Desaparece)
-				{
-					Almacén [x] = 0;
-				}
-			}
+				Almacén [x] = 0;
 
 		}
 
