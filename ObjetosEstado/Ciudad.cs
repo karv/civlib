@@ -704,13 +704,9 @@ namespace Civ.ObjetosEstado
 		public ICollection<TrabajoRAW> TrabajosAbiertos ()
 		{
 			var ret = new List<TrabajoRAW> ();
-			foreach (var x in Juego.Data.Trabajos ())
-			{
-				if (SatisfaceReq (x.Reqs ()) && ExisteEdificio (x.Edificio))
-				{
-					ret.Add (x);
-				}
-			}
+			foreach (var x in Edificios)
+				foreach (var y in x.RAW.Trabajos.Where (z => SatisfaceReq (z.Reqs())))
+					ret.Add (y);
 			return ret;
 		}
 
