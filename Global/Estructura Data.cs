@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using Civ.ObjetosEstado;
 using Civ.Topología;
+using System.IO;
 
 namespace Civ.Global
 {
@@ -192,6 +193,22 @@ namespace Civ.Global
 		public IEnumerable<EdificioRAW> ObtenerEdificiosConstruíbles (ICiudad ciudad)
 		{
 			return Edificios.Where (ciudad.PuedeConstruir);
+		}
+
+		public void ProbarIntegridadIconos ()
+		{
+			foreach (var x in Recursos)
+			{
+				if (x.Img == null)
+				{
+					System.Diagnostics.Debug.WriteLine (string.Format ("Recurso {0} con enlace a icono roto. Usando icono genérico.", 
+						x.Nombre));
+				}
+				else if (!File.Exists ("img//" + x.Img))
+					System.Diagnostics.Debug.WriteLine (string.Format (
+						"Imagen del recurso {0} Periddo",
+						x.Nombre));
+			}
 		}
 	}
 }
