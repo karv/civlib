@@ -70,6 +70,18 @@ namespace Civ.Bárbaros
 
 			IReglaGeneración usarRegla = reglas [Juego.Rnd.Next (reglas.Count)];
 			Armada ret = usarRegla.GenerarArmada ();
+
+			#if DEBUG
+			Console.WriteLine ("Ha aparecido una armada bárbara en " + ret.Posición);
+			Console.WriteLine ("Unidades");
+			foreach (var x in ret.Unidades)
+				Console.WriteLine (x);
+			Console.WriteLine (string.Format (
+				"Peso: {0}; Velocidad: {1}",
+				ret.Peso,
+				ret.Velocidad));
+			#endif
+
 			return ret;
 		}
 

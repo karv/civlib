@@ -85,7 +85,7 @@ namespace Civ.ObjetosEstado
 
 		public override string ToString ()
 		{
-			return Nombre;
+			return string.Format ("({0}) {1}", Cantidad, Nombre);
 		}
 
 		#endregion

@@ -11,6 +11,7 @@ namespace Civ.Bárbaros
 	/// <summary>
 	/// Representa una regla de generación de bárbaros
 	/// </summary>
+	[Obsolete ("Usar ReglaGeneraciónBárbaraGeneral")]
 	public class ReglaGeneraciónPuntuación : IReglaGeneración
 	{
 		/// <summary>
@@ -55,10 +56,18 @@ namespace Civ.Bárbaros
 
 			var ret = new Armada (cb, new Pseudoposición (pseudopos));
 			foreach (var x in ClaseArmada)
-			{
 				ret.AgregaUnidad (x.Item1, x.Item2);
-			}
 
+			#if DEBUG
+			Console.WriteLine ("Ha aparecido una armada bárbara en " + ret.Posición);
+			Console.WriteLine ("Unidades");
+			foreach (var x in ret.Unidades)
+				Console.WriteLine (x);
+			Console.WriteLine (string.Format (
+				"Peso: {0}; Velocidad: {1}",
+				ret.Peso,
+				ret.Velocidad));
+			#endif
 			return ret;
 		}
 

@@ -1,5 +1,4 @@
-﻿using Civ;
-using Civ.Global;
+﻿using Civ.Global;
 using System.Collections.Generic;
 using System;
 using Civ.ObjetosEstado;
