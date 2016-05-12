@@ -109,6 +109,7 @@
     <Compile Include="IU\Mensaje.cs" />
     <Compile Include="IU\NewGameOptions.cs" />
     <Compile Include="IU\Repetidor.cs" />
+    <Compile Include="Global\Cronómetro.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

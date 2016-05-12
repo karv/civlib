@@ -27,6 +27,9 @@ namespace Civ.Global
 		public GameData GData = new GameData ();
 		public GameState GState = new GameState ();
 
+		[NonSerialized]
+		public List<Cronómetro> Cronómetros = new List<Cronómetro> ();
+
 		public static GameData Data
 		{
 			get
@@ -100,6 +103,10 @@ namespace Civ.Global
 
 			// Generar bárbaros
 			BarbGen.Tick (t);
+
+			// Cronómetros
+			foreach (ITickable x in Cronómetros)
+				x.Tick ();
 		}
 
 		/// <summary>
