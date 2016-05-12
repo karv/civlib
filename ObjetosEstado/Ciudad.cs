@@ -320,6 +320,14 @@ namespace Civ.ObjetosEstado
 				if (value == null || PuedeConstruir (value))
 				{
 					EdifConstruyendo = new EdificioConstruyendo (value, this);
+					EdifConstruyendo.AlCompletar += delegate
+					{
+						CivDueño.AgregaMensaje (new Mensaje (
+							"Se terminó construcción de edificio {0} en {1}.",
+							null,
+							value.Nombre,
+							Nombre));
+					};
 					AlCambiarConstrucción?.Invoke ();
 				}
 				else
