@@ -10,6 +10,7 @@ using Civ.Topología;
 using Graficas.Grafo;
 using Graficas.Rutas;
 using Civ.ObjetosEstado;
+using System.Runtime.Serialization;
 
 namespace Civ.Global
 {
@@ -52,6 +53,12 @@ namespace Civ.Global
 			{
 				Instancia.GState = value;
 			}
+		}
+
+		[OnSerialized]
+		void Defaults ()
+		{
+			Cronómetros = new List<Cronómetro> ();
 		}
 
 		Juego ()
@@ -106,7 +113,7 @@ namespace Civ.Global
 
 			// Cronómetros
 			foreach (ITickable x in Cronómetros)
-				x.Tick ();
+				x.Tick (t);
 		}
 
 		/// <summary>
@@ -348,7 +355,7 @@ namespace Civ.Global
 		/// <param name="universo">Lista de strings que debe evitar devolver</param>
 		/// <param name="enumInicial">Número entero con el que se empieza la enumeración en caso de repetición</param>
 		static string HacerÚnico (string str,
-		                          System.Collections.Generic.ICollection<string> universo,
+		                          ICollection<string> universo,
 		                          int enumInicial = 0)
 		{
 			if (!universo.Contains (str))

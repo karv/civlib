@@ -42,6 +42,14 @@ namespace Civ.Global
 		/// </summary>
 		public bool Recurrente { get; set; }
 
+		public DateTime PróximoTick
+		{
+			get
+			{
+				return ÚltimoTick + Intervalo;
+			}
+		}
+
 		public Cronómetro ()
 		{
 			Reestablecer ();
@@ -65,8 +73,8 @@ namespace Civ.Global
 		/// <param name="t">Lapso del tick</param>
 		public void Tick (TimeSpan t)
 		{
-			AlTickAntes?.Invoke ();
-			if (_habilitado && ÚltimoTick + Intervalo >= DateTime.Now)
+			AlTickAntes?.Invoke (t);
+			if (_habilitado && PróximoTick < DateTime.Now)
 			{
 				AlLlamar?.Invoke ();
 				if (Recurrente)
@@ -74,7 +82,7 @@ namespace Civ.Global
 				else
 					Habilitado = false;
 			}
-			AlTickDespués?.Invoke ();
+			AlTickDespués?.Invoke (t);
 		}
 
 		/// <summary>
