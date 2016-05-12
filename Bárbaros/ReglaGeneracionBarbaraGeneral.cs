@@ -53,6 +53,11 @@ namespace Civ.Bárbaros
 				PuntRestante -= Cant * unid.Puntuación;
 			}
 
+			if (ret.Peso == 0)
+			{
+				ret.Eliminar ();
+				return null;
+			}
 			return ret;
 		}
 	}

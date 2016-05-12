@@ -29,7 +29,7 @@ namespace Civ.RAW
 		{
 			get
 			{
-				return Defensa;
+				return Puntuación;
 			}
 		}
 

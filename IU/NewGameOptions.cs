@@ -7,7 +7,7 @@
 	{
 		// Opciones cívicas
 		#if DEBUG
-		public long AlimentoInicial = long.MaxValue;
+		public long AlimentoInicial = 1000;
 		#else
 		public long AlimentoInicial = 100;
 		#endif

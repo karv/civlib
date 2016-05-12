@@ -11,4 +11,3 @@
 		float Puntuación { get; }
 	}
 }
-

@@ -26,7 +26,7 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public void Eliminar ()
 		{
-			if (Unidades.Count == 0)
+			if (Unidades.Count != 0)
 				throw new Exception ("No se puede desechar una armada con unidades en ella.");
 			((IDisposable)Posición).Dispose ();
 

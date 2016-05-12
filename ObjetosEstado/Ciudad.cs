@@ -779,9 +779,7 @@ namespace Civ.ObjetosEstado
 				float ret = 0;
 				// Recursos
 				foreach (var x in Almacén.Keys)
-				{
 					ret += x.Valor * Almacén [x];
-				}
 
 				// Población
 				ret += PoblacionPreProductiva * 2 + PoblacionProductiva * 3 + PoblacionPostProductiva;

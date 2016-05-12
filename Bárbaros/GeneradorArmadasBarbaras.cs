@@ -72,14 +72,21 @@ namespace Civ.Bárbaros
 			Armada ret = usarRegla.GenerarArmada ();
 
 			#if DEBUG
-			Console.WriteLine ("Ha aparecido una armada bárbara en " + ret.Posición);
-			Console.WriteLine ("Unidades");
-			foreach (var x in ret.Unidades)
-				Console.WriteLine (x);
-			Console.WriteLine (string.Format (
-				"Peso: {0}; Velocidad: {1}",
-				ret.Peso,
-				ret.Velocidad));
+			if (ret == null)
+			{
+				Console.WriteLine ("Se intentó agregar una unidad bárbara, pero la media militar es muy baja.");
+			}
+			else
+			{
+				Console.WriteLine ("Ha aparecido una armada bárbara en " + ret.Posición);
+				Console.WriteLine ("Unidades");
+				foreach (var x in ret.Unidades)
+					Console.WriteLine (x);
+				Console.WriteLine (string.Format (
+					"Peso: {0}; Velocidad: {1}",
+					ret.Peso,
+					ret.Velocidad));
+			}
 			#endif
 
 			return ret;
