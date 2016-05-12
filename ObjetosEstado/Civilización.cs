@@ -346,6 +346,10 @@ namespace Civ.ObjetosEstado
 				foreach (IPuntuado x in Avances)
 					ret += x.Puntuación;
 
+				// Armadas
+				foreach (IPuntuado x in Armadas)
+					ret += x.Puntuación;
+
 				return ret;
 			}
 		}
