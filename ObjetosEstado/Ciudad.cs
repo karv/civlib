@@ -781,6 +781,10 @@ namespace Civ.ObjetosEstado
 				foreach (var x in Almacén.Keys)
 					ret += x.Valor * Almacén [x];
 
+				//Edificios
+				foreach (IPuntuado x in Edificios)
+					ret += x.Puntuación;
+
 				// Población
 				ret += PoblacionPreProductiva * 2 + PoblacionProductiva * 3 + PoblacionPostProductiva;
 

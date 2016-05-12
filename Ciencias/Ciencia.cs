@@ -35,6 +35,10 @@ namespace Civ.Ciencias
 			// Se debe convertir en GuardedCollection cuando se lea.
 		}
 
+		#region Puntuación
+
+		float CoefPunc = 1.2f;
+
 		float IPuntuado.Puntuación
 		{
 			get
@@ -42,9 +46,11 @@ namespace Civ.Ciencias
 				var ret = 0f;
 				foreach (var x in this.Reqs.Recursos)
 					ret += x.Value * x.Key.Valor;
-				return ret * 1.2f;
+				return ret * CoefPunc;
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Nombre de la ciencia;

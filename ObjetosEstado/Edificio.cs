@@ -8,7 +8,7 @@ namespace Civ.ObjetosEstado
 	/// Representa una instancia de edificio en una ciudad.
 	/// </summary>
 	[Serializable]
-	public class Edificio : ITickable
+	public class Edificio : ITickable, IPuntuado
 	{
 		#region General
 
@@ -177,6 +177,25 @@ namespace Civ.ObjetosEstado
 					return x;
 			}
 			return new Trabajo (trabajo, this);
+		}
+
+		#endregion
+
+		#region Puntuado
+
+		const float CoefPunt = 1.1f;
+
+		float IPuntuado.Puntuación
+		{
+			get
+			{
+				var ret = 0f;
+				foreach (var x in RAW.ReqRecursos)
+				{
+					ret += x.Key.Valor * x.Value;
+				}
+				return ret * CoefPunt;
+			}
 		}
 
 		#endregion
