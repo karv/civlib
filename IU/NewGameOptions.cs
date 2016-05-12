@@ -6,7 +6,11 @@
 	public class NewGameOptions
 	{
 		// Opciones cívicas
+		#if DEBUG
+		public long AlimentoInicial = long.MaxValue;
+		#else
 		public long AlimentoInicial = 100;
+		#endif
 		public int PoblacionInicial = 10;
 
 		public float MaxPesoInicial = 10;
