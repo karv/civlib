@@ -89,7 +89,13 @@ namespace Civ.RAW
 
 		public ulong MaxReclutables (ICiudad ciudad)
 		{
-			ulong MaxPorPoblacion = ciudad.TrabajadoresDesocupados / CostePoblación;
+			ulong MaxPorPoblación;
+			if (CostePoblación != 0)
+				MaxPorPoblación = ciudad.TrabajadoresDesocupados / CostePoblación;
+			else
+			{
+				MaxPorPoblación = ulong.MaxValue;
+			}
 
 			ulong MaxPorRecursos = ulong.MaxValue;
 			foreach (var x in _Reqs)
@@ -99,7 +105,7 @@ namespace Civ.RAW
 					ciudad.Almacén [x.Key] / x.Value);
 			}
 
-			return Math.Min (MaxPorRecursos, MaxPorPoblacion);
+			return Math.Min (MaxPorRecursos, MaxPorPoblación);
 		}
 
 		/// <summary>
