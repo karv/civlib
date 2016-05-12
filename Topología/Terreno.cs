@@ -13,7 +13,6 @@ namespace Civ.Topología
 	/// <summary>
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
-	[DataContract]
 	[Serializable]
 	public class Terreno: ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
 	{
