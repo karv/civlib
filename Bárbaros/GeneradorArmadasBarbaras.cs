@@ -3,6 +3,8 @@ using Civ.Global;
 using System.Collections.Generic;
 using System.Linq;
 using Civ.ObjetosEstado;
+using Civ.Orden;
+using ListasExtra.Extensiones;
 
 namespace Civ.Bárbaros
 {
@@ -86,10 +88,19 @@ namespace Civ.Bárbaros
 					"Peso: {0}; Velocidad: {1}",
 					ret.Peso,
 					ret.Velocidad));
+
+				// Órdenes
+				DarOrden (ret);
 			}
 			#endif
 
 			return ret;
+		}
+
+		static void DarOrden (Armada arm)
+		{
+			var destino = Juego.State.CiudadesExistentes ().Aleatorio ();
+			arm.Orden = new OrdenIrALugar (arm, destino.Posición ());
 		}
 
 		/// <summary>

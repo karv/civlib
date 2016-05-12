@@ -11,6 +11,7 @@ using Graficas.Grafo;
 using Graficas.Rutas;
 using Civ.ObjetosEstado;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace Civ.Global
 {
@@ -126,6 +127,15 @@ namespace Civ.Global
 				if (x.Ciudades.Count == 0)
 					GState.Civs.Remove (x);
 			}
+		}
+
+		/// <summary>
+		/// Devuelve las armadas bárbaras.
+		/// Inseguro al anidar ciclos
+		/// </summary>
+		static IEnumerable<Armada> ArmadasBárbaras ()
+		{
+			return State.ArmadasExistentes ().Where (z => z.CivDueño.EsBárbaro);
 		}
 
 		#region IO

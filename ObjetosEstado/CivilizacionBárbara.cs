@@ -15,6 +15,14 @@ namespace Civ.ObjetosEstado
 			Armadas = new HashSet<Armada> ();
 		}
 
+		public bool EsBárbaro
+		{
+			get
+			{
+				return true;
+			}
+		}
+
 		float ICivilización.MaxPeso
 
 		{ get { return float.PositiveInfinity; } }

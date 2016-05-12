@@ -25,6 +25,14 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		bool ICivilización.EsBárbaro
+		{
+			get
+			{
+				return false;
+			}
+		}
+
 		string _nombre;
 
 		/// <summary>

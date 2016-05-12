@@ -117,7 +117,7 @@ namespace Civ.ObjetosEstado
 			if (!CivDueño.Diplomacia.PermitePaso (arm))
 			{
 				arm.Orden = new OrdenEstacionado ();
-				arm.CivDueño.AgregaMensaje (new IU.Mensaje (
+				arm.CivDueño.AgregaMensaje (new Mensaje (
 					"Nuestra Armada {0} detenida por armada {1} de {2} en {3}",
 					new RepetidorArmadaDestino (arm),
 					this,

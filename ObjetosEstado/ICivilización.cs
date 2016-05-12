@@ -54,6 +54,11 @@ namespace Civ
 		/// <param name="mensaje">Mensaje.</param>
 		void AgregaMensaje (IU.Mensaje mensaje);
 
+		/// <summary>
+		/// Devuelve si esta civilización está marcada como bárbara
+		/// </summary>
+		bool EsBárbaro { get; }
+
 		#region Armadas
 
 		float MaxPeso { get; }
