@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Civ.ObjetosEstado;
 using Civ.Global;
-using Civ.RAW;
 
 namespace Civ.Ciencias
 {
@@ -10,7 +9,7 @@ namespace Civ.Ciencias
 	/// Representa un adelanto científico.
 	/// </summary>
 	[Serializable]
-	public class Ciencia : IRequerimiento<ICiudad>
+	public class Ciencia : IRequerimiento<ICiudad>, IPuntuado
 	{
 		[Serializable]
 		public class Requerimiento
@@ -34,6 +33,17 @@ namespace Civ.Ciencias
 			/// </summary>
 			public ICollection< Ciencia> Ciencias = new HashSet<Ciencia> ();
 			// Se debe convertir en GuardedCollection cuando se lea.
+		}
+
+		float IPuntuado.Puntuación
+		{
+			get
+			{
+				var ret = 0f;
+				foreach (var x in this.Reqs.Recursos)
+					ret += x.Value * x.Key.Valor;
+				return ret * 1.2f;
+			}
 		}
 
 		/// <summary>

@@ -339,12 +339,12 @@ namespace Civ.ObjetosEstado
 
 				// De las ciudades
 				foreach (IPuntuado x in Ciudades)
-				{
 					ret += x.Puntuación;
-				}
+
 
 				// De las ciencias
-				ret += 100 * Avances.Count;
+				foreach (IPuntuado x in Avances)
+					ret += x.Puntuación;
 
 				return ret;
 			}
