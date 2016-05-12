@@ -251,7 +251,7 @@ namespace Civ.Global
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine ("No se puede guardar archivo de estadod de juego. Desconocido");
+				Console.WriteLine ("No se puede guardar archivo de estado de juego. Desconocido");
 				Console.WriteLine (ex.Message);
 			}
 			finally

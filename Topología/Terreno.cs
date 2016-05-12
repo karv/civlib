@@ -28,9 +28,14 @@ namespace Civ.Topología
 			Juego.State.Mapa.AgregaPunto (this);
 			Random r = Juego.Rnd;
 
+			#if DEBUG
+			Nombre = ecosistema.Nombre + "\\" + ecosistema.Nombres.Elegir () + "\\";
+			#else
 			Nombre = ecosistema.Nombres.Elegir ();
+			#endif
 
-			Nombre = r.Next (10000).ToString ();
+
+			Nombre += r.Next (10000).ToString ();
 			Eco = new Ecología ();
 
 			foreach (var x in ecosistema.PropPropiedad.Keys)
