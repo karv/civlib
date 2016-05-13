@@ -91,6 +91,8 @@ namespace Civ.Bárbaros
 
 				// Órdenes
 				DarOrden (ret);
+				var ord = ret.Orden as OrdenIrALugar;
+				Console.WriteLine ("Tiempo estimado: " + ord.TiempoEstimado);
 			}
 			#endif
 

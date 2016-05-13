@@ -3,6 +3,7 @@ using Civ.Global;
 using System;
 using Civ.Topología;
 using Civ.ObjetosEstado;
+using Graficas.Rutas;
 
 namespace Civ.Orden
 {
@@ -38,6 +39,15 @@ namespace Civ.Orden
 			//var rutaIntermedia = Juego.State.Rutas.CaminoÓptimo (origen.A, destino.A);
 			//Ruta.Concat (rutaIntermedia);
 			//Ruta.ConcatFinal (destino);
+		}
+
+		public TimeSpan TiempoEstimado
+		{
+			get
+			{
+				var fl = Ruta.Longitud / ArmadaEjecutante.Velocidad;
+				return TimeSpan.FromHours (fl);
+			}
 		}
 
 		public event Action AlLlegar;
