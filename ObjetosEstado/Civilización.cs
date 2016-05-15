@@ -89,6 +89,13 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public AlmacénCiv Almacén { get; }
 
+		public void Destruirse ()
+		{
+			Juego.State.Civs.Remove (this);
+			foreach (var x in Armadas)
+				((IDisposable)x.Posición).Dispose ();
+		}
+
 		#endregion
 
 		#region General

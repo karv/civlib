@@ -17,7 +17,7 @@
 
 		// Topología
 		public int NumTerrenos = 50;
-		public int NumCivs = 10;
+		public int NumCivs = 1;
 
 		/// <summary>
 		/// Probabilidad de que dos territorios sean vecinos.

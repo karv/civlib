@@ -181,6 +181,7 @@ namespace Civ.ObjetosEstado
 
 		public void FueAtacado (IAnálisisCombate anal)
 		{
+			ArmadaPerteneciente.FueAtacado (anal);
 			AlSerAtacado?.Invoke (anal);
 		}
 

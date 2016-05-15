@@ -58,7 +58,10 @@ namespace Civ.Bárbaros
 				ret.Eliminar ();
 				return null;
 			}
+			Juego.Instancia.GState.Civs.Add (cb);
+
 			return ret;
 		}
+
 	}
 }

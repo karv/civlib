@@ -91,13 +91,25 @@ namespace Civ.Bárbaros
 
 				// Órdenes
 				DarOrden (ret);
+				#if DEBUG
 				var ord = ret.Orden as OrdenIrALugar;
 				Console.WriteLine ("Tiempo estimado: " + ord.TiempoEstimado);
+
+				ord.AlLlegar += AlLlegar;
+				#endif
 			}
 			#endif
 
 			return ret;
 		}
+
+		#if DEBUG
+		static void AlLlegar ()
+		{
+			Console.WriteLine ("Llegué");
+		}
+
+		#endif
 
 		static void DarOrden (Armada arm)
 		{

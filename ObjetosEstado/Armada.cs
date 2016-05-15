@@ -272,6 +272,8 @@ namespace Civ.ObjetosEstado
 		public void QuitarUnidad (Stack stack)
 		{
 			_unidades.Remove (stack.RAW);
+			if (_unidades.Any ())
+				AlVaciarse?.Invoke ();
 		}
 
 		/// <summary>
@@ -298,6 +300,15 @@ namespace Civ.ObjetosEstado
 					ret += s.Vitalidad;
 				}
 				return ret;
+			}
+		}
+
+		public void FueAtacado (IAnálisisCombate anal)
+		{
+			if (!Unidades.Any ())
+			{
+				AlVaciarse?.Invoke ();
+				AlSerDestruido?.Invoke (anal);
 			}
 		}
 
@@ -452,6 +463,23 @@ namespace Civ.ObjetosEstado
 			}
 			return DefÓptimo;
 		}
+
+		#endregion
+
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre cuando esta armada se vacía.
+		/// </summary>
+		public event Action AlVaciarse;
+
+		/// <summary>
+		/// Ocurre cuando la armada queda vacía por un combate.
+		/// </summary>
+		/// <remarks>
+		/// Su argumento es la última iteración de su combate.
+		/// </remarks>
+		public event Action<IAnálisisCombate> AlSerDestruido;
 
 		#endregion
 	}

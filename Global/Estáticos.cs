@@ -12,6 +12,7 @@ using Graficas.Rutas;
 using Civ.ObjetosEstado;
 using System.Runtime.Serialization;
 using System.Linq;
+using Store;
 
 namespace Civ.Global
 {
@@ -73,7 +74,7 @@ namespace Civ.Global
 			{
 				Civ.Tick (t);
 			}
-
+				
 			// Ticks de terreno
 			foreach (var x in GState.Topología.Nodos)
 			{
@@ -124,8 +125,8 @@ namespace Civ.Global
 		{
 			foreach (var x in GState.CivsVivas())
 			{
-				if (x.Ciudades.Count == 0)
-					GState.Civs.Remove (x);
+				if (!x.Ciudades.Any () && !x.Armadas.Any ())
+					x.Destruirse ();
 			}
 		}
 
