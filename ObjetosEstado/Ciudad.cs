@@ -158,7 +158,7 @@ namespace Civ.ObjetosEstado
 
 			// Inicializar la armada
 			_defensa = new Armada (this, true);
-			Defensa.Posición.FromGrafica (terreno);
+			Defensa.Posición.DesdeGrafo (terreno);
 
 			// Importar propiedades desde T.
 

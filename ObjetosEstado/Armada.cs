@@ -85,7 +85,7 @@ namespace Civ.ObjetosEstado
 		{
 			CivDueño = civilizacion;
 			EsDefensa = false;
-			Posición = posición.Clonar (this);
+			Posición = new Pseudoposición (posición);
 			civilizacion.Armadas.Add (this);
 
 			posición.AlColisionar += Posición_AlColisionar;
