@@ -12,7 +12,6 @@ using Graficas.Rutas;
 using Civ.ObjetosEstado;
 using System.Runtime.Serialization;
 using System.Linq;
-using Store;
 
 namespace Civ.Global
 {
@@ -170,7 +169,7 @@ namespace Civ.Global
 
 			// Hacer la topolog�a
 			var Terrenos = new List<Terreno> ();
-			GState.Topología = new Grafo<Terreno, float> ();
+			GState.Topología = new Grafo<Terreno, float> (true);
 			GState.Mapa = new Mapa (GState.Topología);
 
 			Terreno T;
