@@ -114,6 +114,10 @@ namespace Civ.ObjetosEstado
 		void Posición_AlColisionar (Graficas.Continuo.Continuo<Terreno>.ContinuoPunto obj)
 		{
 			var arm = (obj as Pseudoposición)?.Objeto as Armada;
+
+			if (arm == null) // No hacer nada si colisionó con algo que no es Armada.
+				return;
+			
 			if (!CivDueño.Diplomacia.PermitePaso (arm))
 			{
 				arm.Orden = new OrdenEstacionado ();
