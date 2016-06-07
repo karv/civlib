@@ -18,7 +18,7 @@ namespace Civ.Global
 		/// <summary>
 		/// La topología del mundo.
 		/// </summary>
-		public Grafo<Terreno> Topología;
+		public Grafo<Terreno, float> Topología;
 
 		/// <summary>
 		/// Conjunto de rutas óptimas para Topología.
@@ -48,8 +48,7 @@ namespace Civ.Global
 		{
 			Civs = new List<ICivilización> ();
 			Drops = new List<DropStack> ();
-			Topología = new Grafo<Terreno> ();
-			Topología.EsSimétrico = true;
+			Topología = new Grafo<Terreno, float> (true);
 		}
 
 		/// <summary>

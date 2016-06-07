@@ -169,7 +169,7 @@ namespace Civ.Global
 
 			// Hacer la topolog�a
 			var Terrenos = new List<Terreno> ();
-			GState.Topología = new Grafo<Terreno> ();
+			GState.Topología = new Grafo<Terreno, float> ();
 			GState.Mapa = new Mapa (GState.Topología);
 
 			Terreno T;
@@ -302,7 +302,6 @@ namespace Civ.Global
 					}
 				}
 			}
-			GState.Topología.EsSimétrico = true;
 		}
 
 		#region Unicidad de nombres

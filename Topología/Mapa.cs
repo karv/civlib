@@ -12,11 +12,9 @@ namespace Civ.Topología
 		{
 		}
 
-		public Mapa (ILecturaGrafoPeso<Terreno> grafica)
+		public Mapa (Grafo<Terreno, float> grafica)
 			: base (grafica)
 		{
 		}
-
-
 	}
 }
