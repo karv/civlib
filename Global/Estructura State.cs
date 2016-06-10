@@ -48,7 +48,7 @@ namespace Civ.Global
 		{
 			Civs = new List<ICivilización> ();
 			Drops = new List<DropStack> ();
-			Topología = new Grafo<Terreno, float> (true);
+			//Topología = new Grafo<Terreno, float> (true);
 		}
 
 		/// <summary>

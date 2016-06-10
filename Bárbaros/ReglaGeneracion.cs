@@ -49,7 +49,7 @@ namespace Civ.Bárbaros
 			var cb = new CivilizacionBárbara ();
 
 			var ppos = new List<Terreno> (_estado.Topología.Nodos);
-			var pos = ppos [Juego.Rnd.Next (ppos.Count)];
+			var pos = ppos [HerrGlobal.Rnd.Next (ppos.Count)];
 			var pseudopos = new Continuo<Terreno>.ContinuoPunto (
 				                Juego.State.Mapa,
 				                pos);

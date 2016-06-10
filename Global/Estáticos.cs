@@ -4,7 +4,7 @@ using Civ;
 using Civ.Options;
 using Civ.Bárbaros;
 using System.IO;
-using Basic;
+using Civ.Global;
 using ListasExtra.Extensiones;
 using Civ.Topología;
 using Graficas.Grafo;
@@ -12,9 +12,15 @@ using Graficas.Rutas;
 using Civ.ObjetosEstado;
 using System.Runtime.Serialization;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Civ.Global
 {
+	public static class HerrGlobal
+	{
+		public static Random Rnd = new Random ();
+	}
+
 	/// <summary>
 	/// Los objetos globales.
 	/// </summary>	
@@ -154,11 +160,6 @@ namespace Civ.Global
 		#endregion
 
 		/// <summary>
-		/// Un Random compartido
-		/// </summary>
-		public static Random Rnd = new Random ();
-
-		/// <summary>
 		/// Inicializa el g_State, a partir de el g_Data.
 		/// Usarse cuando se quiera iniciar un juego.
 		/// </summary>
@@ -169,24 +170,36 @@ namespace Civ.Global
 
 			// Hacer la topolog�a
 			var Terrenos = new List<Terreno> ();
-			GState.Topología = new Grafo<Terreno, float> (true);
-			GState.Mapa = new Mapa (GState.Topología);
+			var Ecos = new List<Ecosistema> ();
 
 			Terreno T;
 			Ecosistema Eco;
 			Civilización C;
 			Ciudad Cd;
 
+
+
 			for (int i = 0; i < PrefsJuegoNuevo.NumTerrenos; i++)
 			{
 				Eco = GData.Ecosistemas.Elegir ();
+				Ecos.Add (Eco);
 				T = new Terreno (Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add (T);
 				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());
 			}
 
 			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
+			Debug.WriteLine ("Construyendo topología");
+			GState.Topología = new Grafo<Terreno, float> (Terrenos, true);
 			ConstruirTopología (Terrenos);
+			Debug.WriteLine ("Construyendo mapa");
+			GState.Mapa = new Mapa (GState.Topología);
+
+			// REMARK: Hay una razón para que esto esté después de construir el mapa.
+			foreach (var x in Terrenos)
+				x.AsignarPosición ();
+
+
 			/*
 			// Vaciar la topolog�a en cada Terreno
 			foreach (var x in State.Topologia.Nodos)
@@ -203,7 +216,7 @@ namespace Civ.Global
 			{
 				C = new Civilización ();
 
-				T = Terrs.Aleatorio (Rnd);
+				T = Terrs.Aleatorio (HerrGlobal.Rnd);
 				Terrs.Remove (T);
 
 				Cd = new Ciudad (C, T, PrefsJuegoNuevo.PoblacionInicial);
@@ -213,7 +226,9 @@ namespace Civ.Global
 			}
 
 			// Construir las rutas óptimas
-			GState.Rutas = new ConjuntoRutasÓptimas<Terreno> (GState.Topología);
+			GState.Rutas = new ConjuntoRutasÓptimas<Terreno> ();
+			Debug.WriteLine ("Optimizar rutas");
+			GState.Rutas.Calcular (GState.Topología);
 
 			// Incluir el alimento inicial en cada ciudad
 			foreach (var c in GState.CiudadesExistentes())
@@ -295,10 +310,10 @@ namespace Civ.Global
 			{
 				foreach (var y in new List<Terreno> (lista)) // Evitar múltiples enumeraciones de lista
 				{
-					if (Rnd.NextDouble () < PrefsJuegoNuevo.Compacidad)
+					if (HerrGlobal.Rnd.NextDouble () < PrefsJuegoNuevo.Compacidad)
 					{
 						GState.Topología [x, y] =
-							PrefsJuegoNuevo.MinDistNodos + (float)Rnd.NextDouble () * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos);
+							PrefsJuegoNuevo.MinDistNodos + (float)HerrGlobal.Rnd.NextDouble () * (PrefsJuegoNuevo.MaxDistNodos - PrefsJuegoNuevo.MinDistNodos);
 					}
 				}
 			}
@@ -324,7 +339,7 @@ namespace Civ.Global
 			}
 			read.Dispose ();
 
-			string baseNombre = nombres [Rnd.Next (nombres.Count)];
+			string baseNombre = nombres [HerrGlobal.Rnd.Next (nombres.Count)];
 			return baseNombre;
 		}
 

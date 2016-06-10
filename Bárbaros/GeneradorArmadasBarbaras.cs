@@ -52,7 +52,7 @@ namespace Civ.Bárbaros
 			// Densidad:  F(x) = lambda * e ^(-lambda * x)
 			// Esperanza  E(X) = 1/lambda = c
 			double Probabilidad = 1 - Math.Exp (-lambda * (float)t.TotalHours);
-			return Juego.Rnd.NextDouble () < Probabilidad;
+			return HerrGlobal.Rnd.NextDouble () < Probabilidad;
 		}
 
 		/// <summary>
@@ -70,7 +70,7 @@ namespace Civ.Bárbaros
 			}
 			
 
-			IReglaGeneración usarRegla = reglas [Juego.Rnd.Next (reglas.Count)];
+			IReglaGeneración usarRegla = reglas [HerrGlobal.Rnd.Next (reglas.Count)];
 			Armada ret = usarRegla.GenerarArmada ();
 
 			#if DEBUG

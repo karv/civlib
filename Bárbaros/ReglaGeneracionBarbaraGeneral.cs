@@ -38,13 +38,13 @@ namespace Civ.Bárbaros
 			var cb = new CivilizacionBárbara ();
 
 			var ppos = new List<Terreno> (_estado.Topología.Nodos);
-			var pos = ppos [Juego.Rnd.Next (ppos.Count)];
+			var pos = ppos [HerrGlobal.Rnd.Next (ppos.Count)];
 
 			var ret = new Armada (cb, pos.Pos);
 
 			while (Unidades.Count > 0 && PuntRestante >= 0)
 			{
-				var unid = Unidades [Juego.Rnd.Next (Unidades.Count)];
+				var unid = Unidades [HerrGlobal.Rnd.Next (Unidades.Count)];
 				Unidades.Remove (unid);
 				ulong Cant = (ulong)(PuntRestante / unid.Puntuación);
 				if (Cant <= 0)

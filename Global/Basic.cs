@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Basic
+namespace Civ.Global
 {
 	[Obsolete ("Usar el par de ListaExtras")]
 	public struct Par<T1, T2>

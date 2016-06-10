@@ -6,7 +6,6 @@ using Civ.Combate;
 using Civ.Orden;
 using Civ.Global;
 using Civ;
-using Basic;
 using Civ.RAW;
 using Civ.Topología;
 using Civ.IU;
