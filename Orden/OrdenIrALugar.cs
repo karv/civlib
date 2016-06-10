@@ -3,6 +3,7 @@ using Civ.Global;
 using System;
 using Civ.Topología;
 using Civ.ObjetosEstado;
+using Graficas.Grafo;
 
 namespace Civ.Orden
 {
@@ -13,12 +14,12 @@ namespace Civ.Orden
 		{
 			var avance = (float)t.TotalHours * ArmadaEjecutante.Velocidad;
 
-			ArmadaEjecutante.Posición.AvanzarHacia (Ruta, avance);
 			if (ArmadaEjecutante.Posición.Equals (Ruta.NodoFinal))
 			{
 				AlLlegar?.Invoke ();
 				return true;
 			}
+			ArmadaEjecutante.Posición.AvanzarHacia (Ruta, avance);
 			return false;
 		}
 
