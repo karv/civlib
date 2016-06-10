@@ -12,7 +12,7 @@ namespace Civ.Combate
 		{
 			get
 			{
-				return Juego.Rnd;
+				return HerrGlobal.Rnd;
 			}
 		}
 

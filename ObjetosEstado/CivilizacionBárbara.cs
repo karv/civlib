@@ -3,6 +3,7 @@ using System;
 using Civ.Almacén;
 using Civ.RAW;
 using Civ.Ciencias;
+using Civ.Global;
 
 namespace Civ.ObjetosEstado
 {
@@ -87,6 +88,15 @@ namespace Civ.ObjetosEstado
 		void ITickable.Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
+
+			foreach (var x in new List<Armada> (Armadas))
+			{
+				x.Tick (t);
+				if (x.Peso > 63253)
+				{
+					Console.WriteLine ("Wat?");
+				}
+			}
 			AlTickDespués?.Invoke (t);
 		}
 
@@ -104,6 +114,13 @@ namespace Civ.ObjetosEstado
 			{
 				return null;
 			}
+		}
+
+		public void Destruirse ()
+		{
+			Juego.State.Civs.Remove (this);
+			foreach (var x in Armadas)
+				((IDisposable)x.Posición).Dispose ();
 		}
 
 		/// <summary>

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Civ.Global;
 using Civ.RAW;
-using Basic;
-using System.Runtime.Serialization;
+using Civ.Global;
 using Civ.ObjetosEstado;
-using ListasExtra;
-using System.Runtime.Remoting.Messaging;
 
 namespace Civ.Topología
 {
@@ -16,26 +12,22 @@ namespace Civ.Topología
 	[Serializable]
 	public class Terreno: ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
 	{
-		public Pseudoposición Pos { get; }
+		public Pseudoposición Pos { get; private set; }
+
+		public Ecosistema Ecosistema { get; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Terreno"/> class.
+		/// Initializes a new instance of the <see cref="Civ.Topología.Terreno"/> class.
 		/// </summary>
 		/// <param name="ecosistema">Ecología a usar para crear el terreno.</param>
 		public Terreno (Ecosistema ecosistema)
 			: this ()
 		{
-			Juego.State.Mapa.AgregaPunto (this);
-			Random r = Juego.Rnd;
+			Ecosistema = ecosistema;
+			Random r = HerrGlobal.Rnd;
 
-			#if DEBUG
-			Nombre = ecosistema.Nombre + "\\" + ecosistema.Nombres.Elegir () + "\\";
-			#else
-			Nombre = ecosistema.Nombres.Elegir ();
-			#endif
+			GenerarNombre ();
 
-
-			Nombre += r.Next (10000).ToString ();
 			Eco = new Ecología ();
 
 			foreach (var x in ecosistema.PropPropiedad.Keys)
@@ -51,7 +43,23 @@ namespace Civ.Topología
 
 		Terreno ()
 		{
+		}
+
+		void GenerarNombre ()
+		{
+			var r = HerrGlobal.Rnd;
+			#if DEBUG
+			Nombre = Ecosistema.Nombre + "\\" + Ecosistema.Nombres.Elegir () + "\\";
+			#else
+			Nombre = ecosistema.Nombres.Elegir ();
+			#endif
+			Nombre += r.Next (10000).ToString ();
+		}
+
+		public void AsignarPosición ()
+		{
 			Pos = new Pseudoposición (Juego.State.Mapa.PuntoFijo (this));
+			//Pos = Juego.State.Mapa.AgregaPunto (this);
 		}
 
 		#region IPosicionable implementation

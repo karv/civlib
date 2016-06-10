@@ -6,7 +6,6 @@ using Civ.Combate;
 using Civ.Orden;
 using Civ.Global;
 using Civ;
-using Basic;
 using Civ.RAW;
 using Civ.Topología;
 using Civ.IU;
@@ -85,7 +84,7 @@ namespace Civ.ObjetosEstado
 		{
 			CivDueño = civilizacion;
 			EsDefensa = false;
-			Posición = posición.Clonar (this);
+			Posición = new Pseudoposición (posición);
 			civilizacion.Armadas.Add (this);
 
 			posición.AlColisionar += Posición_AlColisionar;
@@ -114,6 +113,10 @@ namespace Civ.ObjetosEstado
 		void Posición_AlColisionar (Graficas.Continuo.Continuo<Terreno>.ContinuoPunto obj)
 		{
 			var arm = (obj as Pseudoposición)?.Objeto as Armada;
+
+			if (arm == null) // No hacer nada si colisionó con algo que no es Armada.
+				return;
+			
 			if (!CivDueño.Diplomacia.PermitePaso (arm))
 			{
 				arm.Orden = new OrdenEstacionado ();
@@ -272,6 +275,8 @@ namespace Civ.ObjetosEstado
 		public void QuitarUnidad (Stack stack)
 		{
 			_unidades.Remove (stack.RAW);
+			if (_unidades.Any ())
+				AlVaciarse?.Invoke ();
 		}
 
 		/// <summary>
@@ -298,6 +303,15 @@ namespace Civ.ObjetosEstado
 					ret += s.Vitalidad;
 				}
 				return ret;
+			}
+		}
+
+		public void FueAtacado (IAnálisisCombate anal)
+		{
+			if (!Unidades.Any ())
+			{
+				AlVaciarse?.Invoke ();
+				AlSerDestruido?.Invoke (anal);
 			}
 		}
 
@@ -452,6 +466,23 @@ namespace Civ.ObjetosEstado
 			}
 			return DefÓptimo;
 		}
+
+		#endregion
+
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre cuando esta armada se vacía.
+		/// </summary>
+		public event Action AlVaciarse;
+
+		/// <summary>
+		/// Ocurre cuando la armada queda vacía por un combate.
+		/// </summary>
+		/// <remarks>
+		/// Su argumento es la última iteración de su combate.
+		/// </remarks>
+		public event Action<IAnálisisCombate> AlSerDestruido;
 
 		#endregion
 	}

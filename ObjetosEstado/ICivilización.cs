@@ -64,6 +64,11 @@ namespace Civ
 		float MaxPeso { get; }
 
 		#endregion
+
+		/// <summary>
+		/// Elimina esta civilización del juego
+		/// </summary>
+		void Destruirse ();
 	}
 
 	public static class CivExt

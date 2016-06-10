@@ -22,22 +22,18 @@ namespace Civ.Topología
 			Loc = p.Loc;
 		}
 
-		public Pseudoposición (Continuo<Terreno>.ContinuoPunto p,
-		                       IPosicionable obj = null)
-			: base (Juego.State.Mapa)
+		public Pseudoposición (Continuo<Terreno>.ContinuoPunto p)
+			: base (Juego.State.Mapa, p.A, p.B, p.Loc)
 		{
-			A = p.A;
-			B = p.B;
-			Loc = p.Loc;
-			Objeto = obj;
-			//p.Remove ();
+			Objeto = null;
 		}
-
+		/*
 		public Pseudoposición ()
 			: base (Juego.State.Mapa)
 		{
 			Objeto = null;
 		}
+		*/
 
 		/// <summary>
 		/// Objeto en esta posición
@@ -127,12 +123,7 @@ namespace Civ.Topología
 		/// </summary>
 		public Pseudoposición Clonar (IPosicionable p)
 		{
-			var ret = new Pseudoposición (this, p);
-			ret.A = A;
-			ret.B = B;
-			ret.Loc = Loc;
-
-			return ret;
+			return new Pseudoposición (p);
 		}
 
 		#endregion
