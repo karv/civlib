@@ -48,7 +48,7 @@ namespace Civ.Global
 		}
 
 		[NonSerialized]
-		readonly Cronómetro _cronoAutoguardado = new Cronómetro ();
+		Cronómetro _cronoAutoguardado;
 
 		public TimeSpan Autoguardado
 		{
@@ -112,6 +112,7 @@ namespace Civ.Global
 		void Defaults ()
 		{
 			Cronómetros = new HashSet<Cronómetro> ();
+			_cronoAutoguardado = new Cronómetro ();
 			_cronoAutoguardado.AlLlamar += EjecutarAutoguardado;
 		}
 
