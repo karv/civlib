@@ -40,8 +40,35 @@ namespace Civ.Global
 			}
 			set
 			{
-				AlCambiarEstadoPausa?.Invoke ();
 				_pausado = value;
+				AlCambiarEstadoPausa?.Invoke ();
+			}
+		}
+
+		[NonSerialized]
+		readonly Cronómetro _cronoAutoguardado = new Cronómetro ();
+
+		public TimeSpan Autoguardado
+		{
+			get
+			{
+				return _cronoAutoguardado.Intervalo;
+			}
+			set
+			{
+				if (value != TimeSpan.Zero)
+				{
+					_cronoAutoguardado.Intervalo = value;
+					_cronoAutoguardado.Reestablecer ();
+					_cronoAutoguardado.Habilitado = true;
+					Cronómetros.Add (_cronoAutoguardado);
+				}
+				else
+				{
+					Cronómetros.Remove (_cronoAutoguardado);
+					_cronoAutoguardado.Habilitado = false;
+					_cronoAutoguardado.Intervalo = TimeSpan.Zero;
+				}
 			}
 		}
 
@@ -51,8 +78,9 @@ namespace Civ.Global
 		public GameData GData = new GameData ();
 		public GameState GState = new GameState ();
 
+		// Es hashset porque no quiero repeticiones
 		[NonSerialized]
-		public List<Cronómetro> Cronómetros = new List<Cronómetro> ();
+		public HashSet<Cronómetro> Cronómetros = new HashSet<Cronómetro> ();
 
 		public static GameData Data
 		{
@@ -81,7 +109,7 @@ namespace Civ.Global
 		[OnSerialized]
 		void Defaults ()
 		{
-			Cronómetros = new List<Cronómetro> ();
+			Cronómetros = new HashSet<Cronómetro> ();
 			Pausado = false;
 		}
 
