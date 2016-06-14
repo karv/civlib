@@ -30,13 +30,59 @@ namespace Civ.Global
 		public static Juego Instancia = new Juego ();
 
 		[NonSerialized]
+		bool _pausado;
+
+		public bool Pausado
+		{
+			get
+			{
+				return _pausado;
+			}
+			set
+			{
+				_pausado = value;
+				if (!value)
+					timer = DateTime.Now; // Al despausar se reestablece el timer
+				AlCambiarEstadoPausa?.Invoke ();
+			}
+		}
+
+		[NonSerialized]
+		Cronómetro _cronoAutoguardado;
+
+		public TimeSpan Autoguardado
+		{
+			get
+			{
+				return _cronoAutoguardado.Intervalo;
+			}
+			set
+			{
+				if (value != TimeSpan.Zero)
+				{
+					_cronoAutoguardado.Intervalo = value;
+					_cronoAutoguardado.Reestablecer ();
+					_cronoAutoguardado.Habilitado = true;
+					Cronómetros.Add (_cronoAutoguardado);
+				}
+				else
+				{
+					Cronómetros.Remove (_cronoAutoguardado);
+					_cronoAutoguardado.Habilitado = false;
+					_cronoAutoguardado.Intervalo = TimeSpan.Zero;
+				}
+			}
+		}
+
+		[NonSerialized]
 		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
 		public GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
 		public GameData GData = new GameData ();
 		public GameState GState = new GameState ();
 
+		// Es hashset porque no quiero repeticiones
 		[NonSerialized]
-		public List<Cronómetro> Cronómetros = new List<Cronómetro> ();
+		public HashSet<Cronómetro> Cronómetros;
 
 		public static GameData Data
 		{
@@ -65,16 +111,36 @@ namespace Civ.Global
 		[OnSerialized]
 		void Defaults ()
 		{
-			Cronómetros = new List<Cronómetro> ();
+			Cronómetros = new HashSet<Cronómetro> ();
+			_cronoAutoguardado = new Cronómetro ();
+			_cronoAutoguardado.AlLlamar += EjecutarAutoguardado;
 		}
 
 		Juego ()
 		{
 			BarbGen.Reglas.Add (new ReglaGeneracionBarbaraGeneral ());
+			Defaults ();
+		}
+
+		public void EjecutarAutoguardado ()
+		{
+			const string file_output = "auto.sav";
+			Debug.WriteLine ("Iniciando autoguardado", "autosave");
+			Pausado = true;
+			GState.Guardar (file_output);
+			Pausado = false;
+			Debug.WriteLine ("Autoguardado exitoso en " + file_output, "autosave");
 		}
 
 		public void Tick (TimeSpan t)
 		{
+			// Cronómetros
+			foreach (ITickable x in Cronómetros)
+				x.Tick (t);
+			
+			if (Pausado) // Si está pausado no hacer nada
+				return;
+			
 			foreach (ITickable Civ in GState.Civs)
 			{
 				Civ.Tick (t);
@@ -117,10 +183,6 @@ namespace Civ.Global
 
 			// Generar bárbaros
 			BarbGen.Tick (t);
-
-			// Cronómetros
-			foreach (ITickable x in Cronómetros)
-				x.Tick (t);
 		}
 
 		/// <summary>
@@ -303,7 +365,6 @@ namespace Civ.Global
 			#endif
 		}
 
-
 		public void ConstruirTopología (IEnumerable<Terreno> lista)
 		{
 			foreach (var x in lista)
@@ -395,6 +456,48 @@ namespace Civ.Global
 					return strtmp;
 			}
 		}
+
+		#endregion
+
+		#region Ticks
+
+		DateTime timer = DateTime.Now;
+		public float MultiplicadorVelocidad = 120;
+		public bool Terminar;
+
+		public void Ciclo ()
+		{
+			TimeSpan tiempo = DateTime.Now - timer;
+			timer = DateTime.Now;
+			var modTiempo = new TimeSpan ((long)(tiempo.Ticks * MultiplicadorVelocidad));
+
+			// Console.WriteLine (t);
+			Tick (modTiempo);
+
+			if (Juego.State.Civs.Count == 0)
+				throw new Exception ("Ya se acabó el juego :3");
+		}
+
+		public void Ejecutar ()
+		{
+			while (!Terminar)
+			{
+				Ciclo ();
+				EntreCiclos?.Invoke ();
+			}
+		}
+
+		public event Action AlTerminar;
+		public event Action EntreCiclos;
+
+		#endregion
+
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre al pausar o despausar el juego.
+		/// </summary>
+		public event Action AlCambiarEstadoPausa;
 
 		#endregion
 	}
