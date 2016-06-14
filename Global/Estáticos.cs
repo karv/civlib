@@ -30,6 +30,9 @@ namespace Civ.Global
 		public static Juego Instancia = new Juego ();
 
 		[NonSerialized]
+		public bool Pausado;
+
+		[NonSerialized]
 		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
 		public GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
 		public GameData GData = new GameData ();
@@ -66,6 +69,7 @@ namespace Civ.Global
 		void Defaults ()
 		{
 			Cronómetros = new List<Cronómetro> ();
+			Pausado = false;
 		}
 
 		Juego ()
@@ -75,6 +79,13 @@ namespace Civ.Global
 
 		public void Tick (TimeSpan t)
 		{
+			// Cronómetros
+			foreach (ITickable x in Cronómetros)
+				x.Tick (t);
+			
+			if (Pausado) // Si está pausado no hacer nada
+				return;
+			
 			foreach (ITickable Civ in GState.Civs)
 			{
 				Civ.Tick (t);
@@ -117,10 +128,6 @@ namespace Civ.Global
 
 			// Generar bárbaros
 			BarbGen.Tick (t);
-
-			// Cronómetros
-			foreach (ITickable x in Cronómetros)
-				x.Tick (t);
 		}
 
 		/// <summary>
@@ -302,7 +309,6 @@ namespace Civ.Global
 			}
 			#endif
 		}
-
 
 		public void ConstruirTopología (IEnumerable<Terreno> lista)
 		{
