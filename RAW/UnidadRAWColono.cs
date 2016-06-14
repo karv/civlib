@@ -6,6 +6,9 @@ using Civ.ObjetosEstado;
 
 namespace Civ.RAW
 {
+	/// <summary>
+	/// Un tipo de unidad que puede colonizar
+	/// </summary>
 	[Serializable]
 	public class UnidadRAWColono : UnidadRAW, IUnidadRAWColoniza
 	{
@@ -81,7 +84,6 @@ namespace Civ.RAW
 		/// Ocurre cuando esta unidad coloniza
 		/// </summary>
 		public event Action<ICiudad> AlColonizar;
-///
 
 		#endregion
 	}

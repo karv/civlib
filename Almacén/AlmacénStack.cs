@@ -6,10 +6,10 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Almacén
 {
-	[Serializable]
 	/// <summary>
 	/// Un almacén para Stacks (Inventory)
 	/// </summary>
+	[Serializable]
 	public class AlmacénStack : ListaPeso<Recurso>, IAlmacén
 	{
 		#region Internos

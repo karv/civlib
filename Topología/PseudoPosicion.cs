@@ -6,10 +6,10 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Topología
 {
-	[Serializable]
 	/// <summary>
 	/// Representa un lugar que no es terreno, más bien es un punto en una arista de la Topología del mundo.
 	/// </summary>
+	[Serializable]
 	public class Pseudoposición : Continuo<Terreno>.ContinuoPunto
 	{
 		#region ctor

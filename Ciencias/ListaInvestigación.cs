@@ -26,10 +26,10 @@ using Civ.RAW;
 
 namespace Civ.Ciencias
 {
-	[Serializable]
 	/// <summary>
 	/// Representa la lista de ciencias que se están investigando.
 	/// </summary>
+	[Serializable]
 	public class ListaInvestigación : HashSet<InvestigandoCiencia>
 	{
 		#region ctor

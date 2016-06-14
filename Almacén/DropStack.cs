@@ -6,10 +6,10 @@ using Civ.RAW;
 
 namespace Civ.Almacén
 {
-	[Serializable]
 	/// <summary>
 	/// Representa un conjunto de recursos que no están (necesariamente) en una ciudad.
 	/// </summary>
+	[Serializable]
 	public class DropStack : IPosicionable, IAlmacén
 	{
 		#region ctor

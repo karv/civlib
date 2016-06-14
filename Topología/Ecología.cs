@@ -6,10 +6,10 @@ using Civ.Almacén;
 
 namespace Civ.Topología
 {
-	[Serializable]
 	/// <summary>
 	/// Representa la ecología del terreno.
 	/// </summary>
+	[Serializable]
 	public class Ecología : ITickable
 	{
 		#region ctor

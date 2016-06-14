@@ -7,10 +7,10 @@ using Civ.RAW;
 
 namespace Civ.ObjetosEstado
 {
-	[Serializable]
 	/// <summary>
 	/// Representa a una instancia de unidad.
 	/// </summary>
+	[Serializable]
 	public class Stack : IPuntuado, IAtacante
 	{
 		#region General

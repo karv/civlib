@@ -7,7 +7,9 @@ using Civ.ObjetosEstado;
 
 namespace Civ.RAW
 {
-	//[DataContract(Name = "Unidad", IsReference = true)]
+	/// <summary>
+	/// Un tipo de unidad
+	/// </summary>
 	[Serializable]
 	public class UnidadRAW : IUnidadRAW
 	{
@@ -47,7 +49,7 @@ namespace Civ.RAW
 		/// </summary>
 		public List<string> Flags { get; }
 
-/// 
+		/// 
 
 		public override string ToString ()
 		{
@@ -164,7 +166,6 @@ namespace Civ.RAW
 		/// </summary>
 		/// <value>La fuerza de combate</value>
 		public float Defensa { get; set; }
-///
 
 		#endregion
 	}

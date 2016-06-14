@@ -91,7 +91,6 @@ namespace Civ.Orden
 		/// Ocurre al terminar toda la cola.
 		/// </summary>
 		public event Action AlTerminar;
-///
 
 		#endregion
 	}

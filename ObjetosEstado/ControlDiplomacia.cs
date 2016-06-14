@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Civ.ObjetosEstado
 {
-	[Serializable]
 	/// <summary>
 	/// Mi estado diplomático con respecto a otra ICIvilización
 	/// </summary>
+	[Serializable]
 	public class ControlDiplomacia : Dictionary<ICivilización, EstadoDiplomático>, IDiplomacia
 	{
 		#region Militar y territorial

@@ -114,7 +114,6 @@ namespace Civ.Global
 		/// Ocurre después del tick
 		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
-///
 
 		#endregion
 	}

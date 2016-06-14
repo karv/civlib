@@ -4,10 +4,10 @@ using Civ.RAW;
 
 namespace Civ.ObjetosEstado
 {
-	[Serializable]
 	/// <summary>
 	/// Representa un edificio en construcción.
 	/// </summary>
+	[Serializable]
 	public class EdificioConstruyendo
 	{
 		#region General
@@ -117,7 +117,6 @@ namespace Civ.ObjetosEstado
 		/// justo después de crear la instancia en la ciudad.
 		/// </summary>
 		public event Action<Edificio> AlCompletar;
-///
 
 		#endregion
 	}
