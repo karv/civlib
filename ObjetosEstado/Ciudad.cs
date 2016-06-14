@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using Civ.Almacén;
 using Civ.Topología;
 using Civ.IU;
+using System.Diagnostics;
 
 namespace Civ.ObjetosEstado
 {
@@ -715,12 +716,19 @@ namespace Civ.ObjetosEstado
 		/// <param name="n">Número de trabajadores a forzar que sean libres.</param>
 		public void LiberarTrabajadores (ulong n)
 		{
+			Debug.WriteLine ("Liberando trabajadores: " + n, "Trabajadores");
 			var L = new List<Trabajo> (ObtenerListaTrabajos ().OrderBy (x => x.Prioridad));
 			while (L.Count > 0 && TrabajadoresDesocupados < n && TrabajadoresDesocupados != Poblacion)
 			{
 				var rm = L.First ();
 				var removing = Math.Min (n - TrabajadoresDesocupados, rm.Trabajadores);
 				rm.Trabajadores -= removing;
+				Debug.WriteLine (
+					string.Format (
+						"Liberando {0} trabajadores de {1}",
+						removing,
+						rm),
+					"Trabajadores");
 				L.Remove (rm);
 			}
 		}
