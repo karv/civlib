@@ -604,7 +604,7 @@ namespace Civ.ObjetosEstado
 		public void AutoReclutarTrabajadores ()
 		{
 			// Autoacomodar trabajadores desocupados
-			var Lst = new HashSet<Trabajo> (ObtenerListaTrabajos ());
+			var Lst = new List<Trabajo> (ObtenerListaTrabajos ());
 			var OrderLst = Lst.OrderBy (x => x.Prioridad);
 
 			foreach (var x in OrderLst)
@@ -715,7 +715,7 @@ namespace Civ.ObjetosEstado
 		/// <param name="n">Número de trabajadores a forzar que sean libres.</param>
 		public void LiberarTrabajadores (ulong n)
 		{
-			var L = new HashSet<Trabajo> (ObtenerListaTrabajos ().OrderBy (x => x.Prioridad));
+			var L = new List<Trabajo> (ObtenerListaTrabajos ().OrderBy (x => x.Prioridad));
 			while (L.Count > 0 && TrabajadoresDesocupados < n && TrabajadoresDesocupados != Poblacion)
 			{
 				var rm = L.First ();
@@ -905,7 +905,7 @@ namespace Civ.ObjetosEstado
 			// Aplicar cambios.
 			// Población que tendrá después del tick
 			var futProd = (ulong)(RealPoblaciónProductiva + Crecimiento [1]);
-			ulong decrec = Math.Max (0, PoblacionProductiva - futProd);
+			ulong decrec = Math.Max (0, futProd - PoblacionProductiva);
 			if (decrec > TrabajadoresDesocupados)
 			{
 				CivDueño.AgregaMensaje (new Mensaje (
