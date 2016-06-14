@@ -124,9 +124,12 @@ namespace Civ.Global
 
 		public void EjecutarAutoguardado ()
 		{
+			const string file_output = "auto.sav";
+			Debug.WriteLine ("Iniciando autoguardado", "autosave");
 			Pausado = true;
-			GState.Guardar ("auto.sav");
+			GState.Guardar (file_output);
 			Pausado = false;
+			Debug.WriteLine ("Autoguardado exitoso en " + file_output, "autosave");
 		}
 
 		public void Tick (TimeSpan t)
