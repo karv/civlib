@@ -488,9 +488,6 @@ namespace Civ.Global
 			AlTerminar?.Invoke ();
 		}
 
-		public event Action AlTerminar;
-		public event Action EntreCiclos;
-
 		#endregion
 
 		#region Eventos
@@ -499,6 +496,9 @@ namespace Civ.Global
 		/// Ocurre al pausar o despausar el juego.
 		/// </summary>
 		public event Action AlCambiarEstadoPausa;
+		public event Action AlTerminar;
+		public event Action EntreCiclos;
+
 
 		#endregion
 	}
