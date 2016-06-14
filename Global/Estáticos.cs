@@ -485,6 +485,7 @@ namespace Civ.Global
 				Ciclo ();
 				EntreCiclos?.Invoke ();
 			}
+			AlTerminar?.Invoke ();
 		}
 
 		public event Action AlTerminar;
