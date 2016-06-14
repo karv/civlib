@@ -40,6 +40,7 @@ namespace Civ.Global
 			}
 			set
 			{
+				AlCambiarEstadoPausa?.Invoke ();
 				_pausado = value;
 			}
 		}
@@ -413,6 +414,15 @@ namespace Civ.Global
 					return strtmp;
 			}
 		}
+
+		#endregion
+
+		#region Eventos
+
+		/// <summary>
+		/// Ocurre al pausar o despausar el juego.
+		/// </summary>
+		public event Action AlCambiarEstadoPausa;
 
 		#endregion
 	}
