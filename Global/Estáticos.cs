@@ -41,6 +41,8 @@ namespace Civ.Global
 			set
 			{
 				_pausado = value;
+				if (!value)
+					timer = DateTime.Now; // Al despausar se reestablece el timer
 				AlCambiarEstadoPausa?.Invoke ();
 			}
 		}
@@ -450,6 +452,39 @@ namespace Civ.Global
 					return strtmp;
 			}
 		}
+
+		#endregion
+
+		#region Ticks
+
+		DateTime timer = DateTime.Now;
+		public float MultiplicadorVelocidad = 120;
+		public bool Terminar;
+
+		public void Ciclo ()
+		{
+			TimeSpan tiempo = DateTime.Now - timer;
+			timer = DateTime.Now;
+			var modTiempo = new TimeSpan ((long)(tiempo.Ticks * MultiplicadorVelocidad));
+
+			// Console.WriteLine (t);
+			Tick (modTiempo);
+
+			if (Juego.State.Civs.Count == 0)
+				throw new Exception ("Ya se acabó el juego :3");
+		}
+
+		public void Ejecutar ()
+		{
+			while (!Terminar)
+			{
+				Ciclo ();
+				EntreCiclos?.Invoke ();
+			}
+		}
+
+		public event Action AlTerminar;
+		public event Action EntreCiclos;
 
 		#endregion
 
