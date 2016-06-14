@@ -1,25 +1,4 @@
-﻿//
-//  AlmacénCiudad.cs
-//
-//  Author:
-//       Edgar Carballo <karvayoEdgar@gmail.com>
-//
-//  Copyright (c) 2015 edgar
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-using ListasExtra;
+﻿using ListasExtra;
 using System.Collections.Generic;
 using System;
 using Civ.RAW;
@@ -28,8 +7,10 @@ using Civ.ObjetosEstado;
 namespace Civ.Almacén
 {
 	[Serializable]
-	public class AlmacénCiudad: ListaPeso<Recurso>, IAlmacén
+	public class AlmacénCiudad : ListaPeso<Recurso>, IAlmacén
 	{
+		#region ctor
+
 		/// <summary>
 		/// Initializes a new instance
 		/// </summary>
@@ -38,6 +19,10 @@ namespace Civ.Almacén
 		{
 			CiudadDueño = ciudad;
 		}
+
+		#endregion
+
+		#region General
 
 		public readonly Ciudad CiudadDueño;
 
@@ -90,6 +75,10 @@ namespace Civ.Almacén
 			return this >= reqs * veces;
 		}
 
+		#endregion
+
+		#region Eventos
+
 		/// <summary>
 		/// Ocurre cuando cambia el almacén de un recurso
 		/// Recurso, valor viejo, valor nuevo
@@ -105,6 +94,8 @@ namespace Civ.Almacén
 				AlCambiarValor -= value;
 			}
 		}
+
+		#endregion
 
 		#region IAlmacénRead implementation
 

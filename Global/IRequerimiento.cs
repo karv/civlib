@@ -56,6 +56,5 @@ namespace Civ.Global
 			else
 				throw new Exception ();
 		}
-
 	}
 }

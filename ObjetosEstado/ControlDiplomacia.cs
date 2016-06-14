@@ -9,6 +9,8 @@ namespace Civ.ObjetosEstado
 	/// </summary>
 	public class ControlDiplomacia : Dictionary<ICivilización, EstadoDiplomático>, IDiplomacia
 	{
+		#region Militar y territorial
+
 		/// <summary>
 		/// Devuelve o establece si una civilización permite atacar a otras con las que no tiene diplomacia.
 		/// </summary>
@@ -28,7 +30,15 @@ namespace Civ.ObjetosEstado
 			return TryGetValue (civ, out dip) && dip.PermitePaso;
 		}
 
+		#endregion
+
+		#region Eventos
+
 		public event Action AlCambiarDiplomacia;
+
+		#endregion
+
+		#region ctor
 
 		public ControlDiplomacia ()
 		{
@@ -50,6 +60,7 @@ namespace Civ.ObjetosEstado
 		{
 		}
 
+		#endregion
 
 		void InvocarCambio ()
 		{

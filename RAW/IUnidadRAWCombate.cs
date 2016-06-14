@@ -4,7 +4,6 @@ namespace Civ.RAW
 {
 	public interface IUnidadRAWCombate : IUnidadRAW
 	{
-
 		/// <summary>
 		/// Devuevle el modificador de daño a los que conservan una flag dada.
 		/// </summary>

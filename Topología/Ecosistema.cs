@@ -23,11 +23,17 @@ namespace Civ.Topología
 		{
 		}
 
+		#region ctor
+
 		public Ecosistema ()
 		{
 			Nombres = new List<string> ();
 			PropPropiedad = new EcosistemaPropiedades ();
 		}
+
+		#endregion
+
+		#region General
 
 		/// <summary>
 		/// El nombre del terreno
@@ -52,5 +58,8 @@ namespace Civ.Topología
 		{
 			return new Terreno (this);
 		}
+
+		#endregion
+
 	}
 }

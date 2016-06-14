@@ -8,6 +8,8 @@ namespace Civ.Global
 	/// </summary>
 	public class Cronómetro : ITickable
 	{
+		#region Propiedades y campos
+
 		/// <summary>
 		/// Devuelve la fecha en la que ocurrió el último tick
 		/// </summary>
@@ -50,6 +52,10 @@ namespace Civ.Global
 			}
 		}
 
+		#endregion
+
+		#region ctor
+
 		public Cronómetro ()
 		{
 			Reestablecer ();
@@ -62,6 +68,10 @@ namespace Civ.Global
 			Intervalo = intervalo;
 		}
 
+		#endregion
+
+		#region Métodos
+
 		public void Reestablecer ()
 		{
 			ÚltimoTick = DateTime.Now;
@@ -71,7 +81,8 @@ namespace Civ.Global
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		public void Tick (TimeSpan t)
+		public void Tick 
+		(TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
 			if (_habilitado && PróximoTick < DateTime.Now)
@@ -84,6 +95,10 @@ namespace Civ.Global
 			}
 			AlTickDespués?.Invoke (t);
 		}
+
+		#endregion
+
+		#region Eventos
 
 		/// <summary>
 		/// Ocurre cuando transcurre el tiempo
@@ -99,6 +114,8 @@ namespace Civ.Global
 		/// Ocurre después del tick
 		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
+///
 
+		#endregion
 	}
 }

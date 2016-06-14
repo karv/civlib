@@ -32,6 +32,8 @@ namespace Civ.Ciencias
 	/// </summary>
 	public class ListaInvestigación : HashSet<InvestigandoCiencia>
 	{
+		#region ctor
+
 		public ListaInvestigación ()
 		{
 		}
@@ -41,6 +43,10 @@ namespace Civ.Ciencias
 			: base (info, context)
 		{
 		}
+
+		#endregion
+
+		#region General
 
 		/// <summary>
 		/// Agrega cierta cantidad de recursos, a la investigación de una ciencia.
@@ -78,5 +84,7 @@ namespace Civ.Ciencias
 		{
 			return base.Remove (EncuentraInstancia (ciencia));
 		}
+
+		#endregion
 	}
 }

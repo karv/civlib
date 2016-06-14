@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Civ.RAW;
 using ListasExtra;
 
-namespace Civ
+namespace Civ.Almacén
 {
 	/// <summary>
 	/// Promete habilidades para leer recursos de un almacén

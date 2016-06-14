@@ -9,6 +9,7 @@ using Civ;
 using Civ.RAW;
 using Civ.Topología;
 using Civ.IU;
+using Civ.Almacén;
 
 namespace Civ.ObjetosEstado
 {

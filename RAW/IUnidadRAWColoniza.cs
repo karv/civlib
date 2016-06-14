@@ -1,7 +1,7 @@
 ﻿using System;
 using Civ.ObjetosEstado;
 
-namespace Civ
+namespace Civ.RAW
 {
 	public interface IUnidadRAWColoniza
 	{

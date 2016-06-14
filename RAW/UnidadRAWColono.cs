@@ -9,10 +9,16 @@ namespace Civ.RAW
 	[Serializable]
 	public class UnidadRAWColono : UnidadRAW, IUnidadRAWColoniza
 	{
+		#region ctor
+
 		public UnidadRAWColono ()
 		{
 			RecursosPorUnidad = new ListaPeso<Recurso> ();
 		}
+
+		#endregion
+
+		#region Colonizar
 
 		public ListaPeso<Recurso> RecursosPorUnidad { get; }
 
@@ -67,9 +73,16 @@ namespace Civ.RAW
 			stack.Cantidad >= MinCantidadColonizar;
 		}
 
+		#endregion
+
+		#region Eventos
+
 		/// <summary>
 		/// Ocurre cuando esta unidad coloniza
 		/// </summary>
 		public event Action<ICiudad> AlColonizar;
+///
+
+		#endregion
 	}
 }

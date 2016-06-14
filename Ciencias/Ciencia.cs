@@ -52,6 +52,8 @@ namespace Civ.Ciencias
 
 		#endregion
 
+		#region General
+
 		/// <summary>
 		/// Nombre de la ciencia;
 		/// </summary>
@@ -62,13 +64,14 @@ namespace Civ.Ciencias
 			return Nombre;
 		}
 
-		// Sobre los requerimientos.
+		#endregion
+
+		#region Requerimiento
+
 		/// <summary>
 		/// Requerimientos para poder aprender este avance.
 		/// </summary>
 		public Requerimiento Reqs = new Requerimiento ();
-
-		#region IRequerimiento
 
 		bool IRequerimiento<ICiudad>.LoSatisface (ICiudad ciudad)
 		{

@@ -5,7 +5,7 @@ using Civ.Ciencias;
 using Civ.Almacén;
 using Civ.ObjetosEstado;
 
-namespace Civ
+namespace Civ.ObjetosEstado
 {
 	/// <summary>
 	/// Una interface de civilización

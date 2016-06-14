@@ -1,28 +1,8 @@
-﻿//
-//  AlmacénCiv.cs
-//
-//  Author:
-//       Edgar Carballo <karvayoEdgar@gmail.com>
-//
-//  Copyright (c) 2015 edgar
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+﻿using System;
 using ListasExtra;
 using System.Linq;
 using Civ.RAW;
-using Civ.IU;
+using Civ.ObjetosEstado;
 
 namespace Civ.Almacén
 {
@@ -30,38 +10,19 @@ namespace Civ.Almacén
 	/// <summary>
 	/// Almacena recursos globales.
 	/// </summary>
-	public class AlmacénCiv:ListaPeso<Recurso>, IAlmacén
+	public class AlmacénCiv : ListaPeso<Recurso>, IAlmacén
 	{
-		public readonly ICivilización Civil;
+		#region General
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.AlmacénCiv"/> class.
-		/// </summary>
-		/// <param name="civilizacion">civilizacion vinculada a este almacén</param>
-		public AlmacénCiv (ICivilización civilizacion)
-		{
-			Civil = civilizacion;
-		}
+		public readonly ICivilización Civil;
 
 		/// <summary>
 		/// Elimina los recursos con la flag "Desaparece"
 		/// </summary>
 		public void RemoverRecursosDesaparece ()
 		{
-			// Los globales
-			foreach (var x in Entradas)
-			{
-				if (x.Desaparece && this [x] > 0)
-				{
-					this [x] = 0;
-					/*q
-					Civil.AgregaMensaje (new Mensaje (
-						"Desperdiciando recurso {0}",
-						x,
-						x.Nombre));
-						*/
-				}
-			}
+			foreach (var x in Entradas.Where (x => x.Desaparece && this[x] > 0))
+				this [x] = 0;
 		}
 
 		/// <summary>
@@ -114,6 +75,23 @@ namespace Civ.Almacén
 			}
 		}
 
+		#endregion
+
+		#region ctor
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Almacén.AlmacénCiv"/> class.
+		/// </summary>
+		/// <param name="civilizacion">civilizacion vinculada a este almacén</param>
+		public AlmacénCiv (ICivilización civilizacion)
+		{
+			Civil = civilizacion;
+		}
+
+		#endregion
+
+		#region Eventos
+
 		/// <summary>
 		/// Ocurre cuando cambia el almacén de un recurso
 		/// Recurso, valor viejo, valor nuevo
@@ -130,7 +108,7 @@ namespace Civ.Almacén
 			}
 		}
 
-
+		#endregion
 
 		#region IAlmacénRead implementation
 
@@ -143,6 +121,5 @@ namespace Civ.Almacén
 		}
 
 		#endregion
-
 	}
 }

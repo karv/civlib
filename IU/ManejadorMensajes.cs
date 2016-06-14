@@ -10,6 +10,8 @@ namespace Civ.IU
 	/// </summary>
 	public class ManejadorMensajes : ListaCíclica<Mensaje>
 	{
+		#region Control
+
 		/// <Docs>The item to add to the current collection.</Docs>
 		/// <para>Adds an item to the current collection.</para>
 		/// <remarks>To be added.</remarks>
@@ -34,6 +36,8 @@ namespace Civ.IU
 				AlEliminar?.Invoke (x);
 			return ret;
 		}
+
+		#endregion
 
 		#region Eventos
 

@@ -11,4 +11,3 @@ namespace Civ.Combate
 		string Análisis ();
 	}
 }
-

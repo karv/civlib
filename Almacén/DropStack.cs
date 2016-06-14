@@ -4,7 +4,7 @@ using ListasExtra;
 using Civ.Topología;
 using Civ.RAW;
 
-namespace Civ
+namespace Civ.Almacén
 {
 	[Serializable]
 	/// <summary>
@@ -12,13 +12,17 @@ namespace Civ
 	/// </summary>
 	public class DropStack : IPosicionable, IAlmacén
 	{
+		#region ctor
+
 		public DropStack (Pseudoposición pos)
 		{
 			Almacén = new ListaPeso<Recurso> ();
 			Posición = pos;
 		}
 
-		public ListaPeso<Recurso> Almacén { get; }
+		#endregion
+
+		#region Eventos
 
 		/// <summary>
 		/// Ocurre cuando cambia el almacén de un recurso
@@ -35,6 +39,8 @@ namespace Civ
 				Almacén.AlCambiarValor -= value;
 			}
 		}
+
+		#endregion
 
 		#region Posición
 
@@ -77,7 +83,8 @@ namespace Civ
 			}
 		}
 
+		public ListaPeso<Recurso> Almacén { get; }
+
 		#endregion
 	}
 }
-

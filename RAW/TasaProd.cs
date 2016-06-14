@@ -1,4 +1,5 @@
 ﻿using System;
+using Civ.Almacén;
 
 namespace Civ.RAW
 {
@@ -33,7 +34,6 @@ namespace Civ.RAW
 		/// </summary>
 		public float Crecimiento;
 
-
 		#region TasaProd
 
 		public override void Tick (IAlmacén alm, TimeSpan t)
@@ -45,7 +45,6 @@ namespace Civ.RAW
 
 
 		#endregion
-
 	}
 
 	/// <summary>

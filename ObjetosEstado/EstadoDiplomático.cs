@@ -1,6 +1,6 @@
 using System;
 
-namespace Civ
+namespace Civ.ObjetosEstado
 {
 	/// <summary>
 	/// Estado diplomatico entre dos cavilizaciones.
@@ -8,6 +8,8 @@ namespace Civ
 	[Serializable]
 	public class EstadoDiplomático
 	{
+		#region Permisos militares y territoriales
+
 		bool _permiteAtacar = true;
 		bool _permitePaso = true;
 
@@ -44,12 +46,24 @@ namespace Civ
 			}
 		}
 
+		#endregion
+
+		#region General
+
 		/// <summary>
 		/// Devuelve o establece su una Civilización puede hacer diplomacia a voluntad con otra.
 		/// </summary>
 		public bool PuedeHacerDiplomacia;
 
+		/// 
+
+		#endregion
+
+		#region Eventos
+
 		public event Action AlCambiarPermisoAtacar;
 		public event Action AlCambiarPermisoPaso;
+
+		#endregion
 	}
 }

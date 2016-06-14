@@ -5,6 +5,7 @@ using System.Linq;
 using Civ.ObjetosEstado;
 using Civ.Orden;
 using ListasExtra.Extensiones;
+using System.Diagnostics;
 
 namespace Civ.Bárbaros
 {
@@ -15,16 +16,15 @@ namespace Civ.Bárbaros
 	[Serializable]
 	public class GeneradorArmadasBarbaras : ITickable
 	{
+		#region Estadístico
+
 		/// <summary>
 		/// El tiempo esperado para generar bárbaro.
 		/// En horas
 		/// </summary>
 		public double TiempoEsperadoGenerar = 1.0 / 6.0;
 
-		/// <summary>
-		/// Las reglas de generación
-		/// </summary>
-		public HashSet<IReglaGeneración> Reglas { get; }
+		/// 
 
 		double lambda
 		{
@@ -34,10 +34,14 @@ namespace Civ.Bárbaros
 			}
 		}
 
-		public GeneradorArmadasBarbaras ()
-		{
-			Reglas = new HashSet<IReglaGeneración> ();
-		}
+		#endregion
+
+		#region General
+
+		/// <summary>
+		/// Las reglas de generación
+		/// </summary>
+		public HashSet<IReglaGeneración> Reglas { get; }
 
 		/// <summary>
 		/// Devuelve si debe generar bárbaro
@@ -68,7 +72,7 @@ namespace Civ.Bárbaros
 				System.Diagnostics.Debug.WriteLine ("No hay regla para este caso");
 				return null;
 			}
-			
+
 
 			IReglaGeneración usarRegla = reglas [HerrGlobal.Rnd.Next (reglas.Count)];
 			Armada ret = usarRegla.GenerarArmada ();
@@ -103,19 +107,31 @@ namespace Civ.Bárbaros
 			return ret;
 		}
 
-		#if DEBUG
+		[Conditional ("DEBUG")]
 		static void AlLlegar ()
 		{
 			Console.WriteLine ("Llegué");
 		}
-
-		#endif
 
 		static void DarOrden (Armada arm)
 		{
 			var destino = Juego.State.CiudadesExistentes ().Aleatorio ();
 			arm.Orden = new OrdenIrALugar (arm, destino.Posición ());
 		}
+
+
+		#endregion
+
+		#region ctor
+
+		public GeneradorArmadasBarbaras ()
+		{
+			Reglas = new HashSet<IReglaGeneración> ();
+		}
+
+		#endregion
+
+		#region Eventos
 
 		/// <summary>
 		/// Ocurre antes del tick
@@ -126,6 +142,10 @@ namespace Civ.Bárbaros
 		/// Ocurre después del tick
 		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
+
+		/// 
+
+		#endregion
 
 		#region ITickable
 

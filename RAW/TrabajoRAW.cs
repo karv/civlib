@@ -12,16 +12,31 @@ namespace Civ.RAW
 	[Serializable]
 	public class TrabajoRAW
 	{
+		#region ctor
+
 		public TrabajoRAW ()
 		{
 			EntradaBase = new ListaPeso<Recurso> ();
 			SalidaBase = new ListaPeso<Recurso> ();
 		}
 
+		#endregion
+
+		#region General
+
 		/// <summary>
 		/// Nombre
 		/// </summary>
 		public string Nombre;
+
+		public override string ToString ()
+		{
+			return string.Format ("{0} @ {1}", Nombre, Edificio);
+		}
+
+		#endregion
+
+		#region Edificio
 
 		EdificioRAW _edificio;
 
@@ -52,6 +67,10 @@ namespace Civ.RAW
 			}
 		}
 
+		#endregion
+
+		#region Producción
+
 		/// <summary>
 		/// Recursos producidos por trabajador*turno (Base)
 		/// </summary>
@@ -62,11 +81,10 @@ namespace Civ.RAW
 		/// </summary>
 		public ListaPeso<Recurso> EntradaBase { get; }
 
-		public override string ToString ()
-		{
-			return string.Format ("{0} @ {1}", Nombre, Edificio);
-		}
-		// Requiere
+		#endregion
+
+		#region Reqs
+
 		/// <summary>
 		/// Lista de requerimientos.
 		/// </summary>
@@ -80,5 +98,7 @@ namespace Civ.RAW
 		{
 			return Requiere.Requiere ();
 		}
+
+		#endregion
 	}
 }

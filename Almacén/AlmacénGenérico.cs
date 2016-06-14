@@ -2,7 +2,7 @@
 using ListasExtra;
 using Civ.RAW;
 
-namespace Civ
+namespace Civ.Almacén
 {
 	[Serializable]
 	/// <summary>
@@ -10,6 +10,8 @@ namespace Civ
 	/// </summary>
 	public class AlmacénGenérico : ListaPeso<Recurso>, IAlmacén
 	{
+		#region General
+
 		public System.Collections.Generic.IEnumerable<Recurso> Recursos
 		{
 			get
@@ -17,6 +19,10 @@ namespace Civ
 				return Keys;
 			}
 		}
+
+		#endregion
+
+		#region Eventos
 
 		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
 		{
@@ -29,6 +35,7 @@ namespace Civ
 				AlCambiarValor -= value;
 			}
 		}
+
+		#endregion
 	}
 }
-

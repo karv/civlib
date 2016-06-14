@@ -1,14 +1,13 @@
 ﻿using Civ.RAW;
 using Civ.ObjetosEstado;
+using Civ.Almacén;
 
 namespace Civ.IU
 {
 	public interface IRepetidor
 	{
 		bool Coincide (IRepetidor rep);
-		
 	}
-
 
 	public struct RepetidorExcesoRecurso : IRepetidor
 	{

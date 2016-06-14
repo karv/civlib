@@ -12,23 +12,49 @@ namespace Civ.RAW
 	public class UnidadRAW : IUnidadRAW
 	{
 
+		#region ctor
+
 		public UnidadRAW ()
 		{
 			Flags = new List<string> ();
 		}
 
+		#endregion
+
+		#region Requicitos
+
 		readonly ListaPeso<Recurso> _Reqs = new ListaPeso<Recurso> ();
+
+		/// <summary>
+		/// Devuelve la ciencia requerida para entrenar a la unidad.
+		/// </summary>
+		public Ciencia ReqCiencia { get; set; }
+
+		/// <summary>
+		/// Requerimientos para crearse.
+		/// </summary>
+		public ListaPeso<Recurso> Reqs
+		{
+			get { return _Reqs; }
+		}
+
+		#endregion
+
+		#region General
 
 		/// <summary>
 		/// Flags.
 		/// </summary>
 		public List<string> Flags { get; }
 
+/// 
 
-		/// <summary>
-		/// Devuelve la ciencia requerida para entrenar a la unidad.
-		/// </summary>
-		public Ciencia ReqCiencia { get; set; }
+		public override string ToString ()
+		{
+			return Nombre;
+		}
+
+		#endregion
 
 		#region UnidadRAW
 
@@ -131,23 +157,15 @@ namespace Civ.RAW
 
 		#endregion
 
-		public override string ToString ()
-		{
-			return Nombre;
-		}
-
-		/// <summary>
-		/// Requerimientos para crearse.
-		/// </summary>
-		public ListaPeso<Recurso> Reqs
-		{
-			get { return _Reqs; }
-		}
+		#region Combate
 
 		/// <summary>
 		/// Fuerza de combate
 		/// </summary>
 		/// <value>La fuerza de combate</value>
 		public float Defensa { get; set; }
+///
+
+		#endregion
 	}
 }

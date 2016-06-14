@@ -1,28 +1,22 @@
 ﻿using System;
 using Civ.ObjetosEstado;
 using Civ.Topología;
+using Civ.Almacén;
 
 namespace Civ.Orden
 {
 	[Serializable]
 	public class OrdenRecoger : IOrden
 	{
+		#region Orden
+
 		/// <summary>
 		/// Devuelve la armada de esta orden
 		/// </summary>
 		/// <value>The armada.</value>
 		public Armada ArmadaEjecutante { get; }
 
-		/// <summary>
-		/// Devuelve o establece el stack que quere tomar.
-		/// </summary>
-		public DropStack StackTarget { get; set; }
-
-		/// <summary>
-		/// Devuelve la posición de donde va a dejar el stack
-		/// </summary>
-		/// <value>The origen.</value>
-		public Pseudoposición Origen { get; }
+		/// 
 
 		// Meta órdenes
 		IOrden _actual;
@@ -70,6 +64,25 @@ namespace Civ.Orden
 			// Aún no acaba
 			return false;
 		}
+
+		#endregion
+
+		#region Recoger
+
+		/// <summary>
+		/// Devuelve o establece el stack que quere tomar.
+		/// </summary>
+		public DropStack StackTarget { get; set; }
+
+		/// <summary>
+		/// Devuelve la posición de donde va a dejar el stack
+		/// </summary>
+		/// <value>The origen.</value>
+		public Pseudoposición Origen { get; }
+
+		/// 
+
+		#endregion
 
 		#region Eventos
 

@@ -27,7 +27,16 @@ namespace Civ.Global
 	[Serializable]
 	public class Juego
 	{
+		#region El juego
+
 		public static Juego Instancia = new Juego ();
+
+		[NonSerialized]
+		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
+
+		#endregion
+
+		#region Pausa
 
 		[NonSerialized]
 		bool _pausado;
@@ -46,6 +55,10 @@ namespace Civ.Global
 				AlCambiarEstadoPausa?.Invoke ();
 			}
 		}
+
+		#endregion
+
+		#region Autoguardado
 
 		[NonSerialized]
 		Cronómetro _cronoAutoguardado;
@@ -74,15 +87,23 @@ namespace Civ.Global
 			}
 		}
 
-		[NonSerialized]
-		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
+		public void EjecutarAutoguardado ()
+		{
+			const string file_output = "auto.sav";
+			Debug.WriteLine ("Iniciando autoguardado", "autosave");
+			Pausado = true;
+			GState.Guardar (file_output);
+			Pausado = false;
+			Debug.WriteLine ("Autoguardado exitoso en " + file_output, "autosave");
+		}
+
+		#endregion
+
+		#region Data
+
 		public GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
 		public GameData GData = new GameData ();
 		public GameState GState = new GameState ();
-
-		// Es hashset porque no quiero repeticiones
-		[NonSerialized]
-		public HashSet<Cronómetro> Cronómetros;
 
 		public static GameData Data
 		{
@@ -108,6 +129,18 @@ namespace Civ.Global
 			}
 		}
 
+		#endregion
+
+		#region Herramientas
+
+		// Es hashset porque no quiero repeticiones
+		[NonSerialized]
+		public HashSet<Cronómetro> Cronómetros;
+
+		#endregion
+
+		#region ctor
+
 		[OnSerialized]
 		void Defaults ()
 		{
@@ -121,105 +154,6 @@ namespace Civ.Global
 			BarbGen.Reglas.Add (new ReglaGeneracionBarbaraGeneral ());
 			Defaults ();
 		}
-
-		public void EjecutarAutoguardado ()
-		{
-			const string file_output = "auto.sav";
-			Debug.WriteLine ("Iniciando autoguardado", "autosave");
-			Pausado = true;
-			GState.Guardar (file_output);
-			Pausado = false;
-			Debug.WriteLine ("Autoguardado exitoso en " + file_output, "autosave");
-		}
-
-		public void Tick (TimeSpan t)
-		{
-			// Cronómetros
-			foreach (ITickable x in Cronómetros)
-				x.Tick (t);
-			
-			if (Pausado) // Si está pausado no hacer nada
-				return;
-			
-			foreach (ITickable Civ in GState.Civs)
-			{
-				Civ.Tick (t);
-			}
-				
-			// Ticks de terreno
-			foreach (var x in GState.Topología.Nodos)
-			{
-				x.Tick (t);
-			}
-
-			// Peleas entre armadas de Civs enemigas
-			for (int i = 1; i < GState.Civs.Count; i++)
-			{
-				ICivilización civA = GState.Civs [i];
-				for (int j = 0; j < i; j++)
-				{
-					ICivilización civB = GState.Civs [j];
-					{
-						foreach (var ArmA in civA.Armadas)
-						{
-							foreach (var ArmB in civB.Armadas)
-							{
-								if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
-								    (civB.Diplomacia.PermiteAtacar (ArmA)))
-								{
-									if (ArmA.Posición.Equals (ArmB.Posición))
-									{
-										ArmA.Pelea (ArmB, t);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-
-			// Matar Civs sin ciudades.
-			EliminarMuertos ();
-
-			// Generar bárbaros
-			BarbGen.Tick (t);
-		}
-
-		/// <summary>
-		/// Elimina civilizaciones muertas
-		/// </summary>
-		void EliminarMuertos ()
-		{
-			foreach (var x in GState.CivsVivas())
-			{
-				if (!x.Ciudades.Any () && !x.Armadas.Any ())
-					x.Destruirse ();
-			}
-		}
-
-		/// <summary>
-		/// Devuelve las armadas bárbaras.
-		/// Inseguro al anidar ciclos
-		/// </summary>
-		static IEnumerable<Armada> ArmadasBárbaras ()
-		{
-			return State.ArmadasExistentes ().Where (z => z.CivDueño.EsBárbaro);
-		}
-
-		#region IO
-
-		public const string ArchivoData = "Data.bin";
-		public const string ArchivoState = "game.state";
-
-		/// <summary>
-		/// Carga del archivo predeterminado.
-		/// </summary>
-		public static void CargaData ()
-		{
-			Juego.Data = Store.BinarySerialization.ReadFromBinaryFile<GameData> (ArchivoData);
-		}
-
-		#endregion
 
 		/// <summary>
 		/// Inicializa el g_State, a partir de el g_Data.
@@ -380,6 +314,41 @@ namespace Civ.Global
 			}
 		}
 
+		#endregion
+
+		#region Ciclo
+
+
+		#endregion
+
+		#region Información
+
+		/// <summary>
+		/// Devuelve las armadas bárbaras.
+		/// Inseguro al anidar ciclos
+		/// </summary>
+		static IEnumerable<Armada> ArmadasBárbaras ()
+		{
+			return State.ArmadasExistentes ().Where (z => z.CivDueño.EsBárbaro);
+		}
+
+		#endregion
+
+		#region IO
+
+		public const string ArchivoData = "Data.bin";
+		public const string ArchivoState = "game.state";
+
+		/// <summary>
+		/// Carga del archivo predeterminado.
+		/// </summary>
+		public static void CargaData ()
+		{
+			Juego.Data = Store.BinarySerialization.ReadFromBinaryFile<GameData> (ArchivoData);
+		}
+
+		#endregion
+
 		#region Unicidad de nombres
 
 		static string ReadRandomLine (string resourseName)
@@ -486,6 +455,71 @@ namespace Civ.Global
 				EntreCiclos?.Invoke ();
 			}
 			AlTerminar?.Invoke ();
+		}
+
+		public void Tick (TimeSpan t)
+		{
+			// Cronómetros
+			foreach (ITickable x in Cronómetros)
+				x.Tick (t);
+
+			if (Pausado) // Si está pausado no hacer nada
+				return;
+
+			foreach (ITickable Civ in GState.Civs)
+			{
+				Civ.Tick (t);
+			}
+
+			// Ticks de terreno
+			foreach (var x in GState.Topología.Nodos)
+			{
+				x.Tick (t);
+			}
+
+			// Peleas entre armadas de Civs enemigas
+			for (int i = 1; i < GState.Civs.Count; i++)
+			{
+				ICivilización civA = GState.Civs [i];
+				for (int j = 0; j < i; j++)
+				{
+					ICivilización civB = GState.Civs [j];
+					{
+						foreach (var ArmA in civA.Armadas)
+						{
+							foreach (var ArmB in civB.Armadas)
+							{
+								if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
+								    (civB.Diplomacia.PermiteAtacar (ArmA)))
+								{
+									if (ArmA.Posición.Equals (ArmB.Posición))
+									{
+										ArmA.Pelea (ArmB, t);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// Matar Civs sin ciudades.
+			EliminarMuertos ();
+
+			// Generar bárbaros
+			BarbGen.Tick (t);
+		}
+
+		/// <summary>
+		/// Elimina civilizaciones muertas
+		/// </summary>
+		void EliminarMuertos ()
+		{
+			foreach (var x in GState.CivsVivas())
+			{
+				if (!x.Ciudades.Any () && !x.Armadas.Any ())
+					x.Destruirse ();
+			}
 		}
 
 		#endregion

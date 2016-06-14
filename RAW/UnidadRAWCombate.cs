@@ -16,24 +16,18 @@ namespace Civ.RAW
 		{
 		}
 
+		#region ctor
+
 		public UnidadRAWCombate ()
 		{
 			Mods = new Modificadores ();
 		}
 
-		public float Ataque { get; set; }
-
-		#region IPuntuado
-
-		float IPuntuado.Puntuación
-		{
-			get
-			{
-				return Puntuación;
-			}
-		}
-
 		#endregion
+
+		#region Combate
+
+		public float Ataque { get; set; }
 
 		/// <summary>
 		/// Lista de modificadores de combate de la unidad.
@@ -52,5 +46,19 @@ namespace Civ.RAW
 		/// Qué tanto se dispersa el daño entre el stack enemigo.
 		/// </summary>
 		public float Dispersión { get; set; }
+
+		#endregion
+
+		#region IPuntuado
+
+		float IPuntuado.Puntuación
+		{
+			get
+			{
+				return Puntuación;
+			}
+		}
+
+		#endregion
 	}
 }

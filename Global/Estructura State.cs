@@ -6,6 +6,7 @@ using Graficas.Grafo;
 using Graficas.Rutas;
 using Civ.Topología;
 using Civ.ObjetosEstado;
+using Civ.Almacén;
 
 namespace Civ.Global
 {
@@ -15,6 +16,8 @@ namespace Civ.Global
 	[Serializable]
 	public class GameState : IPuntuado
 	{
+		#region Topología y mapa
+
 		/// <summary>
 		/// La topología del mundo.
 		/// </summary>
@@ -31,39 +34,10 @@ namespace Civ.Global
 		public Mapa Mapa;
 
 		/// <summary>
-		/// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
-		/// </summary>        
-		public IList<ICivilización> Civs { get; }
-
-		/// <summary>
 		/// Objetos/recursos en el mapa
 		/// </summary>
 		/// <value>The drops.</value>
 		public ICollection<DropStack> Drops { get; }
-
-		/// <summary>
-		/// Initializes a new instance of the class
-		/// </summary>
-		public GameState ()
-		{
-			Civs = new List<ICivilización> ();
-			Drops = new List<DropStack> ();
-		}
-
-		/// <summary>
-		/// Devuelve una colección de civilizaciones vivas (eq. en el mapa)
-		/// </summary>
-		public ICollection<ICivilización> CivsVivas ()
-		{
-			var ret = new List<ICivilización> ();
-			foreach (var x in Topología.Nodos)
-			{
-				ICivilización C = x.CiudadConstruida?.CivDueño;
-				if (C != null && !ret.Contains (C))
-					ret.Add (C);
-			}
-			return ret;
-		}
 
 		/// <summary>
 		/// Obtiene la lista de <c>Terreno</c>s en el juego.
@@ -95,6 +69,47 @@ namespace Civ.Global
 			}
 			return ret;
 		}
+
+		#endregion
+
+		#region Civs
+
+		/// <summary>
+		/// Lista de civilizaciones en el juego. (Incluyendo las muertas)        
+		/// </summary>        
+		public IList<ICivilización> Civs { get; }
+
+		/// <summary>
+		/// Devuelve una colección de civilizaciones vivas (eq. en el mapa)
+		/// </summary>
+		public ICollection<ICivilización> CivsVivas ()
+		{
+			var ret = new List<ICivilización> ();
+			foreach (var x in Topología.Nodos)
+			{
+				ICivilización C = x.CiudadConstruida?.CivDueño;
+				if (C != null && !ret.Contains (C))
+					ret.Add (C);
+			}
+			return ret;
+		}
+
+		#endregion
+
+		#region ctor
+
+		/// <summary>
+		/// Initializes a new instance of the class
+		/// </summary>
+		public GameState ()
+		{
+			Civs = new List<ICivilización> ();
+			Drops = new List<DropStack> ();
+		}
+
+		#endregion
+
+		#region Contar y encontrar
 
 		/// <summary>
 		/// Devuelve el número de edificios de un tipo determinado en el mundo
@@ -144,7 +159,13 @@ namespace Civ.Global
 			return ret;
 		}
 
+		#endregion
+
+		#region Reglas
+
 		public static Recurso RecursoAlimento;
+
+		#endregion
 
 		#region Estadísico
 

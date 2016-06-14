@@ -3,13 +3,14 @@ using Civ.Global;
 using System;
 using Civ.Topología;
 using Civ.ObjetosEstado;
-using Graficas.Grafo;
 
 namespace Civ.Orden
 {
 	[Serializable]
 	public class OrdenIrALugar : IOrden
 	{
+		#region Orden
+
 		public bool Ejecutar (TimeSpan t)
 		{
 			var avance = (float)t.TotalHours * ArmadaEjecutante.Velocidad;
@@ -25,7 +26,24 @@ namespace Civ.Orden
 
 		public Armada ArmadaEjecutante { get; }
 
+		#endregion
+
+		#region Ir a
+
 		public Continuo<Terreno>.Ruta Ruta { get; }
+
+		public TimeSpan TiempoEstimado
+		{
+			get
+			{
+				var fl = Ruta.Longitud / ArmadaEjecutante.Velocidad;
+				return TimeSpan.FromHours (fl);
+			}
+		}
+
+		#endregion
+
+		#region ctor
 
 		public OrdenIrALugar (Armada armada, Pseudoposición destino)
 		{
@@ -39,16 +57,12 @@ namespace Civ.Orden
 			//Ruta.ConcatFinal (destino);
 		}
 
-		public TimeSpan TiempoEstimado
-		{
-			get
-			{
-				var fl = Ruta.Longitud / ArmadaEjecutante.Velocidad;
-				return TimeSpan.FromHours (fl);
-			}
-		}
+		#endregion
+
+		#region Eventos
 
 		public event Action AlLlegar;
+
+		#endregion
 	}
 }
-

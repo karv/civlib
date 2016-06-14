@@ -24,4 +24,3 @@ namespace Civ
 		event Action<TimeSpan> AlTickDespués;
 	}
 }
-

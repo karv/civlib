@@ -8,19 +8,17 @@ namespace Civ.Combate
 	[Serializable]
 	public class AnálisisCombate : IAnálisisCombate
 	{
-		static Random _r
-		{
-			get
-			{
-				return HerrGlobal.Rnd;
-			}
-		}
+		#region Info
 
 		public IAtacante Atacante { get; set; }
 
 		public Stack Defensor { get; set; }
 
 		public IEnumerable<string> Mods { get; }
+
+		#endregion
+
+		#region Análisis
 
 		IAtacante IAnálisisCombate.Atacante
 		{
@@ -38,16 +36,40 @@ namespace Civ.Combate
 			}
 		}
 
+		public string Análisis ()
+		{
+			return ToString ();
+		}
+
+		#endregion
+
+		#region Contexto
+
+		static Random _r
+		{
+			get
+			{
+				return HerrGlobal.Rnd;
+			}
+		}
+
 		public float DañoDisperso { get; set; }
 
 		public float DañoDirecto { get; set; }
 
 		public TimeSpan Tiempo { get; }
 
-		public string Análisis ()
+		public float Dispersión
 		{
-			return ToString ();
+			get
+			{
+				return Atacante.Dispersión;
+			}
 		}
+
+		#endregion
+
+		#region General
 
 		public override string ToString ()
 		{
@@ -60,6 +82,17 @@ namespace Civ.Combate
 				DañoDirecto);
 		}
 
+		/// <summary>
+		/// Ejecuta este combate
+		/// </summary>
+		public void Ejecutar ()
+		{
+			Dañar ();
+		}
+
+		#endregion
+
+		#region Interacción y daño
 
 		void DañarDirecto ()
 		{
@@ -89,6 +122,10 @@ namespace Civ.Combate
 			Defensor.FueAtacado (this);
 		}
 
+		#endregion
+
+		#region ctor
+
 		public AnálisisCombate (IAtacante atacante, IDefensor defensa, TimeSpan t)
 		{
 			Defensor = defensa.Defensa (atacante);
@@ -103,22 +140,6 @@ namespace Civ.Combate
 
 		}
 
-		/// <summary>
-		/// Ejecuta este combate
-		/// </summary>
-		public void Ejecutar ()
-		{
-			Dañar ();
-		}
-
-		public float Dispersión
-		{
-			get
-			{
-				return Atacante.Dispersión;
-			}
-		}
-
+		#endregion
 	}
 }
-

@@ -28,7 +28,7 @@ namespace Civ.Combate
 	}
 
 	/// <summary>
-	/// Una armada defendiendo
+	/// Tiene la capacidad de decidir qué <see cref="Civ.ObjetosEstado.Stack"></see> defiende.
 	/// </summary>
 	public interface IDefensor
 	{

@@ -1,5 +1,4 @@
 using System;
-using Civ.Global;
 using System.Runtime.Serialization;
 
 namespace Civ.RAW
@@ -7,11 +6,6 @@ namespace Civ.RAW
 	[Serializable]
 	public class Recurso : IEquatable<Recurso>
 	{
-		public override string ToString ()
-		{
-			return Nombre;
-		}
-
 		#region IEquatable implementation
 
 		bool IEquatable<Recurso>.Equals (Recurso other)
@@ -20,6 +14,8 @@ namespace Civ.RAW
 		}
 
 		#endregion
+
+		#region General
 
 		/// <summary>
 		/// Desaparece al final del turno.
@@ -49,6 +45,24 @@ namespace Civ.RAW
 		/// </summary>
 		public bool EsEcológico;
 
+
+		public float Puntuación
+		{
+			get
+			{
+				return Valor;
+			}
+		}
+
+		public override string ToString ()
+		{
+			return Nombre;
+		}
+
+		#endregion
+
+		#region ctor
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Data.Recurso"/>class.
 		/// </summary>
@@ -62,14 +76,12 @@ namespace Civ.RAW
 		{
 		}
 
+		#endregion
+
+		#region Otros
+
 		public string Img;
 
-		public float Puntuación
-		{
-			get
-			{
-				return Valor;
-			}
-		}
+		#endregion
 	}
 }

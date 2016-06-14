@@ -2,13 +2,14 @@
 using Civ.RAW;
 using System;
 using Civ.Topología;
+using Civ.Almacén;
 
 namespace Civ.ObjetosEstado
 {
 	/// <summary>
 	/// Una ciudad
 	/// </summary>
-	public interface ICiudad: ITickable, IPuntuado, IPosicionable
+	public interface ICiudad : ITickable, IPuntuado, IPosicionable
 	{
 		/// <summary>
 		/// Nombre de la ciudad

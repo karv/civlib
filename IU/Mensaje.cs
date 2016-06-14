@@ -1,5 +1,3 @@
-using System;
-
 namespace Civ.IU
 {
 	/// <summary>
@@ -7,6 +5,8 @@ namespace Civ.IU
 	/// </summary>
 	public class Mensaje
 	{
+		#region General
+
 		/// <summary>
 		/// El texto mensaje.
 		/// Se puede usar el formato de <see cref="string.Format"/>,
@@ -24,10 +24,23 @@ namespace Civ.IU
 		/// <value>The estado.</value>
 		public EstadoMensaje Estado { get; set; }
 
+		public override string ToString ()
+		{
+			return string.Format (Msj, Origen);
+		}
+
+		#endregion
+
+		#region Repetición
+
 		/// <summary>
 		/// Se usa para comparar si dos mensajes son de la misma clase y no deben duplicarse.
 		/// </summary>
 		public IRepetidor VerificadorRepetición;
+
+		#endregion
+
+		#region ctor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IU.Mensaje"/> class.
@@ -48,10 +61,7 @@ namespace Civ.IU
 			#endif
 		}
 
-		public override string ToString ()
-		{
-			return string.Format (Msj, Origen);
-		}
+		#endregion
 	}
 
 	/// <summary>

@@ -1,24 +1,4 @@
-﻿//
-//  InvestigandoCiencia.cs
-//
-//  Author:
-//       Edgar Carballo <karvayoEdgar@gmail.com>
-//
-//  Copyright (c) 2015 edgar
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using ListasExtra;
+﻿using ListasExtra;
 using System.Runtime.Serialization;
 using System;
 using Civ.RAW;
@@ -30,24 +10,24 @@ namespace Civ.Ciencias
 	/// </summary>
 	[CollectionDataContract]
 	[Serializable]
-	public class InvestigandoCiencia: ListaPeso<Recurso>
+	public class InvestigandoCiencia : ListaPeso<Recurso>
 	{
+		#region General
+
 		/// <summary>
 		/// La ciencia anclada.
 		/// </summary>
 		public readonly Ciencia Ciencia;
 
-		public InvestigandoCiencia ()
-		{
-		}
+		/// 
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.InvestigandoCiencia"/> class.
+		/// Devuelve true si está completada.
 		/// </summary>
-		/// <param name="ciencia">Ciencia</param>
-		public InvestigandoCiencia (Ciencia ciencia)
+		/// <returns><c>true</c>, if completada was estaed, <c>false</c> otherwise.</returns>
+		public bool EstáCompletada ()
 		{
-			Ciencia = ciencia;
+			return this >= Ciencia.Reqs.Recursos;
 		}
 
 		/// <summary>
@@ -68,20 +48,32 @@ namespace Civ.Ciencias
 			return Curr / Max;
 		}
 
+		#endregion
+
+		#region ctor
+
+		public InvestigandoCiencia ()
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.InvestigandoCiencia"/> class.
+		/// </summary>
+		/// <param name="ciencia">Ciencia</param>
+		public InvestigandoCiencia (Ciencia ciencia)
+		{
+			Ciencia = ciencia;
+		}
+
+		#endregion
+
+		#region Objeto
+
 		public override string ToString ()
 		{
 			return string.Format ("{0}: {1}%", Ciencia.Nombre, ObtPct ());
 		}
 
-		/// <summary>
-		/// Devuelve true si está completada.
-		/// </summary>
-		/// <returns><c>true</c>, if completada was estaed, <c>false</c> otherwise.</returns>
-		public bool EstáCompletada ()
-		{
-			return this >= Ciencia.Reqs.Recursos;
-		}
+		#endregion
 	}
-
 }
-

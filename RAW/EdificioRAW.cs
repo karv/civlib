@@ -12,6 +12,8 @@ namespace Civ.RAW
 	[Serializable]
 	public class EdificioRAW : IRequerimiento<ICiudad>
 	{
+		#region General
+
 		public string Nombre;
 		public ulong MaxWorkers;
 		/// <summary>
@@ -28,6 +30,14 @@ namespace Civ.RAW
 		/// Si vale 0, significa "sin límite"
 		/// </summary>
 		public int MaxPorMundo;
+		/// <summary>
+		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
+		/// </summary>
+		public bool EsAutoConstruible;
+
+		#endregion
+
+		#region Producción y trabajos
 
 		/// <summary>
 		/// Devuelve los recursos y su cantidad que genera, incluso si no existe trabajador.
@@ -39,16 +49,28 @@ namespace Civ.RAW
 		/// </summary>
 		public HashSet<TrabajoRAW> Trabajos { get; set; }
 
+		#endregion
+
+		#region ctor
+
 		public EdificioRAW ()
 		{
 			Salida = new ListaPeso<Recurso> ();
 			Trabajos = new HashSet<TrabajoRAW> ();
 		}
 
+		#endregion
+
+		#region General
+
 		public override string ToString ()
 		{
 			return Nombre;
 		}
+
+		#endregion
+
+		#region Requerimientos
 
 		// IRequerieminto
 		bool IRequerimiento<ICiudad>.LoSatisface (ICiudad ciudad)
@@ -77,9 +99,6 @@ namespace Civ.RAW
 			return Requiere.Requiere ();
 		}
 
-		/// <summary>
-		/// Especifica si este edificio se contruye automáticalente al cumplir todos los requisitos.
-		/// </summary>
-		public bool EsAutoConstruible;
+		#endregion
 	}
 }

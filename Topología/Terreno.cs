@@ -10,11 +10,54 @@ namespace Civ.Topología
 	/// Representa el terreno donde se construye una ciudad.
 	/// </summary>
 	[Serializable]
-	public class Terreno: ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
+	public class Terreno : ITickable, IEquatable<Terreno>, IEquatable<Pseudoposición>, IPosicionable
 	{
+		#region Topología
+
 		public Pseudoposición Pos { get; private set; }
 
+		/// <summary>
+		/// Terrenos vecinos.
+		/// </summary>
+		public ICollection<Terreno> Vecinos
+		{
+			get
+			{
+				return Juego.State.Topología.Vecino (this);
+			}
+		}
+
+		public void AsignarPosición ()
+		{
+			Pos = new Pseudoposición (Juego.State.Mapa.PuntoFijo (this));
+		}
+
+		#endregion
+
+		#region Ecología
+
+		// Ecología
+		/// <summary>
+		/// Representa la ecología del terreno.
+		/// </summary>
+		public Ecología Eco;
+
 		public Ecosistema Ecosistema { get; }
+
+		/// <summary>
+		/// Propiedades que se contruyen al construir una ciudad aquí.
+		/// </summary>        
+		public ICollection<Propiedad> Innatos
+		{
+			get
+			{
+				return Eco.Innatos;
+			}
+		}
+
+		#endregion
+
+		#region ctor
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.Topología.Terreno"/> class.
@@ -45,6 +88,12 @@ namespace Civ.Topología
 		{
 		}
 
+		#endregion
+
+		#region Nombre
+
+		public string Nombre;
+
 		void GenerarNombre ()
 		{
 			var r = HerrGlobal.Rnd;
@@ -56,11 +105,7 @@ namespace Civ.Topología
 			Nombre += r.Next (10000).ToString ();
 		}
 
-		public void AsignarPosición ()
-		{
-			Pos = new Pseudoposición (Juego.State.Mapa.PuntoFijo (this));
-			//Pos = Juego.State.Mapa.AgregaPunto (this);
-		}
+		#endregion
 
 		#region IPosicionable implementation
 
@@ -85,41 +130,12 @@ namespace Civ.Topología
 
 		#endregion
 
-		/// <summary>
-		/// Terrenos vecinos.
-		/// </summary>
-		public ICollection<Terreno> Vecinos
-		{
-			get
-			{
-				return Juego.State.Topología.Vecino (this);
-			}
-		}
-
-		public string Nombre;
-
-		/// <summary>
-		/// Propiedades que se contruyen al construir una ciudad aquí.
-		/// </summary>        
-		public ICollection<Propiedad> Innatos
-		{
-			get
-			{
-				return Eco.Innatos;
-			}
-		}
+		#region General
 
 		public override string ToString ()
 		{
 			return Nombre;
 		}
-
-		// Ecología
-		/// <summary>
-		/// Representa la ecología del terreno.
-		/// </summary>
-		public Ecología Eco;
-
 
 		/// <summary>
 		/// Ciudad que está contruida en este terreno.
@@ -136,6 +152,8 @@ namespace Civ.Topología
 			Eco.Tick (t);
 			AlTickDespués?.Invoke (t);
 		}
+
+		#endregion
 
 		#region Eventos
 

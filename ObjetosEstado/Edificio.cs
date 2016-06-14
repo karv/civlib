@@ -200,8 +200,12 @@ namespace Civ.ObjetosEstado
 
 		#endregion
 
+		#region Eventos
+
 		public event Action<TimeSpan> AlTickAntes;
 
 		public event Action<TimeSpan> AlTickDespués;
+
+		#endregion
 	}
 }

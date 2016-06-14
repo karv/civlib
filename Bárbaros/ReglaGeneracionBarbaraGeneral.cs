@@ -10,6 +10,8 @@ namespace Civ.Bárbaros
 	[Serializable]
 	public class ReglaGeneracionBarbaraGeneral : IReglaGeneración
 	{
+		#region Opciones
+
 		/// <summary>
 		/// Coeficiente de puntuación máximo para armadas.
 		/// ej. si la puntuación promedio del juego es 1000 y el coef es 0.3
@@ -17,8 +19,17 @@ namespace Civ.Bárbaros
 		/// y aproximadamente 300
 		/// </summary>
 		public float CoefPuntuacion = 0.3f;
+		/// 
+
+		#endregion
+
+		#region Interno
 
 		GameState _estado;
+
+		#endregion
+
+		#region Generación
 
 		public bool EsPosibleGenerar (GameState estado)
 		{
@@ -63,5 +74,6 @@ namespace Civ.Bárbaros
 			return ret;
 		}
 
+		#endregion
 	}
 }

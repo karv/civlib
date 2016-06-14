@@ -416,6 +416,5 @@ namespace Civ.ObjetosEstado
 		public event Action<ICiudad> AlColonizar;
 
 		#endregion
-
 	}
 }

@@ -6,6 +6,7 @@ using System;
 using Civ.ObjetosEstado;
 using Civ.Topología;
 using System.IO;
+using System.Diagnostics;
 
 namespace Civ.Global
 {
@@ -15,16 +16,28 @@ namespace Civ.Global
 	[Serializable]
 	public class GameData
 	{
+		#region Listas
+
 		public HashSet<Ciencia> Ciencias = new HashSet<Ciencia> ();
 		public HashSet<EdificioRAW> Edificios = new HashSet<EdificioRAW> ();
 		public HashSet<Recurso> Recursos = new HashSet<Recurso> ();
 		public HashSet<IUnidadRAW> Unidades = new HashSet<IUnidadRAW> ();
 		public HashSet<Ecosistema> Ecosistemas = new HashSet<Ecosistema> ();
 
+		#endregion
+
+		#region Otros
+
 		/// <summary>
 		/// El recurso que sirve como alimento en una ciudad.
 		/// </summary>
 		public Recurso RecursoAlimento;
+
+		/// 
+
+		#endregion
+
+		#region Contar y encontrar
 
 		public IEnumerable<TrabajoRAW> Trabajos ()
 		{
@@ -195,20 +208,27 @@ namespace Civ.Global
 			return Edificios.Where (ciudad.PuedeConstruir);
 		}
 
+		#endregion
+
+		#region Debug
+
+		[Conditional ("DEBUG")]
 		public void ProbarIntegridadIconos ()
 		{
 			foreach (var x in Recursos)
 			{
 				if (x.Img == null)
 				{
-					System.Diagnostics.Debug.WriteLine (string.Format ("Recurso {0} con enlace a icono roto. Usando icono genérico.", 
+					Debug.WriteLine (string.Format ("Recurso {0} con enlace a icono roto. Usando icono genérico.", 
 						x.Nombre));
 				}
 				else if (!File.Exists ("img//" + x.Img))
-					System.Diagnostics.Debug.WriteLine (string.Format (
-						"Imagen del recurso {0} Periddo",
+					Debug.WriteLine (string.Format (
+						"Imagen del recurso {0} Perdido",
 						x.Nombre));
 			}
 		}
+
+		#endregion
 	}
 }

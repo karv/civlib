@@ -10,11 +10,17 @@ namespace Civ.ObjetosEstado
 	[Serializable]
 	public class CivilizacionBárbara : ICivilización
 	{
+		#region ctor
+
 		public CivilizacionBárbara ()
 		{
 			Diplomacia = new DiplomaciaNómada ();
 			Armadas = new HashSet<Armada> ();
 		}
+
+		#endregion
+
+		#region Diplomático
 
 		public bool EsBárbaro
 		{
@@ -24,14 +30,20 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
-		float ICivilización.MaxPeso
-
-		{ get { return float.PositiveInfinity; } }
-
 		/// <summary>
 		/// Devuelve el modelo diplomático.
 		/// </summary>
 		public IDiplomacia Diplomacia { get; }
+
+		#endregion
+
+		#region Militar
+
+		float ICivilización.MaxPeso	{ get { return float.PositiveInfinity; } }
+
+		#endregion
+
+		#region General
 
 		/// <summary>
 		/// Nombre de la civilización
@@ -45,6 +57,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		#endregion
+
+		#region Encontrar y contar
+
 		/// <summary>
 		/// Cuenta el número de edificios existentes en alguna ciudad de esta civilización
 		/// </summary>
@@ -54,6 +70,10 @@ namespace Civ.ObjetosEstado
 		{
 			return 0;
 		}
+
+		#endregion
+
+		#region Implementación ICivilización
 
 		/// <summary>
 		/// Devuelve una lista con las ciudades de la civilización
@@ -123,6 +143,10 @@ namespace Civ.ObjetosEstado
 				((IDisposable)x.Posición).Dispose ();
 		}
 
+		#endregion
+
+		#region Eventos
+
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
@@ -132,5 +156,7 @@ namespace Civ.ObjetosEstado
 		/// Ocurre después del tick
 		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
+
+		#endregion
 	}
 }

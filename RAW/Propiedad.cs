@@ -2,6 +2,7 @@
 using System;
 using Civ.ObjetosEstado;
 using Civ.Global;
+using Civ.Almacén;
 
 namespace Civ.RAW
 {
@@ -35,7 +36,7 @@ namespace Civ.RAW
 		/// <summary>
 		/// El tick de este edificio sobre una ciudad.
 		/// </summary>
-		/// <param name="almacén"><see cref="Civ.ICiudad"/> donde hará un tick esta propiedad.</param>
+		/// <param name="almacén"><see cref="Civ.ObjetosEstado.ICiudad"/> donde hará un tick esta propiedad.</param>
 		/// <param name="t">longitud del tick</param>
 		public virtual void Tick (IAlmacén almacén, TimeSpan t)
 		{

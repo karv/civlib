@@ -12,6 +12,8 @@ namespace Civ.Topología
 	/// </summary>
 	public class Pseudoposición : Continuo<Terreno>.ContinuoPunto
 	{
+		#region ctor
+
 		public Pseudoposición (IPosicionable objeto)
 			: base (Juego.State.Mapa)
 		{
@@ -27,13 +29,10 @@ namespace Civ.Topología
 		{
 			Objeto = null;
 		}
-		/*
-		public Pseudoposición ()
-			: base (Juego.State.Mapa)
-		{
-			Objeto = null;
-		}
-		*/
+
+		#endregion
+
+		#region General
 
 		/// <summary>
 		/// Objeto en esta posición
@@ -47,6 +46,7 @@ namespace Civ.Topología
 		/// <returns>The posición.</returns>
 		public ICollection<Armada> ArmadasMismaPos ()
 		{
+			// THINK: ¿Debe revolver una colección de IPosicionables?
 			var ret = new List<Armada> ();
 			foreach (var x in Juego.State.ArmadasExistentes())
 			{
@@ -54,15 +54,6 @@ namespace Civ.Topología
 					ret.Add (x);
 			}
 			return ret;
-		}
-
-		/// <summary>
-		/// Avanza la posición Dist de distancia hacia Destino.
-		/// </summary>
-		[Obsolete]
-		public void Avanzar (float dist)
-		{
-			Loc += dist;
 		}
 
 		/// <summary>
@@ -77,18 +68,7 @@ namespace Civ.Topología
 			}
 		}
 
-		/// <summary>
-		/// Devuelve el extremo de esta pseudoposición que no es el extremo dado.
-		/// Si sólo tiene un extremo, devuelve este único.
-		/// </summary>
-		/// <param name="noExtremo">Extremo excluido.</param>
-		[Obsolete]
-		public Terreno ExtremoNo (Terreno noExtremo)
-		{
-			if (B == null)
-				return A;
-			return  A.Equals (noExtremo) ? B : A;
-		}
+		#endregion
 
 		#region IEquatable implementation
 
@@ -127,17 +107,5 @@ namespace Civ.Topología
 		}
 
 		#endregion
-
-		/// <summary>
-		/// Devuelve la orientación de esta posición cn respecto a otra.
-		/// </summary>
-		/// <returns>The orientacion.</returns>
-		/// <param name="other">Other.</param>
-		[Obsolete]
-		public int Orientacion (Pseudoposición other)
-		{
-			return A == other.A && B == other.B && Loc < other.Loc ? -1 : 1; // -1 si está 'de el lado izquierdo'
-		}
-
 	}
 }

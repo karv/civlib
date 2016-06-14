@@ -10,6 +10,8 @@ namespace Civ.Orden
 	[Serializable]
 	public class OrdenSerie : List<IOrden>, IOrden
 	{
+		#region Serie
+
 		/// <summary>
 		/// La orden actual
 		/// </summary>
@@ -32,11 +34,25 @@ namespace Civ.Orden
 			Add (orden);
 		}
 
+		#endregion
+
+		#region ctor
+
 		public OrdenSerie (Armada armada)
 			: base ()
 		{
 			ArmadaEjecutante = armada;
 		}
+
+		#endregion
+
+		#region Orden
+
+		/// <summary>
+		/// Devuelve la armada de esta orden
+		/// </summary>
+		/// <value>The armada.</value>
+		public Armada ArmadaEjecutante { get; }
 
 		/// <summary>
 		/// Ejecuta la orden
@@ -62,15 +78,9 @@ namespace Civ.Orden
 			return false;
 		}
 
-		#region IOrden
-
-		/// <summary>
-		/// Devuelve la armada de esta orden
-		/// </summary>
-		/// <value>The armada.</value>
-		public Armada ArmadaEjecutante { get; }
-
 		#endregion
+
+		#region Eventos
 
 		/// <summary>
 		/// Ocurre al acabar una orden de la cola
@@ -81,5 +91,8 @@ namespace Civ.Orden
 		/// Ocurre al terminar toda la cola.
 		/// </summary>
 		public event Action AlTerminar;
+///
+
+		#endregion
 	}
 }

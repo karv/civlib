@@ -2,6 +2,7 @@
 using System;
 using Civ.RAW;
 using System.Linq;
+using Civ.Almacén;
 
 namespace Civ.Topología
 {
@@ -11,6 +12,8 @@ namespace Civ.Topología
 	/// </summary>
 	public class Ecología : ITickable
 	{
+		#region ctor
+
 		public Ecología (IDictionary<Recurso, float> almacénInicial)
 		{
 			foreach (var y in almacénInicial)
@@ -21,16 +24,16 @@ namespace Civ.Topología
 		{
 		}
 
+		#endregion
+
+		#region Ecología
+
 		public readonly AlmacénGenérico RecursoEcológico = new AlmacénGenérico ();
 
 		/// <summary>
 		/// Propiedades innatas del lugar
 		/// </summary>
 		public readonly ICollection<Propiedad> Innatos = new HashSet<Propiedad> ();
-
-		public event Action<TimeSpan> AlTickAntes;
-
-		public event Action<TimeSpan> AlTickDespués;
 
 		/// <summary>
 		/// Devuelve el almacén de recursos.
@@ -54,6 +57,18 @@ namespace Civ.Topología
 			}
 		}
 
+		#endregion
+
+		#region Eventos
+
+		public event Action<TimeSpan> AlTickAntes;
+
+		public event Action<TimeSpan> AlTickDespués;
+
+		#endregion
+
+		#region Tickable
+
 		/// <summary>
 		/// Ejecuta un tick
 		/// </summary>
@@ -70,5 +85,7 @@ namespace Civ.Topología
 			}
 			AlTickDespués?.Invoke (t);
 		}
+
+		#endregion
 	}
 }
