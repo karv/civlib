@@ -30,7 +30,19 @@ namespace Civ.Global
 		public static Juego Instancia = new Juego ();
 
 		[NonSerialized]
-		public bool Pausado;
+		bool _pausado;
+
+		public bool Pausado
+		{
+			get
+			{
+				return _pausado;
+			}
+			set
+			{
+				_pausado = value;
+			}
+		}
 
 		[NonSerialized]
 		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
