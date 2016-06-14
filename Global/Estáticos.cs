@@ -80,7 +80,7 @@ namespace Civ.Global
 
 		// Es hashset porque no quiero repeticiones
 		[NonSerialized]
-		public HashSet<Cronómetro> Cronómetros = new HashSet<Cronómetro> ();
+		public HashSet<Cronómetro> Cronómetros;
 
 		public static GameData Data
 		{
@@ -110,12 +110,20 @@ namespace Civ.Global
 		void Defaults ()
 		{
 			Cronómetros = new HashSet<Cronómetro> ();
-			Pausado = false;
+			_cronoAutoguardado.AlLlamar += EjecutarAutoguardado;
 		}
 
 		Juego ()
 		{
 			BarbGen.Reglas.Add (new ReglaGeneracionBarbaraGeneral ());
+			Defaults ();
+		}
+
+		public void EjecutarAutoguardado ()
+		{
+			Pausado = true;
+			GState.Guardar ("auto.sav");
+			Pausado = false;
 		}
 
 		public void Tick (TimeSpan t)
