@@ -51,6 +51,9 @@ namespace Civ.RAW
 		/// </summary>
 		float MaxCarga { get; }
 
+		/// <summary>
+		/// Devuelve la defensa de la unidad
+		/// </summary>
 		float Defensa { get; }
 
 		/// <summary>

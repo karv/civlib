@@ -6,6 +6,10 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Almacén
 {
+	/// <summary>
+	/// Representa el almacén de recursos de una ciudad,
+	/// manipulando y controlando los recursos ecológicos y genéricos.
+	/// </summary>
 	[Serializable]
 	public class AlmacénCiudad : ListaPeso<Recurso>, IAlmacén
 	{
@@ -24,6 +28,9 @@ namespace Civ.Almacén
 
 		#region General
 
+		/// <summary>
+		/// Ciudad que posee este almacén
+		/// </summary>
 		public readonly Ciudad CiudadDueño;
 
 		/// <summary>

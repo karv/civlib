@@ -14,6 +14,10 @@ namespace Civ.Topología
 	{
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Topología.Pseudoposición"/> class.
+		/// </summary>
+		/// <param name="objeto">IPosicionable que mantiene esta posición.</param>
 		public Pseudoposición (IPosicionable objeto)
 			: base (Juego.State.Mapa)
 		{
@@ -24,6 +28,10 @@ namespace Civ.Topología
 			Loc = p.Loc;
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Topología.Pseudoposición"/> class.
+		/// </summary>
+		/// <param name="p">Punto a clonar</param>
 		public Pseudoposición (Continuo<Terreno>.ContinuoPunto p)
 			: base (Juego.State.Mapa, p.A, p.B, p.Loc)
 		{

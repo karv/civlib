@@ -63,6 +63,10 @@ namespace Civ.Almacén
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Almacén.AlmacénStack"/> class.
+		/// </summary>
+		/// <param name="stack">Stack.</param>
 		public AlmacénStack (Stack stack)
 		{
 			Stack = stack;

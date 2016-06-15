@@ -9,6 +9,9 @@ namespace Civ.Ciencias
 	[Serializable]
 	public class RequiereCiencia: ListasExtra.ListaPeso<Recurso>
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Ciencias.RequiereCiencia"/> class.
+		/// </summary>
 		public RequiereCiencia ()
 			: base (new System.Collections.Generic.Dictionary<Recurso, float> ())
 		{

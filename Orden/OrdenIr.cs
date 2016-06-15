@@ -5,6 +5,9 @@ using Civ.IU;
 
 namespace Civ.Orden
 {
+	/// <summary>
+	/// Orden ir.
+	/// </summary>
 	[Obsolete ("Usar OrdenIrALugar")]
 	public class OrdenIr : IOrden
 	{
@@ -13,6 +16,10 @@ namespace Civ.Orden
 		/// </summary>
 		public Pseudoposición Destino;
 
+		/// <summary>
+		/// Devuelve la armada de esta orden
+		/// </summary>
+		/// <value>The armada.</value>
 		public Armada ArmadaEjecutante { get; }
 
 		OrdenIr (Armada armada)
@@ -49,6 +56,9 @@ namespace Civ.Orden
 			return false;
 		}
 
+		/// <summary>
+		/// Raises the llegar event.
+		/// </summary>
 		protected virtual void OnLlegar ()
 		{
 			ArmadaEjecutante.CivDueño.AgregaMensaje (new Mensaje (
@@ -60,6 +70,9 @@ namespace Civ.Orden
 			AlLlegar?.Invoke ();
 		}
 
+		/// <summary>
+		/// Occurs when al llegar.
+		/// </summary>
 		public event Action AlLlegar;
 	}
 }

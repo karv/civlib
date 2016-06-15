@@ -45,6 +45,13 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		// TODO: almacenar en Ciudad la infopoblacional directamente y no en varialbes separadas;
+		// al momento de llamar esta func, devolver directamente la estructura. Al cabos es Readonly
+
+		/// <summary>
+		/// Devuelve una copia de la info poblacional
+		/// </summary>
+		/// <value>The get poblacion info.</value>
 		public InfoPoblación GetPoblacionInfo
 		{ 
 			get
@@ -61,6 +68,10 @@ namespace Civ.ObjetosEstado
 			return TrabajosAbiertos ();
 		}
 
+		/// <summary>
+		/// Devuelve la armada inmovil que representa la defensa de la ciudad.
+		/// </summary>
+		/// <value>The defensa.</value>
 		public Armada Defensa
 		{
 			get
@@ -75,6 +86,9 @@ namespace Civ.ObjetosEstado
 
 		#region IPosicionable implementation
 
+		/// <summary>
+		/// Obtener la posicion de la ciudad.
+		/// </summary>
 		public Pseudoposición Posición ()
 		{
 			return Terr.Pos;
@@ -96,6 +110,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.Ciudad"/>.
+		/// </summary>
+		/// <returns>El nombre de la ciudad </returns>
 		public override string ToString ()
 		{
 			return Nombre;
@@ -236,6 +254,9 @@ namespace Civ.ObjetosEstado
 
 		AlmacénCiudad _almacén;
 
+		/// <summary>
+		/// Devuelve o establece el alimento en el almacén.
+		/// </summary>
 		public float AlimentoAlmacen
 		{ 
 			get
@@ -248,6 +269,9 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// DEvuelve los recursos que son visibles en la ciudad
+		/// </summary>
 		public ICollection<Recurso> RecursosVisibles ()
 		{
 			var ret = new HashSet<Recurso> ();
@@ -257,7 +281,7 @@ namespace Civ.ObjetosEstado
 			#if DEBUG
 			return ret;
 			#else
-			return return;
+			return ret;
 			#endif
 		}
 
@@ -525,15 +549,30 @@ namespace Civ.ObjetosEstado
 		/// Consumo base de alimento por ciudadano.
 		/// </summary>
 		public const float ConsumoAlimentoPorCiudadanoBase = 1f;
-
+		/// <summary>
+		/// The tasa mortalidad hambruna base.
+		/// Qué tan rápido muere la gente por falta de alimento.
+		/// </summary>
 		public const float TasaMortalidadHambrunaBase = 0.5f;
 
 
 		//Población
+		/// <summary>
+		/// Devuelve o establece la población productiva.
+		/// </summary>
+		/// <value>The real población productiva.</value>
 		protected float RealPoblaciónProductiva { get; set; }
 
+		/// <summary>
+		/// Devuelve o establece la población pre-productiva.
+		/// </summary>
+		/// <value>The real población pre-productiva.</value>
 		protected float RealPoblaciónPreProductiva { get; set; }
 
+		/// <summary>
+		/// Devuelve o establece la población post-productiva.
+		/// </summary>
+		/// <value>The real población post-productiva.</value>
 		protected float RealPoblaciónPostProductiva { get; set; }
 
 		/// <summary>
@@ -844,6 +883,10 @@ namespace Civ.ObjetosEstado
 		[NonSerialized]
 		ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
 
+		/// <summary>
+		/// Devuelve el cambio de recursos que se espera por hora.
+		/// </summary>
+		/// <param name="recurso">Recurso a calcular</param>
 		public float CalculaDeltaRecurso (Recurso recurso)
 		{
 			return DeltaRec [recurso];

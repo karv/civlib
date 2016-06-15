@@ -12,6 +12,9 @@ using Civ.Topología;
 
 namespace Civ.ObjetosEstado
 {
+	/// <summary>
+	/// Representa una civilización jugable
+	/// </summary>
 	[Serializable]
 	public class Civilización : ICivilización
 	{
@@ -89,6 +92,10 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public AlmacénCiv Almacén { get; }
 
+		/// <summary>
+		/// Destruye esta civilización.
+		/// Elimina del mapa a todas sus armadas.
+		/// </summary>
 		public void Destruirse ()
 		{
 			Juego.State.Civs.Remove (this);
@@ -100,6 +107,9 @@ namespace Civ.ObjetosEstado
 
 		#region General
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.ObjetosEstado.Civilización"/> class.
+		/// </summary>
 		public Civilización ()
 		{
 			Almacén = new AlmacénCiv (this);
@@ -111,6 +121,10 @@ namespace Civ.ObjetosEstado
 			MaxPeso = Juego.PrefsJuegoNuevo.MaxPesoInicial;
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.Civilización"/>.
+		/// </summary>
+		/// <returns>El nombre de la civilización</returns>
 		public override string ToString ()
 		{
 			return Nombre;

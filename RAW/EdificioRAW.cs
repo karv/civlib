@@ -14,7 +14,13 @@ namespace Civ.RAW
 	{
 		#region General
 
+		/// <summary>
+		/// Nombre del edificio
+		/// </summary>
 		public string Nombre;
+		/// <summary>
+		/// Número máximo de trabajadores
+		/// </summary>
 		public ulong MaxWorkers;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por ciudad
@@ -53,6 +59,9 @@ namespace Civ.RAW
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.RAW.EdificioRAW"/> class.
+		/// </summary>
 		public EdificioRAW ()
 		{
 			Salida = new ListaPeso<Recurso> ();
@@ -63,6 +72,10 @@ namespace Civ.RAW
 
 		#region General
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.RAW.EdificioRAW"/>.
+		/// </summary>
+		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.RAW.EdificioRAW"/>.</returns>
 		public override string ToString ()
 		{
 			return Nombre;

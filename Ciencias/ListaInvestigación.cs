@@ -34,10 +34,19 @@ namespace Civ.Ciencias
 	{
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Ciencias.ListaInvestigación"/> class.
+		/// </summary>
 		public ListaInvestigación ()
 		{
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Ciencias.ListaInvestigación"/> class.
+		/// Para serialización
+		/// </summary>
+		/// <param name="info">Info.</param>
+		/// <param name="context">Context.</param>
 		protected ListaInvestigación (System.Runtime.Serialization.SerializationInfo info,
 		                              System.Runtime.Serialization.StreamingContext context)
 			: base (info, context)

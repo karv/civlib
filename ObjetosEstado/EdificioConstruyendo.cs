@@ -12,6 +12,9 @@ namespace Civ.ObjetosEstado
 	{
 		#region General
 
+		/// <summary>
+		/// Tipo de edificio.
+		/// </summary>
 		public EdificioRAW RAW;
 
 		/// <summary>
@@ -94,6 +97,10 @@ namespace Civ.ObjetosEstado
 
 		#region Base
 
+		/// <summary>
+		/// Devuelve la ciudad que posee este edificio.
+		/// </summary>
+		/// <value>La ciudad dueño.</value>
 		public Ciudad CiudadDueño { get; }
 
 		/// <summary>

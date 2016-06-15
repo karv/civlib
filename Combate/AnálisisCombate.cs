@@ -5,15 +5,30 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Combate
 {
+	/// <summary>
+	/// Representa los resultados de un tick de combate
+	/// </summary>
 	[Serializable]
 	public class AnálisisCombate : IAnálisisCombate
 	{
 		#region Info
 
+		/// <summary>
+		/// Devuelve o establece el atacante.
+		/// </summary>
 		public IAtacante Atacante { get; set; }
 
+		/// <summary>
+		/// Devuelve o establece el defensor.
+		/// </summary>
+		/// <value>The defensor.</value>
 		public Stack Defensor { get; set; }
 
+		// TODO: Esto se debería poder recuperar desde la propiedad Atacante.
+		/// <summary>
+		/// Devuelve los modificadores de combate del atacante
+		/// </summary>
+		/// <value>The mods.</value>
 		public IEnumerable<string> Mods { get; }
 
 		#endregion
@@ -36,6 +51,9 @@ namespace Civ.Combate
 			}
 		}
 
+		/// <summary>
+		/// Devuelve el análisis en forma de <see cref="System.String"/>
+		/// </summary>
 		public string Análisis ()
 		{
 			return ToString ();
@@ -53,12 +71,27 @@ namespace Civ.Combate
 			}
 		}
 
+		/// <summary>
+		/// Devuelve o establece el daño disperso que se causó
+		/// </summary>
+		/// <value>The daño disperso.</value>
 		public float DañoDisperso { get; set; }
 
+		/// <summary>
+		/// Devuelve o establece el daño directo que se causó
+		/// </summary>
+		/// <value>The daño directo.</value>
 		public float DañoDirecto { get; set; }
 
+		/// <summary>
+		/// Devuelve la duración del tick del combate
+		/// </summary>
+		/// <value>The tiempo.</value>
 		public TimeSpan Tiempo { get; }
 
+		/// <summary>
+		/// Devuelve el coeficiente de dispersión del atacante.
+		/// </summary>
 		public float Dispersión
 		{
 			get
@@ -71,6 +104,10 @@ namespace Civ.Combate
 
 		#region General
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.Combate.AnálisisCombate"/>.
+		/// </summary>
+		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.Combate.AnálisisCombate"/>.</returns>
 		public override string ToString ()
 		{
 			return string.Format (
@@ -126,6 +163,12 @@ namespace Civ.Combate
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Combate.AnálisisCombate"/> class.
+		/// </summary>
+		/// <param name="atacante">Atacante.</param>
+		/// <param name="defensa">Defensa.</param>
+		/// <param name="t">Duración del tick de combate</param>
 		public AnálisisCombate (IAtacante atacante, IDefensor defensa, TimeSpan t)
 		{
 			Defensor = defensa.Defensa (atacante);
@@ -136,8 +179,6 @@ namespace Civ.Combate
 
 			DañoDirecto = Daño * (1 - Dispersión);
 			DañoDisperso = Daño * Dispersión;
-
-
 		}
 
 		#endregion

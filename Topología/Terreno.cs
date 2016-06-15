@@ -14,6 +14,10 @@ namespace Civ.Topología
 	{
 		#region Topología
 
+		/// <summary>
+		/// Devuelve este terreno como Pseudoposición
+		/// </summary>
+		/// <value>The position.</value>
 		public Pseudoposición Pos { get; private set; }
 
 		/// <summary>
@@ -27,6 +31,10 @@ namespace Civ.Topología
 			}
 		}
 
+		/// <summary>
+		/// Construye una nueva posición y se le asigna a este terreno
+		/// </summary>
+		/// <remarks>No elimina la posición anterior.</remarks>
 		public void AsignarPosición ()
 		{
 			Pos = new Pseudoposición (Juego.State.Mapa.PuntoFijo (this));
@@ -36,12 +44,15 @@ namespace Civ.Topología
 
 		#region Ecología
 
-		// Ecología
 		/// <summary>
 		/// Representa la ecología del terreno.
 		/// </summary>
 		public Ecología Eco;
 
+		/// <summary>
+		/// Devuelve el ecosistema de este terreno
+		/// </summary>
+		/// <value>The ecosistema.</value>
 		public Ecosistema Ecosistema { get; }
 
 		/// <summary>
@@ -92,6 +103,9 @@ namespace Civ.Topología
 
 		#region Nombre
 
+		/// <summary>
+		/// Nombre del terreno
+		/// </summary>
 		public string Nombre;
 
 		void GenerarNombre ()
@@ -132,6 +146,10 @@ namespace Civ.Topología
 
 		#region General
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.Topología.Terreno"/>.
+		/// </summary>
+		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.Topología.Terreno"/>.</returns>
 		public override string ToString ()
 		{
 			return Nombre;

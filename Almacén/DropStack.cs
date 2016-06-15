@@ -14,6 +14,10 @@ namespace Civ.Almacén
 	{
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Almacén.DropStack"/> class.
+		/// </summary>
+		/// <param name="pos">Position.</param>
 		public DropStack (Pseudoposición pos)
 		{
 			Almacén = new ListaPeso<Recurso> ();
@@ -44,6 +48,10 @@ namespace Civ.Almacén
 
 		#region Posición
 
+		/// <summary>
+		/// Devuelve la posición de este drop
+		/// </summary>
+		/// <value>The posición.</value>
 		public Pseudoposición Posición { get; }
 
 		Pseudoposición IPosicionable.Posición ()
@@ -83,6 +91,9 @@ namespace Civ.Almacén
 			}
 		}
 
+		/// <summary>
+		/// Devuelve el contenido en este drop
+		/// </summary>
 		public ListaPeso<Recurso> Almacén { get; }
 
 		#endregion

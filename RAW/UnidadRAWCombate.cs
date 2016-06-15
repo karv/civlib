@@ -11,6 +11,9 @@ namespace Civ.RAW
 	[Serializable]
 	public class UnidadRAWCombate : UnidadRAW, IPuntuado, IUnidadRAWCombate
 	{
+		/// <summary>
+		/// Modificadores de combate por flag objetivo.
+		/// </summary>
 		[Serializable]
 		public class Modificadores : ListaPeso<string>
 		{
@@ -18,6 +21,9 @@ namespace Civ.RAW
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.RAW.UnidadRAWCombate"/> class.
+		/// </summary>
 		public UnidadRAWCombate ()
 		{
 			Mods = new Modificadores ();
@@ -27,6 +33,10 @@ namespace Civ.RAW
 
 		#region Combate
 
+		/// <summary>
+		/// Devuelve o establece el ataque de esta clase de unidad
+		/// </summary>
+		/// <value>The ataque.</value>
 		public float Ataque { get; set; }
 
 		/// <summary>

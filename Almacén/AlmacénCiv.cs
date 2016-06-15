@@ -14,6 +14,9 @@ namespace Civ.Almacén
 	{
 		#region General
 
+		/// <summary>
+		/// Civilización que posee este almacén
+		/// </summary>
 		public readonly ICivilización Civil;
 
 		/// <summary>

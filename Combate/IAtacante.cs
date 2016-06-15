@@ -19,10 +19,19 @@ namespace Civ.Combate
 		/// Causa daño propuesto a un stack
 		/// </summary>
 		/// <param name="Def">Defensor</param>
+		/// <param name="t">Duración del tick de combate</param>
 		IAnálisisCombate CausarDaño (IDefensor Def, TimeSpan t);
 
+		/// <summary>
+		/// Devuelve el coeficiente de dispersión del atacante
+		/// </summary>
+		/// <value>The dispersión.</value>
 		float Dispersión { get; }
 
+		// TODO: ¿No debería estar esto en IDefensor?
+		/// <summary>
+		/// ???
+		/// </summary>
 		event Action<IAnálisisCombate> AlSerAtacado;
 
 	}

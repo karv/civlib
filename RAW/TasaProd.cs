@@ -9,10 +9,18 @@ namespace Civ.RAW
 	[Serializable]
 	public abstract class TasaProd
 	{
+		/// <summary>
+		/// Recurso implicado
+		/// </summary>
 		public Recurso Recurso;
 
 		#region ITickable implementation
 
+		/// <summary>
+		/// Realiza un tick
+		/// </summary>
+		/// <param name="alm">Almacén donde realizar el Tick</param>
+		/// <param name="t">Duración del tick</param>
 		public abstract void Tick (IAlmacén alm, TimeSpan t);
 
 		#endregion
@@ -36,6 +44,11 @@ namespace Civ.RAW
 
 		#region TasaProd
 
+		/// <summary>
+		/// Realiza un tick
+		/// </summary>
+		/// <param name="alm">Almacén donde realizar el Tick</param>
+		/// <param name="t">Duración del tick</param>
 		public override void Tick (IAlmacén alm, TimeSpan t)
 		{
 			
@@ -54,11 +67,23 @@ namespace Civ.RAW
 	[Serializable]
 	public class TasaProdExp : TasaProd
 	{
+		/// <summary>
+		/// Valor máximo que puede alcanzar este recurso.
+		/// </summary>
 		public float Max;
+
+		/// <summary>
+		/// Cuánto aumenta relativamente por hora.
+		/// </summary>
 		public float CrecimientoBase;
 
 		#region implemented abstract members of TasaProd
 
+		/// <summary>
+		/// Realiza un tick
+		/// </summary>
+		/// <param name="alm">Almacén donde realizar el Tick</param>
+		/// <param name="t">Duración del tick</param>
 		public override void Tick (IAlmacén alm, TimeSpan t)
 		{
 			alm [Recurso] *= (float)Math.Pow (CrecimientoBase, t.TotalHours);

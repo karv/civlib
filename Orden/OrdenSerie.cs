@@ -38,6 +38,10 @@ namespace Civ.Orden
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Orden.OrdenSerie"/> class.*/
+		/// </summary>
+		/// <param name="armada">Armada ejecutante</param>
 		public OrdenSerie (Armada armada)
 			: base ()
 		{

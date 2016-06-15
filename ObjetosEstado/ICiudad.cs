@@ -59,6 +59,9 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		Armada Defensa { get; }
 
+		/// <summary>
+		/// Devuelve el almacén de la ciudad.
+		/// </summary>
 		IAlmacén Almacén { get; }
 
 		/// <summary>
@@ -106,6 +109,9 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		ulong NumTrabajadores { get; }
 
+		/// <summary>
+		/// Devuelve el número de trabajadores desocupados.
+		/// </summary>
 		ulong TrabajadoresDesocupados { get; }
 
 		/// <summary>

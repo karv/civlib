@@ -124,6 +124,9 @@ namespace Civ.Bárbaros
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Bárbaros.GeneradorArmadasBarbaras"/> class.
+		/// </summary>
 		public GeneradorArmadasBarbaras ()
 		{
 			Reglas = new HashSet<IReglaGeneración> ();

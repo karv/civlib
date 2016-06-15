@@ -81,7 +81,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Devuelve o establece el tiempo entre autoguardados.
 		/// </summary>
-		/// <remarks>El valor TimeSpam.Zero hace que no exista función autoguardado.
+		/// <remarks>El valor TimeSpam.Zero hace que no exista función autoguardado.</remarks>
 		public TimeSpan Autoguardado
 		{
 			get
@@ -173,6 +173,9 @@ namespace Civ.Global
 		#region Herramientas
 
 		// Es hashset porque no quiero repeticiones
+		/// <summary>
+		/// Cronómetros para eventos cronoetrados de un cliente.
+		/// </summary>
 		[NonSerialized]
 		public HashSet<Cronómetro> Cronómetros;
 

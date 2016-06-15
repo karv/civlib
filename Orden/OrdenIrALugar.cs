@@ -6,11 +6,19 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Orden
 {
+	/// <summary>
+	/// Orden de armada de ir a un lugar específico fijo, no necesariamente vecino.
+	/// </summary>
 	[Serializable]
 	public class OrdenIrALugar : IOrden
 	{
 		#region Orden
 
+		/// <summary>
+		/// Ejecuta la orden
+		/// Devuelve true si la orden ha sido terminada.
+		/// </summary>
+		/// <param name="t">Tiempo de ejecución</param>
 		public bool Ejecutar (TimeSpan t)
 		{
 			var avance = (float)t.TotalHours * ArmadaEjecutante.Velocidad;
@@ -24,14 +32,26 @@ namespace Civ.Orden
 			return false;
 		}
 
+		/// <summary>
+		/// Devuelve la armada de esta orden
+		/// </summary>
+		/// <value>The armada.</value>
 		public Armada ArmadaEjecutante { get; }
 
 		#endregion
 
 		#region Ir a
 
+		/// <summary>
+		/// Devuelve la ruta que seguirá al desplazarse con esta orden
+		/// </summary>
+		/// <value>The ruta.</value>
 		public Continuo<Terreno>.Ruta Ruta { get; }
 
+		/// <summary>
+		/// Devuelve el tiempo estimado en llegar a su destino
+		/// </summary>
+		/// <value>The tiempo estimado.</value>
 		public TimeSpan TiempoEstimado
 		{
 			get
@@ -45,6 +65,11 @@ namespace Civ.Orden
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Orden.OrdenIrALugar"/> class.
+		/// </summary>
+		/// <param name="armada">Armada.</param>
+		/// <param name="destino">Destino.</param>
 		public OrdenIrALugar (Armada armada, Pseudoposición destino)
 		{
 			var origen = armada.Posición;
@@ -61,6 +86,9 @@ namespace Civ.Orden
 
 		#region Eventos
 
+		/// <summary>
+		/// Ocurre al llegar al destino
+		/// </summary>
 		public event Action AlLlegar;
 
 		#endregion

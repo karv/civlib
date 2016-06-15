@@ -61,6 +61,10 @@ namespace Civ.ObjetosEstado
 
 		#region Armadas
 
+		/// <summary>
+		/// Devuelve el peso máximo que puede tener cualquier armada libre (no defensa)
+		/// de esta civilización.
+		/// </summary>
 		float MaxPeso { get; }
 
 		#endregion
@@ -71,6 +75,9 @@ namespace Civ.ObjetosEstado
 		void Destruirse ();
 	}
 
+	/// <summary>
+	/// Extensiones de ICivilización
+	/// </summary>
 	public static class CivExt
 	{
 		/// <summary>
@@ -84,7 +91,5 @@ namespace Civ.ObjetosEstado
 			if (ciudad.CivDueño == civilización)
 				ciudad.CivDueño = null;
 		}
-
 	}
 }
-

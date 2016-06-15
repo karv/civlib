@@ -60,6 +60,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Devuelve una colección con los tipos de unidades que hay en esta armada.
+		/// </summary>
+		/// <returns>The unidades.</returns>
 		public ICollection<IUnidadRAW> TiposUnidades ()
 		{
 			return _unidades.Keys;
@@ -226,12 +230,17 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Agrega algunas unidades a la armada
+		/// </summary>
+		/// <param name="raw">Tipo de unidad</param>
+		/// <param name="cantidad">Cantidad</param>
 		public void AgregaUnidad (IUnidadRAW raw, ulong cantidad)
 		{
 			if (cantidad <= 0)
 			{
 				#if DEBUG
-				Console.WriteLine ("Imposible agregar <=0 unidades.");
+				Console.WriteLine ("Imposible agregar <=0 unidades."); // TODO: Exception
 				#endif
 				return;
 			}
@@ -294,6 +303,9 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Devuelve la suma de las vitalidades de sus <see cref="Civ.ObjetosEstado.Stack"/>
+		/// </summary>
 		public float Vitalidad
 		{
 			get
@@ -307,6 +319,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Debe ejecutarse cuando esta armada es objetivo de algún ataque.
+		/// </summary>
+		/// <param name="anal">El análisis del ataque.</param>
 		public void FueAtacado (IAnálisisCombate anal)
 		{
 			if (!Unidades.Any ())
@@ -316,6 +332,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.Armada"/>.
+		/// </summary>
+		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.Armada"/>.</returns>
 		public override string ToString ()
 		{
 			string ret = string.Format (
@@ -367,6 +387,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Devuelve la civilización que posee esta armada
+		/// </summary>
+		/// <value>The civ dueño.</value>
 		public ICivilización CivDueño { get; }
 
 		/// <summary>
@@ -385,6 +409,10 @@ namespace Civ.ObjetosEstado
 			return ret;
 		}
 
+		/// <summary>
+		/// Orden actual de la armada
+		/// </summary>
+		/// <remarks>Nunca debe ser <c>null</c></remarks>
 		public IOrden Orden = new OrdenEstacionado ();
 
 		/// <summary>

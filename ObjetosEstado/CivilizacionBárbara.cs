@@ -7,11 +7,18 @@ using Civ.Global;
 
 namespace Civ.ObjetosEstado
 {
+	/// <summary>
+	/// Representa una civilización bárbara;
+	/// sin cultura, producción ni diplimacia.
+	/// </summary>
 	[Serializable]
 	public class CivilizacionBárbara : ICivilización
 	{
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.ObjetosEstado.CivilizacionBárbara"/> class.
+		/// </summary>
 		public CivilizacionBárbara ()
 		{
 			Diplomacia = new DiplomaciaNómada ();
@@ -22,6 +29,10 @@ namespace Civ.ObjetosEstado
 
 		#region Diplomático
 
+		/// <summary>
+		/// Devuelve si esta civilización está marcada como bárbara
+		/// </summary>
+		/// <value><c>true</c> if es bárbaro; otherwise, <c>false</c>.</value>
 		public bool EsBárbaro
 		{
 			get
@@ -93,6 +104,10 @@ namespace Civ.ObjetosEstado
 		/// <value>The armadas.</value>
 		public ICollection<Armada> Armadas { get; }
 
+		/// <summary>
+		/// Devuelve los avances científicos/culturales que posee la civilización.
+		/// Como es bárbara, devuelve una colección vacía.
+		/// </summary>
 		public ICollection<Ciencia> Avances
 		{
 			get
@@ -128,6 +143,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Devuelve el almacén global.
+		/// Como es bárbara devuelve <c>null</c>
+		/// </summary>
 		public AlmacénCiv Almacén
 		{
 			get
@@ -136,6 +155,9 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Elimina esta civilización del juego
+		/// </summary>
 		public void Destruirse ()
 		{
 			Juego.State.Civs.Remove (this);

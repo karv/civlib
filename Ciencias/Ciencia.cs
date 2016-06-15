@@ -11,6 +11,9 @@ namespace Civ.Ciencias
 	[Serializable]
 	public class Ciencia : IRequerimiento<ICiudad>, IPuntuado
 	{
+		/// <summary>
+		/// Requerimientos para esta ciencia
+		/// </summary>
 		[Serializable]
 		public class Requerimiento
 		{
@@ -57,8 +60,12 @@ namespace Civ.Ciencias
 		/// <summary>
 		/// Nombre de la ciencia;
 		/// </summary>
-		public String Nombre { get; set; }
+		public string Nombre { get; set; }
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.Ciencias.Ciencia"/>.
+		/// </summary>
+		/// <returns>El nombre de la ciencia</returns>
 		public override string ToString ()
 		{
 			return Nombre;

@@ -23,6 +23,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.Edificio"/>.
+		/// </summary>
+		/// <returns>El nombre de la ciudad y el nombre del edificio</returns>
 		public override string ToString ()
 		{
 			return CiudadDueño.Nombre + " - " + RAW.Nombre;
@@ -33,12 +37,21 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public EdificioRAW RAW { get; }
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.ObjetosEstado.Edificio"/> class.
+		/// </summary>
+		/// <param name="nRAW">El RAW del edificio</param>
 		public Edificio (EdificioRAW nRAW)
 		{
 			RAW = nRAW;
 			Trabajos = new List<Trabajo> ();
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.ObjetosEstado.Edificio"/> class.
+		/// </summary>
+		/// <param name="nRAW">El RAW del edificio</param>
+		/// <param name="nCiudad">La ciudad que posee este edificio</param>
 		public Edificio (EdificioRAW nRAW, Ciudad nCiudad)
 			: this (nRAW)
 		{
@@ -202,8 +215,13 @@ namespace Civ.ObjetosEstado
 
 		#region Eventos
 
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
 		public event Action<TimeSpan> AlTickAntes;
-
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
 
 		#endregion

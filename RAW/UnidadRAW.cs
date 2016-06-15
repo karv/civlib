@@ -16,6 +16,9 @@ namespace Civ.RAW
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.RAW.UnidadRAW"/> class.
+		/// </summary>
 		public UnidadRAW ()
 		{
 			Flags = new List<string> ();
@@ -115,6 +118,11 @@ namespace Civ.RAW
 			return Flags.Contains (flag);
 		}
 
+		/// <summary>
+		/// Devuelve el número máximo de estas unidades que puede crear una ciudad
+		/// </summary>
+		/// <returns>Máximo número de reclutas</returns>
+		/// <param name="ciudad">Ciudad que recluta</param>
 		public ulong MaxReclutables (ICiudad ciudad)
 		{
 			ulong MaxPorPoblación;
@@ -148,10 +156,17 @@ namespace Civ.RAW
 			ciudad.Defensa.AgregaUnidad (this, realCantidad);
 		}
 
-
-
+		/// <summary>
+		/// La puntuación de la unidad
+		/// </summary>
 		public float Puntuación { get; set; }
 
+		/// <summary>
+		/// Revisa si esta unidad está disponible para ser creada por una civilización
+		/// </summary>
+		/// <returns>true</returns>
+		/// <c>false</c>
+		/// <param name="civil">Civilización</param>
 		public bool EstaDisponible (ICivilización civil)
 		{
 			return ReqCiencia == null || civil.Avances.Contains (ReqCiencia);

@@ -14,6 +14,9 @@ namespace Civ.RAW
 	{
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.RAW.TrabajoRAW"/> class.
+		/// </summary>
 		public TrabajoRAW ()
 		{
 			EntradaBase = new ListaPeso<Recurso> ();
@@ -29,6 +32,10 @@ namespace Civ.RAW
 		/// </summary>
 		public string Nombre;
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.RAW.TrabajoRAW"/>.
+		/// </summary>
+		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.RAW.TrabajoRAW"/>.</returns>
 		public override string ToString ()
 		{
 			return string.Format ("{0} @ {1}", Nombre, Edificio);

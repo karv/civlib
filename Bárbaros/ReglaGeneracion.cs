@@ -36,7 +36,6 @@ namespace Civ.Bárbaros
 		/// </summary>
 		/// <param name="estado">Estado del juego.</param>
 		/// <returns><c>true</c>, if posible generar was esed, <c>false</c> otherwise.</returns>
-		/// <param name="estado">Estado.</param>
 		public bool EsPosibleGenerar (GameState estado)
 		{
 			float Puntuacion = estado.SumaPuntuacion ();
@@ -44,6 +43,10 @@ namespace Civ.Bárbaros
 			return Puntuacion < MaxPuntuación && Puntuacion > MinPuntuación;
 		}
 
+		/// <summary>
+		/// Genera una armada
+		/// </summary>
+		/// <returns>La armada gnerada</returns>
 		public Armada GenerarArmada ()
 		{
 			var cb = new CivilizacionBárbara ();

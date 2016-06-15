@@ -5,6 +5,7 @@ using ListasExtra;
 
 namespace Civ.IU
 {
+	// TODO: Hacer un EqualityComparer para manejar repeticiones.
 	/// <summary>
 	/// Manejador de mensajes de una civilización
 	/// </summary>
@@ -28,6 +29,12 @@ namespace Civ.IU
 			}
 		}
 
+		/// <Docs>The item to remove from the current collection.</Docs>
+		/// <para>Removes the first occurrence of an item from the current collection.</para>
+		/// <summary>
+		/// Elimina los mensajes con un repetidor dado.
+		/// </summary>
+		/// <param name="repetidor">Repetidor.</param>
 		public bool Remove (IRepetidor repetidor)
 		{
 			var removing = this.Where (x => x.VerificadorRepetición.Coincide (repetidor));

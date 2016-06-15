@@ -83,6 +83,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.Stack"/>.
+		/// </summary>
+		/// <returns>Nombre de unidad y cantidad.</returns>
 		public override string ToString ()
 		{
 			return string.Format ("({0}) {1}", Cantidad, Nombre);
@@ -120,6 +124,9 @@ namespace Civ.ObjetosEstado
 		{
 		}
 
+		/// <summary>
+		/// desvincula a la armada y reduce sus propiedades a cero.
+		/// </summary>
 		public void Destruir ()
 		{
 			ArmadaPerteneciente = null;
@@ -179,6 +186,10 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
+		/// <summary>
+		/// Se debe ejecutar al ser víctima de un ataque.
+		/// </summary>
+		/// <param name="anal">El análisis de combate del ataque.</param>
 		public void FueAtacado (IAnálisisCombate anal)
 		{
 			ArmadaPerteneciente.FueAtacado (anal);
@@ -281,6 +292,10 @@ namespace Civ.ObjetosEstado
 			return left;
 		}
 
+		/// <summary>
+		/// Devuelve el peso del stack
+		/// </summary>
+		/// <value>The peso.</value>
 		public float Peso
 		{
 			get
@@ -337,6 +352,10 @@ namespace Civ.ObjetosEstado
 
 		#region Carga
 
+		/// <summary>
+		/// Recoge todo (lo que puede) recurso existente como DropStack en esta posición, 
+		/// agregándolo a su Carga.
+		/// </summary>
 		public void RecogerTodo ()
 		{
 			if (Carga.CargaRestante <= 0)
@@ -385,6 +404,10 @@ namespace Civ.ObjetosEstado
 			return ret;
 		}
 
+		/// <summary>
+		/// Devuelve la dispersión de daño de este Stack,
+		/// </summary>
+		/// <value>Si tiene sentido, devuelve la Dispersión; si no, devuelve 0</value>
 		public float Dispersión
 		{
 			get
@@ -413,6 +436,10 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public event Action AlCambiarCantidad;
 
+		/// <summary>
+		/// Ocurre al colonizar una nueva ciudad.
+		/// Primer parámetro es la ciudad colonizada.
+		/// </summary>
 		public event Action<ICiudad> AlColonizar;
 
 		#endregion
