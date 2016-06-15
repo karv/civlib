@@ -561,18 +561,16 @@ namespace Civ.Global
 				for (int j = 0; j < i; j++)
 				{
 					ICivilización civB = GState.Civs [j];
+					foreach (var ArmA in civA.Armadas)
 					{
-						foreach (var ArmA in civA.Armadas)
+						foreach (var ArmB in civB.Armadas)
 						{
-							foreach (var ArmB in civB.Armadas)
+							if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
+							     (civB.Diplomacia.PermiteAtacar (ArmA)))
 							{
-								if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
-								    (civB.Diplomacia.PermiteAtacar (ArmA)))
+								if (ArmA.Posición.Equals (ArmB.Posición))
 								{
-									if (ArmA.Posición.Equals (ArmB.Posición))
-									{
-										ArmA.Pelea (ArmB, t);
-									}
+									ArmA.Pelea (ArmB, t);
 								}
 							}
 						}
