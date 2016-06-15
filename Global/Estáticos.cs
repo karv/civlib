@@ -368,10 +368,16 @@ namespace Civ.Global
 			}
 		}
 
-		#endregion
-
-		#region Ciclo
-
+		/// <summary>
+		/// Ejecutar las suscripciones a eventos.
+		/// </summary>
+		void suscripciones ()
+		{
+			foreach (var x in GState.CiudadesExistentes ())
+				x.AlCambiarDueño += EliminarMuertos;
+			foreach (var x in GState.ArmadasExistentes ())
+				x.AlVaciarse += EliminarMuertos;
+		}
 
 		#endregion
 
@@ -522,6 +528,7 @@ namespace Civ.Global
 		/// </summary>
 		public void Ejecutar ()
 		{
+			suscripciones ();
 			while (!Terminar)
 			{
 				Ciclo ();
@@ -566,7 +573,7 @@ namespace Civ.Global
 						foreach (var ArmB in civB.Armadas)
 						{
 							if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
-							     (civB.Diplomacia.PermiteAtacar (ArmA)))
+							    (civB.Diplomacia.PermiteAtacar (ArmA)))
 							{
 								if (ArmA.Posición.Equals (ArmB.Posición))
 								{
@@ -577,9 +584,6 @@ namespace Civ.Global
 					}
 				}
 			}
-
-			// Matar Civs sin ciudades.
-			EliminarMuertos ();
 
 			// Generar bárbaros
 			BarbGen.Tick (t);
