@@ -9,9 +9,10 @@ namespace Civ.IU
 
 		/// <summary>
 		/// El texto mensaje.
-		/// Se puede usar el formato de <see cref="string.Format"/>,
+		/// Se puede usar el formato de string.Format,
 		/// </summary>
 		public string Msj;
+
 		/// <summary>
 		/// Objetos vinculados a este mensaje.
 		/// Se usan como argumentos al usar ToString.
@@ -24,6 +25,10 @@ namespace Civ.IU
 		/// <value>The estado.</value>
 		public EstadoMensaje Estado { get; set; }
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.IU.Mensaje"/>.
+		/// </summary>
+		/// <returns>Devuelve el Msj con parámetros de formato de Origen</returns>
 		public override string ToString ()
 		{
 			return string.Format (Msj, Origen);
@@ -69,7 +74,13 @@ namespace Civ.IU
 	/// </summary>
 	public enum EstadoMensaje
 	{
+		/// <summary>
+		/// Mensaje no leído
+		/// </summary>
 		NoLeído,
+		/// <summary>
+		/// Mensaje ya leído.
+		/// </summary>
 		Leído
 	}
 }

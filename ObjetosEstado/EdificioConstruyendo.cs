@@ -4,14 +4,17 @@ using Civ.RAW;
 
 namespace Civ.ObjetosEstado
 {
-	[Serializable]
 	/// <summary>
 	/// Representa un edificio en construcción.
 	/// </summary>
+	[Serializable]
 	public class EdificioConstruyendo
 	{
 		#region General
 
+		/// <summary>
+		/// Tipo de edificio.
+		/// </summary>
 		public EdificioRAW RAW;
 
 		/// <summary>
@@ -94,6 +97,10 @@ namespace Civ.ObjetosEstado
 
 		#region Base
 
+		/// <summary>
+		/// Devuelve la ciudad que posee este edificio.
+		/// </summary>
+		/// <value>La ciudad dueño.</value>
 		public Ciudad CiudadDueño { get; }
 
 		/// <summary>
@@ -117,7 +124,6 @@ namespace Civ.ObjetosEstado
 		/// justo después de crear la instancia en la ciudad.
 		/// </summary>
 		public event Action<Edificio> AlCompletar;
-///
 
 		#endregion
 	}

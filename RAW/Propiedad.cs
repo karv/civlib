@@ -17,6 +17,9 @@ namespace Civ.RAW
 		/// </summary>
 		public string Nombre;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.RAW.Propiedad"/> class.
+		/// </summary>
 		public Propiedad ()
 		{
 			Salida = new HashSet<TasaProd> ();
@@ -46,8 +49,15 @@ namespace Civ.RAW
 			}
 		}
 
+		/// <summary>
+		/// Recursos que agrega a un ecosistema al inicio de una partida al tener esta propiedad
+		/// </summary>
 		public Dictionary<Recurso, float> Iniciales;
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.RAW.Propiedad"/>.
+		/// </summary>
+		/// <returns>El nombre de la propiedad.</returns>
 		public override string ToString ()
 		{
 			return Nombre;

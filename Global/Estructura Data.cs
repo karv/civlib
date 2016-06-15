@@ -18,10 +18,26 @@ namespace Civ.Global
 	{
 		#region Listas
 
+		/// <summary>
+		/// Las ciencias
+		/// </summary>
 		public HashSet<Ciencia> Ciencias = new HashSet<Ciencia> ();
+		/// <summary>
+		/// Los edificios
+		/// </summary>
 		public HashSet<EdificioRAW> Edificios = new HashSet<EdificioRAW> ();
+		/// <summary>
+		/// Los recursos
+		/// </summary>
 		public HashSet<Recurso> Recursos = new HashSet<Recurso> ();
+		/// <summary>
+		/// Las unidades
+		/// </summary>
 		public HashSet<IUnidadRAW> Unidades = new HashSet<IUnidadRAW> ();
+
+		/// <summary>
+		/// Los ecosistemas
+		/// </summary>
 		public HashSet<Ecosistema> Ecosistemas = new HashSet<Ecosistema> ();
 
 		#endregion
@@ -61,18 +77,6 @@ namespace Civ.Global
 			{
 				if (x.Nombre == nombreEdificio)
 					return true;
-			}
-			return false;
-		}
-
-		public bool ExisteEdificio (EdificioRAW edificio)
-		{
-			foreach (EdificioRAW x in Edificios)
-			{
-				if (x == edificio)
-				{
-					return true;
-				}
 			}
 			return false;
 		}
@@ -212,6 +216,9 @@ namespace Civ.Global
 
 		#region Debug
 
+		/// <summary>
+		/// Revisa icono por icono para ver si todos están bien definidos.
+		/// </summary>
 		[Conditional ("DEBUG")]
 		public void ProbarIntegridadIconos ()
 		{

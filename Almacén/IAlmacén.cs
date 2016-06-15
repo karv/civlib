@@ -40,6 +40,9 @@ namespace Civ.Almacén
 		new float this [Recurso recurso]{ get; set; }
 	}
 
+	/// <summary>
+	/// Extensiones de Almacenes
+	/// </summary>
 	public static class ExtIAlmacén
 	{
 		/// <summary>

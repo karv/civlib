@@ -6,20 +6,28 @@ using Civ.Almacén;
 
 namespace Civ.Topología
 {
-	[Serializable]
 	/// <summary>
 	/// Representa la ecología del terreno.
 	/// </summary>
+	[Serializable]
 	public class Ecología : ITickable
 	{
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Topología.Ecología"/> class.
+		/// Copia el contenido de un almacén dado a mi almacén interno.
+		/// </summary>
+		/// <param name="almacénInicial">Almacén inicial.</param>
 		public Ecología (IDictionary<Recurso, float> almacénInicial)
 		{
 			foreach (var y in almacénInicial)
 				RecursoEcológico [y.Key] = y.Value;
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Topología.Ecología"/> class.
+		/// </summary>
 		public Ecología ()
 		{
 		}
@@ -28,6 +36,9 @@ namespace Civ.Topología
 
 		#region Ecología
 
+		/// <summary>
+		/// El almacén de recursos ecológicos
+		/// </summary>
 		public readonly AlmacénGenérico RecursoEcológico = new AlmacénGenérico ();
 
 		/// <summary>
@@ -61,8 +72,14 @@ namespace Civ.Topología
 
 		#region Eventos
 
+		/// <summary>
+		/// Ocurre antes del tick
+		/// </summary>
 		public event Action<TimeSpan> AlTickAntes;
 
+		/// <summary>
+		/// Ocurre después del tick
+		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
 
 		#endregion

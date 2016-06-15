@@ -4,14 +4,18 @@ using Civ.RAW;
 
 namespace Civ.Almacén
 {
-	[Serializable]
 	/// <summary>
 	/// Un almacén genérico
 	/// </summary>
+	[Serializable]
 	public class AlmacénGenérico : ListaPeso<Recurso>, IAlmacén
 	{
 		#region General
 
+		/// <summary>
+		/// Devuelve la lista de recursos implicados
+		/// </summary>
+		/// <value>The recursos.</value>
 		public System.Collections.Generic.IEnumerable<Recurso> Recursos
 		{
 			get

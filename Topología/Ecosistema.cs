@@ -25,6 +25,9 @@ namespace Civ.Topología
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Topología.Ecosistema"/> class.
+		/// </summary>
 		public Ecosistema ()
 		{
 			Nombres = new List<string> ();

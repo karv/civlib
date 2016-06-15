@@ -44,6 +44,9 @@ namespace Civ.Global
 		/// </summary>
 		public bool Recurrente { get; set; }
 
+		/// <summary>
+		/// Devuelve la hora y fecha de la próxima vez que se dispare este evento
+		/// </summary>
 		public DateTime PróximoTick
 		{
 			get
@@ -56,6 +59,9 @@ namespace Civ.Global
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Global.Cronómetro"/> class.
+		/// </summary>
 		public Cronómetro ()
 		{
 			Reestablecer ();
@@ -72,6 +78,9 @@ namespace Civ.Global
 
 		#region Métodos
 
+		/// <summary>
+		/// Reinicia el contador.
+		/// </summary>
 		public void Reestablecer ()
 		{
 			ÚltimoTick = DateTime.Now;
@@ -114,7 +123,6 @@ namespace Civ.Global
 		/// Ocurre después del tick
 		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
-///
 
 		#endregion
 	}

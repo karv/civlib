@@ -3,24 +3,42 @@ using System.Collections.Generic;
 
 namespace Civ.Global
 {
-	[Obsolete ("Usar el par de ListaExtras")]
+	/// <summary>
+	/// Par.
+	/// </summary>
+	[Obsolete ("Usar el par de ListaExtras; o Tuples")]
 	public struct Par<T1, T2>
 	{
+		/// <summary>
+		/// Primer valor
+		/// </summary>
 		public T1 X;
+
+		/// <summary>
+		/// Segundo valor
+		/// </summary>
 		public T2 Y;
 
+		/// <summary>
+		/// </summary>
 		public Par (T1 x, T2 y)
 		{
 			X = x;
 			Y = y;
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current class/>.
+		/// </summary>
 		public override string ToString ()
 		{
 			return string.Format ("({0}, {1})", X, Y);
 		}
 	}
 
+	/// <summary>
+	/// Clase estática que permite elegir un elemento de un ienumerable.
+	/// </summary>
 	public static class Picker
 	{
 		/// <summary>
@@ -65,6 +83,9 @@ namespace Civ.Global
 
 	}
 
+	/// <summary>
+	/// Extensiones de System.Random
+	/// </summary>
 	public static class ExtRandom
 	{
 		/// <summary>

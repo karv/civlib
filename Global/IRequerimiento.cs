@@ -19,11 +19,23 @@ namespace Civ.Global
 		bool LoSatisface (T objeto);
 	}
 
+	/// <summary>
+	/// Requerimiento.
+	/// </summary>
 	[Serializable]
 	public class Requerimiento
 	{
+		/// <summary>
+		/// Requerimiento de ciencias
+		/// </summary>
 		public ICollection<Ciencia> Ciencias = new HashSet<Ciencia> ();
+		/// <summary>
+		/// Requerimiento de edificios
+		/// </summary>
 		public ICollection<EdificioRAW> Edificios = new HashSet<EdificioRAW> ();
+		/// <summary>
+		/// Porpiedades requeridas
+		/// </summary>
 		public ICollection<Propiedad> Propiedades = new HashSet<Propiedad> ();
 
 		/// <summary>
@@ -45,6 +57,10 @@ namespace Civ.Global
 			return ret;
 		}
 
+		/// <summary>
+		/// Agrega un requerimiento, inteligentemente selecionando en cuál lista debe agregarse.
+		/// </summary>
+		/// <param name="x">Objeto a agregar</param>
 		public void Add (object x)
 		{
 			if (x.GetType ().IsAssignableFrom (typeof (Ciencia)))

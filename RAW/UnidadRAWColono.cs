@@ -6,11 +6,17 @@ using Civ.ObjetosEstado;
 
 namespace Civ.RAW
 {
+	/// <summary>
+	/// Un tipo de unidad que puede colonizar
+	/// </summary>
 	[Serializable]
 	public class UnidadRAWColono : UnidadRAW, IUnidadRAWColoniza
 	{
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.RAW.UnidadRAWColono"/> class.
+		/// </summary>
 		public UnidadRAWColono ()
 		{
 			RecursosPorUnidad = new ListaPeso<Recurso> ();
@@ -20,6 +26,10 @@ namespace Civ.RAW
 
 		#region Colonizar
 
+		/// <summary>
+		/// Recursos que cada unidad aporta a una ciudad recién construida
+		/// </summary>
+		/// <value>The recursos por unidad.</value>
 		public ListaPeso<Recurso> RecursosPorUnidad { get; }
 
 		/// <summary>
@@ -66,6 +76,13 @@ namespace Civ.RAW
 			return ret;
 		}
 
+		/// <summary>
+		/// Revisa si un Stack puede colonizar en este momento y lugar
+		/// </summary>
+		/// <value>true</value>
+		/// <c>false</c>
+		/// <returns><c>true</c>, if colonizar was pueded, <c>false</c> otherwise.</returns>
+		/// <param name="stack">Stack que quiere colonizar.</param>
 		public bool PuedeColonizar (Stack stack)
 		{
 			return stack.Posición.EnTerreno &&
@@ -81,7 +98,6 @@ namespace Civ.RAW
 		/// Ocurre cuando esta unidad coloniza
 		/// </summary>
 		public event Action<ICiudad> AlColonizar;
-///
 
 		#endregion
 	}

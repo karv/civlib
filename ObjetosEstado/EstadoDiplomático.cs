@@ -55,13 +55,17 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public bool PuedeHacerDiplomacia;
 
-		/// 
-
 		#endregion
 
 		#region Eventos
 
+		/// <summary>
+		/// Occurs when al cambiar permiso atacar.
+		/// </summary>
 		public event Action AlCambiarPermisoAtacar;
+		/// <summary>
+		/// Occurs when al cambiar permiso paso.
+		/// </summary>
 		public event Action AlCambiarPermisoPaso;
 
 		#endregion

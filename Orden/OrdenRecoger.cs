@@ -5,6 +5,10 @@ using Civ.Almacén;
 
 namespace Civ.Orden
 {
+	/// <summary>
+	/// Representa la orden de ir a recoger un <see cref="Civ.Almacén.DropStack"/>, 
+	/// regresar a su origen y dejarlo ahí.
+	/// </summary>
 	[Serializable]
 	public class OrdenRecoger : IOrden
 	{

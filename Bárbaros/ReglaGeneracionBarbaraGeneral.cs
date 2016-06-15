@@ -7,6 +7,9 @@ using Civ.RAW;
 
 namespace Civ.Bárbaros
 {
+	/// <summary>
+	/// Un algoritmo de generación de bárbaros basado en puntuación
+	/// </summary>
 	[Serializable]
 	public class ReglaGeneracionBarbaraGeneral : IReglaGeneración
 	{
@@ -31,6 +34,10 @@ namespace Civ.Bárbaros
 
 		#region Generación
 
+		/// <summary>
+		/// Revisa si se debe generar esta clase de armada y debe ser considerado como candidato a regla
+		/// </summary>
+		/// <param name="estado">Estado del juego.</param>
 		public bool EsPosibleGenerar (GameState estado)
 		{
 			_estado = estado;

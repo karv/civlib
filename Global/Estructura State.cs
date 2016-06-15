@@ -163,6 +163,9 @@ namespace Civ.Global
 
 		#region Reglas
 
+		/// <summary>
+		/// Devuelve el recurso que se usa como alimento.
+		/// </summary>
 		public static Recurso RecursoAlimento;
 
 		#endregion
@@ -195,6 +198,10 @@ namespace Civ.Global
 
 		#region IO
 
+		/// <summary>
+		/// Guarda el estado del juego en un archivo dado.
+		/// </summary>
+		/// <param name="filename">Nombre del archivo.</param>
 		public void Guardar (string filename)
 		{
 			try
@@ -207,6 +214,10 @@ namespace Civ.Global
 			}
 		}
 
+		/// <summary>
+		/// Carga y devuelve un estado de juego desde un archivo.
+		/// </summary>
+		/// <param name="filename">Nombre del archivo</param>
 		public static GameState Cargar (string filename)
 		{
 			return Store.BinarySerialization.ReadFromBinaryFile<GameState> (filename);

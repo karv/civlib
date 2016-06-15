@@ -2,6 +2,9 @@
 
 namespace Civ.RAW
 {
+	/// <summary>
+	/// Un tipo de unidad que puede atacar
+	/// </summary>
 	public interface IUnidadRAWCombate : IUnidadRAW
 	{
 		/// <summary>
@@ -21,8 +24,13 @@ namespace Civ.RAW
 		/// Dispersión del daño
 		/// </summary>
 		/// <value>The dispersion.</value>
+		/// <remarks>Un valor alto (=1)hace que ataque a cada unidad de un stack objetivo con la misma potencia.
+		/// Uno bajo (=0) hace que ataque unidad por unidad. </remarks>
 		float Dispersión { get; }
 
+		/// <summary>
+		/// Devuelve el daño que puede causar por unidad tiempo
+		/// </summary>
 		float Ataque { get; }
 	}
 }

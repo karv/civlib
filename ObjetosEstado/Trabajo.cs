@@ -12,6 +12,10 @@ namespace Civ.ObjetosEstado
 	{
 		#region General
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.Trabajo"/>.
+		/// </summary>
+		/// <returns>Nombre y datos de empleados</returns>
 		public override string ToString ()
 		{
 			return string.Format (
@@ -23,7 +27,7 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Trabajo"/> class.
+		/// Initializes a new instance of the <see cref="Civ.ObjetosEstado.Trabajo"/> class.
 		/// </summary>
 		/// <param name="nRAW">Clase de trabajo</param>
 		/// <param name="eBase">Edificio base</param>
@@ -36,7 +40,7 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Trabajo"/> class.
+		/// Initializes a new instance of the <see cref="Civ.ObjetosEstado.Trabajo"/> class.
 		/// Busca el edificio requerido en la ciudad especificada
 		/// </summary>
 		/// <param name="nRAW">Clase de trabajo</param>
@@ -203,6 +207,9 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public event Action<TimeSpan> AlTickDespués;
 
+		/// <summary>
+		/// Ocurre cuando se cambian los trabajadores
+		/// </summary>
 		public event Action AlCambiarTrabajadores;
 
 		#endregion

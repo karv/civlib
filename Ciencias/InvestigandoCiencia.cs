@@ -52,12 +52,15 @@ namespace Civ.Ciencias
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Ciencias.InvestigandoCiencia"/> class.
+		/// </summary>
 		public InvestigandoCiencia ()
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.InvestigandoCiencia"/> class.
+		/// Initializes a new instance of the <see cref="Civ.Ciencias.InvestigandoCiencia"/> class.
 		/// </summary>
 		/// <param name="ciencia">Ciencia</param>
 		public InvestigandoCiencia (Ciencia ciencia)
@@ -69,6 +72,10 @@ namespace Civ.Ciencias
 
 		#region Objeto
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.Ciencias.InvestigandoCiencia"/>.
+		/// </summary>
+		/// <returns>El nombre de la ciencia y su porcentaje.</returns>
 		public override string ToString ()
 		{
 			return string.Format ("{0}: {1}%", Ciencia.Nombre, ObtPct ());

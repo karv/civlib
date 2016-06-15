@@ -6,14 +6,17 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Almacén
 {
-	[Serializable]
 	/// <summary>
 	/// Almacena recursos globales.
 	/// </summary>
+	[Serializable]
 	public class AlmacénCiv : ListaPeso<Recurso>, IAlmacén
 	{
 		#region General
 
+		/// <summary>
+		/// Civilización que posee este almacén
+		/// </summary>
 		public readonly ICivilización Civil;
 
 		/// <summary>

@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Civ.RAW
 {
+	/// <summary>
+	/// Representa un recurso
+	/// </summary>
 	[Serializable]
 	public class Recurso : IEquatable<Recurso>
 	{
@@ -45,7 +48,9 @@ namespace Civ.RAW
 		/// </summary>
 		public bool EsEcológico;
 
-
+		/// <summary>
+		/// Devuelve la puntuación que suma a una ciudad cada unidad de este recurso al estar en su almacén
+		/// </summary>
 		public float Puntuación
 		{
 			get
@@ -54,6 +59,10 @@ namespace Civ.RAW
 			}
 		}
 
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.RAW.Recurso"/>.
+		/// </summary>
+		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.RAW.Recurso"/>.</returns>
 		public override string ToString ()
 		{
 			return Nombre;
@@ -64,7 +73,7 @@ namespace Civ.RAW
 		#region ctor
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Data.Recurso"/>class.
+		/// Initializes a new instance of the <see cref="Civ.RAW.Recurso"/>class.
 		/// </summary>
 		/// <param name="nombre">Nombre del recurso.</param>
 		public Recurso (string nombre)
@@ -72,6 +81,9 @@ namespace Civ.RAW
 			Nombre = nombre;
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.RAW.Recurso"/> class.
+		/// </summary>
 		public Recurso ()
 		{
 		}
@@ -80,6 +92,10 @@ namespace Civ.RAW
 
 		#region Otros
 
+		/// <summary>
+		/// Nombre del archivo de la imagen del recurso.
+		/// Relativo al directorio img.
+		/// </summary>
 		public string Img;
 
 		#endregion

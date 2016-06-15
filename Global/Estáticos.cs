@@ -16,8 +16,14 @@ using System.Diagnostics;
 
 namespace Civ.Global
 {
+	/// <summary>
+	/// Clase estática con variables de herramienta globales, como un Random
+	/// </summary>
 	public static class HerrGlobal
 	{
+		/// <summary>
+		/// Generador aleatorio
+		/// </summary>
 		public static Random Rnd = new Random ();
 	}
 
@@ -29,8 +35,14 @@ namespace Civ.Global
 	{
 		#region El juego
 
+		/// <summary>
+		/// La instancia del juego.
+		/// </summary>
 		public static Juego Instancia = new Juego ();
 
+		/// <summary>
+		/// Las opciones que se utilizan al momento de crear un juego
+		/// </summary>
 		[NonSerialized]
 		public static NewGameOptions PrefsJuegoNuevo = new NewGameOptions ();
 
@@ -41,6 +53,9 @@ namespace Civ.Global
 		[NonSerialized]
 		bool _pausado;
 
+		/// <summary>
+		/// Devuelve o establece si el juego está pausado.
+		/// </summary>
 		public bool Pausado
 		{
 			get
@@ -63,6 +78,10 @@ namespace Civ.Global
 		[NonSerialized]
 		Cronómetro _cronoAutoguardado;
 
+		/// <summary>
+		/// Devuelve o establece el tiempo entre autoguardados.
+		/// </summary>
+		/// <remarks>El valor TimeSpam.Zero hace que no exista función autoguardado.</remarks>
 		public TimeSpan Autoguardado
 		{
 			get
@@ -87,6 +106,9 @@ namespace Civ.Global
 			}
 		}
 
+		/// <summary>
+		/// Ejecuta un autoguardado.
+		/// </summary>
 		public void EjecutarAutoguardado ()
 		{
 			const string file_output = "auto.sav";
@@ -101,10 +123,23 @@ namespace Civ.Global
 
 		#region Data
 
+		/// <summary>
+		/// Generador de armadas bárbaras
+		/// </summary>
 		public GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
+		/// <summary>
+		/// Data del juego actual
+		/// </summary>
 		public GameData GData = new GameData ();
+		/// <summary>
+		/// Estado del juego actual
+		/// </summary>
 		public GameState GState = new GameState ();
 
+		/// <summary>
+		/// Devuelve la base de datos de reglas del juego
+		/// </summary>
+		/// <value>The data.</value>
 		public static GameData Data
 		{
 			get
@@ -117,6 +152,10 @@ namespace Civ.Global
 			}
 		}
 
+		/// <summary>
+		/// Devuelve el estado del juego
+		/// </summary>
+		/// <value>The state.</value>
 		public static GameState State
 		{
 			get
@@ -134,6 +173,9 @@ namespace Civ.Global
 		#region Herramientas
 
 		// Es hashset porque no quiero repeticiones
+		/// <summary>
+		/// Cronómetros para eventos cronoetrados de un cliente.
+		/// </summary>
 		[NonSerialized]
 		public HashSet<Cronómetro> Cronómetros;
 
@@ -233,6 +275,10 @@ namespace Civ.Global
 			}
 		}
 
+		/// <summary>
+		/// Carga el juego desde un archivo.
+		/// </summary>
+		/// <param name="filename">Archivo</param>
 		public static void Cargar (string filename = ArchivoState)
 		{
 			try
@@ -271,6 +317,10 @@ namespace Civ.Global
 			}
 		}
 
+		/// <summary>
+		/// Guarda el juego a un archivo.
+		/// </summary>
+		/// <param name="filename">Archivo</param>
 		public static void Guardar (string filename = ArchivoState)
 		{
 			Store.BinarySerialization.WriteToBinaryFile<Juego> (filename, Instancia);
@@ -299,6 +349,10 @@ namespace Civ.Global
 			#endif
 		}
 
+		/// <summary>
+		/// Construye el grafo de la topología del juego.
+		/// </summary>
+		/// <param name="lista">Lista de terrenos</param>
 		public void ConstruirTopología (IEnumerable<Terreno> lista)
 		{
 			foreach (var x in lista)
@@ -336,7 +390,13 @@ namespace Civ.Global
 
 		#region IO
 
+		/// <summary>
+		/// Archivo que se usa para cargar la base de datos
+		/// </summary>
 		public const string ArchivoData = "Data.bin";
+		/// <summary>
+		/// Archivo que se usa para guardar/cargar estado del juego.
+		/// </summary>
 		public const string ArchivoState = "game.state";
 
 		/// <summary>
@@ -431,9 +491,19 @@ namespace Civ.Global
 		#region Ticks
 
 		DateTime timer = DateTime.Now;
+		/// <summary>
+		/// Coeficiente de velocidad del juego.
+		/// </summary>
 		public float MultiplicadorVelocidad = 120;
+
+		/// <summary>
+		/// Devuelve si el juego se está terminando o está terminado; o establece si debe terminarse.
+		/// </summary>
 		public bool Terminar;
 
+		/// <summary>
+		/// Un ciclo
+		/// </summary>
 		public void Ciclo ()
 		{
 			TimeSpan tiempo = DateTime.Now - timer;
@@ -447,6 +517,9 @@ namespace Civ.Global
 				throw new Exception ("Ya se acabó el juego :3");
 		}
 
+		/// <summary>
+		/// Entra al ciclo principal del juego.
+		/// </summary>
 		public void Ejecutar ()
 		{
 			while (!Terminar)
@@ -457,6 +530,10 @@ namespace Civ.Global
 			AlTerminar?.Invoke ();
 		}
 
+		/// <summary>
+		/// Un ciclo
+		/// </summary>
+		/// <param name="t">Tiempo</param>
 		public void Tick (TimeSpan t)
 		{
 			// Cronómetros
@@ -530,9 +607,14 @@ namespace Civ.Global
 		/// Ocurre al pausar o despausar el juego.
 		/// </summary>
 		public event Action AlCambiarEstadoPausa;
+		/// <summary>
+		/// Ocurre al terminar el juego
+		/// </summary>
 		public event Action AlTerminar;
+		/// <summary>
+		/// Se ejecuta al final de cada ciclo.
+		/// </summary>
 		public event Action EntreCiclos;
-
 
 		#endregion
 	}

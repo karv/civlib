@@ -6,10 +6,10 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Almacén
 {
-	[Serializable]
 	/// <summary>
 	/// Un almacén para Stacks (Inventory)
 	/// </summary>
+	[Serializable]
 	public class AlmacénStack : ListaPeso<Recurso>, IAlmacén
 	{
 		#region Internos
@@ -63,6 +63,10 @@ namespace Civ.Almacén
 
 		#region ctor
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.Almacén.AlmacénStack"/> class.
+		/// </summary>
+		/// <param name="stack">Stack.</param>
 		public AlmacénStack (Stack stack)
 		{
 			Stack = stack;

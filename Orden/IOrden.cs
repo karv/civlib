@@ -18,7 +18,7 @@ namespace Civ.Orden
 		/// Ejecuta la orden
 		/// Devuelve true si la orden ha sido terminada.
 		/// </summary>
-		/// <param name="t">T.</param>
+		/// <param name="t">Tiempo de ejecución</param>
 		bool Ejecutar (TimeSpan t);
 	}
 }
