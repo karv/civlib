@@ -566,7 +566,7 @@ namespace Civ.Global
 						foreach (var ArmB in civB.Armadas)
 						{
 							if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
-							     (civB.Diplomacia.PermiteAtacar (ArmA)))
+							    (civB.Diplomacia.PermiteAtacar (ArmA)))
 							{
 								if (ArmA.Posición.Equals (ArmB.Posición))
 								{
@@ -577,9 +577,6 @@ namespace Civ.Global
 					}
 				}
 			}
-
-			// Matar Civs sin ciudades.
-			EliminarMuertos ();
 
 			// Generar bárbaros
 			BarbGen.Tick (t);
