@@ -368,10 +368,16 @@ namespace Civ.Global
 			}
 		}
 
-		#endregion
-
-		#region Ciclo
-
+		/// <summary>
+		/// Ejecutar las suscripciones a eventos.
+		/// </summary>
+		void suscripciones ()
+		{
+			foreach (var x in GState.CiudadesExistentes ())
+				x.AlCambiarDueño += EliminarMuertos;
+			foreach (var x in GState.ArmadasExistentes ())
+				x.AlVaciarse += EliminarMuertos;
+		}
 
 		#endregion
 
@@ -522,6 +528,7 @@ namespace Civ.Global
 		/// </summary>
 		public void Ejecutar ()
 		{
+			suscripciones ();
 			while (!Terminar)
 			{
 				Ciclo ();
