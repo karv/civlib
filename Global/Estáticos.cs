@@ -67,7 +67,7 @@ namespace Civ.Global
 				_pausado = value;
 				if (!value)
 					timer = DateTime.Now; // Al despausar se reestablece el timer
-				AlCambiarEstadoPausa?.Invoke ();
+				AlCambiarEstadoPausa?.Invoke (this, null);
 			}
 		}
 
@@ -376,7 +376,7 @@ namespace Civ.Global
 			foreach (var x in GState.CiudadesExistentes ())
 				x.AlCambiarDueño += EliminarMuertos;
 			foreach (var x in GState.ArmadasExistentes ())
-				x.AlVaciarse += EliminarMuertos;
+				x.AlVaciarse += (sender, e) => EliminarMuertos ();
 		}
 
 		#endregion
@@ -508,9 +508,10 @@ namespace Civ.Global
 		public bool Terminar;
 
 		/// <summary>
-		/// Un ciclo
+		/// Ejecuta un ciclo
 		/// </summary>
-		public void Ciclo ()
+		/// <returns>La duración del tick en tiempo real.
+		public TimeSpan Ciclo ()
 		{
 			TimeSpan tiempo = DateTime.Now - timer;
 			timer = DateTime.Now;
@@ -533,6 +534,8 @@ namespace Civ.Global
 
 			if (Juego.State.Civs.Count == 0)
 				throw new Exception ("Ya se acabó el juego :3");
+
+			return tiempo;
 		}
 
 		/// <summary>
@@ -543,10 +546,10 @@ namespace Civ.Global
 			suscripciones ();
 			while (!Terminar)
 			{
-				Ciclo ();
-				EntreCiclos?.Invoke ();
+				var ccl = Ciclo ();
+				EntreCiclos?.Invoke (this, ccl);
 			}
-			AlTerminar?.Invoke ();
+			AlTerminar?.Invoke (this, null);
 		}
 
 		/// <summary>
@@ -617,15 +620,15 @@ namespace Civ.Global
 		/// <summary>
 		/// Ocurre al pausar o despausar el juego.
 		/// </summary>
-		public event Action AlCambiarEstadoPausa;
+		public event EventHandler AlCambiarEstadoPausa;
 		/// <summary>
 		/// Ocurre al terminar el juego
 		/// </summary>
-		public event Action AlTerminar;
+		public event EventHandler AlTerminar;
 		/// <summary>
 		/// Se ejecuta al final de cada ciclo.
 		/// </summary>
-		public event Action EntreCiclos;
+		public event EventHandler<TimeSpan> EntreCiclos;
 
 		#endregion
 	}
