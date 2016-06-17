@@ -587,7 +587,7 @@ namespace Civ.Global
 							if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
 							    (civB.Diplomacia.PermiteAtacar (ArmA)))
 							{
-								if (ArmA.Posición.Equals (ArmB.Posición))
+								if (ArmA.Posición.Coincide (ArmB.Posición))
 								{
 									ArmA.Pelea (ArmB, t.GameTime);
 								}
