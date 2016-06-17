@@ -6,6 +6,7 @@ using Civ.ObjetosEstado;
 using Civ.Orden;
 using ListasExtra.Extensiones;
 using System.Diagnostics;
+using Civ.Topología;
 
 namespace Civ.Bárbaros
 {
@@ -63,7 +64,7 @@ namespace Civ.Bárbaros
 		/// Genera, agrega al universo y devuelve una armada bárbara.
 		/// </summary>
 		/// <returns>The armada.</returns>
-		public Armada Armada ()
+		public Armada Armada (Pseudoposición pos = null)
 		{
 			// Escoger una regla
 			var reglas = new List<IReglaGeneración> (Reglas.Where (x => x.EsPosibleGenerar (Juego.State)));
@@ -75,7 +76,7 @@ namespace Civ.Bárbaros
 
 
 			IReglaGeneración usarRegla = reglas [HerrGlobal.Rnd.Next (reglas.Count)];
-			Armada ret = usarRegla.GenerarArmada ();
+			var ret = pos == null ? usarRegla.GenerarArmada () : usarRegla.GenerarArmada (pos);
 
 			#if DEBUG
 			if (ret == null)
@@ -146,8 +147,6 @@ namespace Civ.Bárbaros
 		/// Ocurre después del tick
 		/// </summary>
 		public event EventHandler AlTickDespués;
-
-		/// 
 
 		#endregion
 
