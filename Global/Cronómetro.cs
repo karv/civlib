@@ -45,6 +45,18 @@ namespace Civ.Global
 		public bool Recurrente { get; set; }
 
 		/// <summary>
+		/// Si el cronómetro mide el tiempo de juego o tiempo real
+		/// </summary>
+		/// <value><c>true</c> si se mide el tiempo de juego; <c>false</c> si se mide el tiempo real.</value>
+		public bool TiempoJuego { get; set; }
+
+		/// <summary>
+		/// Si el cronómetro se pausa junto con la pausa del juego
+		/// </summary>
+		/// <value><c>true</c> si se pausa; otherwise, <c>false</c>.</value>
+		public bool SePausa { get; set; }
+
+		/// <summary>
 		/// Devuelve la hora y fecha de la próxima vez que se dispare este evento
 		/// </summary>
 		public DateTime PróximoTick
@@ -90,8 +102,7 @@ namespace Civ.Global
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		public void Tick 
-		(TimeSpan t)
+		public void Tick (TimeSpan t)
 		{
 			AlTickAntes?.Invoke (t);
 			if (_habilitado && PróximoTick < DateTime.Now)

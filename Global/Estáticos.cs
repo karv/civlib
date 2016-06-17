@@ -516,6 +516,18 @@ namespace Civ.Global
 			timer = DateTime.Now;
 			var modTiempo = new TimeSpan ((long)(tiempo.Ticks * MultiplicadorVelocidad));
 
+			// Cronómetros
+			foreach (Cronómetro x in Cronómetros)
+			{
+				// Cronómetros pausados no dan Tick
+				if (Pausado && x.SePausa)
+					continue;
+
+				// Cronometrar tiempo real o tiempo modificado, dependiendo
+				// de los parámetros del cronómetro.
+				x.Tick (x.TiempoJuego ? modTiempo : tiempo);
+			}			
+
 			// Console.WriteLine (t);
 			Tick (modTiempo);
 
@@ -543,9 +555,6 @@ namespace Civ.Global
 		/// <param name="t">Tiempo</param>
 		public void Tick (TimeSpan t)
 		{
-			// Cronómetros
-			foreach (ITickable x in Cronómetros)
-				x.Tick (t);
 
 			if (Pausado) // Si está pausado no hacer nada
 				return;
