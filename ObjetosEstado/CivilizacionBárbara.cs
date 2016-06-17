@@ -4,6 +4,7 @@ using Civ.Almacén;
 using Civ.RAW;
 using Civ.Ciencias;
 using Civ.Global;
+using System.Diagnostics;
 
 namespace Civ.ObjetosEstado
 {
@@ -128,8 +129,10 @@ namespace Civ.ObjetosEstado
 			{
 				// TODO: ¡Número mágico!
 				x.Tick (t);
+				#if DEBUG
 				if (x.Peso > 63253)
-					Console.WriteLine ("Wat?");
+					Debug.WriteLine ("Civ bárbara extra fuerte", "Bárbaro enloquecido");
+				#endif
 			}
 			AlTickDespués?.Invoke (this, t);
 		}

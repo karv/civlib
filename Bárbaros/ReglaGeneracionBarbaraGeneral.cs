@@ -51,7 +51,32 @@ namespace Civ.Bárbaros
 		/// <param name="pos">Position.</param>
 		public Armada GenerarArmada (Pseudoposición pos)
 		{
-			throw new NotImplementedException ();
+			float PuntRestante = CoefPuntuacion * _estado.SumaPuntuacion () / _estado.CivsVivas ().Count;
+
+			var Unidades = new List<IUnidadRAW> (Juego.Data.Unidades);
+			var cb = new CivilizacionBárbara ();
+
+			var ret = new Armada (cb, pos);
+
+			while (Unidades.Count > 0 && PuntRestante >= 0)
+			{
+				var unid = Unidades [HerrGlobal.Rnd.Next (Unidades.Count)];
+				Unidades.Remove (unid);
+				ulong Cant = (ulong)(PuntRestante / unid.Puntuación);
+				if (Cant <= 0)
+					break;
+				ret.AgregaUnidad (unid, Cant);
+				PuntRestante -= Cant * unid.Puntuación;
+			}
+
+			if (ret.Peso == 0)
+			{
+				ret.Eliminar ();
+				return null;
+			}
+			Juego.Instancia.GState.Civs.Add (cb);
+
+			return ret;
 		}
 
 		/// <summary>

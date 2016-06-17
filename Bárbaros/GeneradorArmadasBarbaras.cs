@@ -78,6 +78,10 @@ namespace Civ.Bárbaros
 			IReglaGeneración usarRegla = reglas [HerrGlobal.Rnd.Next (reglas.Count)];
 			var ret = pos == null ? usarRegla.GenerarArmada () : usarRegla.GenerarArmada (pos);
 
+			Debug.WriteLine (
+				"Fue creado una unidad con vitalidad " + ret?.Vitalidad,
+				"BarbGen");
+
 			#if DEBUG
 			if (ret == null)
 			{
@@ -95,14 +99,12 @@ namespace Civ.Bárbaros
 					ret.Velocidad));
 
 				// Órdenes
-				DarOrden (ret);
-				#if DEBUG
-				var ord = ret.Orden as OrdenIrALugar;
-				Console.WriteLine ("Tiempo estimado: " + ord.TiempoEstimado);
-
-				ord.AlLlegar += AlLlegar;
-				#endif
 			}
+			#endif
+			DarOrden (ret);
+			#if DEBUG
+			var ord = ret.Orden as OrdenIrALugar;
+			Console.WriteLine ("Tiempo estimado: " + ord.TiempoEstimado);
 			#endif
 
 			return ret;
