@@ -1,5 +1,6 @@
 ﻿using Civ.Global;
 using Civ.ObjetosEstado;
+using Civ.Topología;
 
 namespace Civ.Bárbaros
 {
@@ -18,5 +19,10 @@ namespace Civ.Bárbaros
 		/// Genera una armada
 		/// </summary>
 		Armada GenerarArmada ();
+
+		/// <summary>
+		/// Genera una armada en una posición específica
+		/// </summary>
+		Armada GenerarArmada (Pseudoposición pos);
 	}
 }

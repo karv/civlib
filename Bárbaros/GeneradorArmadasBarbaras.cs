@@ -60,7 +60,7 @@ namespace Civ.Bárbaros
 		}
 
 		/// <summary>
-		/// Devuelve una armada bárbara
+		/// Genera, agrega al universo y devuelve una armada bárbara.
 		/// </summary>
 		/// <returns>The armada.</returns>
 		public Armada Armada ()

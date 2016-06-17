@@ -45,6 +45,16 @@ namespace Civ.Bárbaros
 		}
 
 		/// <summary>
+		/// Genera una armada en una posición específica
+		/// </summary>
+		/// <returns>The armada.</returns>
+		/// <param name="pos">Position.</param>
+		public Armada GenerarArmada (Pseudoposición pos)
+		{
+			throw new NotImplementedException ();
+		}
+
+		/// <summary>
 		/// Genera una armada
 		/// </summary>
 		/// <returns>The armada.</returns>
