@@ -165,7 +165,7 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
-		readonly int _id = HerrGlobal.Rnd.Next ();
+		readonly int _id = HerrGlobal.Rnd.Next (1000);
 
 		/// <summary>
 		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.CivilizacionBárbara"/>.
@@ -291,7 +291,8 @@ namespace Civ.ObjetosEstado
 		public void Destruirse ()
 		{
 			Juego.State.Civs.Remove (this);
-			((IDisposable)Armada).Dispose ();
+			if (Armada != null)
+				((IDisposable)Armada).Dispose ();
 		}
 
 		/// <summary>
