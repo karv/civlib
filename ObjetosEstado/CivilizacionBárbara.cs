@@ -16,6 +16,100 @@ namespace Civ.ObjetosEstado
 	[Serializable]
 	public class CivilizacionBárbara : ICivilización
 	{
+		#region ArmadaList
+
+		class ArmadaSet : IList<Armada>
+		{
+			Armada Arm;
+
+			public int IndexOf (Armada item)
+			{
+				return item.Equals (Arm) ? 0 : -1;
+			}
+
+			public void Insert (int index, Armada item)
+			{
+				Arm = item;
+			}
+
+			public void RemoveAt (int index)
+			{
+				Arm = null;
+			}
+
+			public void Add (Armada item)
+			{
+				Arm = item;
+			}
+
+			public void Clear ()
+			{
+				Arm = null;
+			}
+
+			public bool Contains (Armada item)
+			{
+				return Arm.Equals (item);
+			}
+
+			public void CopyTo (Armada [] array, int arrayIndex)
+			{
+				throw new NotImplementedException ();
+			}
+
+			public bool Remove (Armada item)
+			{
+				if (Arm?.Equals (item) ?? false)
+				{
+					Arm = null;
+					return true;
+				}
+				return false;
+			}
+
+			public IEnumerator<Armada> GetEnumerator ()
+			{
+				if (Arm != null)
+					yield return Arm;
+			}
+
+			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
+			{
+				if (Arm != null)
+					yield return Arm;
+			}
+
+			public Armada this [int index]
+			{
+				get
+				{
+					return Arm;
+				}
+				set
+				{
+					Arm = value;
+				}
+			}
+
+			public int Count
+			{
+				get
+				{
+					return Arm == null ? 0 : 1;
+				}
+			}
+
+			public bool IsReadOnly
+			{
+				get
+				{
+					return false;
+				}
+			}
+		}
+
+		#endregion
+
 		#region ctor
 
 		/// <summary>
@@ -23,6 +117,7 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public CivilizacionBárbara ()
 		{
+			Armadas = new ArmadaSet ();
 			Diplomacia = new DiplomaciaNómada ();
 		}
 
@@ -103,14 +198,25 @@ namespace Civ.ObjetosEstado
 		/// Devuelve o establece la armada de estos bárbaros
 		/// </summary>
 		/// <value>The armada.</value>
-		public Armada Armada { get; set; }
+		public Armada Armada
+		{
+			get
+			{
+				return Armadas [0];
+			}
+			set
+			{
+				Armadas [0] = value;
+			}
+		}
+
+		ArmadaSet Armadas;
 
 		IList<Armada> ICivilización.Armadas
 		{
 			get
 			{
-				Armada [] ret = { Armada };
-				return ret;
+				return Armadas;
 			}
 		}
 
