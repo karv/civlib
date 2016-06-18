@@ -615,7 +615,7 @@ namespace Civ.Global
 		/// </summary>
 		void EliminarMuertos (object sender, EventArgs e)
 		{
-			foreach (var x in GState.CivsVivas())
+			foreach (var x in GState.Civs)
 			{
 				if (!x.Ciudades.Any () && !x.Armadas.Any ())
 					x.Destruirse ();

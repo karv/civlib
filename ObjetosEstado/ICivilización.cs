@@ -73,6 +73,11 @@ namespace Civ.ObjetosEstado
 		/// Elimina esta civilización del juego
 		/// </summary>
 		void Destruirse ();
+
+		/// <summary>
+		/// Revisa si esta civilización está en realidad muerta
+		/// </summary>
+		bool DeboDestruirme ();
 	}
 
 	/// <summary>

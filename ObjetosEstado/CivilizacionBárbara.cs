@@ -5,6 +5,7 @@ using Civ.RAW;
 using Civ.Ciencias;
 using Civ.Global;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Civ.ObjetosEstado
 {
@@ -23,7 +24,6 @@ namespace Civ.ObjetosEstado
 		public CivilizacionBárbara ()
 		{
 			Diplomacia = new DiplomaciaNómada ();
-			Armadas = new List<Armada> (1);
 		}
 
 		#endregion
@@ -100,10 +100,19 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// Devuelve una colección con las armadas
+		/// Devuelve o establece la armada de estos bárbaros
 		/// </summary>
-		/// <value>The armadas.</value>
-		public IList<Armada> Armadas { get; }
+		/// <value>The armada.</value>
+		public Armada Armada { get; set; }
+
+		IList<Armada> ICivilización.Armadas
+		{
+			get
+			{
+				Armada [] ret = { Armada };
+				return ret;
+			}
+		}
 
 		/// <summary>
 		/// Devuelve los avances científicos/culturales que posee la civilización.
@@ -125,15 +134,11 @@ namespace Civ.ObjetosEstado
 		{
 			AlTickAntes?.Invoke (this, t);
 
-			foreach (var x in new List<Armada> (Armadas))
-			{
-				// TODO: ¡Número mágico!
-				x.Tick (t);
-				#if DEBUG
-				if (x.Peso > 63253)
-					Debug.WriteLine ("Civ bárbara extra fuerte", "Bárbaro enloquecido");
-				#endif
-			}
+			Armada.Tick (t);
+			#if DEBUG
+			if (Armada.Peso > 63253)
+				Debug.WriteLine ("Civ bárbara extra fuerte", "Bárbaro enloquecido");
+			#endif
 			AlTickDespués?.Invoke (this, t);
 		}
 
@@ -163,8 +168,16 @@ namespace Civ.ObjetosEstado
 		public void Destruirse ()
 		{
 			Juego.State.Civs.Remove (this);
-			foreach (var x in Armadas)
-				((IDisposable)x.Posición).Dispose ();
+			((IDisposable)Armada).Dispose ();
+		}
+
+		/// <summary>
+		/// Revisa si esta civilización está en realidad muerta
+		/// </summary>
+		/// <returns><c>true</c>, if destruirme was deboed, <c>false</c> otherwise.</returns>
+		public bool DeboDestruirme ()
+		{
+			return Armada?.Unidades.Any () ?? true;
 		}
 
 		#endregion

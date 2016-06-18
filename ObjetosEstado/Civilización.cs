@@ -103,6 +103,11 @@ namespace Civ.ObjetosEstado
 				((IDisposable)x.Posición).Dispose ();
 		}
 
+		public bool DeboDestruirme ()
+		{
+			return !Ciudades.Any ();
+		}
+
 		#endregion
 
 		#region General
