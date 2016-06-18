@@ -293,7 +293,7 @@ namespace Civ.ObjetosEstado
 		public void QuitarUnidad (Stack stack)
 		{
 			_unidades.Remove (stack.RAW);
-			if (_unidades.Any ())
+			if (!_unidades.Any ())
 				invocaAlVaciarse ();
 		}
 

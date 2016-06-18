@@ -419,6 +419,7 @@ namespace Civ.ObjetosEstado
 		#region Eventos
 
 		/// <summary>
+		/// Se ejecuta cuando Cantidad se vuelve cero.
 		/// Retira este stack de la armada, e invoca el evento AlMorir
 		/// </summary>
 		protected void InvocaAlMorir ()
