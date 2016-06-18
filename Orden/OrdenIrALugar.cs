@@ -25,9 +25,14 @@ namespace Civ.Orden
 
 			if (ArmadaEjecutante.Posición.Equals (Ruta.NodoFinal))
 			{
+				// Dispose Ruta
+				((IDisposable)Ruta.NodoFinal).Dispose ();
+
 				AlLlegar?.Invoke (this, new TransladoEventArgs (Ruta));
 				return true;
 			}
+			//Juego.Instancia.GState.Mapa.Puntos.Contains (Ruta.NodoFinal)
+			//if (Mapa(Ruta.NodoFinal))
 			ArmadaEjecutante.Posición.AvanzarHacia (Ruta, avance);
 			return false;
 		}

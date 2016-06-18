@@ -5,6 +5,7 @@ using Graficas.Continuo;
 using Civ.ObjetosEstado;
 using Civ.Topología;
 using Civ.RAW;
+using System.Diagnostics;
 
 namespace Civ.Bárbaros
 {
@@ -72,11 +73,13 @@ namespace Civ.Bárbaros
 				ret.AgregaUnidad (x.Item1, x.Item2);
 
 			#if DEBUG
-			Console.WriteLine ("Ha aparecido una armada bárbara en " + ret.Posición);
-			Console.WriteLine ("Unidades");
+			Debug.WriteLine (
+				"Ha aparecido una armada bárbara en " + ret.Posición,
+				"BarbGen");
+			Debug.WriteLine ("Unidades");
 			foreach (var x in ret.Unidades)
-				Console.WriteLine (x);
-			Console.WriteLine (string.Format (
+				Debug.WriteLine (x);
+			Debug.WriteLine (string.Format (
 				"Peso: {0}; Velocidad: {1}",
 				ret.Peso,
 				ret.Velocidad));

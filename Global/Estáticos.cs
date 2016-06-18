@@ -126,7 +126,8 @@ namespace Civ.Global
 		/// <summary>
 		/// Generador de armadas bárbaras
 		/// </summary>
-		public GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
+		[NonSerialized]
+		public GeneradorArmadasBarbaras BarbGen;
 		/// <summary>
 		/// Data del juego actual
 		/// </summary>
@@ -186,6 +187,9 @@ namespace Civ.Global
 		[OnSerialized]
 		void Defaults ()
 		{
+			BarbGen = new GeneradorArmadasBarbaras ();
+			BarbGen.Reglas.Add (new ReglaGeneracionBarbaraGeneral ());
+
 			Cronómetros = new HashSet<Cronómetro> ();
 			_cronoAutoguardado = new Cronómetro ();
 			_cronoAutoguardado.AlLlamar += EjecutarAutoguardado;
@@ -193,7 +197,6 @@ namespace Civ.Global
 
 		Juego ()
 		{
-			BarbGen.Reglas.Add (new ReglaGeneracionBarbaraGeneral ());
 			Defaults ();
 		}
 
@@ -284,24 +287,25 @@ namespace Civ.Global
 			try
 			{
 				Instancia = Store.BinarySerialization.ReadFromBinaryFile<Juego> (filename);
-				Console.WriteLine ("Carga exitosa de archivo " + filename);
+				Debug.WriteLine ("Carga exitosa de archivo " + filename, "IO");
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine (DateTime.Now);
-				Console.WriteLine ("No se puede cargar archivo de guardado, posiblemente corrupto.");
-				Console.WriteLine (ex);
+				Debug.WriteLine (
+					"No se puede cargar archivo de guardado, posiblemente corrupto.",
+					"IO");
+				Debug.WriteLine (ex);
 
 				try
 				{
 					var j = Store.BinarySerialization.ReadFromBinaryFile<object> (filename);
-					Console.WriteLine ("Objeto en archivo: " + j);
-					Console.WriteLine ("Del tipo " + j.GetType ());
+					Debug.WriteLine ("Objeto en archivo: " + j, "IO");
+					Debug.WriteLine ("Del tipo " + j.GetType ());
 
 				}
 				catch (Exception exInn)
 				{
-					Console.WriteLine ("Tipo de objeto ajeno al proyecto.");
+					Console.WriteLine ("Tipo de objeto ajeno al proyecto o formato desconocido.");
 					Console.WriteLine (exInn);
 				}
 
@@ -311,9 +315,8 @@ namespace Civ.Global
 			finally
 			{
 				Console.WriteLine (string.Format (
-					"[{1}]Cargado de imagen exitoso: {0}",
-					filename,
-					DateTime.Now));
+					"Cargado de imagen exitoso: {0}",
+					filename), "IO");
 			}
 		}
 
@@ -544,6 +547,12 @@ namespace Civ.Global
 		public void Ejecutar ()
 		{
 			suscripciones ();
+
+			var barb = BarbGen.Armada (State.Civs [0].Ciudades [0].Posición ());
+			Debug.WriteLine (barb, "BarbGen");
+			barb.Posición.AlColisionar += obj => Debug.WriteLine (
+				"Armada genérica chocando con obj", "Armada genérica");
+			
 			while (!Terminar)
 			{
 				var ccl = Ciclo ();

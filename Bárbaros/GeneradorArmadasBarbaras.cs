@@ -70,7 +70,7 @@ namespace Civ.Bárbaros
 			var reglas = new List<IReglaGeneración> (Reglas.Where (x => x.EsPosibleGenerar (Juego.State)));
 			if (reglas.Count == 0)
 			{
-				System.Diagnostics.Debug.WriteLine ("No hay regla para este caso");
+				Debug.WriteLine ("No hay regla para este caso", "BarbGen");
 				return null;
 			}
 
@@ -82,30 +82,30 @@ namespace Civ.Bárbaros
 				"Fue creado una unidad con vitalidad " + ret?.Vitalidad,
 				"BarbGen");
 
-			#if DEBUG
 			if (ret == null)
 			{
-				Console.WriteLine ("Se intentó agregar una unidad bárbara, pero la media militar es muy baja.");
+				Debug.WriteLine (
+					"Se intentó agregar una unidad bárbara, pero la media militar es muy baja.",
+					"BarbGen");
 			}
 			else
 			{
-				Console.WriteLine ("Ha aparecido una armada bárbara en " + ret.Posición);
-				Console.WriteLine ("Unidades");
+				Debug.WriteLine (
+					"Ha aparecido una armada bárbara en " + ret.Posición,
+					"BarbGen");
+				Debug.WriteLine ("Unidades");
 				foreach (var x in ret.Unidades)
-					Console.WriteLine (x);
-				Console.WriteLine (string.Format (
+					Debug.WriteLine (x);
+				Debug.WriteLine (string.Format (
 					"Peso: {0}; Velocidad: {1}",
 					ret.Peso,
 					ret.Velocidad));
 
 				// Órdenes
+				DarOrden (ret);
+				var ord = ret.Orden as OrdenIrALugar;
+				Debug.WriteLine ("Tiempo estimado: " + ord.TiempoEstimado);
 			}
-			#endif
-			DarOrden (ret);
-			#if DEBUG
-			var ord = ret.Orden as OrdenIrALugar;
-			Console.WriteLine ("Tiempo estimado: " + ord.TiempoEstimado);
-			#endif
 
 			return ret;
 		}
