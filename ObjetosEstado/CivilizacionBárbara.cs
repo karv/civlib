@@ -6,6 +6,7 @@ using Civ.Ciencias;
 using Civ.Global;
 using System.Diagnostics;
 using System.Linq;
+using System.Configuration;
 
 namespace Civ.ObjetosEstado
 {
@@ -160,8 +161,28 @@ namespace Civ.ObjetosEstado
 		{
 			get
 			{
-				return "Bárbaros";
+				return "Bárbaros" + _id;
 			}
+		}
+
+		readonly int _id = HerrGlobal.Rnd.Next ();
+
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.CivilizacionBárbara"/>.
+		/// </summary>
+		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.CivilizacionBárbara"/>.</returns>
+		public override string ToString ()
+		{
+			return Nombre;
+		}
+
+		/// <summary>
+		/// Serves as a hash function for a <see cref="Civ.ObjetosEstado.CivilizacionBárbara"/> object.
+		/// </summary>
+		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a hash table.</returns>
+		public override int GetHashCode ()
+		{
+			return _id;
 		}
 
 		#endregion
@@ -241,10 +262,6 @@ namespace Civ.ObjetosEstado
 			AlTickAntes?.Invoke (this, t);
 
 			Armada?.Tick (t);
-			#if DEBUG
-			if (Armada.Peso > 63253)
-				Debug.WriteLine ("Civ bárbara extra fuerte", "Bárbaro enloquecido");
-			#endif
 			AlTickDespués?.Invoke (this, t);
 		}
 
