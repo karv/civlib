@@ -240,7 +240,7 @@ namespace Civ.ObjetosEstado
 		{
 			AlTickAntes?.Invoke (this, t);
 
-			Armada.Tick (t);
+			Armada?.Tick (t);
 			#if DEBUG
 			if (Armada.Peso > 63253)
 				Debug.WriteLine ("Civ bárbara extra fuerte", "Bárbaro enloquecido");
