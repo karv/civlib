@@ -117,6 +117,12 @@ namespace Civ.Combate
 		public void Ejecutar ()
 		{
 			Dañar ();
+
+			// Ver si el defensor muere
+			if (Defensor.ArmadaPerteneciente.Unidades.Count == 0)
+			{
+				Defensor.ArmadaPerteneciente.Eliminar ();
+			}
 		}
 
 		#endregion
