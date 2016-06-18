@@ -64,7 +64,7 @@ namespace Civ.ObjetosEstado
 		/// Devuelve una colección con las armadas
 		/// </summary>
 		/// <value>The armadas.</value>
-		public ICollection<Armada> Armadas
+		public IList<Armada> Armadas
 		{
 			get
 			{
@@ -73,7 +73,7 @@ namespace Civ.ObjetosEstado
 			private set{ _armadas = value; }
 		}
 
-		ICollection<Armada> _armadas;
+		IList<Armada> _armadas;
 
 		/// <summary>
 		/// Devuelve el modelo diplomático.

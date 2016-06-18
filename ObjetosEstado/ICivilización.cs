@@ -31,7 +31,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Devuelve una colección con las armadas
 		/// </summary>
-		ICollection<Armada> Armadas { get; }
+		IList<Armada> Armadas { get; }
 
 		/// <summary>
 		/// Devuelve el modelo diplomático.

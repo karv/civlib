@@ -23,7 +23,7 @@ namespace Civ.ObjetosEstado
 		public CivilizacionBárbara ()
 		{
 			Diplomacia = new DiplomaciaNómada ();
-			Armadas = new HashSet<Armada> ();
+			Armadas = new List<Armada> (1);
 		}
 
 		#endregion
@@ -103,7 +103,7 @@ namespace Civ.ObjetosEstado
 		/// Devuelve una colección con las armadas
 		/// </summary>
 		/// <value>The armadas.</value>
-		public ICollection<Armada> Armadas { get; }
+		public IList<Armada> Armadas { get; }
 
 		/// <summary>
 		/// Devuelve los avances científicos/culturales que posee la civilización.

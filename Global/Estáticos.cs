@@ -589,17 +589,17 @@ namespace Civ.Global
 				for (int j = 0; j < i; j++)
 				{
 					ICivilización civB = GState.Civs [j];
-					foreach (var ArmA in civA.Armadas)
+					for (int k = 0; k < civA.Armadas.Count; k++)
 					{
-						foreach (var ArmB in civB.Armadas)
+						var armA = civA.Armadas [k];
+						for (int l = 0; l < civB.Armadas.Count; l++)
 						{
-							if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
-							    (civB.Diplomacia.PermiteAtacar (ArmA)))
+							var armB = civB.Armadas [l];
+							if ((civA.Diplomacia.PermiteAtacar (armB)) ||
+							    (civB.Diplomacia.PermiteAtacar (armA)))
 							{
-								if (ArmA.Posición.Coincide (ArmB.Posición))
-								{
-									ArmA.Pelea (ArmB, t.GameTime);
-								}
+								if (armA.Posición.Coincide (armB.Posición))
+									armA.Pelea (armB, t.GameTime);
 							}
 						}
 					}

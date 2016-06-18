@@ -2,6 +2,7 @@
 using Civ.Global;
 using System.Collections.Generic;
 using Civ.ObjetosEstado;
+using System.Diagnostics;
 
 namespace Civ.Combate
 {
@@ -116,13 +117,9 @@ namespace Civ.Combate
 		/// </summary>
 		public void Ejecutar ()
 		{
+			if (Defensor == null)
+				return;
 			Dañar ();
-
-			// Ver si el defensor muere
-			if (Defensor.ArmadaPerteneciente.Unidades.Count == 0)
-			{
-				Defensor.ArmadaPerteneciente.Eliminar ();
-			}
 		}
 
 		#endregion
@@ -172,6 +169,12 @@ namespace Civ.Combate
 			Defensor = defensa.Defensa (atacante);
 			Atacante = atacante;
 			Tiempo = t;
+
+			if (Defensor == null)
+			{
+				Debug.WriteLine ("Defensor nulo; no hay combate.", "Pelea");
+				return;
+			}
 
 			var Daño = Atacante.ProponerDaño (Defensor.RAW) * (float)t.TotalHours;
 
