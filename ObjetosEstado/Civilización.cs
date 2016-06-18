@@ -103,6 +103,10 @@ namespace Civ.ObjetosEstado
 				((IDisposable)x.Posición).Dispose ();
 		}
 
+		/// <summary>
+		/// Revisa si esta civilización está en realidad muerta y debe ser liberada del juego y memoria.
+		/// Si no tiene ciudades, debe destruirse.
+		/// </summary>
 		public bool DeboDestruirme ()
 		{
 			return !Ciudades.Any ();
