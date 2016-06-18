@@ -29,7 +29,7 @@ namespace Civ.ObjetosEstado
 		{
 			if (Unidades.Count != 0)
 				throw new Exception ("No se puede desechar una armada con unidades en ella.");
-			((IDisposable)Posición).Dispose ();
+			((IDisposable)this).Dispose ();
 			Debug.WriteLine ("Eliminando armada " + ToString (), "Dispose");
 
 			CivDueño?.Armadas.Remove (this);
@@ -301,23 +301,16 @@ namespace Civ.ObjetosEstado
 		{
 			AlVaciarse?.Invoke (this, EventArgs.Empty);
 
-			Dispose ();
+			Eliminar ();
 		}
 
 		/// <summary>
 		/// Releases all resource used by the <see cref="Civ.ObjetosEstado.Armada"/> object.
 		/// </summary>
-		/// <remarks>Call <see cref="Dispose"/> when you are finished using the <see cref="Civ.ObjetosEstado.Armada"/>. The
-		/// <see cref="Dispose"/> method leaves the <see cref="Civ.ObjetosEstado.Armada"/> in an unusable state. After calling
-		/// <see cref="Dispose"/>, you must release all references to the <see cref="Civ.ObjetosEstado.Armada"/> so the
-		/// garbage collector can reclaim the memory that the <see cref="Civ.ObjetosEstado.Armada"/> was occupying.</remarks>
-		public void Dispose ()
+		void IDisposable.Dispose ()
 		{
 			if (!EsDefensa)
-			{
-				var p = Posición as IDisposable;
-				p.Dispose ();
-			}
+				((IDisposable)Posición).Dispose ();
 			// THINK: ¿Hacer que tire exception si EsDefensa?
 		}
 
