@@ -112,6 +112,8 @@
     <Compile Include="IU\NewGameOptions.cs" />
     <Compile Include="IU\Repetidor.cs" />
     <Compile Include="Global\Cronómetro.cs" />
+    <Compile Include="Almacén\IAlmacénRead.cs" />
+    <Compile Include="Almacén\ExtIAlmacén.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

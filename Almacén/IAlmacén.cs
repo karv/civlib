@@ -1,33 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Civ.RAW;
-using ListasExtra;
+﻿using Civ.RAW;
 
 namespace Civ.Almacén
 {
-	/// <summary>
-	/// Promete habilidades para leer recursos de un almacén
-	/// </summary>
-	public interface IAlmacénRead
-	{
-		/// <summary>
-		/// Devuelve la lista de recursos implicados
-		/// </summary>
-		/// <value>The recursos.</value>
-		IEnumerable<Recurso> Recursos { get; }
-
-		/// <summary>
-		/// Almacén de lectura y escritura
-		/// </summary>
-		/// <param name="recurso">Recurso.</param>
-		float this [Recurso recurso]{ get; }
-
-		/// <summary>
-		/// Ocurre cuando cambia el almacén de un recurso
-		/// </summary>
-		event EventHandler<CambioElementoEventArgs<Recurso, float>> AlCambiar;
-	}
-
 	/// <summary>
 	/// Almacén de lectura y escritura
 	/// </summary>
@@ -38,25 +12,5 @@ namespace Civ.Almacén
 		/// </summary>
 		/// <param name="recurso">Recurso.</param>
 		new float this [Recurso recurso]{ get; set; }
-	}
-
-	/// <summary>
-	/// Extensiones de Almacenes
-	/// </summary>
-	public static class ExtIAlmacén
-	{
-		/// <summary>
-		/// Crea una copia de el almacén a un diccionario.
-		/// </summary>
-		/// <returns>Un diccionario con las mismas entradas que este IAlmacén.</returns>
-		public static Dictionary<Recurso, float> ToDictionary (this IAlmacénRead alm)
-		{
-			var ret = new Dictionary<Recurso, float> ();
-			foreach (var x in alm.Recursos)
-			{
-				ret [x] = alm [x];
-			}
-			return ret;
-		}
 	}
 }
