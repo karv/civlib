@@ -11,7 +11,7 @@ namespace Civ.Almacén
 	/// manipulando y controlando los recursos ecológicos y genéricos.
 	/// </summary>
 	[Serializable]
-	public class AlmacénCiudad : ListaPeso<Recurso>, IAlmacén
+	public class AlmacénCiudad : AlmacénGenérico, IAlmacén
 	{
 		#region ctor
 
@@ -77,43 +77,13 @@ namespace Civ.Almacén
 		/// <param name="reqs">Lista de recursos para ver si posee</param>
 		/// <param name="veces">Cuántas veces contiene estos requisitos</param>
 		/// <returns>true sólo si posee tales recursos.</returns>
-		public bool PoseeRecursos (ListaPeso<Recurso> reqs, ulong veces = 1)
+		public bool PoseeRecursos (IAlmacénRead reqs, ulong veces = 1)
 		{
-			return this >= reqs * veces;
+			
+			return ContieneRecursos (reqs) >= veces;
 		}
 
 		#endregion
 
-		#region Eventos
-
-		/// <summary>
-		/// Ocurre cuando cambia el almacén de un recurso
-		/// Recurso, valor viejo, valor nuevo
-		/// </summary>
-		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
-		{
-			add
-			{
-				AlCambiarValor += value;
-			}
-			remove
-			{
-				AlCambiarValor -= value;
-			}
-		}
-
-		#endregion
-
-		#region IAlmacénRead implementation
-
-		IEnumerable<Recurso> IAlmacénRead.Recursos
-		{
-			get
-			{
-				return Keys;
-			}
-		}
-
-		#endregion
 	}
 }

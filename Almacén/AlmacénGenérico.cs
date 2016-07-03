@@ -68,6 +68,34 @@ namespace Civ.Almacén
 
 		#endregion
 
+		#region Almacén
+
+		/// <summary>
+		/// Devuelve un array de float que representa las entradas de recursos.
+		/// </summary>
+		public float[] AsArray ()
+		{
+			return _recs;
+		}
+
+		public float ContieneRecursos (float [] otrosReqs)
+		{
+			var ret = float.PositiveInfinity;
+			for (int i = 0; i < Count; i++)
+			{
+				if (otrosReqs [i] > 0)
+					ret = Math.Min (ret, _recs [i] / otrosReqs [i]);
+			}
+			return ret;
+		}
+
+		public float ContieneRecursos (IAlmacénRead otrosReqs)
+		{
+			return ContieneRecursos (otrosReqs.AsArray ());
+		}
+
+		#endregion
+
 		#region Eventos
 
 		/// <summary>
