@@ -52,17 +52,29 @@ namespace Civ.Almacén
 		{
 			get
 			{
-				return _recs [rec.Id];
+				return this [rec.Id];
+			}
+			set
+			{
+				this [rec.Id] = value;
+			}
+		}
+
+		public float this [int id]
+		{
+			get
+			{
+				return _recs [id];
 			}
 			set
 			{
 				AlCambiar?.Invoke (
 					this,
 					new CambioElementoEventArgs<Recurso, float> (
-						rec,
-						_recs [rec.Id],
+						Juego.Data.Recursos [id],
+						this [id],
 						value));
-				_recs [rec.Id] = value;
+				_recs [id] = value;
 			}
 		}
 
