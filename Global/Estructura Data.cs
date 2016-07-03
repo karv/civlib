@@ -29,7 +29,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Los recursos
 		/// </summary>
-		public HashSet<Recurso> Recursos = new HashSet<Recurso> ();
+		public List<Recurso> Recursos = new List<Recurso> ();
 		/// <summary>
 		/// Las unidades
 		/// </summary>

@@ -1,26 +1,68 @@
 ﻿using System;
 using ListasExtra;
 using Civ.RAW;
+using System.Collections.Generic;
+using Civ.Global;
 
 namespace Civ.Almacén
 {
 	/// <summary>
-	/// Un almacén genérico
+	/// Un almacén genérico y común
 	/// </summary>
 	[Serializable]
-	public class AlmacénGenérico : ListaPeso<Recurso>, IAlmacén
+	public class AlmacénGenérico : IAlmacén
 	{
 		#region General
+
+		readonly float [] _recs = new float[Juego.Data.Recursos.Count];
+
+		/// <summary>
+		/// Devuelve la cantidad de diferentes recursos.
+		/// </summary>
+		/// <value>The count.</value>
+		public int Count
+		{
+			get
+			{
+				return _recs.Length;
+			}
+		}
 
 		/// <summary>
 		/// Devuelve la lista de recursos implicados
 		/// </summary>
 		/// <value>The recursos.</value>
-		public System.Collections.Generic.IEnumerable<Recurso> Recursos
+		public IEnumerable<Recurso> Recursos
 		{
 			get
 			{
-				return Keys;
+				for (int i = 0; i < Count; i++)
+				{
+					if (_recs [i] != 0)
+						yield return Juego.Data.Recursos [i];
+				}
+			}
+		}
+
+		/// <summary>
+		/// Devuelve la cantidad de recursos existentes en un almacén
+		/// </summary>
+		/// <param name="rec">Recurso.</param>
+		public float this [Recurso rec]
+		{
+			get
+			{
+				return _recs [rec.Id];
+			}
+			set
+			{
+				AlCambiar?.Invoke (
+					this,
+					new CambioElementoEventArgs<Recurso, float> (
+						rec,
+						_recs [rec.Id],
+						value));
+				_recs [rec.Id] = value;
 			}
 		}
 
@@ -28,17 +70,11 @@ namespace Civ.Almacén
 
 		#region Eventos
 
-		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
-		{
-			add
-			{
-				AlCambiarValor += value;
-			}
-			remove
-			{
-				AlCambiarValor -= value;
-			}
-		}
+		/// <summary>
+		/// Ocurre cuando cambia el almacén de un recurso
+		/// </summary>
+		public event EventHandler<CambioElementoEventArgs<Recurso, float>> AlCambiar;
+
 
 		#endregion
 	}
