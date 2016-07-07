@@ -1,8 +1,8 @@
 ﻿using System;
-using ListasExtra;
 using System.Linq;
 using Civ.RAW;
 using Civ.ObjetosEstado;
+using Civ.Global;
 
 namespace Civ.Almacén
 {
@@ -10,7 +10,7 @@ namespace Civ.Almacén
 	/// Almacena recursos globales.
 	/// </summary>
 	[Serializable]
-	public class AlmacénCiv : ListaPeso<Recurso>, IAlmacén
+	public class AlmacénCiv : AlmacénGenérico, IAlmacén
 	{
 		#region General
 
@@ -24,19 +24,8 @@ namespace Civ.Almacén
 		/// </summary>
 		public void RemoverRecursosDesaparece ()
 		{
-			foreach (var x in Entradas.Where (x => x.Desaparece && this[x] > 0))
+			foreach (var x in Recursos.Where (x => x.Desaparece))
 				this [x] = 0;
-		}
-
-		/// <summary>
-		/// Devuelve una copia de la lista de entradas.
-		/// </summary>
-		public Recurso[] Entradas
-		{
-			get
-			{
-				return Keys.ToArray<Recurso> ();
-			}
 		}
 
 		/// <summary>
@@ -46,11 +35,12 @@ namespace Civ.Almacén
 		/// 
 		/// O establece los recursos globales del almacén global.
 		/// </summary>
-		/// <param name="recurso">Recurso</param>
-		new public float this [Recurso recurso]
+		/// <param name="id">Id del recurso</param>
+		new public float this [int id]
 		{
 			get
 			{
+				var recurso = Juego.Data.Recursos [id];
 				if (recurso.EsGlobal)
 				{
 					return base [recurso];
@@ -67,6 +57,7 @@ namespace Civ.Almacén
 			}
 			set
 			{
+				var recurso = Juego.Data.Recursos [id];
 				if (recurso.EsGlobal)
 					base [recurso] = value;
 				else
@@ -89,38 +80,6 @@ namespace Civ.Almacén
 		public AlmacénCiv (ICivilización civilizacion)
 		{
 			Civil = civilizacion;
-		}
-
-		#endregion
-
-		#region Eventos
-
-		/// <summary>
-		/// Ocurre cuando cambia el almacén de un recurso
-		/// Recurso, valor viejo, valor nuevo
-		/// </summary>
-		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
-		{
-			add
-			{
-				AlCambiarValor += value;
-			}
-			remove
-			{
-				AlCambiarValor -= value;
-			}
-		}
-
-		#endregion
-
-		#region IAlmacénRead implementation
-
-		System.Collections.Generic.IEnumerable<Recurso> IAlmacénRead.Recursos
-		{
-			get
-			{
-				return Keys;
-			}
 		}
 
 		#endregion

@@ -21,6 +21,12 @@ namespace Civ.RAW
 		#region General
 
 		/// <summary>
+		/// Gets or sets the unique identifier.
+		/// </summary>
+		/// <value>The identifier.</value>
+		public int Id { get; set; }
+
+		/// <summary>
 		/// Desaparece al final del turno.
 		/// </summary>
 		public bool Desaparece;
@@ -72,6 +78,8 @@ namespace Civ.RAW
 
 		#region ctor
 
+		static int nextId;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.RAW.Recurso"/>class.
 		/// </summary>
@@ -86,6 +94,8 @@ namespace Civ.RAW
 		/// </summary>
 		public Recurso ()
 		{
+			Id = nextId;
+			nextId++;
 		}
 
 		#endregion

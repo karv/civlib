@@ -270,13 +270,13 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// DEvuelve los recursos que son visibles en la ciudad
+		/// Devuelve los recursos que son visibles en la ciudad
 		/// </summary>
 		public ICollection<Recurso> RecursosVisibles ()
 		{
 			var ret = new HashSet<Recurso> ();
-			ret.UnionWith (Almacén.Keys);
-			ret.UnionWith (CivDueño.Almacén.Entradas);
+			ret.UnionWith (Almacén.RecursosPositivos ());
+			ret.UnionWith (CivDueño.Almacén.RecursosPositivos ());
 			ret.UnionWith (Terr.Eco.AlmacénRecursos.Recursos);
 			#if DEBUG
 			return ret;
@@ -825,7 +825,7 @@ namespace Civ.ObjetosEstado
 			{
 				float ret = 0;
 				// Recursos
-				foreach (var x in Almacén.Keys)
+				foreach (var x in Almacén.Recursos)
 					ret += x.Valor * Almacén [x];
 
 				//Edificios
@@ -1033,7 +1033,7 @@ namespace Civ.ObjetosEstado
 		public void DestruirRecursosTemporales ()
 		{
 			// Desaparecen algunos recursos
-			var Alm = new List<Recurso> (Almacén.Keys.Where (x => x.Desaparece));
+			var Alm = new List<Recurso> (Almacén.Recursos.Where (x => x.Desaparece));
 			foreach (Recurso x in Alm)
 				Almacén [x] = 0;
 
