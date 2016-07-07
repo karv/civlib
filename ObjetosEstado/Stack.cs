@@ -364,11 +364,11 @@ namespace Civ.ObjetosEstado
 			{
 				if (x.Posición.Equals (Posición))
 				{
-					foreach (var r in x.Almacén.Keys)
+					foreach (var r in x.Recursos)
 					{
 						if (Carga.CargaRestante <= 0)
 							return;
-						float Cargar = Math.Min (Carga.CargaRestante, x.Almacén [r]);
+						float Cargar = Math.Min (Carga.CargaRestante, x [r]);
 						Carga [r] += Cargar;
 					}
 				}

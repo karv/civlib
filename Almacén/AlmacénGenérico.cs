@@ -60,6 +60,10 @@ namespace Civ.Almacén
 			}
 		}
 
+		/// <summary>
+		/// Devuelve la cantidad de recursos existentes en un almacén
+		/// </summary>
+		/// <param name="id">Id del recurso</param>
 		public float this [int id]
 		{
 			get
@@ -90,6 +94,11 @@ namespace Civ.Almacén
 			return _recs;
 		}
 
+		/// <summary>
+		/// Revisa si contiene (y cuántas veces) los recursos codificados en un arreglo de float.
+		/// </summary>
+		/// <param name="otrosReqs">Otros recursos</param>
+		/// <returns>The recursos.</returns>
 		public float ContieneRecursos (float [] otrosReqs)
 		{
 			var ret = float.PositiveInfinity;
@@ -101,9 +110,27 @@ namespace Civ.Almacén
 			return ret;
 		}
 
+		/// <summary>
+		/// Revisa si contiene (y cuántas veces) los recursos codificados en un arreglo de float.
+		/// </summary>
+		/// <param name="otrosReqs">Otros recursos</param>
+		/// <returns>The recursos.</returns>
 		public float ContieneRecursos (IAlmacénRead otrosReqs)
 		{
 			return ContieneRecursos (otrosReqs.AsArray ());
+		}
+
+		/// <summary>
+		/// Devuelve un conjunto que hace referencia a los recursos positivos.
+		/// </summary>
+		/// <returns>The positivos.</returns>
+		public HashSet<Recurso> RecursosPositivos ()
+		{
+			var ret = new HashSet<Recurso> ();
+			for (int i = 0; i < Count; i++)
+				if (this [i] > 0)
+					ret.Add (Juego.Data.Recursos [i]);
+			return ret;
 		}
 
 		#endregion

@@ -10,7 +10,7 @@ namespace Civ.Almacén
 	/// Un almacén para Stacks (Inventory)
 	/// </summary>
 	[Serializable]
-	public class AlmacénStack : ListaPeso<Recurso>, IAlmacén
+	public class AlmacénStack : AlmacénGenérico
 	{
 		#region Internos
 
@@ -43,7 +43,10 @@ namespace Civ.Almacén
 		{
 			get
 			{
-				return SumaTotal ();
+				var ret = 0f;
+				for (int i = 0; i < Count; i++)
+					ret += this [i];
+				return ret;
 			}
 		}
 
@@ -70,49 +73,6 @@ namespace Civ.Almacén
 		public AlmacénStack (Stack stack)
 		{
 			Stack = stack;
-		}
-
-		#endregion
-
-		#region Almacén
-
-		/// <summary>
-		/// Ocurre cuando cambia el almacén de un recurso
-		/// Recurso, valor viejo, valor nuevo
-		/// </summary>
-		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
-		{
-			add
-			{
-				AlCambiarValor += value;
-			}
-			remove
-			{
-				AlCambiarValor -= value;
-			}
-		}
-
-
-		IEnumerable<Recurso> IAlmacénRead.Recursos { get { return Keys; } }
-
-		float IAlmacén.this [Recurso recurso]
-		{
-			get
-			{
-				return base [recurso];
-			}
-			set
-			{
-				base [recurso] = value;
-			}
-		}
-
-		float IAlmacénRead.this [Recurso recurso]
-		{
-			get
-			{
-				return base [recurso];
-			}
 		}
 
 		#endregion
