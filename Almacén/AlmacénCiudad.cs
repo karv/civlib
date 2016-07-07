@@ -32,6 +32,10 @@ namespace Civ.Almacén
 		/// </summary>
 		public readonly Ciudad CiudadDueño;
 
+		/// <summary>
+		/// Almacén de lectura y escritura
+		/// </summary>
+		/// <param name="id">Identifier.</param>
 		public new float this [int id]
 		{
 			get
