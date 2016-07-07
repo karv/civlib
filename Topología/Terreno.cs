@@ -166,9 +166,10 @@ namespace Civ.Topología
 		/// <param name="t">Longitud del tick</param>
 		public void Tick (TimeSpan t)
 		{
-			AlTickAntes?.Invoke (t);
+			var args = new TimeEventArgs (t);
+			AlTickAntes?.Invoke (this, args);
 			Eco.Tick (t);
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, args);
 		}
 
 		#endregion
@@ -178,12 +179,12 @@ namespace Civ.Topología
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		#endregion
 	}

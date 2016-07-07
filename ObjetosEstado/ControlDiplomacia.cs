@@ -47,7 +47,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre al cambiar las especificaciones diplomáticas
 		/// </summary>
-		public event Action AlCambiarDiplomacia;
+		public event EventHandler AlCambiarDiplomacia;
 
 		#endregion
 
@@ -86,7 +86,7 @@ namespace Civ.ObjetosEstado
 
 		void InvocarCambio ()
 		{
-			AlCambiarDiplomacia?.Invoke ();
+			AlCambiarDiplomacia?.Invoke (this, EventArgs.Empty);
 		}
 	}
 }

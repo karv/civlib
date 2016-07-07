@@ -75,7 +75,8 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public void Tick (TimeSpan t)
 		{
-			AlTickAntes?.Invoke (t);
+			var args = new TimeEventArgs (t);
+			AlTickAntes?.Invoke (this, args);
 			if (RAW.Salida != null)
 				foreach (var x in RAW.Salida)
 				{
@@ -88,7 +89,7 @@ namespace Civ.ObjetosEstado
 				if (float.IsNaN (CiudadDueño.AlimentoAlmacen))
 					throw new Exception ();
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, args);
 		}
 
 		#endregion
@@ -218,12 +219,23 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		#endregion
+	}
+
+	[Serializable]
+	public class EdificioNuevoEventArgs : EventArgs
+	{
+		public readonly Edificio Edificio;
+
+		public EdificioNuevoEventArgs (Edificio edificio)
+		{
+			this.Edificio = edificio;
+		}
 	}
 }

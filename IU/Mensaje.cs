@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace Civ.IU
 {
 	/// <summary>
@@ -82,5 +84,19 @@ namespace Civ.IU
 		/// Mensaje ya leído.
 		/// </summary>
 		Leído
+	}
+
+	[System.Serializable]
+	public sealed class MensajeEventArgs : System.EventArgs
+	{
+		public Mensaje Msj { get; }
+
+		public ManejadorMensajes Manager { get; }
+
+		public MensajeEventArgs (Mensaje msj, ManejadorMensajes man)
+		{
+			Msj = msj;
+			Manager = man;
+		}
 	}
 }

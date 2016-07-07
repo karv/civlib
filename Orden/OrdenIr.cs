@@ -67,12 +67,12 @@ namespace Civ.Orden
 				ArmadaEjecutante,
 				Destino,
 				this));
-			AlLlegar?.Invoke ();
+			AlLlegar?.Invoke (this, null);
 		}
 
 		/// <summary>
 		/// Occurs when al llegar.
 		/// </summary>
-		public event Action AlLlegar;
+		public event EventHandler AlLlegar;
 	}
 }

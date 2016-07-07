@@ -2,6 +2,17 @@ using System;
 
 namespace Civ
 {
+	[Serializable]
+	public class TimeEventArgs : EventArgs
+	{
+		public TimeSpan Time { get; }
+
+		public TimeEventArgs (TimeSpan time)
+		{
+			Time = time;
+		}
+	}
+
 	/// <summary>
 	/// Proporciona un método para hacer un tick temporal.
 	/// </summary>
@@ -16,11 +27,11 @@ namespace Civ
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		event Action<TimeSpan> AlTickAntes;
+		event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		event Action<TimeSpan> AlTickDespués;
+		event EventHandler AlTickDespués;
 	}
 }

@@ -424,23 +424,23 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando todo el stack se pierde
 		/// </summary>
-		public event Action AlMorir;
+		public event EventHandler AlMorir;
 
 		/// <summary>
 		/// Ocurre cuando una armada ataca este Stack
 		/// </summary>
-		public event Action<IAnálisisCombate> AlSerAtacado;
+		public event EventHandler AlSerAtacado;
 
 		/// <summary>
 		/// Ocurre cuando hay un cambio en la cantidad
 		/// </summary>
-		public event Action AlCambiarCantidad;
+		public event EventHandler AlCambiarCantidad;
 
 		/// <summary>
 		/// Ocurre al colonizar una nueva ciudad.
 		/// Primer parámetro es la ciudad colonizada.
 		/// </summary>
-		public event Action<ICiudad> AlColonizar;
+		public event EventHandler AlColonizar;
 
 		#endregion
 	}

@@ -329,8 +329,8 @@ namespace Civ.ObjetosEstado
 		{
 			if (!Unidades.Any ())
 			{
-				AlVaciarse?.Invoke (this, new EventArgs ());
-				AlSerDestruido?.Invoke (anal);
+				AlVaciarse?.Invoke (this, new CombateEventArgs (anal));
+				AlSerDestruido?.Invoke (this, new CombateEventArgs (anal));
 			}
 		}
 
@@ -513,8 +513,19 @@ namespace Civ.ObjetosEstado
 		/// <remarks>
 		/// Su argumento es la última iteración de su combate.
 		/// </remarks>
-		public event EventHandler<IAnálisisCombate> AlSerDestruido;
+		public event EventHandler AlSerDestruido;
 
 		#endregion
+	}
+
+	[Serializable]
+	public class CombateEventArgs : EventArgs
+	{
+		public IAnálisisCombate Análisis { get; }
+
+		public CombateEventArgs (IAnálisisCombate anal)
+		{
+			Análisis = anal;
+		}
 	}
 }

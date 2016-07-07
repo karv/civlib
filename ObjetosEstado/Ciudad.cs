@@ -1045,7 +1045,8 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public void Tick (TimeSpan t)
 		{
-			AlTickAntes?.Invoke (t);
+			var args = new TimeEventArgs (t);
+			AlTickAntes?.Invoke (this, args);
 			var dictTmp = ((IDictionary<Recurso, float>)Almacén).Clonar ();
 			var RecAntes = new ListaPeso<Recurso> (dictTmp);
 			PopTick (t);
@@ -1079,18 +1080,18 @@ namespace Civ.ObjetosEstado
 					CivDueño.RemoveCiudad (this);
 				}
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, args);
 		}
 
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		#endregion
 	}
