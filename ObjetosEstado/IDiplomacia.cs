@@ -22,6 +22,6 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre al cambiar las opcines de diplomacia.
 		/// </summary>
-		event Action AlCambiarDiplomacia;
+		event EventHandler AlCambiarDiplomacia;
 	}
 }

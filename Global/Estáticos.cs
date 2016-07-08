@@ -67,7 +67,7 @@ namespace Civ.Global
 				_pausado = value;
 				if (!value)
 					timer = DateTime.Now; // Al despausar se reestablece el timer
-				AlCambiarEstadoPausa?.Invoke ();
+				AlCambiarEstadoPausa?.Invoke (this, null);
 			}
 		}
 
@@ -109,7 +109,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Ejecuta un autoguardado.
 		/// </summary>
-		public void EjecutarAutoguardado ()
+		public void EjecutarAutoguardado (object sender, EventArgs args)
 		{
 			const string file_output = "auto.sav";
 			Debug.WriteLine ("Iniciando autoguardado", "autosave");
@@ -500,7 +500,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Coeficiente de velocidad del juego.
 		/// </summary>
-		public float MultiplicadorVelocidad = 120;
+		public const float MultiplicadorVelocidad = 120;
 
 		/// <summary>
 		/// Devuelve si el juego se está terminando o está terminado; o establece si debe terminarse.
@@ -508,13 +508,14 @@ namespace Civ.Global
 		public bool Terminar;
 
 		/// <summary>
-		/// Un ciclo
+		/// Ejecuta un ciclo
 		/// </summary>
-		public void Ciclo ()
+		/// <returns>La duración del tick en tiempo real.
+		public TimeSpan Ciclo ()
 		{
-			TimeSpan tiempo = DateTime.Now - timer;
+			var tiempo = DateTime.Now - timer;
 			timer = DateTime.Now;
-			var modTiempo = new TimeSpan ((long)(tiempo.Ticks * MultiplicadorVelocidad));
+			var timeArgs = new TimeEventArgs (tiempo.TotalHours, MultiplicadorVelocidad);
 
 			// Cronómetros
 			foreach (Cronómetro x in Cronómetros)
@@ -525,14 +526,16 @@ namespace Civ.Global
 
 				// Cronometrar tiempo real o tiempo modificado, dependiendo
 				// de los parámetros del cronómetro.
-				x.Tick (x.TiempoJuego ? modTiempo : tiempo);
+				x.Tick (tiempo);
 			}			
 
 			// Console.WriteLine (t);
-			Tick (modTiempo);
+			Tick (timeArgs);
 
 			if (Juego.State.Civs.Count == 0)
 				throw new Exception ("Ya se acabó el juego :3");
+
+			return tiempo;
 		}
 
 		/// <summary>
@@ -543,17 +546,17 @@ namespace Civ.Global
 			suscripciones ();
 			while (!Terminar)
 			{
-				Ciclo ();
-				EntreCiclos?.Invoke ();
+				var ccl = Ciclo ();
+				EntreCiclos?.Invoke (this, ccl);
 			}
-			AlTerminar?.Invoke ();
+			AlTerminar?.Invoke (this, null);
 		}
 
 		/// <summary>
 		/// Un ciclo
 		/// </summary>
 		/// <param name="t">Tiempo</param>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
 
 			if (Pausado) // Si está pausado no hacer nada
@@ -586,7 +589,7 @@ namespace Civ.Global
 							{
 								if (ArmA.Posición.Equals (ArmB.Posición))
 								{
-									ArmA.Pelea (ArmB, t);
+									ArmA.Pelea (ArmB, t.GameTime);
 								}
 							}
 						}
@@ -601,7 +604,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Elimina civilizaciones muertas
 		/// </summary>
-		void EliminarMuertos ()
+		void EliminarMuertos (object sender, EventArgs e)
 		{
 			foreach (var x in GState.CivsVivas())
 			{
@@ -617,15 +620,15 @@ namespace Civ.Global
 		/// <summary>
 		/// Ocurre al pausar o despausar el juego.
 		/// </summary>
-		public event Action AlCambiarEstadoPausa;
+		public event EventHandler AlCambiarEstadoPausa;
 		/// <summary>
 		/// Ocurre al terminar el juego
 		/// </summary>
-		public event Action AlTerminar;
+		public event EventHandler AlTerminar;
 		/// <summary>
 		/// Se ejecuta al final de cada ciclo.
 		/// </summary>
-		public event Action EntreCiclos;
+		public event EventHandler<TimeSpan> EntreCiclos;
 
 		#endregion
 	}

@@ -6,6 +6,26 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Orden
 {
+	[Serializable]
+	public class TransladoEventArgs : EventArgs
+	{
+		public readonly Continuo<Terreno>.Ruta Ruta;
+
+		public Continuo<Terreno>.ContinuoPunto Final
+		{
+			get
+			{
+				return Ruta.NodoFinal;
+			}
+		}
+
+		public TransladoEventArgs (Continuo<Terreno>.Ruta ruta)
+		{
+			Ruta = ruta;
+		}
+		
+	}
+
 	/// <summary>
 	/// Orden de armada de ir a un lugar específico fijo, no necesariamente vecino.
 	/// </summary>
@@ -25,7 +45,7 @@ namespace Civ.Orden
 
 			if (ArmadaEjecutante.Posición.Equals (Ruta.NodoFinal))
 			{
-				AlLlegar?.Invoke ();
+				AlLlegar?.Invoke (this, new TransladoEventArgs (Ruta));
 				return true;
 			}
 			ArmadaEjecutante.Posición.AvanzarHacia (Ruta, avance);
@@ -89,7 +109,7 @@ namespace Civ.Orden
 		/// <summary>
 		/// Ocurre al llegar al destino
 		/// </summary>
-		public event Action AlLlegar;
+		public event EventHandler AlLlegar;
 
 		#endregion
 	}

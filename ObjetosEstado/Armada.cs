@@ -288,7 +288,7 @@ namespace Civ.ObjetosEstado
 		{
 			_unidades.Remove (stack.RAW);
 			if (_unidades.Any ())
-				AlVaciarse?.Invoke ();
+				AlVaciarse?.Invoke (this, new EventArgs ());
 		}
 
 		/// <summary>
@@ -329,8 +329,8 @@ namespace Civ.ObjetosEstado
 		{
 			if (!Unidades.Any ())
 			{
-				AlVaciarse?.Invoke ();
-				AlSerDestruido?.Invoke (anal);
+				AlVaciarse?.Invoke (this, new CombateEventArgs (anal));
+				AlSerDestruido?.Invoke (this, new CombateEventArgs (anal));
 			}
 		}
 
@@ -376,9 +376,9 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Un Tick de la armada
 		/// </summary>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			if (Orden.Ejecutar (t))
+			if (Orden.Ejecutar (t.GameTime))
 			{
 				Orden = new OrdenEstacionado ();
 				CivDueño.AgregaMensaje (new Mensaje (
@@ -505,7 +505,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando esta armada se vacía.
 		/// </summary>
-		public event Action AlVaciarse;
+		public event EventHandler AlVaciarse;
 
 		/// <summary>
 		/// Ocurre cuando la armada queda vacía por un combate.
@@ -513,7 +513,7 @@ namespace Civ.ObjetosEstado
 		/// <remarks>
 		/// Su argumento es la última iteración de su combate.
 		/// </remarks>
-		public event Action<IAnálisisCombate> AlSerDestruido;
+		public event EventHandler AlSerDestruido;
 
 		#endregion
 	}

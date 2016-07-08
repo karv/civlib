@@ -46,7 +46,7 @@ namespace Civ.ObjetosEstado
 		public Edificio Completar ()
 		{
 			var ret = CiudadDueño.AgregaEdificio (RAW);
-			AlCompletar?.Invoke (ret);
+			AlCompletar?.Invoke (this, new EdificioNuevoEventArgs (ret));
 			return ret;
 		}
 
@@ -123,7 +123,7 @@ namespace Civ.ObjetosEstado
 		/// Ocurre al completar el edificio, 
 		/// justo después de crear la instancia en la ciudad.
 		/// </summary>
-		public event Action<Edificio> AlCompletar;
+		public event EventHandler AlCompletar;
 
 		#endregion
 	}

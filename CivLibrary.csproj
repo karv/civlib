@@ -114,6 +114,15 @@
     <Compile Include="Global\Cronómetro.cs" />
     <Compile Include="Almacén\IAlmacénRead.cs" />
     <Compile Include="Almacén\ExtIAlmacén.cs" />
+    <Compile Include="Global\TimeEventArgs.cs" />
+    <Compile Include="Ciencias\AvanceEventArgs.cs" />
+    <Compile Include="ObjetosEstado\CiudadEventArgs.cs" />
+    <Compile Include="ObjetosEstado\CombateEventArgs.cs" />
+    <Compile Include="IU\MensajeEventArgs.cs" />
+    <Compile Include="IU\EstadoMensaje.cs" />
+    <Compile Include="ObjetosEstado\ReclutarEventArgs.cs" />
+    <Compile Include="ObjetosEstado\NuevoEdificioEventArgs.cs" />
+    <Compile Include="ObjetosEstado\TransferenciaObjetoEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

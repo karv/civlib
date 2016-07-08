@@ -1,6 +1,7 @@
 using System;
 using Civ.RAW;
 using Civ.Almacén;
+using Civ.Global;
 
 namespace Civ.ObjetosEstado
 {
@@ -115,28 +116,28 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ejecuta un tick de tiempo
 		/// </summary>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
 			if (Trabajadores > 0)
 			{
-				AlTickAntes?.Invoke (t);
+				AlTickAntes?.Invoke (this, t);
 				// Obtener eficiencia (generada por la disponibilidad de recursos)
-				float PctProd = GetEficiencia (t);
+				float PctProd = GetEficiencia (t.GameTime);
 
 				// Consumir recursos
 				foreach (var x in RAW.EntradaBase.Keys)
 				{
-					Almacén [x] -= RAW.EntradaBase [x] * Trabajadores * PctProd * (float)t.TotalHours;
+					Almacén [x] -= RAW.EntradaBase [x] * Trabajadores * PctProd * (float)t.GameTime.TotalHours;
 				}
 
 
 				// Producir recursos
 				foreach (var x in RAW.SalidaBase.Keys)
 				{
-					Almacén [x] += RAW.SalidaBase [x] * Trabajadores * PctProd * (float)t.TotalHours;
+					Almacén [x] += RAW.SalidaBase [x] * Trabajadores * PctProd * (float)t.GameTime.TotalHours;
 				}
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		/// <summary>
@@ -177,7 +178,7 @@ namespace Civ.ObjetosEstado
 				_trabajadores = 0;
 				ulong realValue = Math.Min (value, EdificioBase.EspaciosTrabajadoresCiudad);
 				_trabajadores = realValue;
-				AlCambiarTrabajadores?.Invoke ();
+				AlCambiarTrabajadores?.Invoke (this, EventArgs.Empty);
 			}
 		}
 
@@ -200,17 +201,17 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		/// <summary>
 		/// Ocurre cuando se cambian los trabajadores
 		/// </summary>
-		public event Action AlCambiarTrabajadores;
+		public event EventHandler AlCambiarTrabajadores;
 
 		#endregion
 	}

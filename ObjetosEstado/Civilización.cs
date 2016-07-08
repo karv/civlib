@@ -50,7 +50,7 @@ namespace Civ.ObjetosEstado
 			set
 			{
 				_nombre = value;
-				AlCambiarNombre?.Invoke ();
+				AlCambiarNombre?.Invoke (this, EventArgs.Empty);
 			}
 		}
 
@@ -227,7 +227,12 @@ namespace Civ.ObjetosEstado
 			if (ciudad.CivDueño == this)
 			{
 				ciudad.CivDueño = null;
-				AlPerderCiudad?.Invoke (ciudad);
+				AlPerderCiudad?.Invoke (
+					this,
+					new TransferenciaObjetoEventArgs (
+						this,
+						null,
+						ciudad));
 			}
 		}
 
@@ -240,7 +245,9 @@ namespace Civ.ObjetosEstado
 		public Ciudad AddCiudad (string nombre, Terreno terreno)
 		{
 			var ret = new Ciudad (nombre, this, terreno);
-			AlGanarCiudad?.Invoke (ret);
+			AlGanarCiudad?.Invoke (
+				this,
+				new TransferenciaObjetoEventArgs (null, this, ret));
 			return ret;
 		}
 
@@ -265,37 +272,37 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando se cambia el nombre
 		/// </summary>
-		public event Action AlCambiarNombre;
+		public event EventHandler AlCambiarNombre;
 
 		/// <summary>
 		/// Ocurre cuando una ciudad se une a esta civilización
 		/// </summary>
-		public event Action<ICiudad> AlGanarCiudad;
+		public event EventHandler AlGanarCiudad;
 
 		/// <summary>
 		/// Ocurre cuando una ciudad se retira de esta civilización
 		/// </summary>
-		public event Action<ICiudad> AlPerderCiudad;
+		public event EventHandler AlPerderCiudad;
 
 		/// <summary>
 		/// Ocurre cuando se recibe un nuevo menaje
 		/// </summary>
-		public event Action AlNuevoMensaje;
+		public event EventHandler AlNuevoMensaje;
 
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		/// <summary>
 		/// Ocurre cuando la civilización recibe un nuevo avance
 		/// </summary>
-		public event Action<Ciencia> AlDescubrirAvance;
+		public event EventHandler AlDescubrirAvance;
 
 		#endregion
 
@@ -314,7 +321,7 @@ namespace Civ.ObjetosEstado
 		public void AgregaMensaje (Mensaje mensaje)
 		{
 			Mensajes.Add (mensaje);
-			AlNuevoMensaje?.Invoke ();
+			AlNuevoMensaje?.Invoke (this, new MensajeEventArgs (mensaje, Mensajes));
 		}
 
 		/// <summary>
@@ -392,9 +399,9 @@ namespace Civ.ObjetosEstado
 		/// Básicamente hace todo lo necesario y suficiente que le corresponde entre turnos.
 		/// </summary>
 		/// <param name="t">Diración del tick</param>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			AlTickAntes?.Invoke (t);
+			AlTickAntes?.Invoke (this, t);
 			foreach (var x in new List<ICiudad> (Ciudades))
 			{
 				x.Tick (t);
@@ -461,7 +468,7 @@ namespace Civ.ObjetosEstado
 				if (x.Unidades.Count > 0)
 					x.Tick (t);
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		/// <summary>
@@ -474,7 +481,7 @@ namespace Civ.ObjetosEstado
 			{
 				ciudad.IntentaConstruirAutoconstruibles ();
 			}
-			AlDescubrirAvance?.Invoke (c);
+			AlDescubrirAvance?.Invoke (this, new AvanceEventArgs (c, this));
 		}
 
 		#endregion

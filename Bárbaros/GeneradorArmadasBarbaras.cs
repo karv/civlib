@@ -108,9 +108,10 @@ namespace Civ.Bárbaros
 		}
 
 		[Conditional ("DEBUG")]
-		static void AlLlegar ()
+		static void AlLlegar (object sender, EventArgs args)
 		{
-			Console.WriteLine ("Llegué");
+			Debug.WriteLine ("Llegué");
+			Debug.WriteLine (args);
 		}
 
 		static void DarOrden (Armada arm)
@@ -139,12 +140,12 @@ namespace Civ.Bárbaros
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		/// 
 
@@ -156,12 +157,12 @@ namespace Civ.Bárbaros
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			AlTickAntes?.Invoke (t);
-			if (GenerarBarbaro (t))
+			AlTickAntes?.Invoke (this, t);
+			if (GenerarBarbaro (t.GameTime))
 				Armada ();
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		#endregion

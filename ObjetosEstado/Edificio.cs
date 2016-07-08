@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Civ.RAW;
+using Civ.Global;
 
 namespace Civ.ObjetosEstado
 {
@@ -73,14 +74,11 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Produce un tick productivo hereditario.
 		/// </summary>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			AlTickAntes?.Invoke (t);
-			if (RAW.Salida != null)
-				foreach (var x in RAW.Salida)
-				{
-					CiudadDueño.Almacén [x.Key] += x.Value * (float)t.TotalHours;
-				}
+			AlTickAntes?.Invoke (this, t);
+			foreach (var x in RAW.Salida)
+				CiudadDueño.Almacén [x.Key] += x.Value * (float)t.GameTime.TotalHours;
 
 			foreach (var x in Trabajos)
 			{
@@ -88,7 +86,7 @@ namespace Civ.ObjetosEstado
 				if (float.IsNaN (CiudadDueño.AlimentoAlmacen))
 					throw new Exception ();
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		#endregion
@@ -218,12 +216,23 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		#endregion
+	}
+
+	[Serializable]
+	public class EdificioNuevoEventArgs : EventArgs
+	{
+		public readonly Edificio Edificio;
+
+		public EdificioNuevoEventArgs (Edificio edificio)
+		{
+			this.Edificio = edificio;
+		}
 	}
 }

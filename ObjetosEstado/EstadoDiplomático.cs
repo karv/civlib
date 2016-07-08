@@ -25,7 +25,7 @@ namespace Civ.ObjetosEstado
 			set
 			{
 				_permiteAtacar = value;
-				AlCambiarPermisoAtacar?.Invoke ();
+				AlCambiarPermisoAtacar?.Invoke (this, EventArgs.Empty);
 			}
 		}
 
@@ -42,7 +42,7 @@ namespace Civ.ObjetosEstado
 			set
 			{
 				_permitePaso = value;
-				AlCambiarPermisoPaso?.Invoke ();
+				AlCambiarPermisoPaso?.Invoke (this, EventArgs.Empty);
 			}
 		}
 
@@ -62,11 +62,11 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Occurs when al cambiar permiso atacar.
 		/// </summary>
-		public event Action AlCambiarPermisoAtacar;
+		public event EventHandler AlCambiarPermisoAtacar;
 		/// <summary>
 		/// Occurs when al cambiar permiso paso.
 		/// </summary>
-		public event Action AlCambiarPermisoPaso;
+		public event EventHandler AlCambiarPermisoPaso;
 
 		#endregion
 	}

@@ -68,14 +68,14 @@ namespace Civ.Orden
 			bool ret = Actual.Ejecutar (t);
 			if (ret)
 			{
-				AlAcabarUnaOrden?.Invoke ();
+				AlAcabarUnaOrden?.Invoke (this, EventArgs.Empty);
 				if (Count > 1)
 				{
 					RemoveAt (0);
 				}
 				else
 				{
-					AlTerminar?.Invoke ();
+					AlTerminar?.Invoke (this, EventArgs.Empty);
 					return true;
 				}
 			}
@@ -89,12 +89,12 @@ namespace Civ.Orden
 		/// <summary>
 		/// Ocurre al acabar una orden de la cola
 		/// </summary>
-		public event Action AlAcabarUnaOrden;
+		public event EventHandler AlAcabarUnaOrden;
 
 		/// <summary>
 		/// Ocurre al terminar toda la cola.
 		/// </summary>
-		public event Action AlTerminar;
+		public event EventHandler AlTerminar;
 
 		#endregion
 	}

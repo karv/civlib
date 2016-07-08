@@ -120,19 +120,18 @@ namespace Civ.ObjetosEstado
 		{
 		}
 
-		void ITickable.Tick (TimeSpan t)
+		void ITickable.Tick (TimeEventArgs t)
 		{
-			AlTickAntes?.Invoke (t);
+			AlTickAntes?.Invoke (this, t);
 
 			foreach (var x in new List<Armada> (Armadas))
 			{
+				// TODO: ¡Número mágico!
 				x.Tick (t);
 				if (x.Peso > 63253)
-				{
 					Console.WriteLine ("Wat?");
-				}
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		float IPuntuado.Puntuación
@@ -172,12 +171,12 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		#endregion
 	}

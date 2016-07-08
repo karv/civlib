@@ -3,6 +3,7 @@ using System;
 using Civ.RAW;
 using System.Linq;
 using Civ.Almacén;
+using Civ.Global;
 
 namespace Civ.Topología
 {
@@ -75,12 +76,12 @@ namespace Civ.Topología
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		#endregion
 
@@ -90,17 +91,17 @@ namespace Civ.Topología
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			AlTickAntes?.Invoke (t);
+			AlTickAntes?.Invoke (this, t);
 			foreach (var x in Innatos)
 			{
 				foreach (var y in x.Salida.Where (z => z.Recurso.EsEcológico))
 				{
-					y.Tick (RecursoEcológico, t);
+					y.Tick (RecursoEcológico, t.GameTime);
 				}
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		#endregion

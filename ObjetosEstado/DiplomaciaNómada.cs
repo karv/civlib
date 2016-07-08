@@ -32,7 +32,7 @@ namespace Civ.ObjetosEstado
 		/// Occurs when al cambiar diplomacia.
 		/// <remarks>No hace nada, es ólo para llenar IDiplomacia.</remarks>
 		/// </summary>
-		event Action IDiplomacia.AlCambiarDiplomacia
+		event EventHandler IDiplomacia.AlCambiarDiplomacia
 		{
 			add
 			{

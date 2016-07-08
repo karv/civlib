@@ -74,11 +74,11 @@ namespace Civ.ObjetosEstado
 			set
 			{
 				_cantidad = Math.Max (0, value);
-				AlCambiarCantidad?.Invoke ();
+				AlCambiarCantidad?.Invoke (this, EventArgs.Empty);
 				if (_cantidad == 0)
 				{
 					AbandonaArmada ();
-					AlMorir?.Invoke ();
+					AlMorir?.Invoke (this, EventArgs.Empty);
 				}
 			}
 		}
@@ -180,7 +180,7 @@ namespace Civ.ObjetosEstado
 				_HP = Math.Max (Math.Min (1, value), 0);
 				if (_HP <= 0)		// Si HP = 0, la unidad muere.
 				{
-					AlMorir?.Invoke ();
+					AlMorir?.Invoke (this, EventArgs.Empty);
 					AbandonaArmada ();
 				}
 			}
@@ -193,7 +193,7 @@ namespace Civ.ObjetosEstado
 		public void FueAtacado (IAnálisisCombate anal)
 		{
 			ArmadaPerteneciente.FueAtacado (anal);
-			AlSerAtacado?.Invoke (anal);
+			AlSerAtacado?.Invoke (this, new CombateEventArgs (anal));
 		}
 
 		/// <summary>
@@ -344,7 +344,7 @@ namespace Civ.ObjetosEstado
 		public ICiudad Colonizar ()
 		{
 			var ret = (RAW as IUnidadRAWColoniza)?.Coloniza (this);
-			AlColonizar.Invoke (ret);
+			AlColonizar.Invoke (this, new CiudadEventArgs (ret));
 			return ret;
 		}
 
@@ -424,23 +424,23 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando todo el stack se pierde
 		/// </summary>
-		public event Action AlMorir;
+		public event EventHandler AlMorir;
 
 		/// <summary>
 		/// Ocurre cuando una armada ataca este Stack
 		/// </summary>
-		public event Action<IAnálisisCombate> AlSerAtacado;
+		public event EventHandler AlSerAtacado;
 
 		/// <summary>
 		/// Ocurre cuando hay un cambio en la cantidad
 		/// </summary>
-		public event Action AlCambiarCantidad;
+		public event EventHandler AlCambiarCantidad;
 
 		/// <summary>
 		/// Ocurre al colonizar una nueva ciudad.
 		/// Primer parámetro es la ciudad colonizada.
 		/// </summary>
-		public event Action<ICiudad> AlColonizar;
+		public event EventHandler AlColonizar;
 
 		#endregion
 	}

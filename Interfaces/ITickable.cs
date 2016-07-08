@@ -1,4 +1,5 @@
 using System;
+using Civ.Global;
 
 namespace Civ
 {
@@ -11,16 +12,16 @@ namespace Civ
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		void Tick (TimeSpan t);
+		void Tick (TimeEventArgs t);
 
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		event Action<TimeSpan> AlTickAntes;
+		event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		event Action<TimeSpan> AlTickDespués;
+		event EventHandler AlTickDespués;
 	}
 }

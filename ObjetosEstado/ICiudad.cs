@@ -117,16 +117,16 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando el nombre de la ciudad es cambiado
 		/// </summary>
-		event Action AlCambiarNombre;
+		event EventHandler AlCambiarNombre;
 
 		/// <summary>
 		/// Ocurre cuando esta ciudad cambia de dueño
 		/// </summary>
-		event Action AlCambiarDueño;
+		event EventHandler AlCambiarDueño;
 
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		event Action<IUnidadRAW, ulong> AlReclutar;
+		event EventHandler AlReclutar;
 	}
 }

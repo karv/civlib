@@ -41,7 +41,7 @@ namespace Civ.ObjetosEstado
 			set
 			{
 				_nombre = value;
-				AlCambiarNombre?.Invoke ();
+				AlCambiarNombre?.Invoke (this, EventArgs.Empty);
 			}
 		}
 
@@ -133,12 +133,18 @@ namespace Civ.ObjetosEstado
 			}
 			set
 			{
+				AlCambiarDueño?.Invoke (
+					this,
+					new TransferenciaObjetoEventArgs (
+						_civDueño,
+						value,
+						this));
+				
 				if (_civDueño != null)
 					_civDueño.Ciudades.Remove (this);
 				_civDueño = value;
 				if (_civDueño != null)
 					_civDueño.Ciudades.Add (this);
-				AlCambiarDueño?.Invoke ();
 			}
 		}
 
@@ -317,7 +323,7 @@ namespace Civ.ObjetosEstado
 			uRAW.Reclutar (cantidad, this);
 			RealPoblaciónProductiva -= cantidad;
 
-			AlReclutar?.Invoke (uRAW, cantidad);
+			AlReclutar?.Invoke (this, new ReclutarEventArgs (uRAW, cantidad));
 
 			return Defensa [uRAW]; // Devuelve la unidad creada.
 		}
@@ -353,7 +359,7 @@ namespace Civ.ObjetosEstado
 							value.Nombre,
 							Nombre));
 					};
-					AlCambiarConstrucción?.Invoke ();
+					AlCambiarConstrucción?.Invoke (this, EventArgs.Empty);
 				}
 				else
 					throw new Exception (string.Format (
@@ -412,7 +418,7 @@ namespace Civ.ObjetosEstado
 		public Edificio AgregaEdificio (EdificioRAW edif)
 		{
 			var ret = new Edificio (edif, this);
-			AlObtenerNuevoEdificio?.Invoke (ret);
+			AlObtenerNuevoEdificio?.Invoke (this, new NuevoEdificioEventArgs (ret));
 			return ret;
 		}
 
@@ -846,32 +852,32 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando el nombre de la ciudad es cambiado
 		/// </summary>
-		public event Action AlCambiarNombre;
+		public event EventHandler AlCambiarNombre;
 
 		/// <summary>
 		/// Ocurre cuando esta ciudad cambia de dueño
 		/// </summary>
-		public event Action AlCambiarDueño;
+		public event EventHandler AlCambiarDueño;
 
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		public event Action<IUnidadRAW, ulong> AlReclutar;
+		public event EventHandler AlReclutar;
 
 		/// <summary>
 		/// Ocurre cuando se cambia un proyecto de construcción
 		/// </summary>
-		public event Action AlCambiarConstrucción;
+		public event EventHandler AlCambiarConstrucción;
 
 		/// <summary>
 		/// Ocurre cuando hay un edificio nuevo en la ciudad
 		/// </summary>
-		public event Action<Edificio> AlObtenerNuevoEdificio;
+		public event EventHandler AlObtenerNuevoEdificio;
 
 		/// <summary>
 		/// Ocurre cuando la ciudad se convierte en ruinas
 		/// </summary>
-		public event Action AlConvertirseRuinas;
+		public event EventHandler AlConvertirseRuinas;
 
 		#endregion
 
@@ -981,7 +987,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Da un tick hereditario.
 		/// </summary>
-		public void ResourceTick (TimeSpan t)
+		public void ResourceTick (TimeEventArgs t)
 		{
 			foreach (ITickable x in Edificios)
 			{
@@ -990,7 +996,7 @@ namespace Civ.ObjetosEstado
 
 			foreach (var x in Propiedades)
 			{
-				x.Tick (Almacén, t);
+				x.Tick (Almacén, t.GameTime);
 			}
 			// Construir edificio.
 			if (EdifConstruyendo != null)
@@ -1043,12 +1049,12 @@ namespace Civ.ObjetosEstado
 		/// Ejecuta PopTick (), ResourseTick Y calcula delta
 		/// En ese orden.
 		/// </summary>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			AlTickAntes?.Invoke (t);
+			AlTickAntes?.Invoke (this, t);
 			var dictTmp = ((IDictionary<Recurso, float>)Almacén).Clonar ();
 			var RecAntes = new ListaPeso<Recurso> (dictTmp);
-			PopTick (t);
+			PopTick (t.GameTime);
 			ResourceTick (t);
 
 			// Hacer la suma manual 
@@ -1067,7 +1073,7 @@ namespace Civ.ObjetosEstado
 
 			foreach (var x in new List<Recurso> (DeltaRec.Keys))
 			{
-				DeltaRec [x] /= (float)(t.TotalHours);
+				DeltaRec [x] /= (float)(t.GameTime.TotalHours);
 			}
 			//var xx = tmp + alm;
 			//DeltaRec = tmp + alm;
@@ -1075,23 +1081,24 @@ namespace Civ.ObjetosEstado
 			if (CivDueño != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				{
-					AlConvertirseRuinas?.Invoke ();
+					AlConvertirseRuinas?.Invoke (this, EventArgs.Empty);
 					CivDueño.RemoveCiudad (this);
 				}
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		#endregion
 	}
+
 }
