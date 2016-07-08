@@ -5,12 +5,48 @@ using ListasExtra;
 
 namespace Civ.IU
 {
+	/// <summary>
+	/// Comparador default de mensajes
+	/// </summary>
+	public class IgualadorRepetidorMensaje : IEqualityComparer<Mensaje>
+	{
+		/// <summary>
+		/// Determina si dos mensajes son esencialemnte el mismo
+		/// </summary>
+		/// <param name="x">The x coordinate.</param>
+		/// <param name="y">The y coordinate.</param>
+		public bool Equals (Mensaje x, Mensaje y)
+		{
+			return x.VerificadorRepetición.Coincide (y.VerificadorRepetición);
+		}
+
+		/// <Docs>The object for which the hash code is to be returned.</Docs>
+		/// <para>Returns a hash code for the specified object.</para>
+		/// <returns>A hash code for the specified object.</returns>
+		/// <summary>
+		/// Gets the hash code.
+		/// </summary>
+		/// <param name="obj">Object.</param>
+		public int GetHashCode (Mensaje obj)
+		{
+			throw new NotImplementedException ();
+		}
+	}
 	// TODO: Hacer un EqualityComparer para manejar repeticiones.
 	/// <summary>
 	/// Manejador de mensajes de una civilización
 	/// </summary>
 	public class ManejadorMensajes : ListaCíclica<Mensaje>
 	{
+		#region Interno
+
+		/// <summary>
+		/// Determina si dos mensajes son iguales
+		/// </summary>
+		public readonly IEqualityComparer<Mensaje> IgualadorRepetición;
+
+		#endregion
+
 		#region Control
 
 		/// <Docs>The item to add to the current collection.</Docs>
@@ -22,7 +58,8 @@ namespace Civ.IU
 		/// </summary>
 		public new void Add (Mensaje m)
 		{
-			if (m.VerificadorRepetición == null || !this.Any (z => m.VerificadorRepetición.Coincide (z.VerificadorRepetición)))
+			if (m.VerificadorRepetición == null || !this.Any 
+				(z => IgualadorRepetición.Equals (z, m)))
 			{
 				base.Add (m);
 				AlAgregar?.Invoke (this, new MensajeEventArgs (m, this));
@@ -42,6 +79,27 @@ namespace Civ.IU
 			foreach (var x in removing)
 				AlEliminar?.Invoke (this, new MensajeEventArgs (x, this));
 			return ret;
+		}
+
+		#endregion
+
+		#region ctor
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.IU.ManejadorMensajes"/> class.*/
+		/// </summary>
+		public ManejadorMensajes ()
+		{
+			IgualadorRepetición = new IgualadorRepetidorMensaje ();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.IU.ManejadorMensajes"/> class.
+		/// </summary>
+		/// <param name="comparador">Comparador.</param>
+		public ManejadorMensajes (IEqualityComparer<Mensaje> comparador)
+		{
+			IgualadorRepetición = comparador;
 		}
 
 		#endregion
