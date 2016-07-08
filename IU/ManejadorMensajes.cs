@@ -5,7 +5,6 @@ using ListasExtra;
 
 namespace Civ.IU
 {
-	// TODO: Hacer un EqualityComparer para manejar repeticiones.
 	/// <summary>
 	/// Manejador de mensajes de una civilización
 	/// </summary>
