@@ -3,18 +3,18 @@ using System;
 namespace Civ.ObjetosEstado
 {
 	/// <summary>
-	/// Argumento de evento de nuevos edificios
+	/// Argumentos de edificio nuevo
 	/// </summary>
 	[Serializable]
-	public class NuevoEdificioEventArgs : EventArgs
+	public class EdificioNuevoEventArgs : EventArgs
 	{
 		/// <summary>
-		/// Edificio nuevo
+		/// The edificio.
 		/// </summary>
 		public readonly Edificio Edificio;
 
 		/// <param name="edificio">Edificio.</param>
-		public NuevoEdificioEventArgs (Edificio edificio)
+		public EdificioNuevoEventArgs (Edificio edificio)
 		{
 			Edificio = edificio;
 		}

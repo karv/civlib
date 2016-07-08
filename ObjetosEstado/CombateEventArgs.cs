@@ -1,24 +1,21 @@
-using ListasExtra;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Civ.Combate;
-using Civ.Orden;
-using Civ.Global;
-using Civ;
-using Civ.RAW;
-using Civ.Topología;
-using Civ.IU;
-using Civ.Almacén;
 
 namespace Civ.ObjetosEstado
 {
-
+	/// <summary>
+	/// Argumento de evento de combate
+	/// </summary>
 	[Serializable]
 	public class CombateEventArgs : EventArgs
 	{
+		/// <summary>
+		/// Devuelve el análisis de combate
+		/// </summary>
+		/// <value>The análisis.</value>
 		public IAnálisisCombate Análisis { get; }
 
+		/// <param name="anal">Anal.</param>
 		public CombateEventArgs (IAnálisisCombate anal)
 		{
 			Análisis = anal;

@@ -224,15 +224,4 @@ namespace Civ.ObjetosEstado
 
 		#endregion
 	}
-
-	[Serializable]
-	public class EdificioNuevoEventArgs : EventArgs
-	{
-		public readonly Edificio Edificio;
-
-		public EdificioNuevoEventArgs (Edificio edificio)
-		{
-			this.Edificio = edificio;
-		}
-	}
 }

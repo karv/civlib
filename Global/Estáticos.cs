@@ -510,7 +510,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Ejecuta un ciclo
 		/// </summary>
-		/// <returns>La duración del tick en tiempo real.
+		/// <returns>La duración del tick en tiempo real.</returns>
 		public TimeSpan Ciclo ()
 		{
 			var tiempo = DateTime.Now - timer;

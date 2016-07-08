@@ -1,18 +1,19 @@
 using System;
-using Civ.Global;
-using Civ.Combate;
-using Civ.Almacén;
-using Civ.Topología;
-using Civ.RAW;
 
 namespace Civ.ObjetosEstado
 {
-
+	/// <summary>
+	/// Argumento de eventos de ciudad.
+	/// </summary>
 	[Serializable]
 	public sealed class CiudadEventArgs : EventArgs
 	{
+		/// <summary>
+		/// La ciudad
+		/// </summary>
 		public readonly ICiudad Ciudad;
 
+		/// <param name="ciudad">Ciudad.</param>
 		public CiudadEventArgs (ICiudad ciudad)
 		{
 			Ciudad = ciudad;

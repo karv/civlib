@@ -6,26 +6,6 @@ using Civ.ObjetosEstado;
 
 namespace Civ.Orden
 {
-	[Serializable]
-	public class TransladoEventArgs : EventArgs
-	{
-		public readonly Continuo<Terreno>.Ruta Ruta;
-
-		public Continuo<Terreno>.ContinuoPunto Final
-		{
-			get
-			{
-				return Ruta.NodoFinal;
-			}
-		}
-
-		public TransladoEventArgs (Continuo<Terreno>.Ruta ruta)
-		{
-			Ruta = ruta;
-		}
-		
-	}
-
 	/// <summary>
 	/// Orden de armada de ir a un lugar específico fijo, no necesariamente vecino.
 	/// </summary>
