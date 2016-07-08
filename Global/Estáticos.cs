@@ -500,7 +500,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Coeficiente de velocidad del juego.
 		/// </summary>
-		public float MultiplicadorVelocidad = 120;
+		public const float MultiplicadorVelocidad = 120;
 
 		/// <summary>
 		/// Devuelve si el juego se está terminando o está terminado; o establece si debe terminarse.
@@ -526,7 +526,7 @@ namespace Civ.Global
 
 				// Cronometrar tiempo real o tiempo modificado, dependiendo
 				// de los parámetros del cronómetro.
-				x.Tick (x.TiempoJuego ? timeArgs.GameTime : tiempo);
+				x.Tick (tiempo);
 			}			
 
 			// Console.WriteLine (t);
