@@ -45,7 +45,7 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
-		// TODO: almacenar en Ciudad la infopoblacional directamente y no en varialbes separadas;
+		// THINK: almacenar en Ciudad la infopoblacional directamente y no en varialbes separadas;
 		// al momento de llamar esta func, devolver directamente la estructura. Al cabos es Readonly
 
 		/// <summary>
