@@ -125,6 +125,7 @@
     <Compile Include="ObjetosEstado\TransferenciaObjetoEventArgs.cs" />
     <Compile Include="Orden\TransladoEventArgs.cs" />
     <Compile Include="ObjetosEstado\EdificioNuevoEventArgs.cs" />
+    <Compile Include="IU\IgualadorRepetidorMensaje.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
