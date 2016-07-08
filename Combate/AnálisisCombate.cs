@@ -24,13 +24,6 @@ namespace Civ.Combate
 		/// <value>The defensor.</value>
 		public Stack Defensor { get; set; }
 
-		// TODO: Esto se debería poder recuperar desde la propiedad Atacante.
-		/// <summary>
-		/// Devuelve los modificadores de combate del atacante
-		/// </summary>
-		/// <value>The mods.</value>
-		public IEnumerable<string> Mods { get; }
-
 		#endregion
 
 		#region Análisis
@@ -111,10 +104,9 @@ namespace Civ.Combate
 		public override string ToString ()
 		{
 			return string.Format (
-				"[AnálisisCombate: Atacante={0}, Defensor={1}, Mods={2}, DañoDisperso={3}, DañoDirecto={4}]",
+				"[AnálisisCombate: Atacante={0}, Defensor={1}, DañoDisperso={2}, DañoDirecto={3}]",
 				Atacante,
 				Defensor,
-				Mods,
 				DañoDisperso,
 				DañoDirecto);
 		}
