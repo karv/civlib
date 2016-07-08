@@ -10,6 +10,7 @@ using Civ.RAW;
 using Civ.Topología;
 using Civ.IU;
 using Civ.Almacén;
+using System.Diagnostics;
 
 namespace Civ.ObjetosEstado
 {
@@ -241,10 +242,8 @@ namespace Civ.ObjetosEstado
 		{
 			if (cantidad <= 0)
 			{
-				#if DEBUG
-				Console.WriteLine ("Imposible agregar <=0 unidades."); // TODO: Exception
-				#endif
-				return;
+				Debug.WriteLine ("Imposible agregar <=0 unidades."); // TODO: Exception
+				throw new ArgumentException ("Imposible agregar <=0 unidades.", "cantidad");
 			}
 
 			var realCantidad = 
