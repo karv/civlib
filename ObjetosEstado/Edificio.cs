@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Civ.RAW;
+using Civ.Global;
 
 namespace Civ.ObjetosEstado
 {

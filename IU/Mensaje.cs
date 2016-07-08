@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 
 namespace Civ.IU
 {
@@ -69,34 +68,5 @@ namespace Civ.IU
 		}
 
 		#endregion
-	}
-
-	/// <summary>
-	/// El estado de un mensaje
-	/// </summary>
-	public enum EstadoMensaje
-	{
-		/// <summary>
-		/// Mensaje no leído
-		/// </summary>
-		NoLeído,
-		/// <summary>
-		/// Mensaje ya leído.
-		/// </summary>
-		Leído
-	}
-
-	[System.Serializable]
-	public sealed class MensajeEventArgs : System.EventArgs
-	{
-		public Mensaje Msj { get; }
-
-		public ManejadorMensajes Manager { get; }
-
-		public MensajeEventArgs (Mensaje msj, ManejadorMensajes man)
-		{
-			Msj = msj;
-			Manager = man;
-		}
 	}
 }

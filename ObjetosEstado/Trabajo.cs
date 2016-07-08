@@ -1,6 +1,7 @@
 using System;
 using Civ.RAW;
 using Civ.Almacén;
+using Civ.Global;
 
 namespace Civ.ObjetosEstado
 {

@@ -444,16 +444,4 @@ namespace Civ.ObjetosEstado
 
 		#endregion
 	}
-
-	[Serializable]
-	public sealed class CiudadEventArgs : EventArgs
-	{
-		public readonly ICiudad Ciudad;
-
-		public CiudadEventArgs (ICiudad ciudad)
-		{
-			Ciudad = ciudad;
-		}
-		
-	}
 }

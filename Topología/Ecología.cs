@@ -3,6 +3,7 @@ using System;
 using Civ.RAW;
 using System.Linq;
 using Civ.Almacén;
+using Civ.Global;
 
 namespace Civ.Topología
 {

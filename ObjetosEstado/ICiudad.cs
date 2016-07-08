@@ -6,50 +6,6 @@ using Civ.Almacén;
 
 namespace Civ.ObjetosEstado
 {
-	[Serializable]
-	public class ReclutarEventArgs : EventArgs
-	{
-		public readonly IUnidadRAW Tipo;
-
-		public readonly ulong Cantidad;
-
-		public ReclutarEventArgs (IUnidadRAW tipo, ulong cantidad)
-		{
-			Tipo = tipo;
-			Cantidad = cantidad;
-		}
-	}
-
-	[Serializable]
-	public class NuevoEdificioEventArgs : EventArgs
-	{
-		public readonly Edificio Edificio;
-
-		public NuevoEdificioEventArgs (Edificio edificio)
-		{
-			Edificio = edificio;
-		}
-	}
-
-	[Serializable]
-	public sealed class TransferenciaObjetoEventArgs : EventArgs
-	{
-		public ICivilización Anterior { get; }
-
-		public ICivilización Actual { get; }
-
-		public readonly object Objeto;
-
-		public TransferenciaObjetoEventArgs (ICivilización anterior,
-		                                     ICivilización actual,
-		                                     object objeto)
-		{
-			Anterior = anterior;
-			Actual = actual;
-			Objeto = objeto;
-		}
-	}
-
 	/// <summary>
 	/// Una ciudad
 	/// </summary>

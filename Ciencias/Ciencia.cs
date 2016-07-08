@@ -87,17 +87,4 @@ namespace Civ.Ciencias
 
 		#endregion
 	}
-
-	[Serializable]
-	public sealed class AvanceEventArgs : EventArgs
-	{
-		public readonly Ciencia Ciencia;
-		public readonly ICivilización Civil;
-
-		public AvanceEventArgs (Ciencia ciencia, ICivilización civil)
-		{
-			Ciencia = ciencia;
-			Civil = civil;
-		}
-	}
 }

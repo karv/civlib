@@ -517,15 +517,4 @@ namespace Civ.ObjetosEstado
 
 		#endregion
 	}
-
-	[Serializable]
-	public class CombateEventArgs : EventArgs
-	{
-		public IAnálisisCombate Análisis { get; }
-
-		public CombateEventArgs (IAnálisisCombate anal)
-		{
-			Análisis = anal;
-		}
-	}
 }
