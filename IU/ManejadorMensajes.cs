@@ -25,7 +25,7 @@ namespace Civ.IU
 			if (m.VerificadorRepetición == null || !this.Any (z => m.VerificadorRepetición.Coincide (z.VerificadorRepetición)))
 			{
 				base.Add (m);
-				AlAgregar?.Invoke (m);
+				AlAgregar?.Invoke (this, new MensajeEventArgs (m, this));
 			}
 		}
 
@@ -40,7 +40,7 @@ namespace Civ.IU
 			var removing = this.Where (x => x.VerificadorRepetición.Coincide (repetidor));
 			var ret = RemoveAll (x => x.VerificadorRepetición.Coincide (repetidor)) > 0;
 			foreach (var x in removing)
-				AlEliminar?.Invoke (x);
+				AlEliminar?.Invoke (this, new MensajeEventArgs (x, this));
 			return ret;
 		}
 
@@ -51,12 +51,12 @@ namespace Civ.IU
 		/// <summary>
 		/// Ocurre después de agregar un mensaje.
 		/// </summary>
-		public event Action<Mensaje> AlAgregar;
+		public event EventHandler AlAgregar;
 
 		/// <summary>
 		/// Ocurre después de eliminar un mensaje.
 		/// </summary>
-		public event Action<Mensaje> AlEliminar;
+		public event EventHandler AlEliminar;
 
 		#endregion
 	}
