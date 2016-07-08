@@ -41,7 +41,7 @@ namespace Civ.ObjetosEstado
 			set
 			{
 				_nombre = value;
-				AlCambiarNombre?.Invoke ();
+				AlCambiarNombre?.Invoke (this, EventArgs.Empty);
 			}
 		}
 
@@ -133,12 +133,18 @@ namespace Civ.ObjetosEstado
 			}
 			set
 			{
+				AlCambiarDueño?.Invoke (
+					this,
+					new TransferenciaObjetoEventArgs (
+						_civDueño,
+						value,
+						this));
+				
 				if (_civDueño != null)
 					_civDueño.Ciudades.Remove (this);
 				_civDueño = value;
 				if (_civDueño != null)
 					_civDueño.Ciudades.Add (this);
-				AlCambiarDueño?.Invoke ();
 			}
 		}
 
@@ -317,7 +323,7 @@ namespace Civ.ObjetosEstado
 			uRAW.Reclutar (cantidad, this);
 			RealPoblaciónProductiva -= cantidad;
 
-			AlReclutar?.Invoke (uRAW, cantidad);
+			AlReclutar?.Invoke (this, new ReclutarEventArgs (uRAW, cantidad));
 
 			return Defensa [uRAW]; // Devuelve la unidad creada.
 		}
@@ -353,7 +359,7 @@ namespace Civ.ObjetosEstado
 							value.Nombre,
 							Nombre));
 					};
-					AlCambiarConstrucción?.Invoke ();
+					AlCambiarConstrucción?.Invoke (this, EventArgs.Empty);
 				}
 				else
 					throw new Exception (string.Format (
@@ -412,7 +418,7 @@ namespace Civ.ObjetosEstado
 		public Edificio AgregaEdificio (EdificioRAW edif)
 		{
 			var ret = new Edificio (edif, this);
-			AlObtenerNuevoEdificio?.Invoke (ret);
+			AlObtenerNuevoEdificio?.Invoke (this, new NuevoEdificioEventArgs (ret));
 			return ret;
 		}
 
@@ -846,32 +852,32 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando el nombre de la ciudad es cambiado
 		/// </summary>
-		public event Action AlCambiarNombre;
+		public event EventHandler AlCambiarNombre;
 
 		/// <summary>
 		/// Ocurre cuando esta ciudad cambia de dueño
 		/// </summary>
-		public event Action AlCambiarDueño;
+		public event EventHandler AlCambiarDueño;
 
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		public event Action<IUnidadRAW, ulong> AlReclutar;
+		public event EventHandler AlReclutar;
 
 		/// <summary>
 		/// Ocurre cuando se cambia un proyecto de construcción
 		/// </summary>
-		public event Action AlCambiarConstrucción;
+		public event EventHandler AlCambiarConstrucción;
 
 		/// <summary>
 		/// Ocurre cuando hay un edificio nuevo en la ciudad
 		/// </summary>
-		public event Action<Edificio> AlObtenerNuevoEdificio;
+		public event EventHandler AlObtenerNuevoEdificio;
 
 		/// <summary>
 		/// Ocurre cuando la ciudad se convierte en ruinas
 		/// </summary>
-		public event Action AlConvertirseRuinas;
+		public event EventHandler AlConvertirseRuinas;
 
 		#endregion
 
@@ -1075,7 +1081,7 @@ namespace Civ.ObjetosEstado
 			if (CivDueño != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				{
-					AlConvertirseRuinas?.Invoke ();
+					AlConvertirseRuinas?.Invoke (this, EventArgs.Empty);
 					CivDueño.RemoveCiudad (this);
 				}
 			}
@@ -1094,4 +1100,5 @@ namespace Civ.ObjetosEstado
 
 		#endregion
 	}
+
 }

@@ -376,7 +376,7 @@ namespace Civ.Global
 			foreach (var x in GState.CiudadesExistentes ())
 				x.AlCambiarDueño += EliminarMuertos;
 			foreach (var x in GState.ArmadasExistentes ())
-				x.AlVaciarse += (sender, e) => EliminarMuertos ();
+				x.AlVaciarse += EliminarMuertos;
 		}
 
 		#endregion
@@ -604,7 +604,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Elimina civilizaciones muertas
 		/// </summary>
-		void EliminarMuertos ()
+		void EliminarMuertos (object sender, EventArgs e)
 		{
 			foreach (var x in GState.CivsVivas())
 			{

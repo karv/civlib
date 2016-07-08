@@ -7,7 +7,32 @@ using Civ.Almacén;
 namespace Civ.ObjetosEstado
 {
 	[Serializable]
-	public sealed class TransferirObjetoEventArgs : EventArgs
+	public class ReclutarEventArgs : EventArgs
+	{
+		public readonly IUnidadRAW Tipo;
+
+		public readonly ulong Cantidad;
+
+		public ReclutarEventArgs (IUnidadRAW tipo, ulong cantidad)
+		{
+			Tipo = tipo;
+			Cantidad = cantidad;
+		}
+	}
+
+	[Serializable]
+	public class NuevoEdificioEventArgs : EventArgs
+	{
+		public readonly Edificio Edificio;
+
+		public NuevoEdificioEventArgs (Edificio edificio)
+		{
+			Edificio = edificio;
+		}
+	}
+
+	[Serializable]
+	public sealed class TransferenciaObjetoEventArgs : EventArgs
 	{
 		public ICivilización Anterior { get; }
 
@@ -15,9 +40,9 @@ namespace Civ.ObjetosEstado
 
 		public readonly object Objeto;
 
-		public TransferirObjetoEventArgs (ICivilización anterior,
-		                                  ICivilización actual,
-		                                  object objeto)
+		public TransferenciaObjetoEventArgs (ICivilización anterior,
+		                                     ICivilización actual,
+		                                     object objeto)
 		{
 			Anterior = anterior;
 			Actual = actual;
@@ -136,16 +161,16 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando el nombre de la ciudad es cambiado
 		/// </summary>
-		event Action AlCambiarNombre;
+		event EventHandler AlCambiarNombre;
 
 		/// <summary>
 		/// Ocurre cuando esta ciudad cambia de dueño
 		/// </summary>
-		event Action AlCambiarDueño;
+		event EventHandler AlCambiarDueño;
 
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		event Action<IUnidadRAW, ulong> AlReclutar;
+		event EventHandler AlReclutar;
 	}
 }

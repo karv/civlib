@@ -50,13 +50,13 @@ namespace Civ.Orden
 			// Si ya llegó al origen, ya terminó toda la orden.
 			if (ArmadaEjecutante.Posición.Equals (Origen))
 			{
-				AlRegresar?.Invoke ();
+				AlRegresar?.Invoke (this, EventArgs.Empty);
 				return true;
 			}
 			// Si llegó a dónde se encuentran los recursos
 			if (retOrdenPasada)
 			{
-				AlLlegar?.Invoke ();
+				AlLlegar?.Invoke (this, EventArgs.Empty);
 				// Recoger todo lo que se encuentra allá
 				foreach (var s in ArmadaEjecutante.Unidades)
 				{
@@ -93,12 +93,12 @@ namespace Civ.Orden
 		/// <summary>
 		/// Ocurre al llegar al DropStack
 		/// </summary>
-		public event Action AlLlegar;
+		public event EventHandler AlLlegar;
 
 		/// <summary>
 		/// Ocurre al regresar a casa
 		/// </summary>
-		public event Action AlRegresar;
+		public event EventHandler AlRegresar;
 
 		#endregion
 	}

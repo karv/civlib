@@ -229,7 +229,7 @@ namespace Civ.ObjetosEstado
 				ciudad.CivDueño = null;
 				AlPerderCiudad?.Invoke (
 					this,
-					new TransferirObjetoEventArgs (
+					new TransferenciaObjetoEventArgs (
 						this,
 						null,
 						ciudad));
@@ -247,7 +247,7 @@ namespace Civ.ObjetosEstado
 			var ret = new Ciudad (nombre, this, terreno);
 			AlGanarCiudad?.Invoke (
 				this,
-				new TransferirObjetoEventArgs (null, this, ret));
+				new TransferenciaObjetoEventArgs (null, this, ret));
 			return ret;
 		}
 
