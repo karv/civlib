@@ -5,11 +5,20 @@ namespace Civ
 	[Serializable]
 	public class TimeEventArgs : EventArgs
 	{
-		public TimeSpan Time { get; }
+		public TimeSpan UserTime { get; }
 
-		public TimeEventArgs (TimeSpan time)
+		public TimeSpan GameTime { get; }
+
+		public TimeEventArgs (TimeSpan userTime, TimeSpan gameTime)
 		{
-			Time = time;
+			UserTime = userTime;
+			GameTime = gameTime;
+		}
+
+		public TimeEventArgs (double hoursRealTime, double accel)
+		{
+			UserTime = TimeSpan.FromHours (hoursRealTime);
+			GameTime = TimeSpan.FromHours (hoursRealTime * accel);
 		}
 	}
 
@@ -22,7 +31,7 @@ namespace Civ
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		void Tick (TimeSpan t);
+		void Tick (TimeEventArgs t);
 
 		/// <summary>
 		/// Ocurre antes del tick

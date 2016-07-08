@@ -227,7 +227,12 @@ namespace Civ.ObjetosEstado
 			if (ciudad.CivDueño == this)
 			{
 				ciudad.CivDueño = null;
-				AlPerderCiudad?.Invoke (this, new TransferirCiudadEventArgs (this, null));
+				AlPerderCiudad?.Invoke (
+					this,
+					new TransferirObjetoEventArgs (
+						this,
+						null,
+						ciudad));
 			}
 		}
 
@@ -240,7 +245,9 @@ namespace Civ.ObjetosEstado
 		public Ciudad AddCiudad (string nombre, Terreno terreno)
 		{
 			var ret = new Ciudad (nombre, this, terreno);
-			AlGanarCiudad?.Invoke (this, new TransferirCiudadEventArgs (null, this));
+			AlGanarCiudad?.Invoke (
+				this,
+				new TransferirObjetoEventArgs (null, this, ret));
 			return ret;
 		}
 
@@ -392,10 +399,9 @@ namespace Civ.ObjetosEstado
 		/// Básicamente hace todo lo necesario y suficiente que le corresponde entre turnos.
 		/// </summary>
 		/// <param name="t">Diración del tick</param>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			var args = new TimeEventArgs (t);
-			AlTickAntes?.Invoke (this, args);
+			AlTickAntes?.Invoke (this, t);
 			foreach (var x in new List<ICiudad> (Ciudades))
 			{
 				x.Tick (t);
@@ -462,7 +468,7 @@ namespace Civ.ObjetosEstado
 				if (x.Unidades.Count > 0)
 					x.Tick (t);
 			}
-			AlTickDespués?.Invoke (this, args);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		/// <summary>

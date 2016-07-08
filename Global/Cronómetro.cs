@@ -6,7 +6,7 @@ namespace Civ.Global
 	/// Un cronómetro para invocar eventos cada cierto tiempo
 	/// (indep. CoefVelocidad)
 	/// </summary>
-	public class Cronómetro : ITickable
+	public class Cronómetro
 	{
 		#region Propiedades y campos
 
@@ -104,16 +104,16 @@ namespace Civ.Global
 		/// <param name="t">Lapso del tick</param>
 		public void Tick (TimeSpan t)
 		{
-			AlTickAntes?.Invoke (t);
+			AlTickAntes?.Invoke (this, EventArgs.Empty);
 			if (_habilitado && PróximoTick < DateTime.Now)
 			{
-				AlLlamar?.Invoke ();
+				AlLlamar?.Invoke (this, EventArgs.Empty);
 				if (Recurrente)
 					Reestablecer ();
 				else
 					Habilitado = false;
 			}
-			AlTickDespués?.Invoke (t);
+			AlTickDespués?.Invoke (this, EventArgs.Empty);
 		}
 
 		#endregion
@@ -123,17 +123,17 @@ namespace Civ.Global
 		/// <summary>
 		/// Ocurre cuando transcurre el tiempo
 		/// </summary>
-		public event Action AlLlamar;
+		public event EventHandler AlLlamar;
 
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickAntes;
+		public event EventHandler AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event Action<TimeSpan> AlTickDespués;
+		public event EventHandler AlTickDespués;
 
 		#endregion
 	}

@@ -981,7 +981,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Da un tick hereditario.
 		/// </summary>
-		public void ResourceTick (TimeSpan t)
+		public void ResourceTick (TimeEventArgs t)
 		{
 			foreach (ITickable x in Edificios)
 			{
@@ -990,7 +990,7 @@ namespace Civ.ObjetosEstado
 
 			foreach (var x in Propiedades)
 			{
-				x.Tick (Almacén, t);
+				x.Tick (Almacén, t.GameTime);
 			}
 			// Construir edificio.
 			if (EdifConstruyendo != null)
@@ -1043,13 +1043,12 @@ namespace Civ.ObjetosEstado
 		/// Ejecuta PopTick (), ResourseTick Y calcula delta
 		/// En ese orden.
 		/// </summary>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			var args = new TimeEventArgs (t);
-			AlTickAntes?.Invoke (this, args);
+			AlTickAntes?.Invoke (this, t);
 			var dictTmp = ((IDictionary<Recurso, float>)Almacén).Clonar ();
 			var RecAntes = new ListaPeso<Recurso> (dictTmp);
-			PopTick (t);
+			PopTick (t.GameTime);
 			ResourceTick (t);
 
 			// Hacer la suma manual 
@@ -1068,7 +1067,7 @@ namespace Civ.ObjetosEstado
 
 			foreach (var x in new List<Recurso> (DeltaRec.Keys))
 			{
-				DeltaRec [x] /= (float)(t.TotalHours);
+				DeltaRec [x] /= (float)(t.GameTime.TotalHours);
 			}
 			//var xx = tmp + alm;
 			//DeltaRec = tmp + alm;
@@ -1080,7 +1079,7 @@ namespace Civ.ObjetosEstado
 					CivDueño.RemoveCiudad (this);
 				}
 			}
-			AlTickDespués?.Invoke (this, args);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		/// <summary>

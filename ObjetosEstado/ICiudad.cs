@@ -7,17 +7,21 @@ using Civ.Almacén;
 namespace Civ.ObjetosEstado
 {
 	[Serializable]
-	public sealed class TransferirCiudadEventArgs : EventArgs
+	public sealed class TransferirObjetoEventArgs : EventArgs
 	{
 		public ICivilización Anterior { get; }
 
 		public ICivilización Actual { get; }
 
-		public TransferirCiudadEventArgs (ICivilización anterior,
-		                                  ICivilización actual)
+		public readonly object Objeto;
+
+		public TransferirObjetoEventArgs (ICivilización anterior,
+		                                  ICivilización actual,
+		                                  object objeto)
 		{
 			Anterior = anterior;
 			Actual = actual;
+			Objeto = objeto;
 		}
 	}
 

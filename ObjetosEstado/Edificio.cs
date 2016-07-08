@@ -73,15 +73,11 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Produce un tick productivo hereditario.
 		/// </summary>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			var args = new TimeEventArgs (t);
-			AlTickAntes?.Invoke (this, args);
-			if (RAW.Salida != null)
-				foreach (var x in RAW.Salida)
-				{
-					CiudadDueño.Almacén [x.Key] += x.Value * (float)t.TotalHours;
-				}
+			AlTickAntes?.Invoke (this, t);
+			foreach (var x in RAW.Salida)
+				CiudadDueño.Almacén [x.Key] += x.Value * (float)t.GameTime.TotalHours;
 
 			foreach (var x in Trabajos)
 			{
@@ -89,7 +85,7 @@ namespace Civ.ObjetosEstado
 				if (float.IsNaN (CiudadDueño.AlimentoAlmacen))
 					throw new Exception ();
 			}
-			AlTickDespués?.Invoke (this, args);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		#endregion

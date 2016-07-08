@@ -376,9 +376,9 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Un Tick de la armada
 		/// </summary>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			if (Orden.Ejecutar (t))
+			if (Orden.Ejecutar (t.GameTime))
 			{
 				Orden = new OrdenEstacionado ();
 				CivDueño.AgregaMensaje (new Mensaje (

@@ -74,11 +74,11 @@ namespace Civ.ObjetosEstado
 			set
 			{
 				_cantidad = Math.Max (0, value);
-				AlCambiarCantidad?.Invoke ();
+				AlCambiarCantidad?.Invoke (this, EventArgs.Empty);
 				if (_cantidad == 0)
 				{
 					AbandonaArmada ();
-					AlMorir?.Invoke ();
+					AlMorir?.Invoke (this, EventArgs.Empty);
 				}
 			}
 		}
@@ -180,7 +180,7 @@ namespace Civ.ObjetosEstado
 				_HP = Math.Max (Math.Min (1, value), 0);
 				if (_HP <= 0)		// Si HP = 0, la unidad muere.
 				{
-					AlMorir?.Invoke ();
+					AlMorir?.Invoke (this, EventArgs.Empty);
 					AbandonaArmada ();
 				}
 			}
@@ -193,7 +193,7 @@ namespace Civ.ObjetosEstado
 		public void FueAtacado (IAnálisisCombate anal)
 		{
 			ArmadaPerteneciente.FueAtacado (anal);
-			AlSerAtacado?.Invoke (anal);
+			AlSerAtacado?.Invoke (this, new CombateEventArgs (anal));
 		}
 
 		/// <summary>
@@ -344,7 +344,7 @@ namespace Civ.ObjetosEstado
 		public ICiudad Colonizar ()
 		{
 			var ret = (RAW as IUnidadRAWColoniza)?.Coloniza (this);
-			AlColonizar.Invoke (ret);
+			AlColonizar.Invoke (this, new CiudadEventArgs (ret));
 			return ret;
 		}
 
@@ -443,5 +443,17 @@ namespace Civ.ObjetosEstado
 		public event EventHandler AlColonizar;
 
 		#endregion
+	}
+
+	[Serializable]
+	public sealed class CiudadEventArgs : EventArgs
+	{
+		public readonly ICiudad Ciudad;
+
+		public CiudadEventArgs (ICiudad ciudad)
+		{
+			Ciudad = ciudad;
+		}
+		
 	}
 }

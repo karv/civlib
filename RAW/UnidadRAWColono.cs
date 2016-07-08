@@ -71,7 +71,7 @@ namespace Civ.RAW
 				ret.Almacén [x.Key] = x.Value * stack.Cantidad;
 			}
 
-			AlColonizar?.Invoke (ret);
+			AlColonizar?.Invoke (this, new CiudadEventArgs (ret));
 
 			return ret;
 		}
@@ -97,7 +97,7 @@ namespace Civ.RAW
 		/// <summary>
 		/// Ocurre cuando esta unidad coloniza
 		/// </summary>
-		public event Action<ICiudad> AlColonizar;
+		public event EventHandler AlColonizar;
 
 		#endregion
 	}

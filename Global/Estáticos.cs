@@ -109,7 +109,7 @@ namespace Civ.Global
 		/// <summary>
 		/// Ejecuta un autoguardado.
 		/// </summary>
-		public void EjecutarAutoguardado ()
+		public void EjecutarAutoguardado (object sender, EventArgs args)
 		{
 			const string file_output = "auto.sav";
 			Debug.WriteLine ("Iniciando autoguardado", "autosave");
@@ -513,9 +513,9 @@ namespace Civ.Global
 		/// <returns>La duración del tick en tiempo real.
 		public TimeSpan Ciclo ()
 		{
-			TimeSpan tiempo = DateTime.Now - timer;
+			var tiempo = DateTime.Now - timer;
 			timer = DateTime.Now;
-			var modTiempo = new TimeSpan ((long)(tiempo.Ticks * MultiplicadorVelocidad));
+			var timeArgs = new TimeEventArgs (tiempo.TotalHours, MultiplicadorVelocidad);
 
 			// Cronómetros
 			foreach (Cronómetro x in Cronómetros)
@@ -526,11 +526,11 @@ namespace Civ.Global
 
 				// Cronometrar tiempo real o tiempo modificado, dependiendo
 				// de los parámetros del cronómetro.
-				x.Tick (x.TiempoJuego ? modTiempo : tiempo);
+				x.Tick (x.TiempoJuego ? timeArgs.GameTime : tiempo);
 			}			
 
 			// Console.WriteLine (t);
-			Tick (modTiempo);
+			Tick (timeArgs);
 
 			if (Juego.State.Civs.Count == 0)
 				throw new Exception ("Ya se acabó el juego :3");
@@ -556,7 +556,7 @@ namespace Civ.Global
 		/// Un ciclo
 		/// </summary>
 		/// <param name="t">Tiempo</param>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
 
 			if (Pausado) // Si está pausado no hacer nada
@@ -589,7 +589,7 @@ namespace Civ.Global
 							{
 								if (ArmA.Posición.Equals (ArmB.Posición))
 								{
-									ArmA.Pelea (ArmB, t);
+									ArmA.Pelea (ArmB, t.GameTime);
 								}
 							}
 						}

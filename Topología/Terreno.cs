@@ -164,12 +164,11 @@ namespace Civ.Topología
 		/// Da un tick de longitud t al terreno.
 		/// </summary>
 		/// <param name="t">Longitud del tick</param>
-		public void Tick (TimeSpan t)
+		public void Tick (TimeEventArgs t)
 		{
-			var args = new TimeEventArgs (t);
-			AlTickAntes?.Invoke (this, args);
+			AlTickAntes?.Invoke (this, t);
 			Eco.Tick (t);
-			AlTickDespués?.Invoke (this, args);
+			AlTickDespués?.Invoke (this, t);
 		}
 
 		#endregion
