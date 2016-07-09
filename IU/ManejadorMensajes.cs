@@ -28,7 +28,8 @@ namespace Civ.IU
 		/// <summary>
 		/// Agrega un mensaje al usuario
 		/// </summary>
-		public new void Add (Mensaje m)
+		/// <param name="m">Mensaje</param>
+		public void Add (Mensaje m)
 		{
 			if (!this.Any 
 				(z => IgualadorRepetición.Equals (z, m)))

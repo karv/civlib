@@ -3,11 +3,26 @@ using System.Collections.Generic;
 
 namespace Civ.IU
 {
+	/// <summary>
+	/// El tipo de repetición
+	/// </summary>
 	public enum TipoRepetición
 	{
+		/// <summary>
+		/// No hay tipo, 
+		/// </summary>
 		NoTipo = 0,
+		/// <summary>
+		/// Repetición de cuando una armada termina una orden.
+		/// </summary>
 		ArmadaTerminaOrden,
+		/// <summary>
+		/// Repetición de cuando la población pierde población
+		/// </summary>
 		PerderPoblaciónOcupada,
+		/// <summary>
+		/// Repetición de cuando se está desperdiciando recursos.
+		/// </summary>
 		DesperdiciandoRecurso
 	}
 
@@ -16,14 +31,35 @@ namespace Civ.IU
 	/// </summary>
 	public interface IMensaje
 	{
+		/// <summary>
+		/// Devuelve el formato del mensaje
+		/// </summary>
+		/// <value>The msj.</value>
 		string Msj { get; }
 
+		/// <summary>
+		/// Devuelve los argumentos del mensaje
+		/// </summary>
+		/// <value>The origen.</value>
 		object [] Origen { get; }
 
+		/// <summary>
+		/// El tipo de repetidor
+		/// </summary>
+		/// <value>The tipo.</value>
 		TipoRepetición Tipo { get; }
 
+		/// <summary>
+		/// Subtipo interno del repetidor.
+		/// En la comparación, se usa su Equals (y hash) de objeto.
+		/// </summary>
+		/// <value>The subtipo.</value>
 		object Subtipo { get; }
 
+		/// <summary>
+		/// Estado del mensaje
+		/// </summary>
+		/// <value>The estado.</value>
 		EstadoMensaje Estado { get; set; }
 	}
 
@@ -32,10 +68,18 @@ namespace Civ.IU
 	/// </summary>
 	public class Mensaje : IMensaje
 	{
+		/// <summary>
+		/// Igualador de mensajes
+		/// </summary>
 		public class Igualador : IEqualityComparer<IMensaje>
 		{
 			#region IEqualityComparer implementation
 
+			/// <summary>
+			/// Returns if two objects are equal.
+			/// </summary>
+			/// <param name="x">Object 0</param>
+			/// <param name="y">Object 1</param>
 			public bool Equals (IMensaje x, IMensaje y)
 			{
 				/* Devuelve true si y sólo si los tres se cumplen
@@ -59,6 +103,13 @@ namespace Civ.IU
 				return x.Subtipo == y.Subtipo;
 			}
 
+			/// <Docs>The object for which the hash code is to be returned.</Docs>
+			/// <para>Returns a hash code for the specified object.</para>
+			/// <returns>A hash code for the specified object.</returns>
+			/// <summary>
+			/// Gets the hash code.
+			/// </summary>
+			/// <param name="obj">Object.</param>
 			public int GetHashCode (IMensaje obj)
 			{
 				return (int)obj.Tipo + obj.Subtipo.GetHashCode ();
@@ -69,8 +120,16 @@ namespace Civ.IU
 
 		#region General
 
+		/// <summary>
+		/// El tipo de repetidor
+		/// </summary>
 		public TipoRepetición Tipo { get; }
 
+		/// <summary>
+		/// Subtipo interno del repetidor.
+		/// En la comparación, se usa su Equals (y hash) de objeto.
+		/// </summary>
+		/// <value>The subtipo.</value>
 		public object Subtipo { get; }
 
 		/// <summary>
@@ -106,8 +165,10 @@ namespace Civ.IU
 
 		/// <summary>
 		/// </summary>
-		/// <param name="nMensaje">Texto</param>
-		/// <param name="nOrigen">Objeto vinculado</param>
+		/// <param name="nMensaje">N mensaje.</param>
+		/// <param name="tipo">Tipo.</param>
+		/// <param name="subtipo">Subtipo.</param>
+		/// <param name="nOrigen">N origen.</param>
 		public Mensaje (
 			string nMensaje,
 			TipoRepetición tipo,
