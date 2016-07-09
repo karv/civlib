@@ -29,7 +29,7 @@ namespace Civ.IU
 		/// Agrega un mensaje al usuario
 		/// </summary>
 		/// <param name="m">Mensaje</param>
-		public void Add (IMensaje m)
+		public new void Add (IMensaje m)
 		{
 			if (!this.Any 
 				(z => IgualadorRepetición.Equals (z, m)))
