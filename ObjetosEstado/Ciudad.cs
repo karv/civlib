@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Civ.Global;
-using Civ.RAW;
-using ListasExtra;
-using ListasExtra.Extensiones;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using Civ.Almacén;
-using Civ.Topología;
+using Civ.Global;
 using Civ.IU;
-using System.Diagnostics;
+using Civ.RAW;
+using Civ.Topología;
 
 namespace Civ.ObjetosEstado
 {
@@ -232,7 +230,7 @@ namespace Civ.ObjetosEstado
 		[OnDeserialized]
 		void Defaults ()
 		{
-			DeltaRec = new ListaPeso<Recurso> ();
+			DeltaRec = new AlmacénGenérico ();
 		}
 
 		#endregion
@@ -889,7 +887,7 @@ namespace Civ.ObjetosEstado
 		/// Cambio de recursos
 		/// </summary>
 		[NonSerialized]
-		ListaPeso<Recurso> DeltaRec = new ListaPeso<Recurso> ();
+		AlmacénGenérico DeltaRec = new AlmacénGenérico ();
 
 		/// <summary>
 		/// Devuelve el cambio de recursos que se espera por hora.
@@ -1055,32 +1053,14 @@ namespace Civ.ObjetosEstado
 		public void Tick (TimeEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
-			var dictTmp = ((IDictionary<Recurso, float>)Almacén).Clonar ();
-			var RecAntes = new ListaPeso<Recurso> (dictTmp);
+			var RecAntes = Almacén.Clonar ();
 			PopTick (t.GameTime);
 			ResourceTick (t);
 
 			// Hacer la suma manual 
-			dictTmp = ((IDictionary<Recurso, float>)Almacén).Clonar ();
+			for (int i = 0; i < DeltaRec.Count; i++)
+				DeltaRec [i] = (Almacén [i] - (RecAntes [i]) / (float)t.GameTime.TotalHours);
 
-			DeltaRec.Clear ();
-			foreach (var x in dictTmp)
-			{
-				DeltaRec.Add (x);
-			}
-
-			foreach (var x in RecAntes)
-			{
-				DeltaRec [x.Key] = (DeltaRec [x.Key] - x.Value);
-			}
-
-			foreach (var x in new List<Recurso> (DeltaRec.Keys))
-			{
-				DeltaRec [x] /= (float)(t.GameTime.TotalHours);
-			}
-			//var xx = tmp + alm;
-			//DeltaRec = tmp + alm;
-			//DeltaRec = ((ListaPeso<Recurso>)(Almacén) + (-1f) * RecAntes);// * (float)(t.TotalHours);
 			if (CivDueño != null && Poblacion == 0)
 			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 				{

@@ -1,10 +1,8 @@
 ﻿using System;
-using ListasExtra;
-using Civ.RAW;
 using System.Collections.Generic;
 using Civ.Global;
-using System.Diagnostics;
-using System.CodeDom;
+using Civ.RAW;
+using ListasExtra;
 
 namespace Civ.Almacén
 {
@@ -16,20 +14,15 @@ namespace Civ.Almacén
 	{
 		#region ctor
 
-		static int i;
-
-		static AlmacénGenérico ()
-		{
-			Debug.WriteLine (sizeof (float) * 30);
-		}
-
 		/// <summary>
 		/// </summary>
 		public AlmacénGenérico ()
 		{
-			Debug.WriteLine (++i);
-			//_recs = new float[Juego.Data.Recursos.Count];
-			_recs = new float[1];
+			var ResCount = Juego.Data.Recursos.Count;
+			//_recs = new List<float> (Juego.Data.Recursos.Count);
+			_recs = new float [ResCount];
+
+
 		}
 
 		#endregion
@@ -102,6 +95,20 @@ namespace Civ.Almacén
 						value));
 				_recs [id] = value;
 			}
+		}
+
+		public AlmacénGenérico Clonar ()
+		{
+			var ret = new AlmacénGenérico ();
+			for (int i = 0; i < ret._recs.Count; i++)
+				ret._recs [i] = _recs [i];
+			return ret;
+		}
+
+		public void Clear ()
+		{
+			for (int i = 0; i < _recs.Count; i++)
+				_recs [i] = 0;
 		}
 
 		#endregion
