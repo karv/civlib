@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Civ;
-using Civ.RAW;
-using Civ.Ciencias;
 using Civ.Almacén;
+using Civ.Ciencias;
+using Civ.Global;
 using Civ.ObjetosEstado;
+using Civ.RAW;
 
 namespace Civ.ObjetosEstado
 {
@@ -52,7 +52,7 @@ namespace Civ.ObjetosEstado
 		/// Agrega un mensaje al usuario de esta civilzación
 		/// </summary>
 		/// <param name="mensaje">Mensaje.</param>
-		void AgregaMensaje (IU.Mensaje mensaje);
+		void AgregaMensaje (IU.IMensaje mensaje);
 
 		/// <summary>
 		/// Devuelve si esta civilización está marcada como bárbara

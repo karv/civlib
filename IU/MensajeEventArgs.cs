@@ -11,7 +11,7 @@ namespace Civ.IU
 		/// Devuelve el mensaje.
 		/// </summary>
 		/// <value>The msj.</value>
-		public Mensaje Msj { get; }
+		public IMensaje Msj { get; }
 
 		/// <summary>
 		/// Devuelve el manejador de mensaje involucrado.
@@ -21,7 +21,7 @@ namespace Civ.IU
 
 		/// <param name="msj">Msj.</param>
 		/// <param name="man">Man.</param>
-		public MensajeEventArgs (Mensaje msj, ManejadorMensajes man)
+		public MensajeEventArgs (IMensaje msj, ManejadorMensajes man)
 		{
 			Msj = msj;
 			Manager = man;

@@ -116,7 +116,7 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
-		void ICivilización.AgregaMensaje (IU.Mensaje mensaje)
+		void ICivilización.AgregaMensaje (IU.IMensaje mensaje)
 		{
 		}
 

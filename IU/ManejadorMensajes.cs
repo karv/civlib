@@ -5,12 +5,20 @@ using ListasExtra;
 
 namespace Civ.IU
 {
-	// TODO: Hacer un EqualityComparer para manejar repeticiones.
 	/// <summary>
 	/// Manejador de mensajes de una civilización
 	/// </summary>
-	public class ManejadorMensajes : ListaCíclica<Mensaje>
+	public class ManejadorMensajes : ListaCíclica<IMensaje>
 	{
+		#region Interno
+
+		/// <summary>
+		/// Determina si dos mensajes son iguales
+		/// </summary>
+		public readonly IEqualityComparer<IMensaje> IgualadorRepetición;
+
+		#endregion
+
 		#region Control
 
 		/// <Docs>The item to add to the current collection.</Docs>
@@ -20,9 +28,11 @@ namespace Civ.IU
 		/// <summary>
 		/// Agrega un mensaje al usuario
 		/// </summary>
-		public new void Add (Mensaje m)
+		/// <param name="m">Mensaje</param>
+		public new void Add (IMensaje m)
 		{
-			if (m.VerificadorRepetición == null || !this.Any (z => m.VerificadorRepetición.Coincide (z.VerificadorRepetición)))
+			if (!this.Any 
+				(z => IgualadorRepetición.Equals (z, m)))
 			{
 				base.Add (m);
 				AlAgregar?.Invoke (this, new MensajeEventArgs (m, this));
@@ -35,13 +45,37 @@ namespace Civ.IU
 		/// Elimina los mensajes con un repetidor dado.
 		/// </summary>
 		/// <param name="repetidor">Repetidor.</param>
-		public bool Remove (IRepetidor repetidor)
+		public bool Remove (TipoRepetición repetidor)
 		{
-			var removing = this.Where (x => x.VerificadorRepetición.Coincide (repetidor));
-			var ret = RemoveAll (x => x.VerificadorRepetición.Coincide (repetidor)) > 0;
+			var removing = this.Where (x => x.Tipo == repetidor);
+			var ret = false;
 			foreach (var x in removing)
+			{	
 				AlEliminar?.Invoke (this, new MensajeEventArgs (x, this));
+				ret |= Remove (x);
+			}
 			return ret;
+		}
+
+		#endregion
+
+		#region ctor
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.IU.ManejadorMensajes"/> class.*/
+		/// </summary>
+		public ManejadorMensajes ()
+		{
+			IgualadorRepetición = new Mensaje.Igualador ();
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Civ.IU.ManejadorMensajes"/> class.
+		/// </summary>
+		/// <param name="comparador">Comparador.</param>
+		public ManejadorMensajes (IEqualityComparer<IMensaje> comparador)
+		{
+			IgualadorRepetición = comparador;
 		}
 
 		#endregion
