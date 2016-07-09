@@ -41,10 +41,15 @@ namespace Civ.IU
 				/* Devuelve true si y sólo si los tres se cumplen
 				 * ninguno es null,
 				 * .Tipo y .Subtipo coinciden
-				 * ni .Tipo ni .Subtipo son igual a cero. */
+				 * ni .Tipo ni .Subtipo son igual a cero. 
+
+				 * Pero siempre devuelve true si la referencia de ambos es la misma (y no nula)
+				*/
 
 				if (x == null || y == null)
 					return false;
+				if (ReferenceEquals (x, y))
+					return true;
 				if (x.Tipo == TipoRepetición.NoTipo || y.Tipo == TipoRepetición.NoTipo)
 					return false;
 				if (x.Tipo != y.Tipo)
