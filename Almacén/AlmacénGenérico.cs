@@ -97,6 +97,9 @@ namespace Civ.Almacén
 			}
 		}
 
+		/// <summary>
+		/// Clona esta instancia
+		/// </summary>
 		public AlmacénGenérico Clonar ()
 		{
 			var ret = new AlmacénGenérico ();
@@ -105,6 +108,9 @@ namespace Civ.Almacén
 			return ret;
 		}
 
+		/// <summary>
+		/// Establece cada entrada como cero.
+		/// </summary>
 		public void Clear ()
 		{
 			for (int i = 0; i < _recs.Count; i++)
