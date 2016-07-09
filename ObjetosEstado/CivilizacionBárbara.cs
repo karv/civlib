@@ -4,9 +4,7 @@ using Civ.Almacén;
 using Civ.RAW;
 using Civ.Ciencias;
 using Civ.Global;
-using System.Diagnostics;
 using System.Linq;
-using System.Configuration;
 
 namespace Civ.ObjetosEstado
 {
@@ -19,6 +17,7 @@ namespace Civ.ObjetosEstado
 	{
 		#region ArmadaList
 
+		[Serializable]
 		class ArmadaSet : IList<Armada>
 		{
 			Armada Arm;

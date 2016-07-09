@@ -193,6 +193,7 @@ namespace Civ.Global
 			Cronómetros = new HashSet<Cronómetro> ();
 			_cronoAutoguardado = new Cronómetro ();
 			_cronoAutoguardado.AlLlamar += EjecutarAutoguardado;
+			Cronómetros.Add (_cronoAutoguardado);
 		}
 
 		Juego ()
@@ -218,15 +219,12 @@ namespace Civ.Global
 			Civilización C;
 			Ciudad Cd;
 
-
-
 			for (int i = 0; i < PrefsJuegoNuevo.NumTerrenos; i++)
 			{
 				Eco = GData.Ecosistemas.Elegir ();
 				Ecos.Add (Eco);
 				T = new Terreno (Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add (T);
-				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());
 			}
 
 			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
@@ -241,16 +239,6 @@ namespace Civ.Global
 				x.AsignarPosición ();
 
 
-			/*
-			// Vaciar la topolog�a en cada Terreno
-			foreach (var x in State.Topologia.Nodos)
-			{
-				Terreno a = x;
-				Terreno b = x;
-				a.Vecinos[b] = State.Topologia[a, b];
-				b.Vecinos[a] = State.Topologia[b, a];
-			}
-			*/
 			// Asignar una ciudad de cada civilizaci�n en terrenos vac�os y distintos lugares.
 			var Terrs = GState.TerrenosLibres ();
 			for (int i = 0; i < PrefsJuegoNuevo.NumCivs; i++)
@@ -276,6 +264,7 @@ namespace Civ.Global
 			{
 				c.Almacén [Instancia.GData.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
 			}
+
 		}
 
 		/// <summary>
@@ -287,6 +276,7 @@ namespace Civ.Global
 			try
 			{
 				Instancia = Store.BinarySerialization.ReadFromBinaryFile<Juego> (filename);
+				Instancia.Defaults ();
 				Debug.WriteLine ("Carga exitosa de archivo " + filename, "IO");
 			}
 			catch (Exception ex)
