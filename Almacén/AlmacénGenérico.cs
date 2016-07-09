@@ -3,6 +3,8 @@ using ListasExtra;
 using Civ.RAW;
 using System.Collections.Generic;
 using Civ.Global;
+using System.Diagnostics;
+using System.CodeDom;
 
 namespace Civ.Almacén
 {
@@ -12,9 +14,29 @@ namespace Civ.Almacén
 	[Serializable]
 	public class AlmacénGenérico : IAlmacén
 	{
+		#region ctor
+
+		static int i;
+
+		static AlmacénGenérico ()
+		{
+			Debug.WriteLine (sizeof (float) * 30);
+		}
+
+		/// <summary>
+		/// </summary>
+		public AlmacénGenérico ()
+		{
+			Debug.WriteLine (++i);
+			//_recs = new float[Juego.Data.Recursos.Count];
+			_recs = new float[1];
+		}
+
+		#endregion
+
 		#region General
 
-		readonly float [] _recs = new float[Juego.Data.Recursos.Count];
+		readonly IList<float> _recs;
 
 		/// <summary>
 		/// Devuelve la cantidad de diferentes recursos.
@@ -24,7 +46,7 @@ namespace Civ.Almacén
 		{
 			get
 			{
-				return _recs.Length;
+				return _recs.Count;
 			}
 		}
 
@@ -89,7 +111,7 @@ namespace Civ.Almacén
 		/// <summary>
 		/// Devuelve un array de float que representa las entradas de recursos.
 		/// </summary>
-		public float[] AsArray ()
+		public IList<float> AsArray ()
 		{
 			return _recs;
 		}
@@ -99,7 +121,7 @@ namespace Civ.Almacén
 		/// </summary>
 		/// <param name="otrosReqs">Otros recursos</param>
 		/// <returns>The recursos.</returns>
-		public float ContieneRecursos (float [] otrosReqs)
+		public float ContieneRecursos (IList<float> otrosReqs)
 		{
 			var ret = float.PositiveInfinity;
 			for (int i = 0; i < Count; i++)

@@ -20,7 +20,7 @@ namespace Civ.Almacén
 		/// Devuelve un array de float que representa las entradas de recursos.
 		/// </summary>
 		/// <returns>The array.</returns>
-		float [] AsArray ();
+		IList<float> AsArray ();
 
 		/// <summary>
 		/// Almacén de lectura y escritura
@@ -32,7 +32,7 @@ namespace Civ.Almacén
 		/// Revisa si contiene (y cuántas veces) los recursos codificados en un arreglo de float.
 		/// </summary>
 		/// <param name="otrosReqs">Otros recursos</param>
-		float ContieneRecursos (float [] otrosReqs);
+		float ContieneRecursos (IList<float> otrosReqs);
 
 		/// <summary>
 		/// Revisa si contiene (y cuántas veces) los recursos codificados en un arreglo de float.
