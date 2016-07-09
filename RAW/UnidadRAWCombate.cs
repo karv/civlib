@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Civ.Global;
 using ListasExtra;
-using Civ;
-using System;
 
 namespace Civ.RAW
 {

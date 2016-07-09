@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Civ.Comandos;
+using Civ.Global;
 using Civ.ObjetosEstado;
 
 namespace Civ.RAW

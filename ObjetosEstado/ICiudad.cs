@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Civ.RAW;
-using System;
-using Civ.Topología;
+﻿using System;
+using System.Collections.Generic;
 using Civ.Almacén;
+using Civ.Global;
+using Civ.RAW;
+using Civ.Topología;
 
 namespace Civ.ObjetosEstado
 {

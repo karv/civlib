@@ -1,4 +1,4 @@
-﻿namespace Civ
+﻿namespace Civ.Global
 {
 	/// <summary>
 	/// Permite pedirle una puntuación.

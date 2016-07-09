@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Civ;
-using Civ.RAW;
-using Civ.Ciencias;
 using Civ.Almacén;
+using Civ.Ciencias;
+using Civ.Global;
 using Civ.ObjetosEstado;
+using Civ.RAW;
 
 namespace Civ.ObjetosEstado
 {

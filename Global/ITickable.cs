@@ -1,7 +1,6 @@
 using System;
-using Civ.Global;
 
-namespace Civ
+namespace Civ.Global
 {
 	/// <summary>
 	/// Proporciona un método para hacer un tick temporal.

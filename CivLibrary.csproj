@@ -47,10 +47,8 @@
     <Compile Include="Global\Estructura State.cs" />
     <Compile Include="Global\Estáticos.cs" />
     <Compile Include="Global\Basic.cs" />
-    <Compile Include="Interfaces\ITickable.cs" />
     <Compile Include="RAW\EdificioRAW.cs" />
     <Compile Include="RAW\TrabajoRAW.cs" />
-    <Compile Include="Interfaces\IPuntuado.cs" />
     <Compile Include="Almacén\AlmacénCiudad.cs" />
     <Compile Include="Almacén\AlmacénCiv.cs" />
     <Compile Include="Orden\OrdenEstacionado.cs" />
@@ -124,6 +122,8 @@
     <Compile Include="ObjetosEstado\TransferenciaObjetoEventArgs.cs" />
     <Compile Include="Orden\TransladoEventArgs.cs" />
     <Compile Include="ObjetosEstado\EdificioNuevoEventArgs.cs" />
+    <Compile Include="Global\ITickable.cs" />
+    <Compile Include="Global\IPuntuado.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
