@@ -355,6 +355,8 @@ namespace Civ.ObjetosEstado
 					{
 						CivDueño.AgregaMensaje (new Mensaje (
 							"Se terminó construcción de edificio {0} en {1}.",
+							TipoRepetición.NoTipo,
+							null,
 							null,
 							value.Nombre,
 							Nombre));
@@ -967,7 +969,8 @@ namespace Civ.ObjetosEstado
 			{
 				CivDueño.AgregaMensaje (new Mensaje (
 					"La ciudad {0} ha perdido trabajadores productivos ocupados.",
-					new RepetidorCiudadNoPop (this),
+					TipoRepetición.PerderPoblaciónOcupada,
+					this,
 					this));
 				LiberarTrabajadores (decrec - TrabajadoresDesocupados);
 

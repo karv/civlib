@@ -52,7 +52,7 @@ namespace Civ.ObjetosEstado
 		/// Agrega un mensaje al usuario de esta civilzación
 		/// </summary>
 		/// <param name="mensaje">Mensaje.</param>
-		void AgregaMensaje (IU.Mensaje mensaje);
+		void AgregaMensaje (IU.IMensaje mensaje);
 
 		/// <summary>
 		/// Devuelve si esta civilización está marcada como bárbara

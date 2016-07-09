@@ -8,14 +8,14 @@ namespace Civ.IU
 	/// <summary>
 	/// Manejador de mensajes de una civilización
 	/// </summary>
-	public class ManejadorMensajes : ListaCíclica<Mensaje>
+	public class ManejadorMensajes : ListaCíclica<IMensaje>
 	{
 		#region Interno
 
 		/// <summary>
 		/// Determina si dos mensajes son iguales
 		/// </summary>
-		public readonly IEqualityComparer<Mensaje> IgualadorRepetición;
+		public readonly IEqualityComparer<IMensaje> IgualadorRepetición;
 
 		#endregion
 
@@ -30,7 +30,7 @@ namespace Civ.IU
 		/// </summary>
 		public new void Add (Mensaje m)
 		{
-			if (m.VerificadorRepetición == null || !this.Any 
+			if (!this.Any 
 				(z => IgualadorRepetición.Equals (z, m)))
 			{
 				base.Add (m);
@@ -44,12 +44,15 @@ namespace Civ.IU
 		/// Elimina los mensajes con un repetidor dado.
 		/// </summary>
 		/// <param name="repetidor">Repetidor.</param>
-		public bool Remove (IRepetidor repetidor)
+		public bool Remove (TipoRepetición repetidor)
 		{
-			var removing = this.Where (x => x.VerificadorRepetición.Coincide (repetidor));
-			var ret = RemoveAll (x => x.VerificadorRepetición.Coincide (repetidor)) > 0;
+			var removing = this.Where (x => x.Tipo == repetidor);
+			var ret = false;
 			foreach (var x in removing)
+			{	
 				AlEliminar?.Invoke (this, new MensajeEventArgs (x, this));
+				ret |= Remove (x);
+			}
 			return ret;
 		}
 
@@ -62,14 +65,14 @@ namespace Civ.IU
 		/// </summary>
 		public ManejadorMensajes ()
 		{
-			IgualadorRepetición = new IgualadorRepetidorMensaje ();
+			IgualadorRepetición = new Mensaje.Igualador ();
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Civ.IU.ManejadorMensajes"/> class.
 		/// </summary>
 		/// <param name="comparador">Comparador.</param>
-		public ManejadorMensajes (IEqualityComparer<Mensaje> comparador)
+		public ManejadorMensajes (IEqualityComparer<IMensaje> comparador)
 		{
 			IgualadorRepetición = comparador;
 		}

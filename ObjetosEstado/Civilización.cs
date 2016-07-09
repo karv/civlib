@@ -318,7 +318,7 @@ namespace Civ.ObjetosEstado
 		/// Agrega un mensaje de usuario a la cola.
 		/// </summary>
 		/// <param name="mensaje">Mensaje</param>
-		public void AgregaMensaje (Mensaje mensaje)
+		public void AgregaMensaje (IMensaje mensaje)
 		{
 			Mensajes.Add (mensaje);
 			AlNuevoMensaje?.Invoke (this, new MensajeEventArgs (mensaje, Mensajes));
@@ -331,7 +331,12 @@ namespace Civ.ObjetosEstado
 		/// <param name="referencia">Referencias u orígenes del mensaje.</param>
 		public void AgregaMensaje (string str, params object [] referencia)
 		{
-			AgregaMensaje (new Mensaje (str, null, referencia));
+			AgregaMensaje (new Mensaje (
+				str,
+				TipoRepetición.NoTipo,
+				null,
+				null,
+				referencia));
 		}
 
 		/// <summary>
@@ -349,7 +354,7 @@ namespace Civ.ObjetosEstado
 		/// Toma de la cola el siguiente mensaje.
 		/// </summary>
 		/// <returns>Devuelve el mensaje siguiente en la cola.</returns>
-		public Mensaje SiguienteMensaje ()
+		public IMensaje SiguienteMensaje ()
 		{
 			return Mensajes.Siguiente;
 		}
@@ -358,7 +363,7 @@ namespace Civ.ObjetosEstado
 		/// Devuelve todos los menajes acumulados
 		/// </summary>
 		/// <returns>The todos los mensajes.</returns>
-		public ICollection<Mensaje> ObtenerTodosLosMensajes ()
+		public ICollection<IMensaje> ObtenerTodosLosMensajes ()
 		{
 			return Mensajes;
 		}
@@ -429,7 +434,8 @@ namespace Civ.ObjetosEstado
 						// Se está desperdiciando Rec
 						AgregaMensaje (new Mensaje (
 							"Se está desperdiciando recurso científico {0}",
-							new RepetidorExcesoRecurso (Rec, Almacén),
+							TipoRepetición.DesperdiciandoRecurso,
+							Rec,
 							Rec.Nombre));
 					}
 				}

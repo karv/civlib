@@ -63,7 +63,8 @@ namespace Civ.Orden
 		{
 			ArmadaEjecutante.CivDueño.AgregaMensaje (new Mensaje (
 				"Armada {0} LLegó a su destino en {1} : Orden {2}",
-				new RepetidorArmadaDestino (ArmadaEjecutante),
+				TipoRepetición.ArmadaTerminaOrden,
+				ArmadaEjecutante,
 				ArmadaEjecutante,
 				Destino,
 				this));
