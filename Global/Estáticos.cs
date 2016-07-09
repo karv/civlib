@@ -489,6 +489,7 @@ namespace Civ.Global
 
 		#region Ticks
 
+		[NonSerialized]
 		DateTime timer = DateTime.Now;
 		/// <summary>
 		/// Coeficiente de velocidad del juego.
@@ -542,7 +543,8 @@ namespace Civ.Global
 			Debug.WriteLine (barb, "BarbGen");
 			barb.Posición.AlColisionar += obj => Debug.WriteLine (
 				"Armada genérica chocando con obj", "Armada genérica");
-			
+
+			timer = DateTime.Now;
 			while (!Terminar)
 			{
 				var ccl = Ciclo ();
