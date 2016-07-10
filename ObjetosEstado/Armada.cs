@@ -119,7 +119,7 @@ namespace Civ.ObjetosEstado
 				Juego.State.Drops.Add (drops);
 		}
 
-		void Posición_AlColisionar (Graficas.Continuo.Continuo<Terreno>.ContinuoPunto obj)
+		void Posición_AlColisionar (Graficas.Continuo.Punto<Terreno> obj)
 		{
 			var arm = (obj as Pseudoposición)?.Objeto as Armada;
 

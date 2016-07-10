@@ -51,7 +51,7 @@ namespace Civ.Orden
 		/// Devuelve la ruta que seguirá al desplazarse con esta orden
 		/// </summary>
 		/// <value>The ruta.</value>
-		public Continuo<Terreno>.Ruta Ruta { get; }
+		public Ruta<Terreno> Ruta { get; }
 
 		/// <summary>
 		/// Devuelve el tiempo estimado en llegar a su destino

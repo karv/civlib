@@ -15,13 +15,13 @@ namespace Civ.Orden
 		/// <summary>
 		/// La ruta de translado
 		/// </summary>
-		public readonly Continuo<Terreno>.Ruta Ruta;
+		public readonly Ruta<Terreno> Ruta;
 
 		/// <summary>
 		/// Devuelve el destino
 		/// </summary>
 		/// <value>The final.</value>
-		public Continuo<Terreno>.ContinuoPunto Final
+		public Punto<Terreno> Final
 		{
 			get
 			{
@@ -30,7 +30,7 @@ namespace Civ.Orden
 		}
 
 		/// <param name="ruta">Ruta.</param>
-		public TransladoEventArgs (Continuo<Terreno>.Ruta ruta)
+		public TransladoEventArgs (Ruta<Terreno> ruta)
 		{
 			Ruta = ruta;
 		}

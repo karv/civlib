@@ -52,7 +52,7 @@ namespace Civ.Bárbaros
 		{
 			var ppos = new List<Terreno> (_estado.Topología.Nodos);
 			var pos = ppos [HerrGlobal.Rnd.Next (ppos.Count)];
-			var pto = new Continuo<Terreno>.ContinuoPunto (
+			var pto = new Punto<Terreno> (
 				          Juego.State.Mapa,
 				          pos);
 			
