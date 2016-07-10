@@ -52,6 +52,11 @@ namespace Civ.Combate
 			return ToString ();
 		}
 
+		/// <summary>
+		/// Une este análisis con otro.
+		/// No modifica el otro.
+		/// </summary>
+		/// <param name="anal">Anal.</param>
 		public void UnirCon (IAnálisisCombate anal)
 		{
 			Tiempo += anal.Duración;
@@ -59,11 +64,17 @@ namespace Civ.Combate
 			DañoDisperso += anal.DañoDisperso;
 		}
 
+		/// <summary>
+		/// Revisa y devuelve un valor indicando si tiene sentido unir esta instancia con otra dada.
+		/// </summary>
 		public bool EsUnibleCon (IAnálisisCombate anal)
 		{
 			return Atacante == anal.Atacante && Defensor == anal.Defensor;
 		}
 
+		/// <summary>
+		/// Devuelve la duración del combate.
+		/// </summary>
 		public TimeSpan Duración
 		{
 			get

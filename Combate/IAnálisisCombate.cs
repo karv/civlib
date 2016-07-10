@@ -42,8 +42,16 @@ namespace Civ.Combate
 		/// <returns><c>true</c>, si es posible unir, <c>false</c> otherwise.</returns>
 		bool EsUnibleCon (IAnálisisCombate anal);
 
+		/// <summary>
+		/// Devuelve el daño directo causado
+		/// </summary>
+		/// <value>The daño directo.</value>
 		float DañoDirecto { get; }
 
+		/// <summary>
+		/// Devuelve el daño disperso causado
+		/// </summary>
+		/// <value>The daño disperso.</value>
 		float DañoDisperso { get; }
 	}
 }

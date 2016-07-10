@@ -5,7 +5,7 @@ namespace Civ.Combate
 	/// <summary>
 	/// Se engarga de unir y organizar los <see cref="Civ.Combate.IAnálisisCombate"/> generados surante una pelea.
 	/// </summary>
-	public class AnalCombateManager
+	public class AnálisisCombateManager
 	{
 		readonly HashSet<IAnálisisCombate> combatesData = new HashSet<IAnálisisCombate> ();
 
