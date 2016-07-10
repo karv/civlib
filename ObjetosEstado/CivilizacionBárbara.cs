@@ -5,6 +5,7 @@ using Civ.RAW;
 using Civ.Ciencias;
 using Civ.Global;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Civ.ObjetosEstado
 {
@@ -289,6 +290,7 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public void Destruirse ()
 		{
+			Debug.WriteLine ("Civ Bárbara destruida", "Barb");
 			Juego.State.Civs.Remove (this);
 			if (Armada != null)
 				((IDisposable)Armada).Dispose ();

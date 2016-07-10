@@ -610,7 +610,8 @@ namespace Civ.Global
 		/// </summary>
 		void EliminarMuertos (object sender, EventArgs e)
 		{
-			foreach (var x in GState.Civs.Where (z => z.DeboDestruirme ()))
+			var destroy = new List<ICivilización> (GState.Civs.Where (z => z.DeboDestruirme ()));
+			foreach (var x in destroy)
 				x.Destruirse ();
 		}
 

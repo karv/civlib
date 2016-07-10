@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using Civ.Almacén;
 using Civ.RAW;
 using Civ.Topología;
+using System.Diagnostics;
 
 namespace Civ.ObjetosEstado
 {
@@ -96,8 +97,10 @@ namespace Civ.ObjetosEstado
 		/// Destruye esta civilización.
 		/// Elimina del mapa a todas sus armadas.
 		/// </summary>
+
 		public void Destruirse ()
 		{
+			Debug.WriteLine ("Civilización destruida", "Civ");
 			Juego.State.Civs.Remove (this);
 			foreach (var x in Armadas)
 				((IDisposable)x.Posición).Dispose ();
