@@ -10,7 +10,7 @@ namespace Civ.ObjetosEstado
 	/// <summary>
 	/// Una ciudad
 	/// </summary>
-	public interface ICiudad : ITickable, IPuntuado, IPosicionable
+	public interface ICiudad : ITickable, IPuntuado, IPosicionable, IInicializable
 	{
 		/// <summary>
 		/// Nombre de la ciudad

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Civ;
 using Civ.Options;
 using Civ.Bárbaros;
 using System.IO;
@@ -31,7 +30,7 @@ namespace Civ.Global
 	/// Los objetos globales.
 	/// </summary>	
 	[Serializable]
-	public class Juego
+	public class Juego : IInicializable
 	{
 		#region El juego
 
@@ -201,11 +200,18 @@ namespace Civ.Global
 			Defaults ();
 		}
 
+		public void Inicializar ()
+		{
+			Defaults ();
+			foreach (var civ in State.Civs)
+				civ.Inicializar ();
+		}
+
 		/// <summary>
 		/// Inicializa el g_State, a partir de el g_Data.
 		/// Usarse cuando se quiera iniciar un juego.
 		/// </summary>
-		public void Inicializar ()
+		public void InicializarNuevoJuego ()
 		{
 			Juego.CargaData ();
 			//State = new GameState();
@@ -300,7 +306,7 @@ namespace Civ.Global
 				}
 
 				Console.WriteLine ("Iniciando nuevo juego");
-				Instancia.Inicializar ();
+				Instancia.InicializarNuevoJuego ();
 			}
 			finally
 			{
@@ -537,6 +543,7 @@ namespace Civ.Global
 		/// </summary>
 		public void Ejecutar ()
 		{
+			Inicializar ();
 			suscripciones ();
 
 			var barb = BarbGen.Armada (State.Civs [0].Ciudades [0].Posición ());

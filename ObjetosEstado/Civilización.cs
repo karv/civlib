@@ -163,6 +163,14 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public float MaxPeso { get; private set; }
 
+		public void Inicializar ()
+		{
+			foreach (var c in Ciudades)
+			{
+				c.Inicializar ();
+			}
+		}
+
 		#endregion
 
 		#region Defaults

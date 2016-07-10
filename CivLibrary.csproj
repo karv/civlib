@@ -124,6 +124,7 @@
     <Compile Include="ObjetosEstado\EdificioNuevoEventArgs.cs" />
     <Compile Include="Global\ITickable.cs" />
     <Compile Include="Global\IPuntuado.cs" />
+    <Compile Include="Global\IInicializable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

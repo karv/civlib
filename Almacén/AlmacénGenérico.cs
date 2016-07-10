@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Civ.Global;
 using Civ.RAW;
 using ListasExtra;
+using System.Diagnostics;
 
 namespace Civ.Almacén
 {
@@ -83,6 +84,8 @@ namespace Civ.Almacén
 		{
 			get
 			{
+				if (id < 0 || id > _recs.Count)
+					Debugger.Break ();
 				return _recs [id];
 			}
 			set

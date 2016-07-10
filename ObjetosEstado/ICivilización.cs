@@ -10,7 +10,7 @@ namespace Civ.ObjetosEstado
 	/// <summary>
 	/// Una interface de civilización
 	/// </summary>
-	public interface ICivilización : ITickable, IPuntuado
+	public interface ICivilización : ITickable, IPuntuado, IInicializable
 	{
 		/// <summary>
 		/// Nombre de la civilización

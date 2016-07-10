@@ -122,6 +122,10 @@ namespace Civ.ObjetosEstado
 			Diplomacia = new DiplomaciaNómada ();
 		}
 
+		public void Inicializar ()
+		{
+		}
+
 		#endregion
 
 		#region Diplomático

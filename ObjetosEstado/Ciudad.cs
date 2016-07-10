@@ -17,6 +17,18 @@ namespace Civ.ObjetosEstado
 	[Serializable]
 	public class Ciudad : ICiudad
 	{
+		#region Inicialización
+
+		/// <summary>
+		/// Se debe ejecutar cuando Juego.Data esté totalmente cargado.
+		/// </summary>
+		public void Inicializar ()
+		{
+			DeltaRec = new AlmacénGenérico ();
+		}
+
+		#endregion
+
 		#region ICiudad
 
 		ICollection<IUnidadRAW> ICiudad.UnidadesConstruibles ()
@@ -230,7 +242,6 @@ namespace Civ.ObjetosEstado
 		[OnDeserialized]
 		void Defaults ()
 		{
-			DeltaRec = new AlmacénGenérico ();
 		}
 
 		#endregion
