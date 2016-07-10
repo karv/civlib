@@ -5,6 +5,7 @@ using Graficas.Continuo;
 using Civ.ObjetosEstado;
 using Civ.Topología;
 using Civ.RAW;
+using System.Diagnostics;
 
 namespace Civ.Bárbaros
 {
@@ -49,24 +50,36 @@ namespace Civ.Bárbaros
 		/// <returns>La armada gnerada</returns>
 		public Armada GenerarArmada ()
 		{
-			var cb = new CivilizacionBárbara ();
-
 			var ppos = new List<Terreno> (_estado.Topología.Nodos);
 			var pos = ppos [HerrGlobal.Rnd.Next (ppos.Count)];
-			var pseudopos = new Continuo<Terreno>.ContinuoPunto (
-				                Juego.State.Mapa,
-				                pos);
+			var pto = new Punto<Terreno> (
+				          Juego.State.Mapa,
+				          pos);
+			
+			return GenerarArmada (new Pseudoposición (pto));
+		}
 
-			var ret = new Armada (cb, new Pseudoposición (pseudopos));
+		/// <summary>
+		/// Genera una armada en una posición específica
+		/// </summary>
+		/// <returns>The armada.</returns>
+		/// <param name="pos">Position.</param>
+		public Armada GenerarArmada (Pseudoposición pos)
+		{
+			var cb = new CivilizacionBárbara ();
+
+			var ret = new Armada (cb, pos);
 			foreach (var x in ClaseArmada)
 				ret.AgregaUnidad (x.Item1, x.Item2);
 
 			#if DEBUG
-			Console.WriteLine ("Ha aparecido una armada bárbara en " + ret.Posición);
-			Console.WriteLine ("Unidades");
+			Debug.WriteLine (
+				"Ha aparecido una armada bárbara en " + ret.Posición,
+				"BarbGen");
+			Debug.WriteLine ("Unidades");
 			foreach (var x in ret.Unidades)
-				Console.WriteLine (x);
-			Console.WriteLine (string.Format (
+				Debug.WriteLine (x);
+			Debug.WriteLine (string.Format (
 				"Peso: {0}; Velocidad: {1}",
 				ret.Peso,
 				ret.Velocidad));

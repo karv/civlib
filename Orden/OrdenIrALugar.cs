@@ -25,9 +25,14 @@ namespace Civ.Orden
 
 			if (ArmadaEjecutante.Posición.Equals (Ruta.NodoFinal))
 			{
+				// Dispose Ruta
+				((IDisposable)Ruta.NodoFinal).Dispose ();
+
 				AlLlegar?.Invoke (this, new TransladoEventArgs (Ruta));
 				return true;
 			}
+			//Juego.Instancia.GState.Mapa.Puntos.Contains (Ruta.NodoFinal)
+			//if (Mapa(Ruta.NodoFinal))
 			ArmadaEjecutante.Posición.AvanzarHacia (Ruta, avance);
 			return false;
 		}
@@ -46,7 +51,7 @@ namespace Civ.Orden
 		/// Devuelve la ruta que seguirá al desplazarse con esta orden
 		/// </summary>
 		/// <value>The ruta.</value>
-		public Continuo<Terreno>.Ruta Ruta { get; }
+		public Ruta<Terreno> Ruta { get; }
 
 		/// <summary>
 		/// Devuelve el tiempo estimado en llegar a su destino

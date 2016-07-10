@@ -4,6 +4,8 @@ using Civ.Almacén;
 using Civ.RAW;
 using Civ.Ciencias;
 using Civ.Global;
+using System.Linq;
+using System.Diagnostics;
 
 namespace Civ.ObjetosEstado
 {
@@ -14,6 +16,101 @@ namespace Civ.ObjetosEstado
 	[Serializable]
 	public class CivilizacionBárbara : ICivilización
 	{
+		#region ArmadaList
+
+		[Serializable]
+		class ArmadaSet : IList<Armada>
+		{
+			Armada Arm;
+
+			public int IndexOf (Armada item)
+			{
+				return item.Equals (Arm) ? 0 : -1;
+			}
+
+			public void Insert (int index, Armada item)
+			{
+				Arm = item;
+			}
+
+			public void RemoveAt (int index)
+			{
+				Arm = null;
+			}
+
+			public void Add (Armada item)
+			{
+				Arm = item;
+			}
+
+			public void Clear ()
+			{
+				Arm = null;
+			}
+
+			public bool Contains (Armada item)
+			{
+				return Arm.Equals (item);
+			}
+
+			public void CopyTo (Armada [] array, int arrayIndex)
+			{
+				throw new NotImplementedException ();
+			}
+
+			public bool Remove (Armada item)
+			{
+				if (Arm?.Equals (item) ?? false)
+				{
+					Arm = null;
+					return true;
+				}
+				return false;
+			}
+
+			public IEnumerator<Armada> GetEnumerator ()
+			{
+				if (Arm != null)
+					yield return Arm;
+			}
+
+			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
+			{
+				if (Arm != null)
+					yield return Arm;
+			}
+
+			public Armada this [int index]
+			{
+				get
+				{
+					return Arm;
+				}
+				set
+				{
+					Arm = value;
+				}
+			}
+
+			public int Count
+			{
+				get
+				{
+					return Arm == null ? 0 : 1;
+				}
+			}
+
+			public bool IsReadOnly
+			{
+				get
+				{
+					return false;
+				}
+			}
+		}
+
+		#endregion
+
 		#region ctor
 
 		/// <summary>
@@ -21,8 +118,12 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public CivilizacionBárbara ()
 		{
+			Armadas = new ArmadaSet ();
 			Diplomacia = new DiplomaciaNómada ();
-			Armadas = new HashSet<Armada> ();
+		}
+
+		public void Inicializar ()
+		{
 		}
 
 		#endregion
@@ -64,8 +165,28 @@ namespace Civ.ObjetosEstado
 		{
 			get
 			{
-				return "Bárbaros";
+				return "Bárbaros" + _id;
 			}
+		}
+
+		readonly int _id = HerrGlobal.Rnd.Next (1000);
+
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.CivilizacionBárbara"/>.
+		/// </summary>
+		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.ObjetosEstado.CivilizacionBárbara"/>.</returns>
+		public override string ToString ()
+		{
+			return Nombre;
+		}
+
+		/// <summary>
+		/// Serves as a hash function for a <see cref="Civ.ObjetosEstado.CivilizacionBárbara"/> object.
+		/// </summary>
+		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a hash table.</returns>
+		public override int GetHashCode ()
+		{
+			return _id;
 		}
 
 		#endregion
@@ -99,10 +220,30 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// Devuelve una colección con las armadas
+		/// Devuelve o establece la armada de estos bárbaros
 		/// </summary>
-		/// <value>The armadas.</value>
-		public ICollection<Armada> Armadas { get; }
+		/// <value>The armada.</value>
+		public Armada Armada
+		{
+			get
+			{
+				return Armadas [0];
+			}
+			set
+			{
+				Armadas [0] = value;
+			}
+		}
+
+		ArmadaSet Armadas;
+
+		IList<Armada> ICivilización.Armadas
+		{
+			get
+			{
+				return Armadas;
+			}
+		}
 
 		/// <summary>
 		/// Devuelve los avances científicos/culturales que posee la civilización.
@@ -124,13 +265,7 @@ namespace Civ.ObjetosEstado
 		{
 			AlTickAntes?.Invoke (this, t);
 
-			foreach (var x in new List<Armada> (Armadas))
-			{
-				// TODO: ¡Número mágico!
-				x.Tick (t);
-				if (x.Peso > 63253)
-					Console.WriteLine ("Wat?");
-			}
+			Armada?.Tick (t);
 			AlTickDespués?.Invoke (this, t);
 		}
 
@@ -159,9 +294,18 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public void Destruirse ()
 		{
-			Juego.State.Civs.Remove (this);
-			foreach (var x in Armadas)
-				((IDisposable)x.Posición).Dispose ();
+			Debug.WriteLine ("Civ Bárbara destruida", "Barb");
+			if (Armada != null)
+				((IDisposable)Armada).Dispose ();
+		}
+
+		/// <summary>
+		/// Revisa si esta civilización está en realidad muerta
+		/// </summary>
+		/// <returns><c>true</c>, if destruirme was deboed, <c>false</c> otherwise.</returns>
+		public bool DeboDestruirme ()
+		{
+			return Armada?.Unidades.Any () ?? true;
 		}
 
 		#endregion

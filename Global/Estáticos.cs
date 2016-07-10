@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Civ;
 using Civ.Options;
 using Civ.Bárbaros;
 using System.IO;
@@ -31,7 +30,7 @@ namespace Civ.Global
 	/// Los objetos globales.
 	/// </summary>	
 	[Serializable]
-	public class Juego
+	public class Juego : IInicializable
 	{
 		#region El juego
 
@@ -126,7 +125,8 @@ namespace Civ.Global
 		/// <summary>
 		/// Generador de armadas bárbaras
 		/// </summary>
-		public GeneradorArmadasBarbaras BarbGen = new GeneradorArmadasBarbaras ();
+		[NonSerialized]
+		public GeneradorArmadasBarbaras BarbGen;
 		/// <summary>
 		/// Data del juego actual
 		/// </summary>
@@ -186,22 +186,34 @@ namespace Civ.Global
 		[OnSerialized]
 		void Defaults ()
 		{
+			BarbGen = new GeneradorArmadasBarbaras ();
+			BarbGen.Reglas.Add (new ReglaGeneracionBarbaraGeneral ());
+
 			Cronómetros = new HashSet<Cronómetro> ();
 			_cronoAutoguardado = new Cronómetro ();
 			_cronoAutoguardado.AlLlamar += EjecutarAutoguardado;
+			Cronómetros.Add (_cronoAutoguardado);
 		}
 
 		Juego ()
 		{
-			BarbGen.Reglas.Add (new ReglaGeneracionBarbaraGeneral ());
 			Defaults ();
+		}
+
+		public void Inicializar ()
+		{
+			Defaults ();
+			State.PendientesMorir = new HashSet<ICivilización> ();
+			foreach (var civ in State.Civs)
+				civ.Inicializar ();
+			
 		}
 
 		/// <summary>
 		/// Inicializa el g_State, a partir de el g_Data.
 		/// Usarse cuando se quiera iniciar un juego.
 		/// </summary>
-		public void Inicializar ()
+		public void InicializarNuevoJuego ()
 		{
 			Juego.CargaData ();
 			//State = new GameState();
@@ -215,15 +227,12 @@ namespace Civ.Global
 			Civilización C;
 			Ciudad Cd;
 
-
-
 			for (int i = 0; i < PrefsJuegoNuevo.NumTerrenos; i++)
 			{
 				Eco = GData.Ecosistemas.Elegir ();
 				Ecos.Add (Eco);
 				T = new Terreno (Eco);                               // Le asocio un terreno consistente con el ecosistema.
 				Terrenos.Add (T);
-				//State.Topologia.AgregaVertice(T, State.Topologia.Nodos[r.Next(State.Topologia.Nodos.Length)], 1 + (float)r.NextDouble());
 			}
 
 			//State.Topologia = Graficas.Grafica<Civ.Terreno>.GeneraGraficaAleatoria(Terrenos);
@@ -238,16 +247,6 @@ namespace Civ.Global
 				x.AsignarPosición ();
 
 
-			/*
-			// Vaciar la topolog�a en cada Terreno
-			foreach (var x in State.Topologia.Nodos)
-			{
-				Terreno a = x;
-				Terreno b = x;
-				a.Vecinos[b] = State.Topologia[a, b];
-				b.Vecinos[a] = State.Topologia[b, a];
-			}
-			*/
 			// Asignar una ciudad de cada civilizaci�n en terrenos vac�os y distintos lugares.
 			var Terrs = GState.TerrenosLibres ();
 			for (int i = 0; i < PrefsJuegoNuevo.NumCivs; i++)
@@ -273,6 +272,7 @@ namespace Civ.Global
 			{
 				c.Almacén [Instancia.GData.RecursoAlimento] = PrefsJuegoNuevo.AlimentoInicial;
 			}
+
 		}
 
 		/// <summary>
@@ -284,36 +284,37 @@ namespace Civ.Global
 			try
 			{
 				Instancia = Store.BinarySerialization.ReadFromBinaryFile<Juego> (filename);
-				Console.WriteLine ("Carga exitosa de archivo " + filename);
+				Instancia.Defaults ();
+				Debug.WriteLine ("Carga exitosa de archivo " + filename, "IO");
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine (DateTime.Now);
-				Console.WriteLine ("No se puede cargar archivo de guardado, posiblemente corrupto.");
-				Console.WriteLine (ex);
+				Debug.WriteLine (
+					"No se puede cargar archivo de guardado, posiblemente corrupto.",
+					"IO");
+				Debug.WriteLine (ex);
 
 				try
 				{
 					var j = Store.BinarySerialization.ReadFromBinaryFile<object> (filename);
-					Console.WriteLine ("Objeto en archivo: " + j);
-					Console.WriteLine ("Del tipo " + j.GetType ());
+					Debug.WriteLine ("Objeto en archivo: " + j, "IO");
+					Debug.WriteLine ("Del tipo " + j.GetType ());
 
 				}
 				catch (Exception exInn)
 				{
-					Console.WriteLine ("Tipo de objeto ajeno al proyecto.");
+					Console.WriteLine ("Tipo de objeto ajeno al proyecto o formato desconocido.");
 					Console.WriteLine (exInn);
 				}
 
 				Console.WriteLine ("Iniciando nuevo juego");
-				Instancia.Inicializar ();
+				Instancia.InicializarNuevoJuego ();
 			}
 			finally
 			{
 				Console.WriteLine (string.Format (
-					"[{1}]Cargado de imagen exitoso: {0}",
-					filename,
-					DateTime.Now));
+					"Cargado de imagen exitoso: {0}",
+					filename), "IO");
 			}
 		}
 
@@ -496,6 +497,7 @@ namespace Civ.Global
 
 		#region Ticks
 
+		[NonSerialized]
 		DateTime timer = DateTime.Now;
 		/// <summary>
 		/// Coeficiente de velocidad del juego.
@@ -543,7 +545,15 @@ namespace Civ.Global
 		/// </summary>
 		public void Ejecutar ()
 		{
+			Inicializar ();
 			suscripciones ();
+
+			var barb = BarbGen.Armada (State.Civs [0].Ciudades [0].Posición ());
+			Debug.WriteLine (barb, "BarbGen");
+			barb.Posición.AlColisionar += obj => Debug.WriteLine (
+				"Armada genérica chocando con obj", "Armada genérica");
+
+			timer = DateTime.Now;
 			while (!Terminar)
 			{
 				var ccl = Ciclo ();
@@ -580,16 +590,19 @@ namespace Civ.Global
 				for (int j = 0; j < i; j++)
 				{
 					ICivilización civB = GState.Civs [j];
-					foreach (var ArmA in civA.Armadas)
+					for (int k = 0; k < civA.Armadas.Count; k++)
 					{
-						foreach (var ArmB in civB.Armadas)
+						var armA = civA.Armadas [k];
+						for (int l = 0; l < civB.Armadas.Count; l++)
 						{
-							if ((civA.Diplomacia.PermiteAtacar (ArmB)) ||
-							    (civB.Diplomacia.PermiteAtacar (ArmA)))
+							var armB = civB.Armadas [l];
+							if ((civA.Diplomacia.PermiteAtacar (armB)) ||
+							    (civB.Diplomacia.PermiteAtacar (armA)))
 							{
-								if (ArmA.Posición.Equals (ArmB.Posición))
+								if (armA.Posición.Coincide (armB.Posición))
 								{
-									ArmA.Pelea (ArmB, t.GameTime);
+									armA.Pelea (armB, t.GameTime);
+									armB.Pelea (armA, t.GameTime);
 								}
 							}
 						}
@@ -601,15 +614,17 @@ namespace Civ.Global
 			BarbGen.Tick (t);
 		}
 
+
 		/// <summary>
 		/// Elimina civilizaciones muertas
 		/// </summary>
 		void EliminarMuertos (object sender, EventArgs e)
 		{
-			foreach (var x in GState.CivsVivas())
+			State.PendientesMorir.UnionWith (GState.Civs.Where (z => z.DeboDestruirme ()));
+			foreach (var x in State.PendientesMorir)
 			{
-				if (!x.Ciudades.Any () && !x.Armadas.Any ())
-					x.Destruirse ();
+				x.Destruirse ();
+				State.Civs.Remove (x);
 			}
 		}
 

@@ -1,8 +1,9 @@
 ﻿using System;
-using ListasExtra;
-using Civ.RAW;
 using System.Collections.Generic;
 using Civ.Global;
+using Civ.RAW;
+using ListasExtra;
+using System.Diagnostics;
 
 namespace Civ.Almacén
 {
@@ -12,9 +13,24 @@ namespace Civ.Almacén
 	[Serializable]
 	public class AlmacénGenérico : IAlmacén
 	{
+		#region ctor
+
+		/// <summary>
+		/// </summary>
+		public AlmacénGenérico ()
+		{
+			var ResCount = Juego.Data.Recursos.Count;
+			//_recs = new List<float> (Juego.Data.Recursos.Count);
+			_recs = new float [ResCount];
+
+
+		}
+
+		#endregion
+
 		#region General
 
-		readonly float [] _recs = new float[Juego.Data.Recursos.Count];
+		readonly IList<float> _recs;
 
 		/// <summary>
 		/// Devuelve la cantidad de diferentes recursos.
@@ -24,7 +40,7 @@ namespace Civ.Almacén
 		{
 			get
 			{
-				return _recs.Length;
+				return _recs.Count;
 			}
 		}
 
@@ -68,6 +84,8 @@ namespace Civ.Almacén
 		{
 			get
 			{
+				if (id < 0 || id > _recs.Count)
+					Debugger.Break ();
 				return _recs [id];
 			}
 			set
@@ -82,6 +100,26 @@ namespace Civ.Almacén
 			}
 		}
 
+		/// <summary>
+		/// Clona esta instancia
+		/// </summary>
+		public AlmacénGenérico Clonar ()
+		{
+			var ret = new AlmacénGenérico ();
+			for (int i = 0; i < ret._recs.Count; i++)
+				ret._recs [i] = _recs [i];
+			return ret;
+		}
+
+		/// <summary>
+		/// Establece cada entrada como cero.
+		/// </summary>
+		public void Clear ()
+		{
+			for (int i = 0; i < _recs.Count; i++)
+				_recs [i] = 0;
+		}
+
 		#endregion
 
 		#region Almacén
@@ -89,7 +127,7 @@ namespace Civ.Almacén
 		/// <summary>
 		/// Devuelve un array de float que representa las entradas de recursos.
 		/// </summary>
-		public float[] AsArray ()
+		public IList<float> AsArray ()
 		{
 			return _recs;
 		}
@@ -99,7 +137,7 @@ namespace Civ.Almacén
 		/// </summary>
 		/// <param name="otrosReqs">Otros recursos</param>
 		/// <returns>The recursos.</returns>
-		public float ContieneRecursos (float [] otrosReqs)
+		public float ContieneRecursos (IList<float> otrosReqs)
 		{
 			var ret = float.PositiveInfinity;
 			for (int i = 0; i < Count; i++)

@@ -10,7 +10,7 @@ namespace Civ.ObjetosEstado
 	/// <summary>
 	/// Una interface de civilización
 	/// </summary>
-	public interface ICivilización : ITickable, IPuntuado
+	public interface ICivilización : ITickable, IPuntuado, IInicializable
 	{
 		/// <summary>
 		/// Nombre de la civilización
@@ -31,7 +31,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Devuelve una colección con las armadas
 		/// </summary>
-		ICollection<Armada> Armadas { get; }
+		IList<Armada> Armadas { get; }
 
 		/// <summary>
 		/// Devuelve el modelo diplomático.
@@ -73,6 +73,11 @@ namespace Civ.ObjetosEstado
 		/// Elimina esta civilización del juego
 		/// </summary>
 		void Destruirse ();
+
+		/// <summary>
+		/// Revisa si esta civilización está en realidad muerta
+		/// </summary>
+		bool DeboDestruirme ();
 	}
 
 	/// <summary>

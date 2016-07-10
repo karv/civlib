@@ -10,7 +10,7 @@ namespace Civ.Topología
 	/// Representa un lugar que no es terreno, más bien es un punto en una arista de la Topología del mundo.
 	/// </summary>
 	[Serializable]
-	public class Pseudoposición : Continuo<Terreno>.ContinuoPunto
+	public class Pseudoposición : Punto<Terreno>
 	{
 		#region ctor
 
@@ -32,7 +32,7 @@ namespace Civ.Topología
 		/// Initializes a new instance of the <see cref="Civ.Topología.Pseudoposición"/> class.
 		/// </summary>
 		/// <param name="p">Punto a clonar</param>
-		public Pseudoposición (Continuo<Terreno>.ContinuoPunto p)
+		public Pseudoposición (Punto<Terreno> p)
 			: base (Juego.State.Mapa, p.A, p.B, p.Loc)
 		{
 			Objeto = null;

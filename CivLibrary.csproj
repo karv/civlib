@@ -38,7 +38,7 @@
       <HintPath>..\packages\ListaExtras.0.3.0.7\lib\ListaExtras.dll</HintPath>
     </Reference>
     <Reference Include="Grafos">
-      <HintPath>..\packages\Grafos.0.2.1.1\lib\Grafos.dll</HintPath>
+      <HintPath>..\packages\Grafos.0.2.2\lib\Grafos.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +124,7 @@
     <Compile Include="ObjetosEstado\EdificioNuevoEventArgs.cs" />
     <Compile Include="Global\ITickable.cs" />
     <Compile Include="Global\IPuntuado.cs" />
+    <Compile Include="Global\IInicializable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

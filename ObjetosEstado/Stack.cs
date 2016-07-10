@@ -4,6 +4,7 @@ using Civ.Combate;
 using Civ.Almacén;
 using Civ.Topología;
 using Civ.RAW;
+using System.Diagnostics;
 
 namespace Civ.ObjetosEstado
 {
@@ -76,10 +77,7 @@ namespace Civ.ObjetosEstado
 				_cantidad = Math.Max (0, value);
 				AlCambiarCantidad?.Invoke (this, EventArgs.Empty);
 				if (_cantidad == 0)
-				{
-					AbandonaArmada ();
-					AlMorir?.Invoke (this, EventArgs.Empty);
-				}
+					InvocaAlMorir ();
 			}
 		}
 
@@ -180,8 +178,7 @@ namespace Civ.ObjetosEstado
 				_HP = Math.Max (Math.Min (1, value), 0);
 				if (_HP <= 0)		// Si HP = 0, la unidad muere.
 				{
-					AlMorir?.Invoke (this, EventArgs.Empty);
-					AbandonaArmada ();
+					InvocaAlMorir ();
 				}
 			}
 		}
@@ -420,6 +417,18 @@ namespace Civ.ObjetosEstado
 		#endregion
 
 		#region Eventos
+
+		/// <summary>
+		/// Se ejecuta cuando Cantidad se vuelve cero.
+		/// Retira este stack de la armada, e invoca el evento AlMorir
+		/// </summary>
+		protected void InvocaAlMorir ()
+		{
+			Debug.WriteLine ("Stack muerto: " + ToString (), "Stack");
+			AbandonaArmada ();
+
+			AlMorir?.Invoke (this, EventArgs.Empty);
+		}
 
 		/// <summary>
 		/// Ocurre cuando todo el stack se pierde

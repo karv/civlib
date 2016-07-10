@@ -6,6 +6,7 @@ using Civ.ObjetosEstado;
 using Civ.Orden;
 using ListasExtra.Extensiones;
 using System.Diagnostics;
+using Civ.Topología;
 
 namespace Civ.Bárbaros
 {
@@ -60,49 +61,51 @@ namespace Civ.Bárbaros
 		}
 
 		/// <summary>
-		/// Devuelve una armada bárbara
+		/// Genera, agrega al universo y devuelve una armada bárbara.
 		/// </summary>
 		/// <returns>The armada.</returns>
-		public Armada Armada ()
+		public Armada Armada (Pseudoposición pos = null)
 		{
 			// Escoger una regla
 			var reglas = new List<IReglaGeneración> (Reglas.Where (x => x.EsPosibleGenerar (Juego.State)));
 			if (reglas.Count == 0)
 			{
-				System.Diagnostics.Debug.WriteLine ("No hay regla para este caso");
+				Debug.WriteLine ("No hay regla para este caso", "BarbGen");
 				return null;
 			}
 
 
 			IReglaGeneración usarRegla = reglas [HerrGlobal.Rnd.Next (reglas.Count)];
-			Armada ret = usarRegla.GenerarArmada ();
+			var ret = pos == null ? usarRegla.GenerarArmada () : usarRegla.GenerarArmada (pos);
 
-			#if DEBUG
+			Debug.WriteLine (
+				"Fue creado una unidad con vitalidad " + ret?.Vitalidad,
+				"BarbGen");
+
 			if (ret == null)
 			{
-				Console.WriteLine ("Se intentó agregar una unidad bárbara, pero la media militar es muy baja.");
+				Debug.WriteLine (
+					"Se intentó agregar una unidad bárbara, pero la media militar es muy baja.",
+					"BarbGen");
 			}
 			else
 			{
-				Console.WriteLine ("Ha aparecido una armada bárbara en " + ret.Posición);
-				Console.WriteLine ("Unidades");
+				Debug.WriteLine (
+					"Ha aparecido una armada bárbara en " + ret.Posición,
+					"BarbGen");
+				Debug.WriteLine ("Unidades");
 				foreach (var x in ret.Unidades)
-					Console.WriteLine (x);
-				Console.WriteLine (string.Format (
+					Debug.WriteLine (x);
+				Debug.WriteLine (string.Format (
 					"Peso: {0}; Velocidad: {1}",
 					ret.Peso,
 					ret.Velocidad));
 
 				// Órdenes
 				DarOrden (ret);
-				#if DEBUG
 				var ord = ret.Orden as OrdenIrALugar;
-				Console.WriteLine ("Tiempo estimado: " + ord.TiempoEstimado);
-
-				ord.AlLlegar += AlLlegar;
-				#endif
+				Debug.WriteLine ("Tiempo estimado: " + ord.TiempoEstimado);
 			}
-			#endif
 
 			return ret;
 		}
@@ -146,8 +149,6 @@ namespace Civ.Bárbaros
 		/// Ocurre después del tick
 		/// </summary>
 		public event EventHandler AlTickDespués;
-
-		/// 
 
 		#endregion
 

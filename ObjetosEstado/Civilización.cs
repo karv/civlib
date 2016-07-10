@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using Civ.Almacén;
 using Civ.RAW;
 using Civ.Topología;
+using System.Diagnostics;
 
 namespace Civ.ObjetosEstado
 {
@@ -64,7 +65,7 @@ namespace Civ.ObjetosEstado
 		/// Devuelve una colección con las armadas
 		/// </summary>
 		/// <value>The armadas.</value>
-		public ICollection<Armada> Armadas
+		public IList<Armada> Armadas
 		{
 			get
 			{
@@ -73,7 +74,7 @@ namespace Civ.ObjetosEstado
 			private set{ _armadas = value; }
 		}
 
-		ICollection<Armada> _armadas;
+		IList<Armada> _armadas;
 
 		/// <summary>
 		/// Devuelve el modelo diplomático.
@@ -96,11 +97,21 @@ namespace Civ.ObjetosEstado
 		/// Destruye esta civilización.
 		/// Elimina del mapa a todas sus armadas.
 		/// </summary>
+
 		public void Destruirse ()
 		{
-			Juego.State.Civs.Remove (this);
+			Debug.WriteLine ("Civilización destruida", "Civ");
 			foreach (var x in Armadas)
 				((IDisposable)x.Posición).Dispose ();
+		}
+
+		/// <summary>
+		/// Revisa si esta civilización está en realidad muerta y debe ser liberada del juego y memoria.
+		/// Si no tiene ciudades, debe destruirse.
+		/// </summary>
+		public bool DeboDestruirme ()
+		{
+			return !Ciudades.Any ();
 		}
 
 		#endregion
@@ -150,6 +161,14 @@ namespace Civ.ObjetosEstado
 		/// Devuelve el (base) peso mayor que puede tener una armada
 		/// </summary>
 		public float MaxPeso { get; private set; }
+
+		public void Inicializar ()
+		{
+			foreach (var c in Ciudades)
+			{
+				c.Inicializar ();
+			}
+		}
 
 		#endregion
 

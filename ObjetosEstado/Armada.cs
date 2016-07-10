@@ -18,7 +18,7 @@ namespace Civ.ObjetosEstado
 	/// Representa un conjunto de unidades.
 	/// </summary>
 	[Serializable]
-	public class Armada : IPosicionable, IPuntuado, IDefensor
+	public class Armada : IPosicionable, IPuntuado, IDefensor, IDisposable
 	{
 		#region General
 
@@ -29,7 +29,8 @@ namespace Civ.ObjetosEstado
 		{
 			if (Unidades.Count != 0)
 				throw new Exception ("No se puede desechar una armada con unidades en ella.");
-			((IDisposable)Posición).Dispose ();
+			((IDisposable)this).Dispose ();
+			Debug.WriteLine ("Eliminando armada " + ToString (), "Dispose");
 
 			CivDueño?.Armadas.Remove (this);
 		}
@@ -118,7 +119,7 @@ namespace Civ.ObjetosEstado
 				Juego.State.Drops.Add (drops);
 		}
 
-		void Posición_AlColisionar (Graficas.Continuo.Continuo<Terreno>.ContinuoPunto obj)
+		void Posición_AlColisionar (Graficas.Continuo.Punto<Terreno> obj)
 		{
 			var arm = (obj as Pseudoposición)?.Objeto as Armada;
 
@@ -150,7 +151,12 @@ namespace Civ.ObjetosEstado
 			EsDefensa = esDefensa;
 		}
 
+		/// <summary>
+		/// Coeficiente de MaxPeso para que tal vez, con exp, aumente la máxima cantidad de peso que
+		/// esta armada puede cargar.
+		/// </summary>
 		float _personalPesoMejoraCoef = 1f;
+
 		//  Probablemente, _MaxPeso sea una función que dependa de CivDueño.
 		/// <summary>
 		/// Devuelve o establece el máximo peso que puede cargar esta armada.
@@ -287,8 +293,25 @@ namespace Civ.ObjetosEstado
 		public void QuitarUnidad (Stack stack)
 		{
 			_unidades.Remove (stack.RAW);
-			if (_unidades.Any ())
-				AlVaciarse?.Invoke (this, new EventArgs ());
+			if (!_unidades.Any ())
+				invocaAlVaciarse ();
+		}
+
+		void invocaAlVaciarse ()
+		{
+			AlVaciarse?.Invoke (this, EventArgs.Empty);
+
+			Eliminar ();
+		}
+
+		/// <summary>
+		/// Releases all resource used by the <see cref="Civ.ObjetosEstado.Armada"/> object.
+		/// </summary>
+		void IDisposable.Dispose ()
+		{
+			if (!EsDefensa)
+				((IDisposable)Posición).Dispose ();
+			// THINK: ¿Hacer que tire exception si EsDefensa?
 		}
 
 		/// <summary>
@@ -298,10 +321,23 @@ namespace Civ.ObjetosEstado
 		/// <param name="t">tiempo de pelea</param>
 		public void Pelea (Armada armada, TimeSpan t)
 		{
+			Debug.WriteLine (
+				string.Format ("{0} peleando contra {1}", this.CivDueño, armada.CivDueño),
+				"Pelea");
 			foreach (IAtacante x in Unidades)
 			{
 				var cbt = new AnálisisCombate (x, armada, t);
-				cbt.Ejecutar ();
+				if (cbt.Defensor != null)
+				{
+					Debug.WriteLine (
+						string.Format (
+							"{0} dañó a {1} {2:P}",
+							x,
+							cbt.Defensor,
+							cbt.Defensor.HP),
+						"Pelea");
+					cbt.Ejecutar ();
+				}
 			}
 		}
 
@@ -329,7 +365,7 @@ namespace Civ.ObjetosEstado
 		{
 			if (!Unidades.Any ())
 			{
-				AlVaciarse?.Invoke (this, new CombateEventArgs (anal));
+				// invocaAlVaciarse ();
 				AlSerDestruido?.Invoke (this, new CombateEventArgs (anal));
 			}
 		}
@@ -489,12 +525,20 @@ namespace Civ.ObjetosEstado
 			}
 			if (DefÓptimo == null)
 			{
+				// No hay defensor
+				// ¿Puede que sea un defensa de ciudad sin defensores?
+				Debug.WriteLine (string.Format (
+					"{0} saqueando alguna ciudad de {1}",
+					atacante,
+					CivDueño));
+				/*
 				throw new Exception (string.Format (
 					"Por alguna razón, el defensor {0} no eligió un stack para defenderse contra {2}\n" +
 					"¿No tiene unidades? #Unidades: {1}",
 					this,
 					Unidades,
 					atacante));
+					*/
 			}
 			return DefÓptimo;
 		}
