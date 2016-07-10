@@ -203,8 +203,10 @@ namespace Civ.Global
 		public void Inicializar ()
 		{
 			Defaults ();
+			State.PendientesMorir = new HashSet<ICivilización> ();
 			foreach (var civ in State.Civs)
 				civ.Inicializar ();
+			
 		}
 
 		/// <summary>
@@ -611,6 +613,7 @@ namespace Civ.Global
 			// Generar bárbaros
 			BarbGen.Tick (t);
 		}
+
 
 		/// <summary>
 		/// Elimina civilizaciones muertas
