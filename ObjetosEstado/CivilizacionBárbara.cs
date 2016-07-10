@@ -295,7 +295,6 @@ namespace Civ.ObjetosEstado
 		public void Destruirse ()
 		{
 			Debug.WriteLine ("Civ Bárbara destruida", "Barb");
-			Juego.State.Civs.Remove (this);
 			if (Armada != null)
 				((IDisposable)Armada).Dispose ();
 		}

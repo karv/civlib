@@ -617,9 +617,12 @@ namespace Civ.Global
 		/// </summary>
 		void EliminarMuertos (object sender, EventArgs e)
 		{
-			var destroy = new List<ICivilización> (GState.Civs.Where (z => z.DeboDestruirme ()));
-			foreach (var x in destroy)
+			State.PendientesMorir.UnionWith (GState.Civs.Where (z => z.DeboDestruirme ()));
+			foreach (var x in State.PendientesMorir)
+			{
 				x.Destruirse ();
+				State.Civs.Remove (x);
+			}
 		}
 
 		#endregion

@@ -101,7 +101,6 @@ namespace Civ.ObjetosEstado
 		public void Destruirse ()
 		{
 			Debug.WriteLine ("Civilización destruida", "Civ");
-			Juego.State.Civs.Remove (this);
 			foreach (var x in Armadas)
 				((IDisposable)x.Posición).Dispose ();
 		}

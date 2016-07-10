@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Civ;
 using Civ.RAW;
 using System;
 using Graficas.Grafo;
@@ -93,6 +92,12 @@ namespace Civ.Global
 			}
 			return ret;
 		}
+
+		/// <summary>
+		/// Civilizaciones que deben de destruirse ASAP
+		/// </summary>
+		[NonSerialized]
+		public HashSet<ICivilización> PendientesMorir = new HashSet<ICivilización> ();
 
 		#endregion
 
