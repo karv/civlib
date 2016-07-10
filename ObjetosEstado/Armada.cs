@@ -327,10 +327,17 @@ namespace Civ.ObjetosEstado
 			foreach (IAtacante x in Unidades)
 			{
 				var cbt = new AnálisisCombate (x, armada, t);
-				Debug.WriteLine (
-					string.Format ("{0} dañó a {1}", x, cbt.Defensor),
-					"Pelea");
-				cbt.Ejecutar ();
+				if (cbt.Defensor != null)
+				{
+					Debug.WriteLine (
+						string.Format (
+							"{0} dañó a {1} {2:P}",
+							x,
+							cbt.Defensor,
+							cbt.Defensor.HP),
+						"Pelea");
+					cbt.Ejecutar ();
+				}
 			}
 		}
 
