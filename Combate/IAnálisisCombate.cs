@@ -1,4 +1,5 @@
 ﻿using Civ.ObjetosEstado;
+using System;
 
 namespace Civ.Combate
 {
@@ -23,5 +24,26 @@ namespace Civ.Combate
 		/// Devuelve un <see cref="System.String"/> que representa los resultados del combate.
 		/// </summary>
 		string Análisis ();
+
+		/// <summary>
+		/// Devuelve la duración del combate.
+		/// </summary>
+		TimeSpan Duración { get; }
+
+		/// <summary>
+		/// Une este análisis con otro.
+		/// No modifica el otro.
+		/// </summary>
+		void UnirCon (IAnálisisCombate anal);
+
+		/// <summary>
+		/// Revisa y devuelve un valor indicando si tiene sentido unir esta instancia con otra dada.
+		/// </summary>
+		/// <returns><c>true</c>, si es posible unir, <c>false</c> otherwise.</returns>
+		bool EsUnibleCon (IAnálisisCombate anal);
+
+		float DañoDirecto { get; }
+
+		float DañoDisperso { get; }
 	}
 }

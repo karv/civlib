@@ -1,6 +1,5 @@
 ﻿using System;
 using Civ.Global;
-using System.Collections.Generic;
 using Civ.ObjetosEstado;
 using System.Diagnostics;
 
@@ -53,6 +52,26 @@ namespace Civ.Combate
 			return ToString ();
 		}
 
+		public void UnirCon (IAnálisisCombate anal)
+		{
+			Tiempo += anal.Duración;
+			DañoDirecto += anal.DañoDirecto;
+			DañoDisperso += anal.DañoDisperso;
+		}
+
+		public bool EsUnibleCon (IAnálisisCombate anal)
+		{
+			return Atacante == anal.Atacante && Defensor == anal.Defensor;
+		}
+
+		public TimeSpan Duración
+		{
+			get
+			{
+				return Tiempo;
+			}
+		}
+
 		#endregion
 
 		#region Contexto
@@ -81,7 +100,7 @@ namespace Civ.Combate
 		/// Devuelve la duración del tick del combate
 		/// </summary>
 		/// <value>The tiempo.</value>
-		public TimeSpan Tiempo { get; }
+		public TimeSpan Tiempo { get; private set; }
 
 		/// <summary>
 		/// Devuelve el coeficiente de dispersión del atacante.
