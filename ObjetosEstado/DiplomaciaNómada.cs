@@ -8,6 +8,11 @@ namespace Civ.ObjetosEstado
 	[Serializable]
 	public class DiplomaciaNómada : IDiplomacia
 	{
+		static bool esEnemigo (Armada arm)
+		{
+			return arm.CivDueño is Civilización;
+		}
+
 		/// <summary>
 		/// Si se le permite atacar a cierta armada.
 		/// </summary>
@@ -15,7 +20,7 @@ namespace Civ.ObjetosEstado
 		/// <param name="arm">Arm.</param>
 		public bool PermiteAtacar (Armada arm)
 		{
-			return true;
+			return esEnemigo (arm);
 		}
 
 		/// <summary>
@@ -25,7 +30,7 @@ namespace Civ.ObjetosEstado
 		/// <param name="arm">Arm.</param>
 		public bool PermitePaso (Armada arm)
 		{
-			return false;
+			return !esEnemigo (arm);
 		}
 
 		/// <summary>
