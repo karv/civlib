@@ -365,7 +365,7 @@ namespace Civ.ObjetosEstado
 		{
 			if (!Unidades.Any ())
 			{
-				invocaAlVaciarse ();
+				// invocaAlVaciarse ();
 				AlSerDestruido?.Invoke (this, new CombateEventArgs (anal));
 			}
 		}
