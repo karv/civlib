@@ -329,7 +329,7 @@ namespace Civ.ObjetosEstado
 			{
 				var btl = new AnálisisBatalla (x, armada, t);
 				if (btl.Defensor != null)
-					cbt.UnirCon (btl);
+					cbt.Batallas.Add (btl);
 /*					Debug.WriteLine (
 						string.Format (
 							"{0} dañó a {1} {2:P}",
