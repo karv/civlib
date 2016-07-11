@@ -570,7 +570,7 @@ namespace Civ.ObjetosEstado
 		/// <remarks>
 		/// Su argumento es la última iteración de su combate.
 		/// </remarks>
-		public event EventHandler AlSerDestruido;
+		public event EventHandler<CombateEventArgs> AlSerDestruido;
 
 		#endregion
 	}

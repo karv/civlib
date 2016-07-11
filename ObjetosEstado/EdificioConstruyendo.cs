@@ -123,7 +123,7 @@ namespace Civ.ObjetosEstado
 		/// Ocurre al completar el edificio, 
 		/// justo después de crear la instancia en la ciudad.
 		/// </summary>
-		public event EventHandler AlCompletar;
+		public event EventHandler<EdificioNuevoEventArgs> AlCompletar;
 
 		#endregion
 	}
