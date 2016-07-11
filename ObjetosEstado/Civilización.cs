@@ -163,6 +163,9 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public float MaxPeso { get; private set; }
 
+		/// <summary>
+		/// Inicializa
+		/// </summary>
 		public void Inicializar ()
 		{
 			foreach (var c in Ciudades)
@@ -171,6 +174,9 @@ namespace Civ.ObjetosEstado
 			Combates = new AnálisisCombateManager (this);
 		}
 
+		/// <summary>
+		/// Devuelve el manejador de mensajes de combates.
+		/// </summary>
 		public AnálisisCombateManager Combates { get; private set; }
 
 		#endregion

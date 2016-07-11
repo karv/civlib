@@ -26,6 +26,10 @@ namespace Civ.Combate
 		/// </summary>
 		string Análisis ();
 
+		/// <summary>
+		/// Ejecuta este análisis,
+		/// haciendo que tenga efecto en en stack defensor.
+		/// </summary>
 		void Ejecutar ();
 
 		/// <summary>
@@ -58,12 +62,26 @@ namespace Civ.Combate
 		float DañoDisperso { get; }
 	}
 
+	/// <summary>
+	/// Un análisis de combate:
+	/// representa el estado de toda una batalla entre dos <see cref="Civ.ObjetosEstado.Armada"/>
+	/// </summary>
 	public interface IAnálisisCombate
 	{
+		/// <summary>
+		/// Devuelve un <see cref="System.String"/> que representa el resultado (posiblemente parcial)de este combate.
+		/// </summary>
 		string Análisis ();
 
+		/// <summary>
+		/// Armada original.
+		/// La civilización de esta armada es la que está vinculada al manejador de análisis.
+		/// </summary>
 		Armada ArmadaYo { get; }
 
+		/// <summary>
+		/// La otra armada implicada en el combate
+		/// </summary>
 		Armada ArmadaOtro { get; }
 
 		/// <summary>
@@ -71,8 +89,14 @@ namespace Civ.Combate
 		/// </summary>
 		TimeSpan Duración { get; }
 
+		/// <summary>
+		/// Devuelve la colección de análisis de batallas que forman este combate.
+		/// </summary>
 		ICollection<IAnálisisBatalla> Batallas { get; }
 
+		/// <summary>
+		/// Ejecuta este combate. Haciendo que tenga efecto.
+		/// </summary>
 		void Ejecutar ();
 
 		/// <summary>

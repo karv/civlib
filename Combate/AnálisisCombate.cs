@@ -24,12 +24,20 @@ namespace Civ.Combate
 			Duración += anal.Duración;
 		}
 
+		/// <summary>
+		/// Ejecuta cada batalla de este combate.
+		/// Haciendo que se cause el efecto en los implicados.
+		/// </summary>
 		public void Ejecutar ()
 		{
 			foreach (var x in Batallas)
 				x.Ejecutar ();
 		}
 
+		/// <summary>
+		/// Calcula todo el daño directo.
+		/// </summary>
+		/// <returns>The daño directo.</returns>
 		public float TotalDañoDirecto ()
 		{
 			var ret = 0f;
@@ -38,6 +46,10 @@ namespace Civ.Combate
 			return ret;
 		}
 
+		/// <summary>
+		/// Calcula todo el daño disperso
+		/// </summary>
+		/// <returns>The daño disperso.</returns>
 		public float TotalDañoDisperso ()
 		{
 			var ret = 0f;
@@ -46,11 +58,17 @@ namespace Civ.Combate
 			return ret;
 		}
 
+		/// <summary>
+		/// Calcula el daño total en este combate.
+		/// </summary>
 		public float TotalDaño ()
 		{
 			return TotalDañoDirecto () + TotalDañoDisperso ();
 		}
 
+		/// <summary>
+		/// Devuelve un <see cref="System.String"/> describiendo el combate y sus resultados.
+		/// </summary>
 		public string Análisis ()
 		{
 			var ret = new StringBuilder ();
@@ -68,6 +86,10 @@ namespace Civ.Combate
 			return ret.ToString ();
 		}
 
+		/// <summary>
+		/// Una un análisis de batalla a este análisis de combate
+		/// </summary>
+		/// <param name="btl">Análisis de batalla a unir</param>
 		public void UnirCon (IAnálisisBatalla btl)
 		{
 			foreach (var x in Batallas)
@@ -123,6 +145,11 @@ namespace Civ.Combate
 			}
 		}
 
+		/// <summary>
+		/// </summary>
+		/// <param name="armada0">Armada0.</param>
+		/// <param name="armada1">Armada1.</param>
+		/// <param name="duración">Duración.</param>
 		public AnálisisCombate (Armada armada0, Armada armada1, TimeSpan duración)
 		{
 			ArmadaYo = armada0;
@@ -150,6 +177,9 @@ namespace Civ.Combate
 		/// <value>The defensor.</value>
 		public Stack Defensor { get; set; }
 
+		/// <summary>
+		/// Duración de la batalla
+		/// </summary>
 		public TimeSpan Duración { get; }
 
 		#endregion

@@ -200,6 +200,9 @@ namespace Civ.Global
 			Defaults ();
 		}
 
+		/// <summary>
+		/// Inicializa el juego antes de ejecutarse
+		/// </summary>
 		public void Inicializar ()
 		{
 			Defaults ();
@@ -614,7 +617,7 @@ namespace Civ.Global
 			}
 			catch (Exception ex)
 			{
-				
+				Debug.WriteLine (ex.Message, "Batalla");
 			}
 
 			// Generar bárbaros

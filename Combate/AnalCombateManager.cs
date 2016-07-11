@@ -11,6 +11,9 @@ namespace Civ.Combate
 	/// </summary>
 	public class AnálisisCombateManager
 	{
+		/// <summary>
+		/// Civilización vinculada
+		/// </summary>
 		public readonly ICivilización Civil;
 		readonly HashSet<IAnálisisCombate> combatesData = new HashSet<IAnálisisCombate> ();
 		readonly HashSet<IAnálisisCombate> preData = new HashSet<IAnálisisCombate> ();
@@ -32,19 +35,32 @@ namespace Civ.Combate
 			return combate;
 		}
 
+		/// <summary>
+		/// Une un análisis de combate a esta instancia
+		/// </summary>
 		public void AddOrMerge (IAnálisisCombate combate)
 		{
 			//TODO pasarlo a predata
 			preData.Add (combate);
 		}
 
+		/// <summary>
+		/// </summary>
+		/// <param name="civil">Civilización vinculada</param>
 		public AnálisisCombateManager (ICivilización civil)
 		{
 			Civil = civil;
 		}
 
+		/// <summary>
+		/// Devuelve el análisis acumulado hasta ahora entre atacante y defensor.
+		/// </summary>
+		/// <returns>The análisis.</returns>
+		/// <param name="yo">Defensor, yo</param>
+		/// <param name="otro">Atacante otro</param>
 		public IAnálisisCombate GetAnálisis (IDefensor yo, IAtacante otro)
 		{
+			// TODO: deben ser, yo y otro, Armadas.
 			foreach (var x in combatesData)
 				if (x.ArmadaYo == yo && x.ArmadaOtro == otro)
 					return x;

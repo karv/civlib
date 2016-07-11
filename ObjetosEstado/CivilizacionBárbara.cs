@@ -122,6 +122,8 @@ namespace Civ.ObjetosEstado
 			Diplomacia = new DiplomaciaNómada ();
 		}
 
+		/// <summary>
+		/// </summary>
 		public void Inicializar ()
 		{
 		}
