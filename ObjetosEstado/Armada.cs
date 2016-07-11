@@ -321,23 +321,37 @@ namespace Civ.ObjetosEstado
 		/// <param name="t">tiempo de pelea</param>
 		public void Pelea (Armada armada, TimeSpan t)
 		{
+			var cbt = new AnálisisCombate (this, armada, t);
 			Debug.WriteLine (
-				string.Format ("{0} peleando contra {1}", this.CivDueño, armada.CivDueño),
+				string.Format ("{0} peleando contra {1}", CivDueño, armada.CivDueño),
 				"Pelea");
 			foreach (IAtacante x in Unidades)
 			{
-				var cbt = new AnálisisCombate (x, armada, t);
-				if (cbt.Defensor != null)
-				{
-					Debug.WriteLine (
+				var btl = new AnálisisBatalla (x, armada, t);
+				if (btl.Defensor != null)
+					cbt.UnirCon (btl);
+/*					Debug.WriteLine (
 						string.Format (
 							"{0} dañó a {1} {2:P}",
 							x,
-							cbt.Defensor,
-							cbt.Defensor.HP),
+							btl.Defensor,
+							btl.Defensor.HP),
 						"Pelea");
-					cbt.Ejecutar ();
-				}
+					btl.Ejecutar ();
+*/
+			}
+
+			cbt.Ejecutar ();
+
+			foreach (var x in cbt.Batallas)
+			{
+				Debug.WriteLine (
+					string.Format (
+						"{0} dañó a {1} {2:P}",
+						cbt.ArmadaYo,
+						x.Defensor,
+						x.Defensor.HP),
+					"Pelea");
 			}
 		}
 
@@ -361,7 +375,7 @@ namespace Civ.ObjetosEstado
 		/// Debe ejecutarse cuando esta armada es objetivo de algún ataque.
 		/// </summary>
 		/// <param name="anal">El análisis del ataque.</param>
-		public void FueAtacado (IAnálisisCombate anal)
+		public void FueAtacado (IAnálisisBatalla anal)
 		{
 			if (!Unidades.Any ())
 			{

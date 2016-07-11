@@ -20,7 +20,7 @@ namespace Civ.Combate
 		/// </summary>
 		/// <param name="Def">Defensor</param>
 		/// <param name="t">Duración del tick de combate</param>
-		IAnálisisCombate CausarDaño (IDefensor Def, TimeSpan t);
+		IAnálisisBatalla CausarDaño (IDefensor Def, TimeSpan t);
 
 		/// <summary>
 		/// Devuelve el coeficiente de dispersión del atacante

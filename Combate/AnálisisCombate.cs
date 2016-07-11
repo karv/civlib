@@ -2,14 +2,103 @@
 using Civ.Global;
 using Civ.ObjetosEstado;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Civ.Combate
 {
 	/// <summary>
+	/// Representa un combate: conjunto de batallas que comparten armadas agresoras.
+	/// </summary>
+	public class AnálisisCombate : IAnálisisCombate
+	{
+		/// <summary>
+		/// Une este análisis con otro.
+		/// No modifica el otro.
+		/// </summary>
+		/// <param name="anal">Anal.</param>
+		public void UnirCon (IAnálisisCombate anal)
+		{
+			foreach (var x in Batallas)
+				UnirCon (x);
+			Duración += anal.Duración;
+		}
+
+		public void Ejecutar ()
+		{
+			foreach (var x in Batallas)
+				x.Ejecutar ();
+		}
+
+		public string Análisis ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public void UnirCon (IAnálisisBatalla btl)
+		{
+			foreach (var x in Batallas)
+			{
+				if (x.EsUnibleCon (btl))
+				{
+					x.UnirCon (btl);
+					return;
+				}
+			}
+			Batallas.Add (btl);
+		}
+
+		/// <summary>
+		/// Devuelve la duración de la batalla.
+		/// </summary>
+		/// <value>The duración.</value>
+		public TimeSpan Duración { get; private set; }
+
+		/// <summary>
+		/// Revisa y devuelve un valor indicando si tiene sentido unir esta instancia con otra dada.
+		/// </summary>
+		/// <returns>true</returns>
+		/// <c>false</c>
+		/// <param name="anal">Anal.</param>
+		public bool EsUnibleCon (IAnálisisCombate anal)
+		{
+			return ArmadaYo == anal.ArmadaYo && ArmadaOtro == anal.ArmadaOtro;
+		}
+
+		/// <summary>
+		/// Una armadas involucradas
+		/// </summary>
+		public Armada ArmadaYo { get; }
+
+		/// <summary>
+		/// Una armadas involucradas
+		/// </summary>
+		public Armada ArmadaOtro { get; }
+
+		/// <summary>
+		/// Gets the batallas.
+		/// </summary>
+		/// <value>The batallas.</value>
+		public ICollection<IAnálisisBatalla> Batallas
+		{
+			get
+			{
+				throw new NotImplementedException ();
+			}
+		}
+
+		public AnálisisCombate (Armada armada0, Armada armada1, TimeSpan duración)
+		{
+			ArmadaYo = armada0;
+			ArmadaOtro = armada1;
+			Duración = duración;
+		}
+	}
+
+	/// <summary>
 	/// Representa los resultados de un tick de combate
 	/// </summary>
 	[Serializable]
-	public class AnálisisCombate : IAnálisisCombate
+	public class AnálisisBatalla : IAnálisisBatalla
 	{
 		#region Info
 
@@ -28,7 +117,7 @@ namespace Civ.Combate
 
 		#region Análisis
 
-		IAtacante IAnálisisCombate.Atacante
+		IAtacante IAnálisisBatalla.Atacante
 		{
 			get
 			{
@@ -36,7 +125,7 @@ namespace Civ.Combate
 			}
 		}
 
-		Stack IAnálisisCombate.Defensor
+		Stack IAnálisisBatalla.Defensor
 		{
 			get
 			{
@@ -57,7 +146,7 @@ namespace Civ.Combate
 		/// No modifica el otro.
 		/// </summary>
 		/// <param name="anal">Anal.</param>
-		public void UnirCon (IAnálisisCombate anal)
+		public void UnirCon (IAnálisisBatalla anal)
 		{
 			Tiempo += anal.Duración;
 			DañoDirecto += anal.DañoDirecto;
@@ -67,7 +156,7 @@ namespace Civ.Combate
 		/// <summary>
 		/// Revisa y devuelve un valor indicando si tiene sentido unir esta instancia con otra dada.
 		/// </summary>
-		public bool EsUnibleCon (IAnálisisCombate anal)
+		public bool EsUnibleCon (IAnálisisBatalla anal)
 		{
 			return Atacante == anal.Atacante && Defensor == anal.Defensor;
 		}
@@ -194,7 +283,7 @@ namespace Civ.Combate
 		/// <param name="atacante">Atacante.</param>
 		/// <param name="defensa">Defensa.</param>
 		/// <param name="t">Duración del tick de combate</param>
-		public AnálisisCombate (IAtacante atacante, IDefensor defensa, TimeSpan t)
+		public AnálisisBatalla (IAtacante atacante, IDefensor defensa, TimeSpan t)
 		{
 			Defensor = defensa.Defensa (atacante);
 			Atacante = atacante;

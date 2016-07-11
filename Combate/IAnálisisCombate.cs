@@ -1,12 +1,13 @@
 ﻿using Civ.ObjetosEstado;
 using System;
+using System.Collections.Generic;
 
 namespace Civ.Combate
 {
 	/// <summary>
 	/// Representa el análisis, contexto o resultado de un tick de combate.
 	/// </summary>
-	public interface IAnálisisCombate
+	public interface IAnálisisBatalla
 	{
 		/// <summary>
 		/// Devuelve el atacante
@@ -25,6 +26,8 @@ namespace Civ.Combate
 		/// </summary>
 		string Análisis ();
 
+		void Ejecutar ();
+
 		/// <summary>
 		/// Devuelve la duración del combate.
 		/// </summary>
@@ -34,13 +37,13 @@ namespace Civ.Combate
 		/// Une este análisis con otro.
 		/// No modifica el otro.
 		/// </summary>
-		void UnirCon (IAnálisisCombate anal);
+		void UnirCon (IAnálisisBatalla anal);
 
 		/// <summary>
 		/// Revisa y devuelve un valor indicando si tiene sentido unir esta instancia con otra dada.
 		/// </summary>
 		/// <returns><c>true</c>, si es posible unir, <c>false</c> otherwise.</returns>
-		bool EsUnibleCon (IAnálisisCombate anal);
+		bool EsUnibleCon (IAnálisisBatalla anal);
 
 		/// <summary>
 		/// Devuelve el daño directo causado
@@ -53,5 +56,35 @@ namespace Civ.Combate
 		/// </summary>
 		/// <value>The daño disperso.</value>
 		float DañoDisperso { get; }
+	}
+
+	public interface IAnálisisCombate
+	{
+		string Análisis ();
+
+		Armada ArmadaYo { get; }
+
+		Armada ArmadaOtro { get; }
+
+		/// <summary>
+		/// Devuelve la duración de la batalla.
+		/// </summary>
+		TimeSpan Duración { get; }
+
+		ICollection<IAnálisisBatalla> Batallas { get; }
+
+		void Ejecutar ();
+
+		/// <summary>
+		/// Une este análisis con otro.
+		/// No modifica el otro.
+		/// </summary>
+		void UnirCon (IAnálisisCombate anal);
+
+		/// <summary>
+		/// Revisa y devuelve un valor indicando si tiene sentido unir esta instancia con otra dada.
+		/// </summary>
+		/// <returns><c>true</c>, si es posible unir, <c>false</c> otherwise.</returns>
+		bool EsUnibleCon (IAnálisisCombate anal);
 	}
 }
