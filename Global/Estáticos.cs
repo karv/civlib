@@ -66,7 +66,7 @@ namespace Civ.Global
 				_pausado = value;
 				if (!value)
 					timer = DateTime.Now; // Al despausar se reestablece el timer
-				AlCambiarEstadoPausa?.Invoke (this, null);
+				AlCambiarEstadoPausa?.Invoke (this, EventArgs.Empty);
 			}
 		}
 
