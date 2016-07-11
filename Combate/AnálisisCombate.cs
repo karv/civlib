@@ -3,6 +3,7 @@ using Civ.Global;
 using Civ.ObjetosEstado;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Civ.Combate
 {
@@ -29,9 +30,42 @@ namespace Civ.Combate
 				x.Ejecutar ();
 		}
 
+		public float TotalDañoDirecto ()
+		{
+			var ret = 0f;
+			foreach (var x in batallas)
+				ret += x.DañoDirecto;
+			return ret;
+		}
+
+		public float TotalDañoDisperso ()
+		{
+			var ret = 0f;
+			foreach (var x in batallas)
+				ret += x.DañoDisperso;
+			return ret;
+		}
+
+		public float TotalDaño ()
+		{
+			return TotalDañoDirecto () + TotalDañoDisperso ();
+		}
+
 		public string Análisis ()
 		{
-			throw new NotImplementedException ();
+			var ret = new StringBuilder ();
+			ret.AppendFormat (
+				"({1})\n{0}\n\n({3}){2}\n",
+				ArmadaYo,
+				ArmadaYo.CivDueño,
+				ArmadaOtro,
+				ArmadaOtro.CivDueño);
+			foreach (var x in batallas)
+				ret.AppendLine ("\t" + x.Análisis ());
+			ret.AppendLine ("Total\tdirecto " + TotalDañoDirecto ());
+			ret.AppendLine ("\tdisperso " + TotalDañoDisperso ());
+			ret.AppendLine ("\t\t" + TotalDaño ());
+			return ret.ToString ();
 		}
 
 		public void UnirCon (IAnálisisBatalla btl)
@@ -74,6 +108,9 @@ namespace Civ.Combate
 		/// </summary>
 		public Armada ArmadaOtro { get; }
 
+
+		readonly ICollection<IAnálisisBatalla> batallas = new List<IAnálisisBatalla> ();
+
 		/// <summary>
 		/// Gets the batallas.
 		/// </summary>
@@ -82,7 +119,7 @@ namespace Civ.Combate
 		{
 			get
 			{
-				throw new NotImplementedException ();
+				return batallas;
 			}
 		}
 
@@ -112,6 +149,8 @@ namespace Civ.Combate
 		/// </summary>
 		/// <value>The defensor.</value>
 		public Stack Defensor { get; set; }
+
+		public TimeSpan Duración { get; }
 
 		#endregion
 
@@ -148,7 +187,6 @@ namespace Civ.Combate
 		/// <param name="anal">Anal.</param>
 		public void UnirCon (IAnálisisBatalla anal)
 		{
-			Tiempo += anal.Duración;
 			DañoDirecto += anal.DañoDirecto;
 			DañoDisperso += anal.DañoDisperso;
 		}
@@ -159,17 +197,6 @@ namespace Civ.Combate
 		public bool EsUnibleCon (IAnálisisBatalla anal)
 		{
 			return Atacante == anal.Atacante && Defensor == anal.Defensor;
-		}
-
-		/// <summary>
-		/// Devuelve la duración del combate.
-		/// </summary>
-		public TimeSpan Duración
-		{
-			get
-			{
-				return Tiempo;
-			}
 		}
 
 		#endregion
@@ -195,12 +222,6 @@ namespace Civ.Combate
 		/// </summary>
 		/// <value>The daño directo.</value>
 		public float DañoDirecto { get; set; }
-
-		/// <summary>
-		/// Devuelve la duración del tick del combate
-		/// </summary>
-		/// <value>The tiempo.</value>
-		public TimeSpan Tiempo { get; private set; }
 
 		/// <summary>
 		/// Devuelve el coeficiente de dispersión del atacante.
@@ -287,7 +308,7 @@ namespace Civ.Combate
 		{
 			Defensor = defensa.Defensa (atacante);
 			Atacante = atacante;
-			Tiempo = t;
+			Duración = t;
 
 			if (Defensor == null)
 			{

@@ -353,6 +353,13 @@ namespace Civ.ObjetosEstado
 						x.Defensor.HP),
 					"Pelea");
 			}
+
+			// Informe
+			var civ = CivDueño as Civilización;
+			if (civ != null)
+			{
+				civ.Combates.AddOrMerge (cbt);
+			}
 		}
 
 		/// <summary>
@@ -398,7 +405,7 @@ namespace Civ.ObjetosEstado
 			{
 				ret += string.Format (
 					"\n\tClase:{0}\tCantidad:{1}\tVitalidad:{2}",
-					u,
+					u.RAW,
 					u.Cantidad,
 					u.Vitalidad);
 			}

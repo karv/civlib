@@ -2,6 +2,7 @@
 using Civ.ObjetosEstado;
 using Civ.IU;
 using System;
+using System.Diagnostics;
 
 namespace Civ.Combate
 {
@@ -29,6 +30,12 @@ namespace Civ.Combate
 			}
 			combatesData.Add (combate);
 			return combate;
+		}
+
+		public void AddOrMerge (IAnálisisCombate combate)
+		{
+			//TODO pasarlo a predata
+			preData.Add (combate);
 		}
 
 		public AnálisisCombateManager (ICivilización civil)

@@ -10,6 +10,7 @@ using Civ.Almacén;
 using Civ.RAW;
 using Civ.Topología;
 using System.Diagnostics;
+using Civ.Combate;
 
 namespace Civ.ObjetosEstado
 {
@@ -165,10 +166,12 @@ namespace Civ.ObjetosEstado
 		public void Inicializar ()
 		{
 			foreach (var c in Ciudades)
-			{
 				c.Inicializar ();
-			}
+
+			Combates = new AnálisisCombateManager (this);
 		}
+
+		public AnálisisCombateManager Combates { get; private set; }
 
 		#endregion
 
@@ -341,6 +344,8 @@ namespace Civ.ObjetosEstado
 		{
 			Mensajes.Add (mensaje);
 			AlNuevoMensaje?.Invoke (this, new MensajeEventArgs (mensaje, Mensajes));
+
+			Debug.WriteLine (mensaje.Msj, "Mensaje");
 		}
 
 		/// <summary>
@@ -493,6 +498,8 @@ namespace Civ.ObjetosEstado
 				if (x.Unidades.Count > 0)
 					x.Tick (t);
 			}
+
+			Combates.Fetch ();
 			AlTickDespués?.Invoke (this, t);
 		}
 
