@@ -130,6 +130,7 @@ namespace Civ.ObjetosEstado
 			{
 				arm.Orden = new OrdenEstacionado ();
 				arm.CivDueño.AgregaMensaje (new Mensaje (
+					"Bloqueo de armada",
 					"Nuestra Armada {0} detenida por armada {1} de {2} en {3}",
 					TipoRepetición.ArmadaTerminaOrden,
 					this,
@@ -428,6 +429,7 @@ namespace Civ.ObjetosEstado
 			{
 				Orden = new OrdenEstacionado ();
 				CivDueño.AgregaMensaje (new Mensaje (
+					"Llegada alcanzó destino.",
 					"{0} llegó a {1}",
 					TipoRepetición.ArmadaTerminaOrden,
 					this,

@@ -4,70 +4,6 @@ using System.Collections.Generic;
 namespace Civ.IU
 {
 	/// <summary>
-	/// El tipo de repetición
-	/// </summary>
-	public enum TipoRepetición
-	{
-		/// <summary>
-		/// No hay tipo, 
-		/// </summary>
-		NoTipo = 0,
-		/// <summary>
-		/// Repetición de cuando una armada termina una orden.
-		/// </summary>
-		ArmadaTerminaOrden,
-		/// <summary>
-		/// Repetición de cuando la población pierde población
-		/// </summary>
-		PerderPoblaciónOcupada,
-		/// <summary>
-		/// Repetición de cuando se está desperdiciando recursos.
-		/// </summary>
-		DesperdiciandoRecurso,
-		/// <summary>
-		/// Se recibe un análisis de combate completo
-		/// </summary>
-		AnálisisCombateCompleto
-	}
-
-	/// <summary>
-	/// Representa un mensaje al usuario
-	/// </summary>
-	public interface IMensaje
-	{
-		/// <summary>
-		/// Devuelve el formato del mensaje
-		/// </summary>
-		/// <value>The msj.</value>
-		string Msj { get; }
-
-		/// <summary>
-		/// Devuelve los argumentos del mensaje
-		/// </summary>
-		/// <value>The origen.</value>
-		object [] Origen { get; }
-
-		/// <summary>
-		/// El tipo de repetidor
-		/// </summary>
-		/// <value>The tipo.</value>
-		TipoRepetición Tipo { get; }
-
-		/// <summary>
-		/// Subtipo interno del repetidor.
-		/// En la comparación, se usa su Equals (y hash) de objeto.
-		/// </summary>
-		/// <value>The subtipo.</value>
-		object Subtipo { get; }
-
-		/// <summary>
-		/// Estado del mensaje
-		/// </summary>
-		/// <value>The estado.</value>
-		EstadoMensaje Estado { get; set; }
-	}
-
-	/// <summary>
 	/// Representa un mensaje al usuario
 	/// </summary>
 	public class Mensaje : IMensaje
@@ -136,11 +72,13 @@ namespace Civ.IU
 		/// <value>The subtipo.</value>
 		public object Subtipo { get; }
 
+		public string MsjCorto { get; }
+
 		/// <summary>
 		/// El texto mensaje.
 		/// Se puede usar el formato de string.Format,
 		/// </summary>
-		public string Msj { get; }
+		public string MsjLargo { get; }
 
 		/// <summary>
 		/// Objetos vinculados a este mensaje.
@@ -160,7 +98,7 @@ namespace Civ.IU
 		/// <returns>Devuelve el Msj con parámetros de formato de Origen</returns>
 		public override string ToString ()
 		{
-			return string.Format (Msj, Origen);
+			return string.Format (MsjLargo, Origen);
 		}
 
 		#endregion
@@ -174,13 +112,15 @@ namespace Civ.IU
 		/// <param name="subtipo">Subtipo.</param>
 		/// <param name="nOrigen">N origen.</param>
 		public Mensaje (
+			string nMensajeCorto,
 			string nMensaje,
 			TipoRepetición tipo,
 			object subtipo,
 			params object [] nOrigen)
 		{
 			
-			Msj = nMensaje;
+			MsjLargo = nMensaje;
+			MsjCorto = nMensajeCorto;
 			Origen = nOrigen;
 			Tipo = tipo;
 			Subtipo = subtipo;

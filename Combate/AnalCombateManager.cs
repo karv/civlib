@@ -75,6 +75,7 @@ namespace Civ.Combate
 		{
 			combatesData.Remove (anal);
 			var msj = new Mensaje (
+				          string.Format ("Resulado de batalla en {0}", anal.ArmadaYo.Posición),
 				          anal.Análisis (),
 				          TipoRepetición.AnálisisCombateCompleto,
 				          this);
