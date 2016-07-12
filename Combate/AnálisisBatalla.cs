@@ -16,7 +16,7 @@ namespace Civ.Combate
 		/// <summary>
 		/// Devuelve o establece el atacante.
 		/// </summary>
-		public IAtacante Atacante { get; set; }
+		public Stack Atacante { get; set; }
 
 		/// <summary>
 		/// Devuelve o establece el defensor.
@@ -76,10 +76,19 @@ namespace Civ.Combate
 			return Atacante == anal.Atacante && Defensor == anal.Defensor;
 		}
 
+		/// <summary>
+		/// Devuelve la cantidad de unidades en el stack defensor
+		/// </summary>
 		public ulong CantidadInicialDef { get; }
 
+		/// <summary>
+		/// Devuelve la cantidad de unidades del atacante
+		/// </summary>
 		public ulong CantidadInicialAtt { get; }
 
+		/// <summary>
+		/// Devuelve la cantidad final (o progresivo) de unidades del defensa
+		/// </summary>
 		public ulong CantidadFinalDef
 		{
 			get
@@ -88,7 +97,17 @@ namespace Civ.Combate
 			}
 		}
 
-		public ulong CantidadFinalAtt { get; private set; }
+		/// <summary>
+		/// Devuelve la cantidad final (o progresivo) de unidades del atacante
+		/// </summary>
+		/// <value><c>true</c> if this instance cantidad final att; otherwise, <c>false</c>.</value>
+		public ulong CantidadFinalAtt
+		{
+			get
+			{
+				return Atacante.Cantidad;
+			}
+		}
 
 		#endregion
 
@@ -195,7 +214,7 @@ namespace Civ.Combate
 		/// <param name="atacante">Atacante.</param>
 		/// <param name="defensa">Defensa.</param>
 		/// <param name="t">Duración del tick de combate</param>
-		public AnálisisBatalla (IAtacante atacante, IDefensor defensa, TimeSpan t)
+		public AnálisisBatalla (Stack atacante, IDefensor defensa, TimeSpan t)
 		{
 			Defensor = defensa.Defensa (atacante);
 			Atacante = atacante;
@@ -215,8 +234,8 @@ namespace Civ.Combate
 				Debug.WriteLine ("Defensor nulo; no hay combate.", "Pelea");
 				return;
 			}
-
-			var Daño = Atacante.ProponerDaño (Defensor.RAW) * (float)t.TotalHours;
+			IAtacante att = Atacante;
+			var Daño = att.ProponerDaño (Defensor.RAW) * (float)t.TotalHours;
 
 			DañoDirecto = Daño * (1 - Dispersión);
 			DañoDisperso = Daño * Dispersión;

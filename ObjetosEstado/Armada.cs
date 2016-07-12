@@ -325,7 +325,7 @@ namespace Civ.ObjetosEstado
 			Debug.WriteLine (
 				string.Format ("{0} peleando contra {1}", CivDueño, armada.CivDueño),
 				"Pelea");
-			foreach (IAtacante x in Unidades)
+			foreach (Stack x in Unidades)
 			{
 				var btl = new AnálisisBatalla (x, armada, t);
 				if (btl.Defensor != null)

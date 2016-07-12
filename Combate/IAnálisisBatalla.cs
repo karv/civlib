@@ -60,12 +60,24 @@ namespace Civ.Combate
 		/// <value>The daño disperso.</value>
 		float DañoDisperso { get; }
 
+		/// <summary>
+		/// Devuelve la cantidad de unidades en el stack defensor
+		/// </summary>
 		ulong CantidadInicialDef { get; }
 
+		/// <summary>
+		/// Devuelve la cantidad de unidades del atacante
+		/// </summary>
 		ulong CantidadInicialAtt { get; }
 
+		/// <summary>
+		/// Devuelve la cantidad final (o progresivo) de unidades del defensa
+		/// </summary>
 		ulong CantidadFinalDef { get; }
 
+		/// <summary>
+		/// Devuelve la cantidad final (o progresivo) de unidades del atacante
+		/// </summary>
 		ulong CantidadFinalAtt { get; }
 	}
 	
