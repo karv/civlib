@@ -91,7 +91,7 @@ namespace Civ.Topología
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
 			foreach (var x in Innatos)

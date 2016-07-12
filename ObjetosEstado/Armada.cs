@@ -423,7 +423,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Un Tick de la armada
 		/// </summary>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			if (Orden.Ejecutar (t.GameTime))
 			{

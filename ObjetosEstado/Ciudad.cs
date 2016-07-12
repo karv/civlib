@@ -1001,7 +1001,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Da un tick hereditario.
 		/// </summary>
-		public void ResourceTick (TimeEventArgs t)
+		public void ResourceTick (TiempoEventArgs t)
 		{
 			foreach (ITickable x in Edificios)
 			{
@@ -1063,7 +1063,7 @@ namespace Civ.ObjetosEstado
 		/// Ejecuta PopTick (), ResourseTick Y calcula delta
 		/// En ese orden.
 		/// </summary>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
 			var RecAntes = Almacén.Clonar ();

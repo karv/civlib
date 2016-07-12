@@ -6,7 +6,7 @@ namespace Civ.Global
 	/// Argumentos del evento Tick
 	/// </summary>
 	[Serializable]
-	public class TimeEventArgs : EventArgs
+	public class TiempoEventArgs : EventArgs
 	{
 		/// <summary>
 		/// Duración del tick a tiempo usuario
@@ -22,7 +22,7 @@ namespace Civ.Global
 
 		/// <param name="userTime">User time.</param>
 		/// <param name="gameTime">Game time.</param>
-		public TimeEventArgs (TimeSpan userTime, TimeSpan gameTime)
+		public TiempoEventArgs (TimeSpan userTime, TimeSpan gameTime)
 		{
 			UserTime = userTime;
 			GameTime = gameTime;
@@ -30,7 +30,7 @@ namespace Civ.Global
 
 		/// <param name="hoursRealTime">Hours real time.</param>
 		/// <param name="accel">Accel.</param>
-		public TimeEventArgs (double hoursRealTime, double accel)
+		public TiempoEventArgs (double hoursRealTime, double accel)
 		{
 			UserTime = TimeSpan.FromHours (hoursRealTime);
 			GameTime = TimeSpan.FromHours (hoursRealTime * accel);

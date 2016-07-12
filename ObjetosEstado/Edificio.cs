@@ -74,7 +74,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Produce un tick productivo hereditario.
 		/// </summary>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
 			foreach (var x in RAW.Salida)

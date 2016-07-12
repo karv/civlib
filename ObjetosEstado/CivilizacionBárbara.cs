@@ -263,7 +263,7 @@ namespace Civ.ObjetosEstado
 		{
 		}
 
-		void ITickable.Tick (TimeEventArgs t)
+		void ITickable.Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
 

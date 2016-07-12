@@ -116,7 +116,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ejecuta un tick de tiempo
 		/// </summary>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			if (Trabajadores > 0)
 			{

@@ -158,7 +158,7 @@ namespace Civ.Bárbaros
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
 			if (GenerarBarbaro (t.GameTime))

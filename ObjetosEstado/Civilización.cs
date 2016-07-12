@@ -448,7 +448,7 @@ namespace Civ.ObjetosEstado
 		/// Básicamente hace todo lo necesario y suficiente que le corresponde entre turnos.
 		/// </summary>
 		/// <param name="t">Diración del tick</param>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
 			foreach (var x in new List<ICiudad> (Ciudades))
