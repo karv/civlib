@@ -118,7 +118,6 @@
     <Compile Include="IU\MensajeEventArgs.cs" />
     <Compile Include="IU\EstadoMensaje.cs" />
     <Compile Include="ObjetosEstado\ReclutarEventArgs.cs" />
-    <Compile Include="ObjetosEstado\NuevoEdificioEventArgs.cs" />
     <Compile Include="ObjetosEstado\TransferenciaObjetoEventArgs.cs" />
     <Compile Include="Orden\TransladoEventArgs.cs" />
     <Compile Include="ObjetosEstado\EdificioNuevoEventArgs.cs" />
