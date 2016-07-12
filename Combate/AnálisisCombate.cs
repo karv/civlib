@@ -1,187 +1,162 @@
 ﻿using System;
-using Civ.Global;
-using System.Collections.Generic;
 using Civ.ObjetosEstado;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Civ.Combate
 {
 	/// <summary>
-	/// Representa los resultados de un tick de combate
+	/// Representa un combate: conjunto de batallas que comparten armadas agresoras.
 	/// </summary>
-	[Serializable]
 	public class AnálisisCombate : IAnálisisCombate
 	{
-		#region Info
-
 		/// <summary>
-		/// Devuelve o establece el atacante.
+		/// Une este análisis con otro.
+		/// No modifica el otro.
 		/// </summary>
-		public IAtacante Atacante { get; set; }
-
-		/// <summary>
-		/// Devuelve o establece el defensor.
-		/// </summary>
-		/// <value>The defensor.</value>
-		public Stack Defensor { get; set; }
-
-		#endregion
-
-		#region Análisis
-
-		IAtacante IAnálisisCombate.Atacante
+		/// <param name="anal">Anal.</param>
+		public void UnirCon (IAnálisisCombate anal)
 		{
-			get
-			{
-				return Atacante;
-			}
-		}
-
-		Stack IAnálisisCombate.Defensor
-		{
-			get
-			{
-				return Defensor;
-			}
+			foreach (var x in Batallas)
+				UnirCon (x);
+			Duración += anal.Duración;
 		}
 
 		/// <summary>
-		/// Devuelve el análisis en forma de <see cref="System.String"/>
-		/// </summary>
-		public string Análisis ()
-		{
-			return ToString ();
-		}
-
-		#endregion
-
-		#region Contexto
-
-		static Random _r
-		{
-			get
-			{
-				return HerrGlobal.Rnd;
-			}
-		}
-
-		/// <summary>
-		/// Devuelve o establece el daño disperso que se causó
-		/// </summary>
-		/// <value>The daño disperso.</value>
-		public float DañoDisperso { get; set; }
-
-		/// <summary>
-		/// Devuelve o establece el daño directo que se causó
-		/// </summary>
-		/// <value>The daño directo.</value>
-		public float DañoDirecto { get; set; }
-
-		/// <summary>
-		/// Devuelve la duración del tick del combate
-		/// </summary>
-		/// <value>The tiempo.</value>
-		public TimeSpan Tiempo { get; }
-
-		/// <summary>
-		/// Devuelve el coeficiente de dispersión del atacante.
-		/// </summary>
-		public float Dispersión
-		{
-			get
-			{
-				return Atacante.Dispersión;
-			}
-		}
-
-		#endregion
-
-		#region General
-
-		/// <summary>
-		/// Returns a <see cref="System.String"/> that represents the current <see cref="Civ.Combate.AnálisisCombate"/>.
-		/// </summary>
-		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.Combate.AnálisisCombate"/>.</returns>
-		public override string ToString ()
-		{
-			return string.Format (
-				"[AnálisisCombate: Atacante={0}, Defensor={1}, DañoDisperso={2}, DañoDirecto={3}]",
-				Atacante,
-				Defensor,
-				DañoDisperso,
-				DañoDirecto);
-		}
-
-		/// <summary>
-		/// Ejecuta este combate
+		/// Ejecuta cada batalla de este combate.
+		/// Haciendo que se cause el efecto en los implicados.
 		/// </summary>
 		public void Ejecutar ()
 		{
-			if (Defensor == null)
-				return;
-			Dañar ();
-		}
-
-		#endregion
-
-		#region Interacción y daño
-
-		void DañarDirecto ()
-		{
-			// Esto se supone que es el piso.
-			double MuertosPct = DañoDirecto / Defensor.HP; // Probabilidad de muerte
-			ulong Muertos = (ulong)MuertosPct;
-			MuertosPct -= Muertos;
-
-			if (_r.NextDouble () < MuertosPct)
-				Muertos++;
-
-			Defensor.Cantidad -= Muertos;
-		}
-
-		void DañarDisperso ()
-		{
-			Defensor.HP -= DañoDisperso / Defensor.Cantidad;
+			foreach (var x in Batallas)
+				x.Ejecutar ();
 		}
 
 		/// <summary>
-		/// Daña este stack 
+		/// Calcula todo el daño directo.
 		/// </summary>
-		void Dañar ()
+		/// <returns>The daño directo.</returns>
+		public float TotalDañoDirecto ()
 		{
-			DañarDisperso ();
-			DañarDirecto ();
-			Defensor.FueAtacado (this);
+			var ret = 0f;
+			foreach (var x in batallas)
+				ret += x.DañoDirecto;
+			return ret;
 		}
 
-		#endregion
-
-		#region ctor
+		/// <summary>
+		/// Calcula todo el daño disperso
+		/// </summary>
+		/// <returns>The daño disperso.</returns>
+		public float TotalDañoDisperso ()
+		{
+			var ret = 0f;
+			foreach (var x in batallas)
+				ret += x.DañoDisperso;
+			return ret;
+		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.Combate.AnálisisCombate"/> class.
+		/// Calcula el daño total en este combate.
 		/// </summary>
-		/// <param name="atacante">Atacante.</param>
-		/// <param name="defensa">Defensa.</param>
-		/// <param name="t">Duración del tick de combate</param>
-		public AnálisisCombate (IAtacante atacante, IDefensor defensa, TimeSpan t)
+		public float TotalDaño ()
 		{
-			Defensor = defensa.Defensa (atacante);
-			Atacante = atacante;
-			Tiempo = t;
+			return TotalDañoDirecto () + TotalDañoDisperso ();
+		}
 
-			if (Defensor == null)
+		/// <summary>
+		/// Devuelve un <see cref="System.String"/> describiendo el combate y sus resultados.
+		/// </summary>
+		public string Análisis ()
+		{
+			var ret = new StringBuilder ();
+			ret.AppendFormat (
+				"({1})\n{0}\n\n({3}){2}\n",
+				ArmadaYo,
+				ArmadaYo.CivDueño,
+				ArmadaOtro,
+				ArmadaOtro.CivDueño);
+			
+			foreach (var x in batallas)
+				ret.AppendLine (x.Análisis ());
+
+			/*
+			ret.AppendLine ("Total\tdirecto " + TotalDañoDirecto ());
+			ret.AppendLine ("\tdisperso " + TotalDañoDisperso ());
+			ret.AppendLine ("\t\t" + TotalDaño ());
+			*/
+			return ret.ToString ();
+
+		}
+
+		/// <summary>
+		/// Una un análisis de batalla a este análisis de combate
+		/// </summary>
+		/// <param name="btl">Análisis de batalla a unir</param>
+		public void UnirCon (IAnálisisBatalla btl)
+		{
+			foreach (var x in Batallas)
 			{
-				Debug.WriteLine ("Defensor nulo; no hay combate.", "Pelea");
-				return;
+				if (x.EsUnibleCon (btl))
+				{
+					x.UnirCon (btl);
+					return;
+				}
 			}
-
-			var Daño = Atacante.ProponerDaño (Defensor.RAW) * (float)t.TotalHours;
-
-			DañoDirecto = Daño * (1 - Dispersión);
-			DañoDisperso = Daño * Dispersión;
+			Batallas.Add (btl);
 		}
 
-		#endregion
+		/// <summary>
+		/// Devuelve la duración de la batalla.
+		/// </summary>
+		/// <value>The duración.</value>
+		public TimeSpan Duración { get; private set; }
+
+		/// <summary>
+		/// Revisa y devuelve un valor indicando si tiene sentido unir esta instancia con otra dada.
+		/// </summary>
+		/// <returns>true</returns>
+		/// <c>false</c>
+		/// <param name="anal">Anal.</param>
+		public bool EsUnibleCon (IAnálisisCombate anal)
+		{
+			return ArmadaYo == anal.ArmadaYo && ArmadaOtro == anal.ArmadaOtro;
+		}
+
+		/// <summary>
+		/// Una armadas involucradas
+		/// </summary>
+		public Armada ArmadaYo { get; }
+
+		/// <summary>
+		/// Una armadas involucradas
+		/// </summary>
+		public Armada ArmadaOtro { get; }
+
+		readonly ICollection<IAnálisisBatalla> batallas = new List<IAnálisisBatalla> ();
+
+		/// <summary>
+		/// Gets the batallas.
+		/// </summary>
+		/// <value>The batallas.</value>
+		public ICollection<IAnálisisBatalla> Batallas
+		{
+			get
+			{
+				return batallas;
+			}
+		}
+
+		/// <summary>
+		/// </summary>
+		/// <param name="armada0">Armada0.</param>
+		/// <param name="armada1">Armada1.</param>
+		/// <param name="duración">Duración.</param>
+		public AnálisisCombate (Armada armada0, Armada armada1, TimeSpan duración)
+		{
+			ArmadaYo = armada0;
+			ArmadaOtro = armada1;
+			Duración = duración;
+		}
 	}
 }

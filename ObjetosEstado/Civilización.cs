@@ -10,6 +10,7 @@ using Civ.Almacén;
 using Civ.RAW;
 using Civ.Topología;
 using System.Diagnostics;
+using Civ.Combate;
 
 namespace Civ.ObjetosEstado
 {
@@ -162,11 +163,32 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		public float MaxPeso { get; private set; }
 
+		/// <summary>
+		/// Inicializa
+		/// </summary>
 		public void Inicializar ()
 		{
 			foreach (var c in Ciudades)
-			{
 				c.Inicializar ();
+
+			Combates = new AnálisisCombateManager (this);
+		}
+
+		[NonSerialized]
+		AnálisisCombateManager _combates;
+
+		/// <summary>
+		/// Devuelve el manejador de mensajes de combates.
+		/// </summary>
+		public AnálisisCombateManager Combates
+		{
+			get
+			{
+				return _combates;
+			}
+			private set
+			{
+				_combates = value;
 			}
 		}
 
@@ -341,6 +363,8 @@ namespace Civ.ObjetosEstado
 		{
 			Mensajes.Add (mensaje);
 			AlNuevoMensaje?.Invoke (this, new MensajeEventArgs (mensaje, Mensajes));
+
+			Debug.WriteLine (mensaje.Msj, "Mensaje");
 		}
 
 		/// <summary>
@@ -493,6 +517,8 @@ namespace Civ.ObjetosEstado
 				if (x.Unidades.Count > 0)
 					x.Tick (t);
 			}
+
+			Combates.Fetch ();
 			AlTickDespués?.Invoke (this, t);
 		}
 

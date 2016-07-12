@@ -125,6 +125,9 @@
     <Compile Include="Global\ITickable.cs" />
     <Compile Include="Global\IPuntuado.cs" />
     <Compile Include="Global\IInicializable.cs" />
+    <Compile Include="Combate\AnalCombateManager.cs" />
+    <Compile Include="Combate\IAnálisisBatalla.cs" />
+    <Compile Include="Combate\AnálisisBatalla.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

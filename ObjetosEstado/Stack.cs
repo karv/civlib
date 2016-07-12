@@ -187,7 +187,7 @@ namespace Civ.ObjetosEstado
 		/// Se debe ejecutar al ser víctima de un ataque.
 		/// </summary>
 		/// <param name="anal">El análisis de combate del ataque.</param>
-		public void FueAtacado (IAnálisisCombate anal)
+		public void FueAtacado (IAnálisisBatalla anal)
 		{
 			ArmadaPerteneciente.FueAtacado (anal);
 			AlSerAtacado?.Invoke (this, new CombateEventArgs (anal));
@@ -394,9 +394,9 @@ namespace Civ.ObjetosEstado
 
 
 
-		IAnálisisCombate IAtacante.CausarDaño (IDefensor Def, TimeSpan t)
+		IAnálisisBatalla IAtacante.CausarDaño (IDefensor Def, TimeSpan t)
 		{
-			var ret = new AnálisisCombate (this, Def, t);
+			var ret = new AnálisisBatalla (this, Def, t);
 			ret.Ejecutar ();
 			return ret;
 		}

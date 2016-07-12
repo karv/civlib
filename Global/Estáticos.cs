@@ -200,6 +200,9 @@ namespace Civ.Global
 			Defaults ();
 		}
 
+		/// <summary>
+		/// Inicializa el juego antes de ejecutarse
+		/// </summary>
 		public void Inicializar ()
 		{
 			Defaults ();
@@ -583,31 +586,38 @@ namespace Civ.Global
 				x.Tick (t);
 			}
 
-			// Peleas entre armadas de Civs enemigas
-			for (int i = 1; i < GState.Civs.Count; i++)
+			try
 			{
-				ICivilización civA = GState.Civs [i];
-				for (int j = 0; j < i; j++)
+				// Peleas entre armadas de Civs enemigas
+				for (int i = 1; i < GState.Civs.Count; i++)
 				{
-					ICivilización civB = GState.Civs [j];
-					for (int k = 0; k < civA.Armadas.Count; k++)
+					ICivilización civA = GState.Civs [i];
+					for (int j = 0; j < i; j++)
 					{
-						var armA = civA.Armadas [k];
-						for (int l = 0; l < civB.Armadas.Count; l++)
+						ICivilización civB = GState.Civs [j];
+						for (int k = 0; k < civA.Armadas.Count; k++)
 						{
-							var armB = civB.Armadas [l];
-							if ((civA.Diplomacia.PermiteAtacar (armB)) ||
-							    (civB.Diplomacia.PermiteAtacar (armA)))
+							var armA = civA.Armadas [k];
+							for (int l = 0; l < civB.Armadas.Count; l++)
 							{
-								if (armA.Posición.Coincide (armB.Posición))
+								var armB = civB.Armadas [l];
+								if ((civA.Diplomacia.PermiteAtacar (armB)) ||
+								    (civB.Diplomacia.PermiteAtacar (armA)))
 								{
-									armA.Pelea (armB, t.GameTime);
-									armB.Pelea (armA, t.GameTime);
+									if (armA.Posición.Coincide (armB.Posición))
+									{
+										armA.Pelea (armB, t.GameTime);
+										armB.Pelea (armA, t.GameTime);
+									}
 								}
 							}
 						}
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine (ex.Message, "Batalla");
 			}
 
 			// Generar bárbaros

@@ -13,10 +13,10 @@ namespace Civ.ObjetosEstado
 		/// Devuelve el análisis de combate
 		/// </summary>
 		/// <value>The análisis.</value>
-		public IAnálisisCombate Análisis { get; }
+		public IAnálisisBatalla Análisis { get; }
 
 		/// <param name="anal">Anal.</param>
-		public CombateEventArgs (IAnálisisCombate anal)
+		public CombateEventArgs (IAnálisisBatalla anal)
 		{
 			Análisis = anal;
 		}

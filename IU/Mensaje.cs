@@ -23,7 +23,11 @@ namespace Civ.IU
 		/// <summary>
 		/// Repetición de cuando se está desperdiciando recursos.
 		/// </summary>
-		DesperdiciandoRecurso
+		DesperdiciandoRecurso,
+		/// <summary>
+		/// Se recibe un análisis de combate completo
+		/// </summary>
+		AnálisisCombateCompleto
 	}
 
 	/// <summary>
