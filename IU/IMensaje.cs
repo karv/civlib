@@ -1,18 +1,23 @@
-using System.Collections.Generic;
 
 namespace Civ.IU
 {
-
 	/// <summary>
 	/// Representa un mensaje al usuario
 	/// </summary>
 	public interface IMensaje
 	{
 		/// <summary>
+		/// Devuelve el mensaje corto.
+		/// No debe exceder 50 caracteres, ni tener caracteres especiales, como \n
+		/// </summary>
+		/// <value>The msj corto.</value>
+		string MsjCorto { get; }
+
+		/// <summary>
 		/// Devuelve el formato del mensaje
 		/// </summary>
 		/// <value>The msj.</value>
-		string Msj { get; }
+		string MsjLargo { get; }
 
 		/// <summary>
 		/// Devuelve los argumentos del mensaje
@@ -39,5 +44,4 @@ namespace Civ.IU
 		/// <value>The estado.</value>
 		EstadoMensaje Estado { get; set; }
 	}
-	
 }

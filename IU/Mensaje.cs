@@ -72,11 +72,13 @@ namespace Civ.IU
 		/// <value>The subtipo.</value>
 		public object Subtipo { get; }
 
+		public string MsjCorto { get; }
+
 		/// <summary>
 		/// El texto mensaje.
 		/// Se puede usar el formato de string.Format,
 		/// </summary>
-		public string Msj { get; }
+		public string MsjLargo { get; }
 
 		/// <summary>
 		/// Objetos vinculados a este mensaje.
@@ -96,7 +98,7 @@ namespace Civ.IU
 		/// <returns>Devuelve el Msj con parámetros de formato de Origen</returns>
 		public override string ToString ()
 		{
-			return string.Format (Msj, Origen);
+			return string.Format (MsjLargo, Origen);
 		}
 
 		#endregion
@@ -110,13 +112,15 @@ namespace Civ.IU
 		/// <param name="subtipo">Subtipo.</param>
 		/// <param name="nOrigen">N origen.</param>
 		public Mensaje (
+			string nMensajeCorto,
 			string nMensaje,
 			TipoRepetición tipo,
 			object subtipo,
 			params object [] nOrigen)
 		{
 			
-			Msj = nMensaje;
+			MsjLargo = nMensaje;
+			MsjCorto = nMensajeCorto;
 			Origen = nOrigen;
 			Tipo = tipo;
 			Subtipo = subtipo;

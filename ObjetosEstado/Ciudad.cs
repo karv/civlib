@@ -363,6 +363,7 @@ namespace Civ.ObjetosEstado
 					EdifConstruyendo.AlCompletar += delegate
 					{
 						CivDueño.AgregaMensaje (new Mensaje (
+							"Edificio completado.",
 							"Se terminó construcción de edificio {0} en {1}.",
 							TipoRepetición.NoTipo,
 							null,
@@ -977,6 +978,7 @@ namespace Civ.ObjetosEstado
 			if (decrec > TrabajadoresDesocupados)
 			{
 				CivDueño.AgregaMensaje (new Mensaje (
+					"Reasignación de población.",
 					"La ciudad {0} ha perdido trabajadores productivos ocupados.",
 					TipoRepetición.PerderPoblaciónOcupada,
 					this,

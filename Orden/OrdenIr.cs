@@ -62,6 +62,7 @@ namespace Civ.Orden
 		protected virtual void OnLlegar ()
 		{
 			ArmadaEjecutante.CivDueño.AgregaMensaje (new Mensaje (
+				"Armada llegó a su destino.",
 				"Armada {0} LLegó a su destino en {1} : Orden {2}",
 				TipoRepetición.ArmadaTerminaOrden,
 				ArmadaEjecutante,

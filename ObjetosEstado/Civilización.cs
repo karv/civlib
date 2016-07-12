@@ -364,7 +364,7 @@ namespace Civ.ObjetosEstado
 			Mensajes.Add (mensaje);
 			AlNuevoMensaje?.Invoke (this, new MensajeEventArgs (mensaje, Mensajes));
 
-			Debug.WriteLine (mensaje.Msj, "Mensaje");
+			Debug.WriteLine (mensaje.MsjLargo, "Mensaje");
 		}
 
 		/// <summary>
@@ -375,6 +375,7 @@ namespace Civ.ObjetosEstado
 		public void AgregaMensaje (string str, params object [] referencia)
 		{
 			AgregaMensaje (new Mensaje (
+				str,
 				str,
 				TipoRepetición.NoTipo,
 				null,
@@ -476,6 +477,7 @@ namespace Civ.ObjetosEstado
 					{					
 						// Se está desperdiciando Rec
 						AgregaMensaje (new Mensaje (
+							"Desperdicio de recursos.",
 							"Se está desperdiciando recurso científico {0}",
 							TipoRepetición.DesperdiciandoRecurso,
 							Rec,
