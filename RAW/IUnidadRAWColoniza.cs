@@ -23,7 +23,7 @@ namespace Civ.RAW
 		/// <summary>
 		/// Ocurre cuando esta unidad coloniza
 		/// </summary>
-		event EventHandler AlColonizar;
+		event EventHandler<CiudadEventArgs> AlColonizar;
 	}
 }
 

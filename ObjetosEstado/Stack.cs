@@ -438,7 +438,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando una armada ataca este Stack
 		/// </summary>
-		public event EventHandler AlSerAtacado;
+		public event EventHandler<CombateEventArgs> AlSerAtacado;
 
 		/// <summary>
 		/// Ocurre cuando hay un cambio en la cantidad
@@ -449,7 +449,7 @@ namespace Civ.ObjetosEstado
 		/// Ocurre al colonizar una nueva ciudad.
 		/// Primer parámetro es la ciudad colonizada.
 		/// </summary>
-		public event EventHandler AlColonizar;
+		public event EventHandler<CiudadEventArgs> AlColonizar;
 
 		#endregion
 	}

@@ -430,7 +430,7 @@ namespace Civ.ObjetosEstado
 		public Edificio AgregaEdificio (EdificioRAW edif)
 		{
 			var ret = new Edificio (edif, this);
-			AlObtenerNuevoEdificio?.Invoke (this, new NuevoEdificioEventArgs (ret));
+			AlObtenerNuevoEdificio?.Invoke (this, new EdificioNuevoEventArgs (ret));
 			return ret;
 		}
 
@@ -869,12 +869,12 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando esta ciudad cambia de dueño
 		/// </summary>
-		public event EventHandler AlCambiarDueño;
+		public event EventHandler<TransferenciaObjetoEventArgs> AlCambiarDueño;
 
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		public event EventHandler AlReclutar;
+		public event EventHandler<ReclutarEventArgs> AlReclutar;
 
 		/// <summary>
 		/// Ocurre cuando se cambia un proyecto de construcción
@@ -884,7 +884,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando hay un edificio nuevo en la ciudad
 		/// </summary>
-		public event EventHandler AlObtenerNuevoEdificio;
+		public event EventHandler<EdificioNuevoEventArgs> AlObtenerNuevoEdificio;
 
 		/// <summary>
 		/// Ocurre cuando la ciudad se convierte en ruinas

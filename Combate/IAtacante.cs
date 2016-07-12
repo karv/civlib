@@ -32,7 +32,7 @@ namespace Civ.Combate
 		/// <summary>
 		/// ???
 		/// </summary>
-		event EventHandler AlSerAtacado;
+		event EventHandler<CombateEventArgs> AlSerAtacado;
 
 	}
 

@@ -69,7 +69,7 @@ namespace Civ.Orden
 				ArmadaEjecutante,
 				Destino,
 				this));
-			AlLlegar?.Invoke (this, null);
+			AlLlegar?.Invoke (this, EventArgs.Empty);
 		}
 
 		/// <summary>

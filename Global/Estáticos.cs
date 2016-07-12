@@ -520,7 +520,9 @@ namespace Civ.Global
 		{
 			var tiempo = DateTime.Now - timer;
 			timer = DateTime.Now;
-			var timeArgs = new TiempoEventArgs (tiempo.TotalHours, MultiplicadorVelocidad);
+			var timeArgs = new TiempoEventArgs (
+				               tiempo.TotalHours,
+				               MultiplicadorVelocidad);
 
 			// Cronómetros
 			foreach (Cronómetro x in Cronómetros)
@@ -562,7 +564,7 @@ namespace Civ.Global
 				var ccl = Ciclo ();
 				EntreCiclos?.Invoke (this, ccl);
 			}
-			AlTerminar?.Invoke (this, null);
+			AlTerminar?.Invoke (this, EventArgs.Empty);
 		}
 
 		/// <summary>

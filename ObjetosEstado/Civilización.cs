@@ -318,17 +318,17 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando una ciudad se une a esta civilización
 		/// </summary>
-		public event EventHandler AlGanarCiudad;
+		public event EventHandler<TransferenciaObjetoEventArgs> AlGanarCiudad;
 
 		/// <summary>
 		/// Ocurre cuando una ciudad se retira de esta civilización
 		/// </summary>
-		public event EventHandler AlPerderCiudad;
+		public event EventHandler<TransferenciaObjetoEventArgs> AlPerderCiudad;
 
 		/// <summary>
 		/// Ocurre cuando se recibe un nuevo menaje
 		/// </summary>
-		public event EventHandler AlNuevoMensaje;
+		public event EventHandler<MensajeEventArgs> AlNuevoMensaje;
 
 		/// <summary>
 		/// Ocurre antes del tick
@@ -343,7 +343,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando la civilización recibe un nuevo avance
 		/// </summary>
-		public event EventHandler AlDescubrirAvance;
+		public event EventHandler<AvanceEventArgs> AlDescubrirAvance;
 
 		#endregion
 

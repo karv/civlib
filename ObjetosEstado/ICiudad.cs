@@ -123,11 +123,11 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando esta ciudad cambia de dueño
 		/// </summary>
-		event EventHandler AlCambiarDueño;
+		event EventHandler<TransferenciaObjetoEventArgs> AlCambiarDueño;
 
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		event EventHandler AlReclutar;
+		event EventHandler<ReclutarEventArgs> AlReclutar;
 	}
 }
