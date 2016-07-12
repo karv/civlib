@@ -218,7 +218,7 @@ namespace Civ.Combate
 		{
 			Defensor = defensa.Defensa (atacante);
 			Atacante = atacante;
-			var attStack = Atacante as Stack;
+			Stack attStack = Atacante;
 			#if DEBUG
 			if (attStack == null)
 				throw new NullReferenceException ();
