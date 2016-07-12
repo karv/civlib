@@ -72,6 +72,10 @@ namespace Civ.IU
 		/// <value>The subtipo.</value>
 		public object Subtipo { get; }
 
+		/// <summary>
+		/// Devuelve el mensaje en su forma corta.
+		/// </summary>
+		/// <value>The msj corto.</value>
 		public string MsjCorto { get; }
 
 		/// <summary>
@@ -107,7 +111,8 @@ namespace Civ.IU
 
 		/// <summary>
 		/// </summary>
-		/// <param name="nMensaje">N mensaje.</param>
+		/// <param name="nMensaje">El formato del mensaje (con sus argumentos en nOrigen)</param>
+		/// <param name="nMensajeCorto">El mensaje corto</param>
 		/// <param name="tipo">Tipo.</param>
 		/// <param name="subtipo">Subtipo.</param>
 		/// <param name="nOrigen">N origen.</param>
