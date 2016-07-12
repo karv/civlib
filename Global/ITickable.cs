@@ -16,11 +16,11 @@ namespace Civ.Global
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		event EventHandler AlTickAntes;
+		event EventHandler<TiempoEventArgs> AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		event EventHandler AlTickDespués;
+		event EventHandler<TiempoEventArgs> AlTickDespués;
 	}
 }

@@ -216,11 +216,11 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event EventHandler AlTickAntes;
+		public event EventHandler<TiempoEventArgs> AlTickAntes;
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event EventHandler AlTickDespués;
+		public event EventHandler<TiempoEventArgs> AlTickDespués;
 
 		#endregion
 	}
