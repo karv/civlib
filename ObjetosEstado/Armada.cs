@@ -423,7 +423,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Un Tick de la armada
 		/// </summary>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			if (Orden.Ejecutar (t.GameTime))
 			{
@@ -570,7 +570,7 @@ namespace Civ.ObjetosEstado
 		/// <remarks>
 		/// Su argumento es la última iteración de su combate.
 		/// </remarks>
-		public event EventHandler AlSerDestruido;
+		public event EventHandler<CombateEventArgs> AlSerDestruido;
 
 		#endregion
 	}

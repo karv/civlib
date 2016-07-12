@@ -11,16 +11,16 @@ namespace Civ.Global
 		/// Ejecuta un tick
 		/// </summary>
 		/// <param name="t">Lapso del tick</param>
-		void Tick (TimeEventArgs t);
+		void Tick (TiempoEventArgs t);
 
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		event EventHandler AlTickAntes;
+		event EventHandler<TiempoEventArgs> AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		event EventHandler AlTickDespués;
+		event EventHandler<TiempoEventArgs> AlTickDespués;
 	}
 }

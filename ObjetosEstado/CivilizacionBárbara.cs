@@ -263,7 +263,7 @@ namespace Civ.ObjetosEstado
 		{
 		}
 
-		void ITickable.Tick (TimeEventArgs t)
+		void ITickable.Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
 
@@ -317,12 +317,12 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event EventHandler AlTickAntes;
+		public event EventHandler<TiempoEventArgs> AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event EventHandler AlTickDespués;
+		public event EventHandler<TiempoEventArgs> AlTickDespués;
 
 		#endregion
 	}

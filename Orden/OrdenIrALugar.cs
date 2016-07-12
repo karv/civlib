@@ -94,7 +94,7 @@ namespace Civ.Orden
 		/// <summary>
 		/// Ocurre al llegar al destino
 		/// </summary>
-		public event EventHandler AlLlegar;
+		public event EventHandler<TransladoEventArgs> AlLlegar;
 
 		#endregion
 	}

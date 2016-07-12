@@ -116,7 +116,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ejecuta un tick de tiempo
 		/// </summary>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			if (Trabajadores > 0)
 			{
@@ -201,12 +201,12 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event EventHandler AlTickAntes;
+		public event EventHandler<TiempoEventArgs> AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event EventHandler AlTickDespués;
+		public event EventHandler<TiempoEventArgs> AlTickDespués;
 
 		/// <summary>
 		/// Ocurre cuando se cambian los trabajadores

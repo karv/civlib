@@ -430,7 +430,7 @@ namespace Civ.ObjetosEstado
 		public Edificio AgregaEdificio (EdificioRAW edif)
 		{
 			var ret = new Edificio (edif, this);
-			AlObtenerNuevoEdificio?.Invoke (this, new NuevoEdificioEventArgs (ret));
+			AlObtenerNuevoEdificio?.Invoke (this, new EdificioNuevoEventArgs (ret));
 			return ret;
 		}
 
@@ -869,12 +869,12 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando esta ciudad cambia de dueño
 		/// </summary>
-		public event EventHandler AlCambiarDueño;
+		public event EventHandler<TransferenciaObjetoEventArgs> AlCambiarDueño;
 
 		/// <summary>
 		/// Ocurre cuando se recluta unidades en esta ciudad
 		/// </summary>
-		public event EventHandler AlReclutar;
+		public event EventHandler<ReclutarEventArgs> AlReclutar;
 
 		/// <summary>
 		/// Ocurre cuando se cambia un proyecto de construcción
@@ -884,7 +884,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre cuando hay un edificio nuevo en la ciudad
 		/// </summary>
-		public event EventHandler AlObtenerNuevoEdificio;
+		public event EventHandler<EdificioNuevoEventArgs> AlObtenerNuevoEdificio;
 
 		/// <summary>
 		/// Ocurre cuando la ciudad se convierte en ruinas
@@ -1001,7 +1001,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Da un tick hereditario.
 		/// </summary>
-		public void ResourceTick (TimeEventArgs t)
+		public void ResourceTick (TiempoEventArgs t)
 		{
 			foreach (ITickable x in Edificios)
 			{
@@ -1063,7 +1063,7 @@ namespace Civ.ObjetosEstado
 		/// Ejecuta PopTick (), ResourseTick Y calcula delta
 		/// En ese orden.
 		/// </summary>
-		public void Tick (TimeEventArgs t)
+		public void Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
 			var RecAntes = Almacén.Clonar ();
@@ -1087,12 +1087,12 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Ocurre antes del tick
 		/// </summary>
-		public event EventHandler AlTickAntes;
+		public event EventHandler<TiempoEventArgs> AlTickAntes;
 
 		/// <summary>
 		/// Ocurre después del tick
 		/// </summary>
-		public event EventHandler AlTickDespués;
+		public event EventHandler<TiempoEventArgs> AlTickDespués;
 
 		#endregion
 	}

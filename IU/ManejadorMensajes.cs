@@ -85,12 +85,12 @@ namespace Civ.IU
 		/// <summary>
 		/// Ocurre después de agregar un mensaje.
 		/// </summary>
-		public event EventHandler AlAgregar;
+		public event EventHandler<MensajeEventArgs> AlAgregar;
 
 		/// <summary>
 		/// Ocurre después de eliminar un mensaje.
 		/// </summary>
-		public event EventHandler AlEliminar;
+		public event EventHandler<MensajeEventArgs> AlEliminar;
 
 		#endregion
 	}
