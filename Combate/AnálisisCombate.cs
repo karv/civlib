@@ -76,12 +76,17 @@ namespace Civ.Combate
 				ArmadaYo.CivDueño,
 				ArmadaOtro,
 				ArmadaOtro.CivDueño);
+			
 			foreach (var x in batallas)
-				ret.AppendLine ("\t" + x.Análisis ());
+				ret.AppendLine (x.Análisis ());
+
+			/*
 			ret.AppendLine ("Total\tdirecto " + TotalDañoDirecto ());
 			ret.AppendLine ("\tdisperso " + TotalDañoDisperso ());
 			ret.AppendLine ("\t\t" + TotalDaño ());
+			*/
 			return ret.ToString ();
+
 		}
 
 		/// <summary>
@@ -127,7 +132,6 @@ namespace Civ.Combate
 		/// Una armadas involucradas
 		/// </summary>
 		public Armada ArmadaOtro { get; }
-
 
 		readonly ICollection<IAnálisisBatalla> batallas = new List<IAnálisisBatalla> ();
 

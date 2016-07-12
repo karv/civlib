@@ -322,9 +322,9 @@ namespace Civ.ObjetosEstado
 		public void Pelea (Armada armada, TimeSpan t)
 		{
 			var cbt = new AnálisisCombate (this, armada, t);
-			Debug.WriteLine (
-				string.Format ("{0} peleando contra {1}", CivDueño, armada.CivDueño),
-				"Pelea");
+			//Debug.WriteLine (
+			//	string.Format ("{0} peleando contra {1}", CivDueño, armada.CivDueño),
+			//	"Pelea");
 			foreach (Stack x in Unidades)
 			{
 				var btl = new AnálisisBatalla (x, armada, t);
@@ -342,17 +342,6 @@ namespace Civ.ObjetosEstado
 			}
 
 			cbt.Ejecutar ();
-
-			foreach (var x in cbt.Batallas)
-			{
-				Debug.WriteLine (
-					string.Format (
-						"{0} dañó a {1} {2:P}",
-						cbt.ArmadaYo,
-						x.Defensor,
-						x.Defensor.HP),
-					"Pelea");
-			}
 
 			// Informe
 			var civ = CivDueño as Civilización;

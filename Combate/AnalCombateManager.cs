@@ -2,7 +2,6 @@
 using Civ.ObjetosEstado;
 using Civ.IU;
 using System;
-using System.Diagnostics;
 
 namespace Civ.Combate
 {
@@ -98,5 +97,7 @@ namespace Civ.Combate
 
 			preData.Clear ();
 		}
+
+
 	}
 }

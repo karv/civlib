@@ -154,12 +154,13 @@ namespace Civ.Combate
 		/// <returns>A <see cref="System.String"/> that represents the current <see cref="Civ.Combate.AnálisisCombate"/>.</returns>
 		public override string ToString ()
 		{
-			return string.Format (
-				"[AnálisisCombate: Atacante={0}, Defensor={1}, DañoDisperso={2}, DañoDirecto={3}]",
-				Atacante,
-				Defensor,
-				DañoDisperso,
-				DañoDirecto);
+			var strRet = String.Format (
+				             "{0} > {1}: {2} -> {3}",
+				             Atacante,
+				             Defensor.Nombre,
+				             CantidadInicialDef,
+				             CantidadFinalDef);
+			return strRet;
 		}
 
 		/// <summary>

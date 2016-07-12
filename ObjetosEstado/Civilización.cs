@@ -174,10 +174,23 @@ namespace Civ.ObjetosEstado
 			Combates = new AnálisisCombateManager (this);
 		}
 
+		[NonSerialized]
+		AnálisisCombateManager _combates;
+
 		/// <summary>
 		/// Devuelve el manejador de mensajes de combates.
 		/// </summary>
-		public AnálisisCombateManager Combates { get; private set; }
+		public AnálisisCombateManager Combates
+		{
+			get
+			{
+				return _combates;
+			}
+			private set
+			{
+				_combates = value;
+			}
+		}
 
 		#endregion
 
