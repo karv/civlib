@@ -59,6 +59,14 @@ namespace Civ.Combate
 		/// </summary>
 		/// <value>The daño disperso.</value>
 		float DañoDisperso { get; }
+
+		ulong CantidadInicialDef { get; }
+
+		ulong CantidadInicialAtt { get; }
+
+		ulong CantidadFinalDef { get; }
+
+		ulong CantidadFinalAtt { get; }
 	}
 	
 }

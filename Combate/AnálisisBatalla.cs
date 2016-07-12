@@ -76,6 +76,20 @@ namespace Civ.Combate
 			return Atacante == anal.Atacante && Defensor == anal.Defensor;
 		}
 
+		public ulong CantidadInicialDef { get; }
+
+		public ulong CantidadInicialAtt { get; }
+
+		public ulong CantidadFinalDef
+		{
+			get
+			{
+				return Defensor.Cantidad;
+			}
+		}
+
+		public ulong CantidadFinalAtt { get; private set; }
+
 		#endregion
 
 		#region Contexto
@@ -185,7 +199,16 @@ namespace Civ.Combate
 		{
 			Defensor = defensa.Defensa (atacante);
 			Atacante = atacante;
+			var attStack = Atacante as Stack;
+			#if DEBUG
+			if (attStack == null)
+				throw new NullReferenceException ();
+			#endif
 			Duración = t;
+			CantidadInicialDef = Defensor.Cantidad;
+			//CantidadInicialDef = Atacante.Cantidad;
+
+
 
 			if (Defensor == null)
 			{
@@ -198,6 +221,7 @@ namespace Civ.Combate
 			DañoDirecto = Daño * (1 - Dispersión);
 			DañoDisperso = Daño * Dispersión;
 		}
+
 
 		#endregion
 	}
