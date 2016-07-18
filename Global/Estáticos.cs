@@ -626,6 +626,9 @@ namespace Civ.Global
 
 			// Generar bárbaros
 			BarbGen.Tick (t);
+
+			// Eliminar muertos
+			_matarCivsPendientes ();
 		}
 
 
@@ -634,12 +637,18 @@ namespace Civ.Global
 		/// </summary>
 		void EliminarMuertos (object sender, EventArgs e)
 		{
+			// TODO: el eventArgs debe decir cu¿al civ es quien debe morir.
 			State.PendientesMorir.UnionWith (GState.Civs.Where (z => z.DeboDestruirme ()));
+		}
+
+		static void _matarCivsPendientes ()
+		{
 			foreach (var x in State.PendientesMorir)
 			{
 				x.Destruirse ();
 				State.Civs.Remove (x);
 			}
+			State.PendientesMorir.Clear ();
 		}
 
 		#endregion
