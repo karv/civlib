@@ -463,7 +463,7 @@ namespace Civ.ObjetosEstado
 			{
 				// Lista de ciencias abiertas que aún requieren el recurso Rec.
 				var CienciaInvertibleRec = new List<Ciencia> (CienciasAbiertas ().Where (z => z.Reqs.Recursos.ContainsKey (Rec) && // Que la ciencia requiera de tal recurso
-				                           (!Investigando.Any (w => w.Ciencia == z) ||
+				                           (Investigando.All (w => w.Ciencia != z) ||
 				                           Investigando.EncuentraInstancia (z) [Rec] < z.Reqs.Recursos [Rec]))); // Y que aún le falte de tal recurso.
 				if (CienciaInvertibleRec.Count > 0)
 				{

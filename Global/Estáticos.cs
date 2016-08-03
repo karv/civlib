@@ -553,11 +553,13 @@ namespace Civ.Global
 			Inicializar ();
 			suscripciones ();
 
+			/* Generar una armada bárbara en la ciudad 0 [DEBUG]
 			var barb = BarbGen.Armada (State.Civs [0].Ciudades [0].Posición ());
 			Debug.WriteLine (barb, "BarbGen");
 			barb.Posición.AlColisionar += obj => Debug.WriteLine (
 				"Armada genérica chocando con obj", "Armada genérica");
 
+			*/
 			timer = DateTime.Now;
 			while (!Terminar)
 			{
