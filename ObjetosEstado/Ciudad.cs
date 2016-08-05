@@ -740,11 +740,11 @@ namespace Civ.ObjetosEstado
 		/// <returns>Devuelve el trabajo en la ciudad correspondiente a este TrabajoRAW.</returns>
 		public Trabajo EncuentraInstanciaTrabajo (TrabajoRAW raw)
 		{
-			System.Diagnostics.Debug.Assert (raw != null);
+			Debug.Assert (raw != null);
 			EdificioRAW Ed = raw.Edificio;   // La clase de edificio que puede contener este trabajo.
 			Edificio Edif = EncuentraInstanciaEdificio (Ed); // La instancia del edificio en esta ciudad.
 
-			System.Diagnostics.Debug.Assert (Edif != null);
+			Debug.Assert (Edif != null);
 			if (Edif == null)
 				return null;    // Devuelve nulo si no existe el edificio donde se trabaja.
 			foreach (Trabajo x in ObtenerListaTrabajos())
@@ -927,13 +927,13 @@ namespace Civ.ObjetosEstado
 			var Crecimiento = new float[3];
 			float Consumo = Poblacion * ConsumoAlimentoPorCiudadanoBase * (float)t.TotalHours;
 
+			#if DEBUG
 			if (float.IsInfinity (AlimentoAlmacen) || float.IsNaN (AlimentoAlmacen))
-			{
-				System.Diagnostics.Debugger.Break ();
-			}
-			System.Diagnostics.Debug.Assert (
+				Debugger.Break ();
+			Debug.Assert (
 				!float.IsInfinity (AlimentoAlmacen) && !float.IsNaN (AlimentoAlmacen),
 				"Se acaba de obtener alimento infinito.");
+			#endif
 			//Que coman
 			//Si tienen qué comer
 			if (Consumo <= AlimentoAlmacen)
@@ -945,8 +945,8 @@ namespace Civ.ObjetosEstado
 				//El porcentage de muertes
 				float pctMuerte = (1 - (AlimentoAlmacen / (Poblacion * ConsumoAlimentoPorCiudadanoBase))) * TasaMortalidadHambrunaBase;
 				if (!(0 <= pctMuerte && pctMuerte <= 1))
-					System.Diagnostics.Debugger.Break ();
-				System.Diagnostics.Debug.Assert (0 <= pctMuerte && pctMuerte <= 1, "wat?");
+					Debugger.Break ();
+				Debug.Assert (0 <= pctMuerte && pctMuerte <= 1, "wat?");
 				AlimentoAlmacen = 0;
 				//Promesas de muerte por sector.
 				Crecimiento [0] -= PoblacionPreProductiva * pctMuerte;
