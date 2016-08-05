@@ -64,6 +64,10 @@ namespace Civ.ObjetosEstado
 
 		#region Operacional
 
+		/// <summary>
+		/// Devuelve un nuevo <c>InfoPoblación</c> con el resultado de agregarle cierta población productiva.
+		/// </summary>
+		/// <param name="agrega">Cambio en población productiva.</param>
 		public InfoPoblación AgregaPoblación (long agrega)
 		{
 			if (agrega + SegundaEdad < 0)
@@ -71,6 +75,12 @@ namespace Civ.ObjetosEstado
 			return new InfoPoblación (PrimeraEdad, agrega + SegundaEdad, TerceraEdad);
 		}
 
+		/// <summary>
+		/// Devuelve un nuevo <c>InfoPoblación</c> con el resultado de agregarle cierta población.
+		/// </summary>
+		/// <param name="prim">Población de primera edad a agregar</param>
+		/// <param name="seg">Población de segunda edad a agregar</param>
+		/// <param name="terc">Población de tercera edad a agregar</param>
 		public InfoPoblación AgregaPoblación (float prim, float seg, float terc)
 		{
 			return new InfoPoblación (
@@ -79,6 +89,10 @@ namespace Civ.ObjetosEstado
 				terc + TerceraEdad);
 		}
 
+		/// <summary>
+		/// Devuelve un nuevo <c>InfoPoblación</c> con el resultado de agregarle cierta población.
+		/// </summary>
+		/// <param name="delta">Arreglo 1-dimensional de longitud 3, representa la población a agregar.</param>
 		public InfoPoblación AgregaPoblación (float [] delta)
 		{ 
 			return AgregaPoblación (delta [0], delta [1], delta [2]);
@@ -116,6 +130,9 @@ namespace Civ.ObjetosEstado
 
 		#endregion
 
+		/// <summary>
+		/// Devuelve la puntuación poblacional.
+		/// </summary>
 		public float Puntuación
 		{
 			get
