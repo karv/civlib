@@ -2,7 +2,6 @@
 using System.Linq;
 using Civ.RAW;
 using Civ.ObjetosEstado;
-using Civ.Global;
 
 namespace Civ.Almacén
 {
@@ -10,7 +9,7 @@ namespace Civ.Almacén
 	/// Almacena recursos globales.
 	/// </summary>
 	[Serializable]
-	public class AlmacénCiv : AlmacénGenérico, IAlmacén
+	public class AlmacénCiv : AlmacénGenérico
 	{
 		#region General
 
@@ -24,8 +23,19 @@ namespace Civ.Almacén
 		/// </summary>
 		public void RemoverRecursosDesaparece ()
 		{
-			foreach (var x in Recursos.Where (x => x.Desaparece))
+			foreach (var x in Entradas.Where (x => x.Desaparece && this[x] > 0))
 				this [x] = 0;
+		}
+
+		/// <summary>
+		/// Devuelve una copia de la lista de entradas.
+		/// </summary>
+		public Recurso[] Entradas
+		{
+			get
+			{
+				return Keys.ToArray<Recurso> ();
+			}
 		}
 
 		/// <summary>
@@ -35,12 +45,11 @@ namespace Civ.Almacén
 		/// 
 		/// O establece los recursos globales del almacén global.
 		/// </summary>
-		/// <param name="id">Id del recurso</param>
-		new public float this [int id]
+		/// <param name="recurso">Recurso</param>
+		new public float this [Recurso recurso]
 		{
 			get
 			{
-				var recurso = Juego.Data.Recursos [id];
 				if (recurso.EsGlobal)
 				{
 					return base [recurso];
@@ -57,7 +66,6 @@ namespace Civ.Almacén
 			}
 			set
 			{
-				var recurso = Juego.Data.Recursos [id];
 				if (recurso.EsGlobal)
 					base [recurso] = value;
 				else

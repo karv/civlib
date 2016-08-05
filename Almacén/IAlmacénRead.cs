@@ -17,12 +17,6 @@ namespace Civ.Almacén
 		IEnumerable<Recurso> Recursos { get; }
 
 		/// <summary>
-		/// Devuelve un array de float que representa las entradas de recursos.
-		/// </summary>
-		/// <returns>The array.</returns>
-		IList<float> AsArray ();
-
-		/// <summary>
 		/// Almacén de lectura y escritura
 		/// </summary>
 		/// <param name="recurso">Recurso.</param>
@@ -32,7 +26,7 @@ namespace Civ.Almacén
 		/// Revisa si contiene (y cuántas veces) los recursos codificados en un arreglo de float.
 		/// </summary>
 		/// <param name="otrosReqs">Otros recursos</param>
-		float ContieneRecursos (IList<float> otrosReqs);
+		float ContieneRecursos (IDictionary<Recurso, float> otrosReqs);
 
 		/// <summary>
 		/// Revisa si contiene (y cuántas veces) los recursos codificados en un arreglo de float.

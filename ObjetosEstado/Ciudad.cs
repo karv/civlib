@@ -285,13 +285,13 @@ namespace Civ.ObjetosEstado
 		}
 
 		/// <summary>
-		/// Devuelve los recursos que son visibles en la ciudad
+		/// DEvuelve los recursos que son visibles en la ciudad
 		/// </summary>
 		public ICollection<Recurso> RecursosVisibles ()
 		{
 			var ret = new HashSet<Recurso> ();
-			ret.UnionWith (Almacén.RecursosPositivos ());
-			ret.UnionWith (CivDueño.Almacén.RecursosPositivos ());
+			ret.UnionWith (Almacén.Keys);
+			ret.UnionWith (CivDueño.Almacén.Entradas);
 			ret.UnionWith (Terr.Eco.AlmacénRecursos.Recursos);
 			#if DEBUG
 			return ret;
@@ -843,7 +843,7 @@ namespace Civ.ObjetosEstado
 			{
 				float ret = 0;
 				// Recursos
-				foreach (var x in Almacén.Recursos)
+				foreach (var x in Almacén.Keys)
 					ret += x.Valor * Almacén [x];
 
 				//Edificios
@@ -1053,7 +1053,7 @@ namespace Civ.ObjetosEstado
 		public void DestruirRecursosTemporales ()
 		{
 			// Desaparecen algunos recursos
-			var Alm = new List<Recurso> (Almacén.Recursos.Where (x => x.Desaparece));
+			var Alm = new List<Recurso> (Almacén.Keys.Where (x => x.Desaparece));
 			foreach (Recurso x in Alm)
 				Almacén [x] = 0;
 
@@ -1066,21 +1066,23 @@ namespace Civ.ObjetosEstado
 		public void Tick (TiempoEventArgs t)
 		{
 			AlTickAntes?.Invoke (this, t);
-			var RecAntes = Almacén.Clonar ();
+			var RecAntes = new Dictionary<Recurso, float> (Almacén);
 			PopTick (t.GameTime);
 			ResourceTick (t);
 
 			// Hacer la suma manual 
-			for (int i = 0; i < DeltaRec.Count; i++)
-				DeltaRec [i] = (Almacén [i] - (RecAntes [i]) / (float)t.GameTime.TotalHours);
-
-			if (CivDueño != null && Poblacion == 0)
-			{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
-				{
-					AlConvertirseRuinas?.Invoke (this, EventArgs.Empty);
-					CivDueño.RemoveCiudad (this);
-				}
+			foreach (var x in DeltaRec)
+			{
+				DeltaRec [x.Key] = (Almacén [x.Key] - (RecAntes [x.Key]) / (float)t.GameTime.TotalHours);
 			}
+			for (int i = 0; i < DeltaRec.Count; i++)
+				if (CivDueño != null && Poblacion == 0)
+				{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
+					{
+						AlConvertirseRuinas?.Invoke (this, EventArgs.Empty);
+						CivDueño.RemoveCiudad (this);
+					}
+				}
 			AlTickDespués?.Invoke (this, t);
 		}
 

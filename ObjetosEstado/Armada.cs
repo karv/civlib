@@ -104,18 +104,16 @@ namespace Civ.ObjetosEstado
 			var drops = new DropStack (Posición);
 			foreach (var u in _unidades)
 			{
-				var i = 0;
 				while (u.Value.Carga.CargaRestante < 0)
 				{
-					var rec = Juego.Data.Recursos [i];
-					var t = u.Value.Carga [i];
-					drops [rec] += t;
-					u.Value.Carga [i] = 0;
+					var t = u.Value.Carga.Elegir ();
+					drops.Almacén [t.Key] += t.Value;
+					u.Value.Carga.Remove (t.Key);
 				}
 			}
 
 			// Si dropeó algo, se agrega.
-			if (drops.Count > 0)
+			if (drops.Almacén.Count > 0)
 				Juego.State.Drops.Add (drops);
 		}
 

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ListasExtra;
+using System;
 using Civ.RAW;
 using Civ.ObjetosEstado;
-using Civ.Global;
 
 namespace Civ.Almacén
 {
@@ -10,7 +10,7 @@ namespace Civ.Almacén
 	/// manipulando y controlando los recursos ecológicos y genéricos.
 	/// </summary>
 	[Serializable]
-	public class AlmacénCiudad : AlmacénGenérico, IAlmacén
+	public class AlmacénCiudad : AlmacénGenérico
 	{
 		#region ctor
 
@@ -33,27 +33,39 @@ namespace Civ.Almacén
 		public readonly Ciudad CiudadDueño;
 
 		/// <summary>
-		/// Almacén de lectura y escritura
+		/// Devuelve la cantidad de un recurso existente en ciudad.
+		/// Incluye los recursos ecológicos.
+		/// 
+		/// O establece la cantidad de recursos de esta ciudad (o global, según el tipo de recurso).
 		/// </summary>
-		/// <param name="id">Identifier.</param>
-		public new float this [int id]
+		/// <param name="recurso">Recurso a contar</param>
+		new public float this [Recurso recurso]
 		{
 			get
 			{
-				return base [id] + CiudadDueño.Terr.Eco.AlmacénRecursos [Juego.Data.Recursos [id]];
+				float r;
+
+				r = base [recurso]; // Devuelve lo almacenado en esta ciudad.
+				if (CiudadDueño.Terr.Eco.ListaRecursos.Contains (recurso))
+					r += CiudadDueño.Terr.Eco.AlmacénRecursos [recurso];
+
+				return r;
 			}
 			set
 			{
-				var recurso = Juego.Data.Recursos [id];
 				if (recurso.EsGlobal)
+				{
 					CiudadDueño.CivDueño.Almacén [recurso] = value;
+				}
 				else if (recurso.EsEcológico)
+				{
 					CiudadDueño.Terr.Eco.RecursoEcológico [recurso] = value;
+				}
 				else
 				{
 					if (float.IsNaN (value))
 						System.Diagnostics.Debugger.Break ();
-					base [id] = value;
+					base [recurso] = value;
 				}
 			}
 		}
@@ -64,10 +76,9 @@ namespace Civ.Almacén
 		/// <param name="reqs">Lista de recursos para ver si posee</param>
 		/// <param name="veces">Cuántas veces contiene estos requisitos</param>
 		/// <returns>true sólo si posee tales recursos.</returns>
-		public bool PoseeRecursos (IAlmacénRead reqs, ulong veces = 1)
+		public bool PoseeRecursos (ListaPeso<Recurso> reqs, ulong veces = 1)
 		{
-			
-			return ContieneRecursos (reqs) >= veces;
+			return this >= reqs * veces;
 		}
 
 		#endregion
