@@ -45,34 +45,34 @@ namespace Civ.Almacén
 		/// 
 		/// O establece los recursos globales del almacén global.
 		/// </summary>
-		/// <param name="recurso">Recurso</param>
-		new public float this [Recurso recurso]
+		/// <param name="rec">Recurso</param>
+		public override float this [Recurso rec]
 		{
 			get
 			{
-				if (recurso.EsGlobal)
+				if (rec.EsGlobal)
 				{
-					return base [recurso];
+					return base [rec];
 				}
 				else
 				{
 					float ret = 0;
 					foreach (var x in Civil.Ciudades)
 					{
-						ret += x.Almacén [recurso];
+						ret += x.Almacén [rec];
 					}
 					return ret;
 				}
 			}
 			set
 			{
-				if (recurso.EsGlobal)
-					base [recurso] = value;
+				if (rec.EsGlobal)
+					base [rec] = value;
 				else
 				{
 					throw new Exception (string.Format (
 						"Sólo se pueden almacenar recursos globales en AlmacenCiv.\n{0} no es global.",
-						recurso));
+						rec));
 				}
 			}
 		}

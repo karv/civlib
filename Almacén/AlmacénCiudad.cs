@@ -38,34 +38,34 @@ namespace Civ.Almacén
 		/// 
 		/// O establece la cantidad de recursos de esta ciudad (o global, según el tipo de recurso).
 		/// </summary>
-		/// <param name="recurso">Recurso a contar</param>
-		new public float this [Recurso recurso]
+		/// <param name="rec">Recurso a contar</param>
+		public override float this [Recurso rec]
 		{
 			get
 			{
 				float r;
 
-				r = base [recurso]; // Devuelve lo almacenado en esta ciudad.
-				if (CiudadDueño.Terr.Eco.ListaRecursos.Contains (recurso))
-					r += CiudadDueño.Terr.Eco.AlmacénRecursos [recurso];
+				r = base [rec]; // Devuelve lo almacenado en esta ciudad.
+				if (CiudadDueño.Terr.Eco.ListaRecursos.Contains (rec))
+					r += CiudadDueño.Terr.Eco.AlmacénRecursos [rec];
 
 				return r;
 			}
 			set
 			{
-				if (recurso.EsGlobal)
+				if (rec.EsGlobal)
 				{
-					CiudadDueño.CivDueño.Almacén [recurso] = value;
+					CiudadDueño.CivDueño.Almacén [rec] = value;
 				}
-				else if (recurso.EsEcológico)
+				else if (rec.EsEcológico)
 				{
-					CiudadDueño.Terr.Eco.RecursoEcológico [recurso] = value;
+					CiudadDueño.Terr.Eco.RecursoEcológico [rec] = value;
 				}
 				else
 				{
 					if (float.IsNaN (value))
 						System.Diagnostics.Debugger.Break ();
-					base [recurso] = value;
+					base [rec] = value;
 				}
 			}
 		}

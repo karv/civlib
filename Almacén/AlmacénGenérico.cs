@@ -26,6 +26,22 @@ namespace Civ.Almacén
 		#region General
 
 		/// <summary>
+		/// Devuelve o establece un <c>float</c> la cantidad de un recurso en este almacén
+		/// </summary>
+		/// <param name="rec">Tipo de recurso</param>
+		public new virtual float this [Recurso rec]
+		{
+			get
+			{
+				return base [rec];
+			}
+			set
+			{
+				base [rec] = value;
+			}
+		}
+
+		/// <summary>
 		/// Devuelve la lista de recursos implicados
 		/// </summary>
 		/// <value>The recursos.</value>
