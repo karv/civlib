@@ -68,7 +68,7 @@ namespace Civ.Almacén
 
 		#region Eventos
 
-		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
+		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacén.AlCambiar
 		{
 			add
 			{
@@ -97,7 +97,7 @@ namespace Civ.Almacén
 		/// </summary>
 		/// <param name="otrosReqs">Otros recursos</param>
 		/// <returns>The recursos.</returns>
-		public float ContieneRecursos (IAlmacénRead otrosReqs)
+		public float ContieneRecursos (IAlmacén otrosReqs)
 		{
 			return ContieneRecursos (otrosReqs.ToDictionary ());
 		}

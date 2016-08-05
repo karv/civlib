@@ -32,7 +32,7 @@ namespace Civ.Almacén
 		/// Ocurre cuando cambia el almacén de un recurso
 		/// Recurso, valor viejo, valor nuevo
 		/// </summary>
-		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacénRead.AlCambiar
+		event EventHandler<CambioElementoEventArgs<Recurso, float>> IAlmacén.AlCambiar
 		{
 			add
 			{
@@ -63,7 +63,7 @@ namespace Civ.Almacén
 
 		#region Almacén
 
-		IEnumerable<Recurso> IAlmacénRead.Recursos
+		IEnumerable<Recurso> IAlmacén.Recursos
 		{
 			get
 			{
@@ -80,14 +80,6 @@ namespace Civ.Almacén
 			set
 			{
 				Almacén [recurso] = value;
-			}
-		}
-
-		float IAlmacénRead.this [Recurso recurso]
-		{
-			get
-			{
-				return Almacén [recurso];
 			}
 		}
 
@@ -111,7 +103,7 @@ namespace Civ.Almacén
 		/// </summary>
 		/// <param name="otrosReqs">Otros recursos</param>
 		/// <returns>The recursos.</returns>
-		public float ContieneRecursos (IAlmacénRead otrosReqs)
+		public float ContieneRecursos (IAlmacén otrosReqs)
 		{
 			throw new NotImplementedException ();
 		}

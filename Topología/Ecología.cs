@@ -50,7 +50,7 @@ namespace Civ.Topología
 		/// <summary>
 		/// Devuelve el almacén de recursos.
 		/// </summary>
-		public IAlmacénRead AlmacénRecursos
+		public IAlmacén AlmacénRecursos
 		{
 			get
 			{

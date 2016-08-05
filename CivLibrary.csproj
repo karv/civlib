@@ -109,7 +109,6 @@
     <Compile Include="IU\Mensaje.cs" />
     <Compile Include="IU\NewGameOptions.cs" />
     <Compile Include="Global\Cronómetro.cs" />
-    <Compile Include="Almacén\IAlmacénRead.cs" />
     <Compile Include="Almacén\ExtIAlmacén.cs" />
     <Compile Include="Global\TimeEventArgs.cs" />
     <Compile Include="Ciencias\AvanceEventArgs.cs" />
