@@ -3,7 +3,6 @@ using Civ.RAW;
 
 namespace Civ.Almacén
 {
-
 	/// <summary>
 	/// Extensiones de Almacenes
 	/// </summary>
@@ -17,9 +16,7 @@ namespace Civ.Almacén
 		{
 			var ret = new Dictionary<Recurso, float> ();
 			foreach (var x in alm.Recursos)
-			{
 				ret [x] = alm [x];
-			}
 			return ret;
 		}
 	}
