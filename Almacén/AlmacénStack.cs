@@ -70,6 +70,5 @@ namespace Civ.Almacén
 		}
 
 		#endregion
-
 	}
 }
