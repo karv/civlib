@@ -337,6 +337,15 @@ namespace Civ.ObjetosEstado
 			return Defensa [uRAW]; // Devuelve la unidad creada.
 		}
 
+		/// <summary>
+		/// Agrega una nueva armada.
+		/// </summary>
+		/// <returns>La armada agregada.</returns>
+		public Armada AgregaArmada ()
+		{
+			return new Armada (this);
+		}
+
 		#endregion
 
 		#region Construcción
