@@ -6,3 +6,4 @@ obj/
 *.autosave
 /dll/
 /packages/
+doc/
