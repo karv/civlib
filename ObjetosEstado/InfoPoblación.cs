@@ -1,49 +1,144 @@
 ﻿using System;
+using Civ.Global;
 
-namespace Civ
+namespace Civ.ObjetosEstado
 {
 	/// <summary>
 	/// Mantiene información sobre la distribución por edades de una población
 	/// </summary>
 	[Serializable]
-	public struct InfoPoblación
+	public struct InfoPoblación : IPuntuado
 	{
+		#region Interno
+
+		/// <summary>
+		/// Población <c>float</c> de infantes.
+		/// </summary>
+		public readonly float PrimeraEdad;
+		/// <summary>
+		/// Población <c>float</c> de fuerza de trabajo.
+		/// </summary>
+		public readonly float SegundaEdad;
+		/// <summary>
+		/// Población <c>float</c> de viejos.
+		/// </summary>
+		public readonly float TerceraEdad;
+
+		#endregion
+
+		#region Información
+
 		/// <summary>
 		/// Población infantil
 		/// </summary>
-		public readonly ulong PreProductiva;
+		public long PreProductiva
+		{ get { return (long)PrimeraEdad; } }
+
 		/// <summary>
 		/// Población trabajadora
 		/// </summary>
-		public readonly ulong Productiva;
+		public long Productiva
+		{ get { return (long)SegundaEdad; } }
+
 		/// <summary>
 		/// Población de la tercera edad
 		/// </summary>
-		public readonly ulong PostProductiva;
+		public long PostProductiva
+		{ get { return (long)TerceraEdad; } }
 
 		/// <summary>
 		/// Devuelve la población total
 		/// </summary>
 		/// <value>The total.</value>
-		public ulong Total
+		public long Total
+		{ get { return  PreProductiva + Productiva + PostProductiva; } }
+
+		/// <summary>
+		/// Devuelve el total poblacional real.
+		/// </summary>
+		/// <value>The real total.</value>
+		public float RealTotal
+		{ get { return PrimeraEdad + SegundaEdad + TerceraEdad; } }
+
+		#endregion
+
+		#region Operacional
+
+		/// <summary>
+		/// Devuelve un nuevo <c>InfoPoblación</c> con el resultado de agregarle cierta población productiva.
+		/// </summary>
+		/// <param name="agrega">Cambio en población productiva.</param>
+		public InfoPoblación AgregaPoblación (long agrega)
 		{
-			get
-			{
-				return  PreProductiva + Productiva + PostProductiva;
-			}
+			if (agrega + SegundaEdad < 0)
+				throw new Exception ();
+			return new InfoPoblación (PrimeraEdad, agrega + SegundaEdad, TerceraEdad);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Civ.InfoPoblación"/> struct.
+		/// Devuelve un nuevo <c>InfoPoblación</c> con el resultado de agregarle cierta población.
+		/// </summary>
+		/// <param name="prim">Población de primera edad a agregar</param>
+		/// <param name="seg">Población de segunda edad a agregar</param>
+		/// <param name="terc">Población de tercera edad a agregar</param>
+		public InfoPoblación AgregaPoblación (float prim, float seg, float terc)
+		{
+			return new InfoPoblación (
+				prim + PrimeraEdad,
+				seg + SegundaEdad,
+				terc + TerceraEdad);
+		}
+
+		/// <summary>
+		/// Devuelve un nuevo <c>InfoPoblación</c> con el resultado de agregarle cierta población.
+		/// </summary>
+		/// <param name="delta">Arreglo 1-dimensional de longitud 3, representa la población a agregar.</param>
+		public InfoPoblación AgregaPoblación (float [] delta)
+		{ 
+			return AgregaPoblación (delta [0], delta [1], delta [2]);
+		}
+
+
+		#endregion
+
+		#region ctor
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="InfoPoblación"/> struct.
 		/// </summary>
 		/// <param name="pre">Población preproductiva</param>
 		/// <param name="prod">Población productiva</param>
 		/// <param name="post">Población postproductiva</param>
-		public InfoPoblación (ulong pre, ulong prod, ulong post)
+		public InfoPoblación (float pre, float prod, float post)
 		{
-			PreProductiva = pre;
-			Productiva = prod;
-			PostProductiva = post;
+			if (pre < 0 || prod < 0 || post < 0)
+				throw new ArgumentException ("Ninguna población puede ser negativa.");
+			PrimeraEdad = pre;
+			SegundaEdad = prod;
+			TerceraEdad = post;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="InfoPoblación"/> struct.
+		/// Sólo agrega población productiva.
+		/// </summary>
+		/// <param name="prod">Población productiva real</param>
+		public InfoPoblación (float prod)
+			: this (0, prod, 0)
+		{
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Devuelve la puntuación poblacional.
+		/// </summary>
+		public float Puntuación
+		{
+			get
+			{
+				return PrimeraEdad * 2 + SegundaEdad * 3 + TerceraEdad;
+			}
 		}
 	}
 }

@@ -78,7 +78,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Devuelve la cantidad máxima de unidades contruíbles de cierto tipo.
 		/// </summary>
-		ulong UnidadesConstruibles (IUnidadRAW unidad);
+		long UnidadesConstruibles (IUnidadRAW unidad);
 
 		/// <summary>
 		/// Devuelve una colección de las unidades que podrían ser contruidas en esta ciudad
@@ -97,7 +97,7 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		/// <param name="uRAW">Tipo de unidad</param>
 		/// <param name="cantidad">Cantidad.</param>
-		Stack Reclutar (IUnidadRAW uRAW, ulong cantidad = 1);
+		Stack Reclutar (IUnidadRAW uRAW, long cantidad = 1);
 
 		/// <summary>
 		/// Calcula la tasa de cambio por hora de un recurso específico
@@ -108,12 +108,12 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Devuelve el número de trabajadores.
 		/// </summary>
-		ulong NumTrabajadores { get; }
+		long NumTrabajadores { get; }
 
 		/// <summary>
 		/// Devuelve el número de trabajadores desocupados.
 		/// </summary>
-		ulong TrabajadoresDesocupados { get; }
+		long TrabajadoresDesocupados { get; }
 
 		/// <summary>
 		/// Ocurre cuando el nombre de la ciudad es cambiado

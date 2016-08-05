@@ -17,11 +17,11 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Cantidad reclutada
 		/// </summary>
-		public readonly ulong Cantidad;
+		public readonly long Cantidad;
 
 		/// <param name="tipo">Tipo.</param>
 		/// <param name="cantidad">Cantidad.</param>
-		public ReclutarEventArgs (IUnidadRAW tipo, ulong cantidad)
+		public ReclutarEventArgs (IUnidadRAW tipo, long cantidad)
 		{
 			Tipo = tipo;
 			Cantidad = cantidad;

@@ -244,7 +244,7 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		/// <param name="raw">Tipo de unidad</param>
 		/// <param name="cantidad">Cantidad</param>
-		public void AgregaUnidad (IUnidadRAW raw, ulong cantidad)
+		public void AgregaUnidad (IUnidadRAW raw, long cantidad)
 		{
 			if (cantidad <= 0)
 			{
@@ -255,7 +255,7 @@ namespace Civ.ObjetosEstado
 			var realCantidad = 
 				float.IsPositiveInfinity (PesoLibre) ?
 				cantidad :
-				Math.Min (cantidad, (ulong)(PesoLibre / raw.Peso));
+				Math.Min (cantidad, (long)(PesoLibre / raw.Peso));
 			if (realCantidad == 0)
 				return;
 			if (_unidades.ContainsKey (raw))

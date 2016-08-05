@@ -76,7 +76,7 @@ namespace Civ.Almacén
 		/// <param name="reqs">Lista de recursos para ver si posee</param>
 		/// <param name="veces">Cuántas veces contiene estos requisitos</param>
 		/// <returns>true sólo si posee tales recursos.</returns>
-		public bool PoseeRecursos (ListaPeso<Recurso> reqs, ulong veces = 1)
+		public bool PoseeRecursos (ListaPeso<Recurso> reqs, long veces = 1)
 		{
 			return this >= reqs * veces;
 		}

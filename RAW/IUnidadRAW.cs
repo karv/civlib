@@ -28,14 +28,14 @@ namespace Civ.RAW
 		/// </summary>
 		/// <returns>Máximo número de reclutas</returns>
 		/// <param name="ciudad">Ciudad que recluta</param>
-		ulong MaxReclutables (ICiudad ciudad);
+		long MaxReclutables (ICiudad ciudad);
 
 		/// <summary>
 		/// Recluta una cantidad de estas unidades en una ciudad.
 		/// </summary>
 		/// <param name="cantidad">Cantidad a reclutar</param>
 		/// <param name="ciudad">Ciudad dónde reclutar</param>
-		void Reclutar (ulong cantidad, ICiudad ciudad);
+		void Reclutar (long cantidad, ICiudad ciudad);
 
 		/// <summary>
 		/// Nombre de la unidad

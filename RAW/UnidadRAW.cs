@@ -99,7 +99,7 @@ namespace Civ.RAW
 		/// Población productiva que requiere para entrenar.
 		/// </summary>
 		/// <value>The coste poblacion.</value>
-		public ulong CostePoblación { get; set; }
+		public long CostePoblación { get; set; }
 
 		/// <summary>
 		/// Cantidad de peso que puede cargar
@@ -123,20 +123,14 @@ namespace Civ.RAW
 		/// </summary>
 		/// <returns>Máximo número de reclutas</returns>
 		/// <param name="ciudad">Ciudad que recluta</param>
-		public ulong MaxReclutables (ICiudad ciudad)
+		public long MaxReclutables (ICiudad ciudad)
 		{
-			ulong MaxPorPoblación;
-			if (CostePoblación != 0)
-				MaxPorPoblación = ciudad.TrabajadoresDesocupados / CostePoblación;
-			else
-			{
-				MaxPorPoblación = ulong.MaxValue;
-			}
+			long MaxPorPoblación = CostePoblación == 0 ? long.MaxValue : ciudad.TrabajadoresDesocupados / CostePoblación;
 
-			ulong MaxPorRecursos = ulong.MaxValue;
+			long MaxPorRecursos = long.MaxValue;
 			foreach (var x in _Reqs)
 			{
-				MaxPorRecursos = (ulong)Math.Min (
+				MaxPorRecursos = (long)Math.Min (
 					MaxPorRecursos,
 					ciudad.Almacén [x.Key] / x.Value);
 			}
@@ -149,9 +143,9 @@ namespace Civ.RAW
 		/// </summary>
 		/// <param name="cantidad">Cantidad a reclutar</param>
 		/// <param name="ciudad">Ciudad dónde reclutar</param>
-		public void Reclutar (ulong cantidad, ICiudad ciudad)
+		public void Reclutar (long cantidad, ICiudad ciudad)
 		{
-			ulong realCantidad = Math.Min (cantidad, MaxReclutables (ciudad));
+			long realCantidad = Math.Min (cantidad, MaxReclutables (ciudad));
 
 			ciudad.Defensa.AgregaUnidad (this, realCantidad);
 		}

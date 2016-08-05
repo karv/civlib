@@ -27,7 +27,7 @@ namespace Civ.Bárbaros
 		/// <summary>
 		/// Armada que podría generar.
 		/// </summary>
-		public ICollection<Tuple<IUnidadRAW, ulong>> ClaseArmada;
+		public ICollection<Tuple<IUnidadRAW, long>> ClaseArmada;
 		GameState _estado;
 
 		#region IReglaGeneracion
