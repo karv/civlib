@@ -63,22 +63,22 @@ namespace Civ.Combate
 		/// <summary>
 		/// Devuelve la cantidad de unidades en el stack defensor
 		/// </summary>
-		ulong CantidadInicialDef { get; }
+		long CantidadInicialDef { get; }
 
 		/// <summary>
 		/// Devuelve la cantidad de unidades del atacante
 		/// </summary>
-		ulong CantidadInicialAtt { get; }
+		long CantidadInicialAtt { get; }
 
 		/// <summary>
 		/// Devuelve la cantidad final (o progresivo) de unidades del defensa
 		/// </summary>
-		ulong CantidadFinalDef { get; }
+		long CantidadFinalDef { get; }
 
 		/// <summary>
 		/// Devuelve la cantidad final (o progresivo) de unidades del atacante
 		/// </summary>
-		ulong CantidadFinalAtt { get; }
+		long CantidadFinalAtt { get; }
 	}
 	
 }

@@ -161,13 +161,13 @@ namespace Civ.ObjetosEstado
 
 		#region Trabajadores
 
-		ulong _trabajadores;
+		long _trabajadores;
 
 		/// <summary>
 		/// Devuelve o establece el número de trabajadores ocupados en este trabajo.
 		/// </summary>
 		/// <value>The trabajadores.</value>
-		public ulong Trabajadores
+		public long Trabajadores
 		{
 			get
 			{
@@ -176,7 +176,7 @@ namespace Civ.ObjetosEstado
 			set
 			{
 				_trabajadores = 0;
-				ulong realValue = Math.Min (value, EdificioBase.EspaciosTrabajadoresCiudad);
+				long realValue = Math.Min (value, EdificioBase.EspaciosTrabajadoresCiudad);
 				_trabajadores = realValue;
 				AlCambiarTrabajadores?.Invoke (this, EventArgs.Empty);
 			}
@@ -186,7 +186,7 @@ namespace Civ.ObjetosEstado
 		/// Devuelve el máximo número de trabajadores que tienen espacio en este trabajo actualmente.
 		/// </summary>
 		/// <value>The max trabajadores.</value>
-		public ulong MaxTrabajadores
+		public long MaxTrabajadores
 		{
 			get
 			{

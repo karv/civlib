@@ -55,23 +55,13 @@ namespace Civ.ObjetosEstado
 			}
 		}
 
-		// THINK: almacenar en Ciudad la infopoblacional directamente y no en varialbes separadas;
-		// al momento de llamar esta func, devolver directamente la estructura. Al cabos es Readonly
-
 		/// <summary>
 		/// Devuelve una copia de la info poblacional
 		/// </summary>
 		/// <value>The get poblacion info.</value>
+		[Obsolete ("Usar Población")]
 		public InfoPoblación GetPoblacionInfo
-		{ 
-			get
-			{
-				return new InfoPoblación (
-					PoblacionPreProductiva,
-					PoblacionProductiva,
-					PoblacionPostProductiva);
-			}
-		}
+		{ get { return Población; } }
 
 		ICollection<TrabajoRAW> ICiudad.ObtenerTrabajosAbiertos ()
 		{
@@ -182,7 +172,7 @@ namespace Civ.ObjetosEstado
 		               Terreno terreno,
 		               float iniPop = 1)
 		{
-			RealPoblaciónProductiva = iniPop;
+			Población = new InfoPoblación (iniPop);
 			Edificios = new HashSet<Edificio> ();
 			Propiedades = new HashSet<Propiedad> ();
 			CivDueño = dueño;
@@ -216,9 +206,9 @@ namespace Civ.ObjetosEstado
 		/// Devuelve un nuevo diccionario cuyas entradas son el número de unidades que puede construir la ciudad, por cada unidad.
 		/// </summary>
 		/// <returns>The construibles.</returns>
-		public Dictionary<IUnidadRAW, ulong> UnidadesConstruibles ()
+		public Dictionary<IUnidadRAW, long> UnidadesConstruibles ()
 		{
-			var ret = new Dictionary<IUnidadRAW, ulong> ();
+			var ret = new Dictionary<IUnidadRAW, long> ();
 
 			foreach (var x in Juego.Data.Unidades)
 			{
@@ -234,7 +224,7 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		/// <returns>The construibles.</returns>
 		/// <param name="unid">Unid.</param>
-		public ulong UnidadesConstruibles (IUnidadRAW unid)
+		public long UnidadesConstruibles (IUnidadRAW unid)
 		{
 			return unid.MaxReclutables (this);
 		}
@@ -327,10 +317,10 @@ namespace Civ.ObjetosEstado
 		/// <param name="uRAW">Clase de unidades a entrenar</param>
 		/// <param name="cantidad">Cantidad</param>
 		/// <returns>Devuelve un arreglo con las unidades que se pudieron entrenar.</returns>
-		public Stack Reclutar (IUnidadRAW uRAW, ulong cantidad = 1)
+		public Stack Reclutar (IUnidadRAW uRAW, long cantidad = 1)
 		{
+			Población = Población.AgregaPoblación (-cantidad);
 			uRAW.Reclutar (cantidad, this);
-			RealPoblaciónProductiva -= cantidad;
 
 			AlReclutar?.Invoke (this, new ReclutarEventArgs (uRAW, cantidad));
 
@@ -585,81 +575,44 @@ namespace Civ.ObjetosEstado
 
 		//Población
 		/// <summary>
+		/// Devuelve o establece la población.
+		/// </summary>
+		/// <value>The población.</value>
+		public InfoPoblación Población { get; set; }
+
+		/// <summary>
 		/// Devuelve o establece la población productiva.
 		/// </summary>
 		/// <value>The real población productiva.</value>
-		protected float RealPoblaciónProductiva { get; set; }
+		protected float RealPoblaciónProductiva
+		{ get { return Población.SegundaEdad; } }
 
 		/// <summary>
 		/// Devuelve o establece la población pre-productiva.
 		/// </summary>
 		/// <value>The real población pre-productiva.</value>
-		protected float RealPoblaciónPreProductiva { get; set; }
+		protected float RealPoblaciónPreProductiva
+		{ get { return Población.PrimeraEdad; } }
 
 		/// <summary>
 		/// Devuelve o establece la población post-productiva.
 		/// </summary>
 		/// <value>The real población post-productiva.</value>
-		protected float RealPoblaciónPostProductiva { get; set; }
+		protected float RealPoblaciónPostProductiva 
+		{ get { return Población.TerceraEdad; } }
 
 		/// <summary>
 		/// Devuelve la población real y total de la ciudad.
 		/// </summary>
 		public float RealPoblacion
-		{
-			get
-			{
-				return RealPoblaciónProductiva + RealPoblaciónPreProductiva + RealPoblaciónPostProductiva;
-			}
-		}
+		{ get { return Población.RealTotal; } }
 
 		/// <summary>
 		/// Devuelve la población de la ciudad.
 		/// </summary>
 		/// <value>The get poplación.</value>
-		public ulong Poblacion
-		{
-			get
-			{
-				return PoblacionProductiva + PoblacionPreProductiva + PoblacionPostProductiva;
-			}
-		}
-
-		/// <summary>
-		/// Devuelve la población productiva.
-		/// </summary>
-		/// <value></value>
-		public ulong PoblacionProductiva
-		{
-			get
-			{
-				return (ulong)Math.Floor (RealPoblaciónProductiva);
-			}
-		}
-
-		/// <summary>
-		/// Devuelve la población pre productiva.
-		/// </summary>
-		/// <value></value>
-		public ulong PoblacionPreProductiva
-		{
-			get
-			{
-				return (ulong)Math.Floor (RealPoblaciónPreProductiva);
-			}
-		}
-
-		/// <summary>
-		/// Devuelve la población post productiva.
-		/// </summary>
-		/// <value></value>
-		public ulong PoblacionPostProductiva
-		{
-			get
-			{
-				return (ulong)Math.Floor (RealPoblaciónPostProductiva);
-			}
-		}
+		public long TotalPoblación
+		{ get { return Población.Total; } }
 
 		#endregion
 
@@ -686,15 +639,13 @@ namespace Civ.ObjetosEstado
 		/// Devuelve en número de trabajadores ocupados en algún edificio.
 		/// </summary>
 		/// <value>Población ocupada.</value>
-		public ulong NumTrabajadores
+		public long NumTrabajadores
 		{
 			get
 			{
-				ulong ret = 0;
+				long ret = 0;
 				foreach (var x in Edificios)
-				{
 					ret += x.Trabajadores;
-				}
 				return ret;
 			}
 		}
@@ -703,11 +654,11 @@ namespace Civ.ObjetosEstado
 		/// Devuelve el número de trabajadores desocupados en la ciudad.
 		/// </summary>
 		/// <value>Trabajadores desocupados.</value>
-		public ulong TrabajadoresDesocupados
+		public long TrabajadoresDesocupados
 		{
 			get
 			{
-				return PoblacionProductiva - NumTrabajadores;
+				return Población.Productiva - NumTrabajadores;
 			}
 		}
 
@@ -780,11 +731,11 @@ namespace Civ.ObjetosEstado
 		/// Hacer que la ciudad tenga al menos un número de trabajadores libres. Liberando por prioridad.
 		/// </summary>
 		/// <param name="n">Número de trabajadores a forzar que sean libres.</param>
-		public void LiberarTrabajadores (ulong n)
+		public void LiberarTrabajadores (long n)
 		{
 			Debug.WriteLine ("Liberando trabajadores: " + n, "Trabajadores");
 			var L = new List<Trabajo> (ObtenerListaTrabajos ().OrderBy (x => x.Prioridad));
-			while (L.Count > 0 && TrabajadoresDesocupados < n && TrabajadoresDesocupados != Poblacion)
+			while (L.Count > 0 && TrabajadoresDesocupados < n && TrabajadoresDesocupados != TotalPoblación)
 			{
 				var rm = L.First ();
 				var removing = Math.Min (n - TrabajadoresDesocupados, rm.Trabajadores);
@@ -860,7 +811,7 @@ namespace Civ.ObjetosEstado
 					ret += x.Puntuación;
 
 				// Población
-				ret += PoblacionPreProductiva * 2 + PoblacionProductiva * 3 + PoblacionPostProductiva;
+				ret += Población.Puntuación;
 
 				return ret;
 			}
@@ -931,10 +882,11 @@ namespace Civ.ObjetosEstado
 		public void PopTick (TimeSpan t)
 		{
 			// Se está suponiendo crecimiento constante entre ticks!!!
+			float totalHours = (float)t.TotalHours;
 
 			//Crecimiento prometido por sector de edad.
-			var Crecimiento = new float[3];
-			float Consumo = Poblacion * ConsumoAlimentoPorCiudadanoBase * (float)t.TotalHours;
+			var crecimiento = new float[3];
+			float Consumo = TotalPoblación * ConsumoAlimentoPorCiudadanoBase * totalHours;
 
 			#if DEBUG
 			if (float.IsInfinity (AlimentoAlmacen) || float.IsNaN (AlimentoAlmacen))
@@ -952,38 +904,38 @@ namespace Civ.ObjetosEstado
 			else
 			{
 				//El porcentage de muertes
-				float pctMuerte = (1 - (AlimentoAlmacen / (Poblacion * ConsumoAlimentoPorCiudadanoBase))) * TasaMortalidadHambrunaBase;
+				float pctMuerte = (1 - (AlimentoAlmacen / (TotalPoblación * ConsumoAlimentoPorCiudadanoBase))) * TasaMortalidadHambrunaBase;
 				if (!(0 <= pctMuerte && pctMuerte <= 1))
 					Debugger.Break ();
 				Debug.Assert (0 <= pctMuerte && pctMuerte <= 1, "wat?");
 				AlimentoAlmacen = 0;
 				//Promesas de muerte por sector.
-				Crecimiento [0] -= PoblacionPreProductiva * pctMuerte;
-				Crecimiento [1] -= PoblacionProductiva * pctMuerte;
-				Crecimiento [2] -= PoblacionPostProductiva * pctMuerte;
+				crecimiento [0] -= Población.PrimeraEdad * pctMuerte;
+				crecimiento [1] -= Población.SegundaEdad * pctMuerte;
+				crecimiento [2] -= Población.TerceraEdad * pctMuerte;
 			}
 
 			//Crecimiento poblacional
 			//Infantil a productivo.
-			float Desarrollo = TasaDesarrolloBase * PoblacionPreProductiva * (float)t.TotalHours;
-			Crecimiento [0] -= Desarrollo;
-			Crecimiento [1] += Desarrollo;
+			float Desarrollo = TasaDesarrolloBase * Población.PrimeraEdad * totalHours;
+			crecimiento [0] -= Desarrollo;
+			crecimiento [1] += Desarrollo;
 			//Productivo a viejo
-			float Envejecer = TasaVejezBase * PoblacionProductiva * (float)t.TotalHours;
-			Crecimiento [1] -= Envejecer;
-			Crecimiento [2] += Envejecer;
+			float Envejecer = TasaVejezBase * Población.SegundaEdad * totalHours;
+			crecimiento [1] -= Envejecer;
+			crecimiento [2] += Envejecer;
 			//Nuevos infantes
-			float Natalidad = TasaNatalidadBase * PoblacionProductiva * (float)t.TotalHours;
-			Crecimiento [0] += Natalidad;
+			float Natalidad = TasaNatalidadBase * Población.SegundaEdad * totalHours;
+			crecimiento [0] += Natalidad;
 			//Mortalidad
-			Crecimiento [0] -= PoblacionPreProductiva * TasaMortalidadInfantilBase * (float)t.TotalHours;
-			Crecimiento [1] -= PoblacionProductiva * TasaMortalidadProductivaBase * (float)t.TotalHours;
-			Crecimiento [2] -= PoblacionPostProductiva * TasaMortalidadVejezBase * (float)t.TotalHours;
+			crecimiento [0] -= Población.PrimeraEdad * TasaMortalidadInfantilBase * totalHours;
+			crecimiento [1] -= Población.SegundaEdad * TasaMortalidadProductivaBase * totalHours;
+			crecimiento [2] -= Población.TerceraEdad * TasaMortalidadVejezBase * totalHours;
 
 			// Aplicar cambios.
 			// Población que tendrá después del tick
-			var futProd = (ulong)(RealPoblaciónProductiva + Crecimiento [1]);
-			ulong decrec = Math.Max (0, futProd - PoblacionProductiva);
+			var futProd = RealPoblaciónProductiva + crecimiento [1];
+			var decrec = Math.Max (0, futProd - Población.SegundaEdad);
 			if (decrec > TrabajadoresDesocupados)
 			{
 				CivDueño.AgregaMensaje (new Mensaje (
@@ -992,19 +944,10 @@ namespace Civ.ObjetosEstado
 					TipoRepetición.PerderPoblaciónOcupada,
 					this,
 					this));
-				LiberarTrabajadores (decrec - TrabajadoresDesocupados);
-
+				LiberarTrabajadores ((long)decrec - TrabajadoresDesocupados);
 			}
 
-			RealPoblaciónPreProductiva = Math.Max (
-				RealPoblaciónPreProductiva + Crecimiento [0],
-				0);
-			RealPoblaciónProductiva = Math.Max (
-				RealPoblaciónProductiva + Crecimiento [1],
-				0);
-			RealPoblaciónPostProductiva = Math.Max (
-				RealPoblaciónPostProductiva + Crecimiento [2],
-				0);
+			Población = Población.AgregaPoblación (crecimiento);
 		}
 
 		/// <summary>
@@ -1085,7 +1028,7 @@ namespace Civ.ObjetosEstado
 				DeltaRec [x.Key] = (Almacén [x.Key] - (RecAntes [x.Key]) / (float)t.GameTime.TotalHours);
 			}
 			for (int i = 0; i < DeltaRec.Count; i++)
-				if (CivDueño != null && Poblacion == 0)
+				if (CivDueño != null && TotalPoblación == 0)
 				{		// Si la población de una ciudad llega a cero, se hacen ruinas (ciudad sin civilización)
 					{
 						AlConvertirseRuinas?.Invoke (this, EventArgs.Empty);

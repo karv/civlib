@@ -79,17 +79,17 @@ namespace Civ.Combate
 		/// <summary>
 		/// Devuelve la cantidad de unidades en el stack defensor
 		/// </summary>
-		public ulong CantidadInicialDef { get; }
+		public long CantidadInicialDef { get; }
 
 		/// <summary>
 		/// Devuelve la cantidad de unidades del atacante
 		/// </summary>
-		public ulong CantidadInicialAtt { get; }
+		public long CantidadInicialAtt { get; }
 
 		/// <summary>
 		/// Devuelve la cantidad final (o progresivo) de unidades del defensa
 		/// </summary>
-		public ulong CantidadFinalDef
+		public long CantidadFinalDef
 		{
 			get
 			{
@@ -101,7 +101,7 @@ namespace Civ.Combate
 		/// Devuelve la cantidad final (o progresivo) de unidades del atacante
 		/// </summary>
 		/// <value><c>true</c> if this instance cantidad final att; otherwise, <c>false</c>.</value>
-		public ulong CantidadFinalAtt
+		public long CantidadFinalAtt
 		{
 			get
 			{
@@ -180,8 +180,8 @@ namespace Civ.Combate
 		void DañarDirecto ()
 		{
 			// Esto se supone que es el piso.
-			double MuertosPct = DañoDirecto / Defensor.HP; // Probabilidad de muerte
-			ulong Muertos = (ulong)MuertosPct;
+			var MuertosPct = DañoDirecto / Defensor.HP; // Probabilidad de muerte
+			var Muertos = (long)MuertosPct;
 			MuertosPct -= Muertos;
 
 			if (_r.NextDouble () < MuertosPct)

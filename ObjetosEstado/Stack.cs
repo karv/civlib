@@ -20,7 +20,7 @@ namespace Civ.ObjetosEstado
 		/// La clase a la que pertenece esta unidad.
 		/// </summary>
 		public readonly IUnidadRAW RAW;
-		ulong _cantidad;
+		long _cantidad;
 
 		/// <summary>
 		/// Almacén de carga del stack
@@ -66,7 +66,7 @@ namespace Civ.ObjetosEstado
 		/// <summary>
 		/// Cantidad de unidades pertenecientes a este stack
 		/// </summary>
-		public ulong Cantidad
+		public long Cantidad
 		{
 			get
 			{
@@ -100,7 +100,7 @@ namespace Civ.ObjetosEstado
 		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
 		/// <param name="armada">Armada a la que pertenece esta unidad.</param>
 		/// <param name="cantidad">Cantidad de unidades que pertenecen al stack </param>
-		public Stack (IUnidadRAW uRAW, ulong cantidad, Armada armada)
+		public Stack (IUnidadRAW uRAW, long cantidad, Armada armada)
 		{
 			Carga = new AlmacénStack (this);
 			RAW = uRAW;
@@ -115,7 +115,7 @@ namespace Civ.ObjetosEstado
 		/// <param name="uRAW">El RAW que tendrá esta unidad.</param>
 		/// <param name="ciudad">Ciudad donde se creará a esta unidad.</param>
 		/// <param name="cantidad">Cantidad de unidades que pertenecen al stack </param>
-		public Stack (IUnidadRAW uRAW, ulong cantidad, ICiudad ciudad)
+		public Stack (IUnidadRAW uRAW, long cantidad, ICiudad ciudad)
 			: this (uRAW,
 			        cantidad,
 			        ciudad.Defensa)

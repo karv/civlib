@@ -41,7 +41,7 @@ namespace Civ.RAW
 		/// Mínica cantidad para poder colonizar
 		/// </summary>
 		/// <value>The edificios iniciales.</value>
-		public ulong MinCantidadColonizar;
+		public long MinCantidadColonizar;
 
 		/// <summary>
 		/// Edificios con los que inicia la nueva ciudad.

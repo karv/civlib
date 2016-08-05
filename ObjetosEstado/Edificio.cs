@@ -103,15 +103,13 @@ namespace Civ.ObjetosEstado
 		/// Devuelve el número de trabajadores ocupados en este edificio.
 		/// </summary>
 		/// <value>The get trabajadores.</value>
-		public ulong Trabajadores
+		public long Trabajadores
 		{
 			get
 			{
-				ulong ret = 0;
+				long ret = 0;
 				foreach (var x in Trabajos)
-				{
 					ret += x.Trabajadores;
-				}
 				return ret;
 			}
 		}
@@ -121,7 +119,7 @@ namespace Civ.ObjetosEstado
 		/// Ignora el estado de la ciudad.
 		/// </summary>
 		/// <value>The get espacios trabajadores.</value>
-		public ulong EspaciosTrabajadores
+		public long EspaciosTrabajadores
 		{
 			get
 			{
@@ -134,7 +132,7 @@ namespace Civ.ObjetosEstado
 		/// Tomando en cuenta el estado de la ciudad.
 		/// </summary>
 		/// <value>The get espacios trabajadores.</value>
-		public ulong EspaciosTrabajadoresCiudad
+		public long EspaciosTrabajadoresCiudad
 		{
 			get
 			{
@@ -146,7 +144,7 @@ namespace Civ.ObjetosEstado
 		/// Devuelve o establece el número de trabajadores en un trabajo
 		/// </summary>
 		/// <param name="trabajo">El trabajo</param>
-		public ulong this [Trabajo trabajo]
+		public long this [Trabajo trabajo]
 		{
 			get
 			{

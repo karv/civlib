@@ -21,7 +21,7 @@ namespace Civ.RAW
 		/// <summary>
 		/// Número máximo de trabajadores
 		/// </summary>
-		public ulong MaxWorkers;
+		public long MaxWorkers;
 		/// <summary>
 		/// Devuelve o establece el máximo número de instancias de este edificio por ciudad
 		/// </summary>

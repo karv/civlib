@@ -62,11 +62,11 @@ namespace Civ.Bárbaros
 			{
 				var unid = Unidades [HerrGlobal.Rnd.Next (Unidades.Count)];
 				Unidades.Remove (unid);
-				ulong Cant = (ulong)(PuntRestante / unid.Puntuación);
-				if (Cant <= 0)
+				long cant = (long)(PuntRestante / unid.Puntuación);
+				if (cant <= 0)
 					break;
-				ret.AgregaUnidad (unid, Cant);
-				PuntRestante -= Cant * unid.Puntuación;
+				ret.AgregaUnidad (unid, cant);
+				PuntRestante -= cant * unid.Puntuación;
 			}
 
 			if (ret.Peso == 0)
@@ -99,11 +99,11 @@ namespace Civ.Bárbaros
 			{
 				var unid = Unidades [HerrGlobal.Rnd.Next (Unidades.Count)];
 				Unidades.Remove (unid);
-				ulong Cant = (ulong)(PuntRestante / unid.Puntuación);
-				if (Cant <= 0)
+				long cant = (long)(PuntRestante / unid.Puntuación);
+				if (cant <= 0)
 					break;
-				ret.AgregaUnidad (unid, Cant);
-				PuntRestante -= Cant * unid.Puntuación;
+				ret.AgregaUnidad (unid, cant);
+				PuntRestante -= cant * unid.Puntuación;
 			}
 
 			if (ret.Peso == 0)
