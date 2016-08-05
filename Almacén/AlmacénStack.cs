@@ -1,7 +1,4 @@
 ﻿using System;
-using ListasExtra;
-using System.Collections.Generic;
-using Civ.RAW;
 using Civ.ObjetosEstado;
 
 namespace Civ.Almacén
@@ -43,10 +40,7 @@ namespace Civ.Almacén
 		{
 			get
 			{
-				var ret = 0f;
-				for (int i = 0; i < Count; i++)
-					ret += this [i];
-				return ret;
+				return SumaTotal ();
 			}
 		}
 
@@ -76,6 +70,5 @@ namespace Civ.Almacén
 		}
 
 		#endregion
-
 	}
 }

@@ -65,7 +65,7 @@ namespace Civ.Topología
 		{
 			get
 			{
-				return new List<Recurso> (RecursoEcológico.Recursos);
+				return RecursoEcológico.Keys;
 			}
 		}
 

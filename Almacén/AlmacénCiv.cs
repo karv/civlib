@@ -2,7 +2,6 @@
 using System.Linq;
 using Civ.RAW;
 using Civ.ObjetosEstado;
-using Civ.Global;
 
 namespace Civ.Almacén
 {
@@ -10,7 +9,7 @@ namespace Civ.Almacén
 	/// Almacena recursos globales.
 	/// </summary>
 	[Serializable]
-	public class AlmacénCiv : AlmacénGenérico, IAlmacén
+	public class AlmacénCiv : AlmacénGenérico
 	{
 		#region General
 
@@ -24,8 +23,19 @@ namespace Civ.Almacén
 		/// </summary>
 		public void RemoverRecursosDesaparece ()
 		{
-			foreach (var x in Recursos.Where (x => x.Desaparece))
+			foreach (var x in Entradas.Where (x => x.Desaparece && this[x] > 0))
 				this [x] = 0;
+		}
+
+		/// <summary>
+		/// Devuelve una copia de la lista de entradas.
+		/// </summary>
+		public Recurso[] Entradas
+		{
+			get
+			{
+				return Keys.ToArray<Recurso> ();
+			}
 		}
 
 		/// <summary>
@@ -35,36 +45,34 @@ namespace Civ.Almacén
 		/// 
 		/// O establece los recursos globales del almacén global.
 		/// </summary>
-		/// <param name="id">Id del recurso</param>
-		new public float this [int id]
+		/// <param name="rec">Recurso</param>
+		public override float this [Recurso rec]
 		{
 			get
 			{
-				var recurso = Juego.Data.Recursos [id];
-				if (recurso.EsGlobal)
+				if (rec.EsGlobal)
 				{
-					return base [recurso];
+					return base [rec];
 				}
 				else
 				{
 					float ret = 0;
 					foreach (var x in Civil.Ciudades)
 					{
-						ret += x.Almacén [recurso];
+						ret += x.Almacén [rec];
 					}
 					return ret;
 				}
 			}
 			set
 			{
-				var recurso = Juego.Data.Recursos [id];
-				if (recurso.EsGlobal)
-					base [recurso] = value;
+				if (rec.EsGlobal)
+					base [rec] = value;
 				else
 				{
 					throw new Exception (string.Format (
 						"Sólo se pueden almacenar recursos globales en AlmacenCiv.\n{0} no es global.",
-						recurso));
+						rec));
 				}
 			}
 		}
