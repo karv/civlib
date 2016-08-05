@@ -221,5 +221,29 @@ namespace Civ.ObjetosEstado
 		public event EventHandler<TiempoEventArgs> AlTickDespués;
 
 		#endregion
+
+		/// <summary>
+		/// Serves as a hash function for a <see cref="Civ.ObjetosEstado.Edificio"/> object.
+		/// Es el hashcode de RAW, ya que el comparador se hace con el RAW (sólo se usa en Ciudad.Edicios,
+		/// que es un HashSet.
+		/// </summary>
+		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a hash table.</returns>
+		public override int GetHashCode ()
+		{
+			return RAW.GetHashCode ();
+		}
+
+		/// <summary>
+		/// Determines whether the specified <see cref="System.Object"/> is equal to the current <see cref="Civ.ObjetosEstado.Edificio"/>.
+		/// Usa igualdad de RAW, con obj.RAW, si éste es Edificio.
+		/// </summary>
+		/// <param name="obj">The <see cref="System.Object"/> to compare with the current <see cref="Civ.ObjetosEstado.Edificio"/>.</param>
+		/// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to the current
+		/// <see cref="Civ.ObjetosEstado.Edificio"/>; otherwise, <c>false</c>.</returns>
+		public override bool Equals (object obj)
+		{
+			var otro = obj as Edificio;
+			return otro != null && otro.RAW.Equals (RAW);
+		}
 	}
 }
