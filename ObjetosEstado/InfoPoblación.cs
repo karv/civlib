@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Civ
+namespace Civ.ObjetosEstado
 {
 	/// <summary>
 	/// Mantiene información sobre la distribución por edades de una población
@@ -8,24 +8,61 @@ namespace Civ
 	[Serializable]
 	public struct InfoPoblación
 	{
+		#region Interno
+
+		/// <summary>
+		/// Población <c>float</c> de infantes.
+		/// </summary>
+		public readonly float PrimeraEdad;
+		/// <summary>
+		/// Población <c>float</c> de fuerza de trabajo.
+		/// </summary>
+		public readonly float SegundaEdad;
+		/// <summary>
+		/// Población <c>float</c> de viejos.
+		/// </summary>
+		public readonly float TerceraEdad;
+
+		#endregion
+
 		/// <summary>
 		/// Población infantil
 		/// </summary>
-		public readonly ulong PreProductiva;
+		public long PreProductiva
+		{
+			get
+			{
+				return (long)PrimeraEdad;
+			}
+		}
+
 		/// <summary>
 		/// Población trabajadora
 		/// </summary>
-		public readonly ulong Productiva;
+		public long Productiva
+		{
+			get
+			{
+				return (long)SegundaEdad;
+			}
+		}
+
 		/// <summary>
 		/// Población de la tercera edad
 		/// </summary>
-		public readonly ulong PostProductiva;
+		public long PostProductiva
+		{
+			get
+			{
+				return (long)TerceraEdad;
+			}
+		}
 
 		/// <summary>
 		/// Devuelve la población total
 		/// </summary>
 		/// <value>The total.</value>
-		public ulong Total
+		public long Total
 		{
 			get
 			{
@@ -39,11 +76,11 @@ namespace Civ
 		/// <param name="pre">Población preproductiva</param>
 		/// <param name="prod">Población productiva</param>
 		/// <param name="post">Población postproductiva</param>
-		public InfoPoblación (ulong pre, ulong prod, ulong post)
+		public InfoPoblación (float pre, float prod, float post)
 		{
-			PreProductiva = pre;
-			Productiva = prod;
-			PostProductiva = post;
+			PrimeraEdad = pre;
+			SegundaEdad = prod;
+			TerceraEdad = post;
 		}
 	}
 }
