@@ -500,7 +500,13 @@ namespace Civ.ObjetosEstado
 				Avances.Add (Avan);
 				Investigando.Remove (Avan);
 				OnDescubrir (Avan);
-				AgregaMensaje ("Investigación terminada: {0}", Avan);
+				var msj = new Mensaje (
+					          "Investigacion terminada: {0}",
+					          "Investigacion terminada: {0}",
+					          TipoRepetición.InvestigaciónTerminada,
+					          Avan,
+					          Avan);
+				AgregaMensaje (msj);
 			}
 
 			// Fase final, desaparecer recursos.

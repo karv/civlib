@@ -26,7 +26,11 @@ namespace Civ.IU
 		/// <summary>
 		/// Se recibe un análisis de combate completo
 		/// </summary>
-		AnálisisCombateCompleto
+		AnálisisCombateCompleto,
+		/// <summary>
+		/// Cuando se termina una investigación.
+		/// </summary>
+		InvestigaciónTerminada
 	}
 	
 }
