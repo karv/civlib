@@ -372,6 +372,7 @@ namespace Civ.ObjetosEstado
 		/// </summary>
 		/// <param name="str">Cadena de texto, con formato de string.Format</param>
 		/// <param name="referencia">Referencias u orígenes del mensaje.</param>
+		[Obsolete]
 		public void AgregaMensaje (string str, params object [] referencia)
 		{
 			AgregaMensaje (new Mensaje (
