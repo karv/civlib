@@ -247,10 +247,7 @@ namespace Civ.ObjetosEstado
 		public void AgregaUnidad (IUnidadRAW raw, long cantidad)
 		{
 			if (cantidad <= 0)
-			{
-				Debug.WriteLine ("Imposible agregar <=0 unidades."); // TODO: Exception
 				throw new ArgumentException ("Imposible agregar <=0 unidades.", "cantidad");
-			}
 
 			var realCantidad = 
 				float.IsPositiveInfinity (PesoLibre) ?

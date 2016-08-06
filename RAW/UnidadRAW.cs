@@ -127,13 +127,7 @@ namespace Civ.RAW
 		{
 			long MaxPorPoblación = CostePoblación == 0 ? long.MaxValue : ciudad.TrabajadoresDesocupados / CostePoblación;
 
-			long MaxPorRecursos = long.MaxValue;
-			foreach (var x in _Reqs)
-			{
-				MaxPorRecursos = (long)Math.Min (
-					MaxPorRecursos,
-					ciudad.Almacén [x.Key] / x.Value);
-			}
+			long MaxPorRecursos = (long)ciudad.Almacén.ContieneRecursos (_Reqs);
 
 			return Math.Min (MaxPorRecursos, MaxPorPoblación);
 		}
@@ -145,7 +139,8 @@ namespace Civ.RAW
 		/// <param name="ciudad">Ciudad dónde reclutar</param>
 		public void Reclutar (long cantidad, ICiudad ciudad)
 		{
-			long realCantidad = Math.Min (cantidad, MaxReclutables (ciudad));
+			var maxReclutablesEnCiudad = MaxReclutables (ciudad);
+			long realCantidad = Math.Min (cantidad, maxReclutablesEnCiudad);
 
 			ciudad.Defensa.AgregaUnidad (this, realCantidad);
 		}
