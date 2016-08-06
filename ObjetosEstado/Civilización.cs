@@ -538,9 +538,7 @@ namespace Civ.ObjetosEstado
 		protected virtual void OnDescubrir (Ciencia c)
 		{
 			foreach (var ciudad in Ciudades)
-			{
 				ciudad.IntentaConstruirAutoconstruibles ();
-			}
 			AlDescubrirAvance?.Invoke (this, new AvanceEventArgs (c, this));
 		}
 
