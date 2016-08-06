@@ -319,12 +319,14 @@ namespace Civ.ObjetosEstado
 		/// <returns>Devuelve un arreglo con las unidades que se pudieron entrenar.</returns>
 		public Stack Reclutar (IUnidadRAW uRAW, long cantidad = 1)
 		{
-			Población = Población.AgregaPoblación (-cantidad);
+			// Primero construir las unidades, luego bajar la población.
+			// Ya que construir unidades tiene un población-check.
 			uRAW.Reclutar (cantidad, this);
-
+			Población = Población.AgregaPoblación (-cantidad);
 			AlReclutar?.Invoke (this, new ReclutarEventArgs (uRAW, cantidad));
 
-			return Defensa [uRAW]; // Devuelve la unidad creada.
+			// Devuelve el stack la unidad creada.
+			return Defensa [uRAW]; 
 		}
 
 		/// <summary>
