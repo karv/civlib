@@ -934,8 +934,8 @@ namespace Civ.ObjetosEstado
 
 			// Aplicar cambios.
 			// Población que tendrá después del tick
-			var futProd = RealPoblaciónProductiva + crecimiento [1];
-			var decrec = Math.Max (0, futProd - Población.SegundaEdad);
+			var futProd = (long)(RealPoblaciónProductiva + crecimiento [1]);
+			var decrec = Math.Max (0, Población.Productiva - futProd);
 			if (decrec > TrabajadoresDesocupados)
 			{
 				CivDueño.AgregaMensaje (new Mensaje (
